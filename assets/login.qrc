@@ -1,7 +1,0 @@
-<RCC>
-  <qresource prefix="Assets">
-    <file>images/background.png</file>
-    <file>images/background_16_10.png</file>
-    <file>images/background_blurred_10_16.png</file>
-  </qresource>
-</RCC>

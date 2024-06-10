@@ -1,0 +1,40 @@
+<RCC>
+  <qresource prefix="Icons">
+    <file>Icons/add.png</file>
+    <file>Icons/calendar.png</file>
+    <file>Icons/close.png</file>
+    <file>Icons/computer.png</file>
+    <file>Icons/desktop.png</file>
+    <file>Icons/down.png</file>
+    <file>Icons/downloads.png</file>
+    <file>Icons/email.png</file>
+    <file>Icons/facebook.png</file>
+    <file>Icons/file.png</file>
+    <file>Icons/folder (1).png</file>
+    <file>Icons/folder green.png</file>
+    <file>Icons/folder.png</file>
+    <file>Icons/home.png</file>
+    <file>Icons/left.png</file>
+    <file>Icons/left-arrow black.png</file>
+    <file>Icons/left-arrow white.png</file>
+    <file>Icons/minus.png</file>
+    <file>Icons/option green.png</file>
+    <file>Icons/option white.png</file>
+    <file>Icons/option.png</file>
+    <file>Icons/phone.png</file>
+    <file>Icons/plus.png</file>
+    <file>Icons/profile.png</file>
+    <file>Icons/recent green.png</file>
+    <file>Icons/recent.png</file>
+    <file>Icons/right.png</file>
+    <file>Icons/right-arrow black.png</file>
+    <file>Icons/right-arrow white.png</file>
+    <file>Icons/search.png</file>
+    <file>Icons/up.png</file>
+  </qresource>
+  <qresource prefix="Images">
+    <file>images/background.png</file>
+    <file>images/background_16_10.png</file>
+    <file>images/background_blurred_10_16.png</file>
+  </qresource>
+</RCC>
