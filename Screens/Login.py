@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 
-from .Login_UI import Ui_MainWindow
+from .Login_ui import Ui_MainWindow
 from Database.DBController import dbcont
 from PyQt5 import QtWidgets, QtGui, QtCore
 class LoginWindow(QMainWindow, Ui_MainWindow):

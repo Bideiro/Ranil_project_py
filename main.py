@@ -13,6 +13,8 @@ class MainWindow(QtWidgets.QMainWindow):
         
         # Initialize Main Widget
         self.setWindowTitle("RANIL Inventory System")
+        self.setMinimumWidth(1280)
+        self.setMinimumHeight(720)
         
         # self.setWindowIcon(QtGui.QIcon(''))
         

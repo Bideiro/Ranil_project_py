@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\login.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Screens\login.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(840, 579)
+        MainWindow.resize(840, 664)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet(".QLineEdit{\n"
 "border: 1px solid #096033;\n"
@@ -93,7 +93,7 @@ class Ui_MainWindow(object):
         self.widget_3.setObjectName("widget_3")
         self.gridLayout = QtWidgets.QGridLayout(self.widget_3)
         self.gridLayout.setObjectName("gridLayout")
-        spacerItem3 = QtWidgets.QSpacerItem(350, 5, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        spacerItem3 = QtWidgets.QSpacerItem(500, 5, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout.addItem(spacerItem3, 2, 0, 1, 1)
         self.formLayout = QtWidgets.QFormLayout()
         self.formLayout.setObjectName("formLayout")
@@ -104,9 +104,21 @@ class Ui_MainWindow(object):
         self.label_3.setObjectName("label_3")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_3)
         self.userLE = QtWidgets.QLineEdit(self.widget_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.userLE.sizePolicy().hasHeightForWidth())
+        self.userLE.setSizePolicy(sizePolicy)
+        self.userLE.setMinimumSize(QtCore.QSize(0, 35))
         self.userLE.setObjectName("userLE")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.userLE)
         self.passwordLE = QtWidgets.QLineEdit(self.widget_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.passwordLE.sizePolicy().hasHeightForWidth())
+        self.passwordLE.setSizePolicy(sizePolicy)
+        self.passwordLE.setMinimumSize(QtCore.QSize(0, 35))
         self.passwordLE.setObjectName("passwordLE")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.passwordLE)
         self.gridLayout.addLayout(self.formLayout, 1, 0, 1, 1)
@@ -151,13 +163,3 @@ class Ui_MainWindow(object):
         self.login_btn.setText(_translate("MainWindow", "LOGIN"))
         self.forgotpass_btn.setText(_translate("MainWindow", "FORGOT PASSWORD"))
 import assets.All_In_Resource_rc
-
-
-if __name__ == '__main__':
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
