@@ -14,12 +14,6 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <property name="styleSheet">
-    <string notr="true">#centralwidget{
-background-image:url(:/Images/images/background_blurred_10_16.png);
-background-repeat:no-repeat;
-background-position:center;}</string>
-   </property>
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
      <spacer name="verticalSpacer_2">
@@ -217,7 +211,7 @@ border-color: #096033;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="user_LE"/>
+              <widget class="QLineEdit" name="lineEdit"/>
              </item>
              <item>
               <widget class="QLabel" name="label_4">
@@ -227,7 +221,7 @@ border-color: #096033;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="email_LE"/>
+              <widget class="QLineEdit" name="lineEdit_2"/>
              </item>
             </layout>
            </widget>
@@ -242,7 +236,7 @@ color: white;
             </property>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="QPushButton" name="back_btn">
+              <widget class="QPushButton" name="pushButton">
                <property name="text">
                 <string>BACK</string>
                </property>
@@ -262,7 +256,7 @@ color: white;
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="send_btn">
+              <widget class="QPushButton" name="pushButton_2">
                <property name="text">
                 <string>SEND</string>
                </property>
@@ -306,8 +300,6 @@ color: white;
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="../assets/All_In_Resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

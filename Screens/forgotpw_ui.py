@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Screens\ForgotPass.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Screens\forgotpw.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -16,10 +16,6 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(880, 586)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setStyleSheet("#centralwidget{\n"
-"background-image:url(:/Images/images/background_blurred_10_16.png);\n"
-"background-repeat:no-repeat;\n"
-"background-position:center;}")
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.centralwidget)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
@@ -103,15 +99,15 @@ class Ui_MainWindow(object):
         self.label_3 = QtWidgets.QLabel(self.widget_5)
         self.label_3.setObjectName("label_3")
         self.verticalLayout.addWidget(self.label_3)
-        self.user_LE = QtWidgets.QLineEdit(self.widget_5)
-        self.user_LE.setObjectName("user_LE")
-        self.verticalLayout.addWidget(self.user_LE)
+        self.lineEdit = QtWidgets.QLineEdit(self.widget_5)
+        self.lineEdit.setObjectName("lineEdit")
+        self.verticalLayout.addWidget(self.lineEdit)
         self.label_4 = QtWidgets.QLabel(self.widget_5)
         self.label_4.setObjectName("label_4")
         self.verticalLayout.addWidget(self.label_4)
-        self.email_LE = QtWidgets.QLineEdit(self.widget_5)
-        self.email_LE.setObjectName("email_LE")
-        self.verticalLayout.addWidget(self.email_LE)
+        self.lineEdit_2 = QtWidgets.QLineEdit(self.widget_5)
+        self.lineEdit_2.setObjectName("lineEdit_2")
+        self.verticalLayout.addWidget(self.lineEdit_2)
         self.verticalLayout_2.addWidget(self.widget_5)
         self.widget_6 = QtWidgets.QWidget(self.widget_3)
         self.widget_6.setStyleSheet(".QPushButton{\n"
@@ -121,14 +117,14 @@ class Ui_MainWindow(object):
         self.widget_6.setObjectName("widget_6")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_6)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.back_btn = QtWidgets.QPushButton(self.widget_6)
-        self.back_btn.setObjectName("back_btn")
-        self.horizontalLayout_2.addWidget(self.back_btn)
+        self.pushButton = QtWidgets.QPushButton(self.widget_6)
+        self.pushButton.setObjectName("pushButton")
+        self.horizontalLayout_2.addWidget(self.pushButton)
         spacerItem7 = QtWidgets.QSpacerItem(191, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem7)
-        self.send_btn = QtWidgets.QPushButton(self.widget_6)
-        self.send_btn.setObjectName("send_btn")
-        self.horizontalLayout_2.addWidget(self.send_btn)
+        self.pushButton_2 = QtWidgets.QPushButton(self.widget_6)
+        self.pushButton_2.setObjectName("pushButton_2")
+        self.horizontalLayout_2.addWidget(self.pushButton_2)
         self.verticalLayout_2.addWidget(self.widget_6)
         self.horizontalLayout_4.addWidget(self.widget_3)
         spacerItem8 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
@@ -148,6 +144,5 @@ class Ui_MainWindow(object):
         self.label_2.setText(_translate("MainWindow", "FORGOT PASSWORD"))
         self.label_3.setText(_translate("MainWindow", "USERNAME:"))
         self.label_4.setText(_translate("MainWindow", "ENTER EMAIL ADDRESS: "))
-        self.back_btn.setText(_translate("MainWindow", "BACK"))
-        self.send_btn.setText(_translate("MainWindow", "SEND"))
-import assets.All_In_Resource_rc
+        self.pushButton.setText(_translate("MainWindow", "BACK"))
+        self.pushButton_2.setText(_translate("MainWindow", "SEND"))

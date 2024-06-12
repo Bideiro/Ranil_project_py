@@ -10,6 +10,8 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
     logsucc_emp = QtCore.pyqtSignal()
     logsucc_admin = QtCore.pyqtSignal()
     forgot = QtCore.pyqtSignal()
+    
+    
     def __init__(self):
         super(LoginWindow,self).__init__()
         self.setupUi(self)
@@ -19,8 +21,10 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
     def on_login_btn_clicked(self):
         print("Login Attempt")
         
-        db = dbcont(self.userLE.text(),self.passwordLE.text())
-        db.conn()
+        self.logsucc_admin.emit()
+        
+        # db = dbcont(self.userLE.text(),self.passwordLE.text())
+        # db.conn()
         
     @pyqtSlot()
     def on_forgotpass_btn_clicked(self):
