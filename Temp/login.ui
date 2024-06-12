@@ -277,7 +277,7 @@ font-size: 15px;
   </widget>
  </widget>
  <resources>
-  <include location="assets/login.qrc"/>
+  <include location="../assets/All_In_Resource.qrc"/>
   <include location="../assets/All_In_Resource.qrc"/>
  </resources>
  <connections/>

@@ -151,4 +151,3 @@ class Ui_MainWindow(object):
         self.login_btn.setText(_translate("MainWindow", "LOGIN"))
         self.forgotpass_btn.setText(_translate("MainWindow", "FORGOT PASSWORD"))
 import All_In_Resource_rc
-import login_rc

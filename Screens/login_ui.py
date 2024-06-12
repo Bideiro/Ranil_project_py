@@ -11,7 +11,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class LoginUI(object):
+class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(840, 579)
@@ -151,3 +151,13 @@ class LoginUI(object):
         self.login_btn.setText(_translate("MainWindow", "LOGIN"))
         self.forgotpass_btn.setText(_translate("MainWindow", "FORGOT PASSWORD"))
 import assets.All_In_Resource_rc
+
+
+if __name__ == '__main__':
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = UI_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())
