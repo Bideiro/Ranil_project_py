@@ -174,7 +174,7 @@ border-color: #096033;
                 <string notr="true">color: #096033;</string>
                </property>
                <property name="text">
-                <string>FORGOT PASSWORD</string>
+                <string>RESET PASSWORD</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -217,7 +217,14 @@ border-color: #096033;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="user_LE"/>
+              <widget class="QLineEdit" name="user_LE">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>35</height>
+                </size>
+               </property>
+              </widget>
              </item>
              <item>
               <widget class="QLabel" name="label_4">
@@ -227,7 +234,14 @@ border-color: #096033;
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="email_LE"/>
+              <widget class="QLineEdit" name="email_LE">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>35</height>
+                </size>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -243,6 +257,18 @@ color: white;
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
               <widget class="QPushButton" name="back_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>35</width>
+                 <height>35</height>
+                </size>
+               </property>
                <property name="text">
                 <string>BACK</string>
                </property>
@@ -263,6 +289,18 @@ color: white;
              </item>
              <item>
               <widget class="QPushButton" name="send_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>35</width>
+                 <height>35</height>
+                </size>
+               </property>
                <property name="text">
                 <string>SEND</string>
                </property>
