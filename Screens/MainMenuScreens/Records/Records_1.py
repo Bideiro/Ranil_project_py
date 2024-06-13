@@ -7,7 +7,7 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 class Records_1_Window(QMainWindow, Ui_MainWindow):
 
     trans_btnsgl = QtCore.pyqtSignal()
-    receipt_btnsgl = QtCore.pyqtSignal()
+    receipts_btnsgl = QtCore.pyqtSignal()
     
     def __init__(self):
         super(Records_1_Window,self).__init__()
@@ -18,7 +18,9 @@ class Records_1_Window(QMainWindow, Ui_MainWindow):
         self.receipts_btn.clicked.connect(self.to_receipt)
         
     def to_trans(self):
-        self.inven_btnsgl.emit()
+        print("trans")
+        self.trans_btnsgl.emit()
         
     def to_receipt(self):
-        self.sales_btnsgl.emit()
+        print("receipts")
+        self.receipts_btnsgl.emit()
