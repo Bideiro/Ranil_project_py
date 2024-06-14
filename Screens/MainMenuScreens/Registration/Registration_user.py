@@ -22,7 +22,7 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         self.save_btn.clicked.connect(self.init_reg_protocol)
         
         self.onlyInt = QIntValidator()
-        self.onlyInt.setTop(999999)
+        self.PCode_LE.setMaxLength(6)
         self.PCode_LE.setValidator(self.onlyInt)
         
     def prev_window(self):
@@ -30,15 +30,24 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         
     def init_reg_protocol(self):
         
+        valid = False
+        err = 'Unknown Error'
+        
+        # Checking Input validity
+        
         if len(self.PCode_LE.text()) == 6 and self.PCode_LE.text().isdigit():
+            valid = True
+        else:
+            err = 'Invalid passcode'
+            
+        if valid:
             self.confirmed_reg()
         else:
-            print("INvalid passcode")
+            print(err)
         
     def confirmed_reg(self):
         
         db = dbcont("root", "password")
-        
         db.reg_protocol(fname=self.FName_LE.text(), lname=self.LName_LE.text(),
                         uname = self.user_LE.text(), email = self.email_LE.text(),
                         loa = self.level_CB.currentText(), bday = self.Bday_DE.date().toPyDate(),
