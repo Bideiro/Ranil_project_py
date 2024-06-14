@@ -196,7 +196,7 @@ border: 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_3">
+                    <widget class="QLineEdit" name="PName_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -231,7 +231,7 @@ border: 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_4">
+                    <widget class="QLineEdit" name="SPrice_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -266,7 +266,7 @@ border: 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QDateEdit" name="dateEdit_2">
+                    <widget class="QDateEdit" name="EDate_DE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -323,7 +323,7 @@ border : 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_2">
+                    <widget class="QLineEdit" name="CPrice_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -359,7 +359,7 @@ border : 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_5">
+                    <widget class="QLineEdit" name="Quan_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
                        <horstretch>0</horstretch>
@@ -406,7 +406,7 @@ border : 2px solid #096033;
               <widget class="QWidget" name="widget_5" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_3">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_6">
+                 <widget class="QLineEdit" name="desc_LE">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
                     <horstretch>0</horstretch>

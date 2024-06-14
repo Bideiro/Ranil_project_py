@@ -49,48 +49,19 @@ color: white;
     <widget class="QWidget" name="widget" native="true">
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <widget class="QLabel" name="label">
-        <property name="font">
-         <font>
-          <family>DM Sans</family>
-          <bold>true</bold>
-         </font>
-        </property>
-        <property name="text">
-         <string>Input password for new user:</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit_2">
-        <property name="minimumSize">
-         <size>
-          <width>25</width>
-          <height>35</height>
-         </size>
-        </property>
-       </widget>
-      </item>
-      <item>
        <widget class="QLabel" name="label_2">
         <property name="font">
          <font>
           <family>DM Sans</family>
+          <pointsize>20</pointsize>
           <bold>true</bold>
          </font>
         </property>
         <property name="text">
-         <string>Confirm password:</string>
+         <string>Creation success!</string>
         </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lineEdit">
-        <property name="minimumSize">
-         <size>
-          <width>25</width>
-          <height>35</height>
-         </size>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -111,7 +82,7 @@ color: white;
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="succ_btn">
            <property name="minimumSize">
             <size>
              <width>0</width>

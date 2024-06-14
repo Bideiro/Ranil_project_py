@@ -21,10 +21,11 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
     def on_login_btn_clicked(self):
         print("Login Attempt")
         
-        self.logsucc_admin.emit()
-        
-        # db = dbcont(self.userLE.text(),self.passwordLE.text())
-        # db.conn()
+        mydb = dbcont(self.userLE.text(), self.passwordLE.text())
+        if mydb.login():
+            self.logsucc_admin.emit()
+        else:
+            print("Invalid credentials")
         
     @pyqtSlot()
     def on_forgotpass_btn_clicked(self):

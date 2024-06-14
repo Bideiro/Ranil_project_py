@@ -129,6 +129,8 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.login_btn = QtWidgets.QPushButton(self.widget_4)
         self.login_btn.setCheckable(False)
+        self.login_btn.setAutoDefault(True)
+        self.login_btn.setDefault(True)
         self.login_btn.setObjectName("login_btn")
         self.horizontalLayout_2.addWidget(self.login_btn)
         spacerItem4 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
@@ -153,7 +155,6 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
