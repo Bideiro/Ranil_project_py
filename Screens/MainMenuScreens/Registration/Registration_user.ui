@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>608</height>
+    <height>758</height>
    </rect>
   </property>
   <property name="font">
@@ -19,6 +19,29 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">#widget{
+background-color: #F8F8F0;
+border: 2px solid #096033;
+}
+.QComboBox
+{
+border : 2px solid #096033;
+background-color:rgba(0,0,0,0);
+}
+.QLineEdit{
+border : 2px solid #096033;
+background-color:rgba(0,0,0,0);
+}
+.QDateEdit{
+border: 2px solid #096033;
+background-color:rgba(0,0,0,0);
+}
+.QPushButton{
+background-color: #096033;
+color: white;
+}</string>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_8">
     <item>
      <widget class="QWidget" name="widget_7" native="true">
@@ -61,7 +84,7 @@
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -74,27 +97,7 @@
        <item>
         <widget class="QWidget" name="widget" native="true">
          <property name="styleSheet">
-          <string notr="true">#widget{
-background-color: #F8F8F0;
-border: 2px solid #096033;
-}
-.QComboBox
-{
-border : 2px solid #096033;
-background-color:rgba(0,0,0,0);
-}
-.QLineEdit{
-border : 2px solid #096033;
-background-color:rgba(0,0,0,0);
-}
-.QDateEdit{
-border: 2px solid #096033;
-background-color:rgba(0,0,0,0);
-}
-.QPushButton{
-background-color: #096033;
-color: white;
-}</string>
+          <string notr="true"/>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_5">
           <property name="spacing">
@@ -207,7 +210,7 @@ border : 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit">
+                    <widget class="QLineEdit" name="FName_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -243,7 +246,7 @@ border : 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_2">
+                    <widget class="QLineEdit" name="user_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -275,7 +278,7 @@ border : 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="comboBox">
+                    <widget class="QComboBox" name="level_CB">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -323,7 +326,7 @@ border : 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QComboBox" name="comboBox_2">
+                    <widget class="QComboBox" name="gender_CB">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -365,7 +368,7 @@ border : 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_5">
+                    <widget class="QLineEdit" name="Phono_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -422,7 +425,7 @@ border: 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_3">
+                    <widget class="QLineEdit" name="LName_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -457,7 +460,7 @@ border: 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_4">
+                    <widget class="QLineEdit" name="email_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -492,7 +495,7 @@ border: 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QDateEdit" name="dateEdit">
+                    <widget class="QDateEdit" name="Bday_DE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -513,16 +516,13 @@ border: 2px solid #096033;
                      </property>
                      <property name="dateTime">
                       <datetime>
-                       <hour>8</hour>
+                       <hour>0</hour>
                        <minute>0</minute>
                        <second>0</second>
                        <year>2024</year>
                        <month>6</month>
                        <day>7</day>
                       </datetime>
-                     </property>
-                     <property name="displayFormat">
-                      <string>dd-mm-yyyy</string>
                      </property>
                      <property name="calendarPopup">
                       <bool>true</bool>
@@ -556,7 +556,7 @@ border: 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="lineEdit_7">
+                    <widget class="QLineEdit" name="pos_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -591,7 +591,7 @@ border: 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QDateEdit" name="dateEdit_2">
+                    <widget class="QDateEdit" name="DHire_DE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -610,11 +610,11 @@ border: 2px solid #096033;
                      <property name="specialValueText">
                       <string/>
                      </property>
-                     <property name="displayFormat">
-                      <string>dd-mm-yyyy</string>
-                     </property>
                      <property name="calendarPopup">
                       <bool>true</bool>
+                     </property>
+                     <property name="timeSpec">
+                      <enum>Qt::LocalTime</enum>
                      </property>
                     </widget>
                    </item>
@@ -626,9 +626,15 @@ border: 2px solid #096033;
              </item>
              <item>
               <widget class="QWidget" name="widget_5" native="true">
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>100</height>
+                </size>
+               </property>
                <layout class="QVBoxLayout" name="verticalLayout_7">
                 <item>
-                 <widget class="QLineEdit" name="lineEdit_6">
+                 <widget class="QLineEdit" name="address_LE">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
                     <horstretch>0</horstretch>
@@ -656,7 +662,7 @@ border: 2px solid #096033;
               <widget class="QWidget" name="widget_6" native="true">
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
-                 <widget class="QPushButton" name="pushButton">
+                 <widget class="QPushButton" name="back_btn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -675,14 +681,14 @@ border: 2px solid #096033;
                   </property>
                   <property name="sizeHint" stdset="0">
                    <size>
-                    <width>80</width>
-                    <height>20</height>
+                    <width>500</width>
+                    <height>0</height>
                    </size>
                   </property>
                  </spacer>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_2">
+                 <widget class="QPushButton" name="save_btn">
                   <property name="minimumSize">
                    <size>
                     <width>0</width>
@@ -709,7 +715,7 @@ border: 2px solid #096033;
           <enum>Qt::Horizontal</enum>
          </property>
          <property name="sizeType">
-          <enum>QSizePolicy::Fixed</enum>
+          <enum>QSizePolicy::Expanding</enum>
          </property>
          <property name="sizeHint" stdset="0">
           <size>
@@ -721,6 +727,19 @@ border: 2px solid #096033;
        </item>
       </layout>
      </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
    </layout>
   </widget>

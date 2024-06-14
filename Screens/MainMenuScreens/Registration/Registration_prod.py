@@ -1,8 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget
+from PyQt5.QtWidgets import QMainWindow, QWidget
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 
 from .Registration_prod_ui import Ui_MainWindow
+
 from PyQt5 import QtWidgets, QtGui, QtCore
 class Registration_prod_Window(QMainWindow, Ui_MainWindow):
 
@@ -13,6 +14,9 @@ class Registration_prod_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         
         self.back_btn.clicked.connect(self.prev_window)
+        # self.reg_btn.clicked.connect(self.confirm_pass)
         
     def prev_window(self):
         self.back_btnsgl.emit()
+        
+    
