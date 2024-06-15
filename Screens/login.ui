@@ -166,8 +166,8 @@ font-size: 15px;
                  </property>
                 </widget>
                </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="userLE">
+               <item row="2" column="1">
+                <widget class="QLineEdit" name="passwordLE">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                    <horstretch>0</horstretch>
@@ -180,10 +180,13 @@ font-size: 15px;
                    <height>35</height>
                   </size>
                  </property>
+                 <property name="focusPolicy">
+                  <enum>Qt::NoFocus</enum>
+                 </property>
                 </widget>
                </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="passwordLE">
+               <item row="1" column="1">
+                <widget class="QLineEdit" name="userLE">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
                    <horstretch>0</horstretch>
@@ -312,5 +315,38 @@ font-size: 15px;
   <include location="../assets/All_In_Resource.qrc"/>
   <include location="../assets/All_In_Resource.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>passwordLE</sender>
+   <signal>returnPressed()</signal>
+   <receiver>login_btn</receiver>
+   <slot>click()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>379</x>
+     <y>347</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>359</x>
+     <y>418</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>userLE</sender>
+   <signal>returnPressed()</signal>
+   <receiver>passwordLE</receiver>
+   <slot>setFocus()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>492</x>
+     <y>313</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>494</x>
+     <y>351</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

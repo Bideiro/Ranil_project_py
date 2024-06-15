@@ -1,6 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
+from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtCore import pyqtSlot
+from PyQt5.QtGui import QIntValidator
 
 from .Login_ui import Ui_MainWindow
 from Database.DBController import dbcont
@@ -15,6 +16,11 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(LoginWindow,self).__init__()
         self.setupUi(self)
+        
+        self.userLE.setFocus()
+        self.onlyInt = QIntValidator()
+        self.passwordLE.setMaxLength(6)
+        self.passwordLE.setValidator(self.onlyInt)
         
     @pyqtSlot()
     # initiate login

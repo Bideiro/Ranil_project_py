@@ -10,12 +10,27 @@
     <height>701</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>Open Sans</family>
+    <pointsize>12</pointsize>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">#centralwidget{background-color: rgb(255, 255, 255);}</string>
+    <string notr="true">#centralwidget{background-color: rgb(255, 255, 255);}
+
+.QLabel{
+	font: 700 12pt &quot;DM Sans&quot;;
+}
+
+.QComboBox , .QLineEdit{
+	font: 700 9pt &quot;Open Sans&quot;;
+}</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_7">
     <item>
@@ -26,7 +41,7 @@
          <property name="font">
           <font>
            <family>DM Sans</family>
-           <pointsize>24</pointsize>
+           <pointsize>12</pointsize>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -38,6 +53,22 @@
        </item>
       </layout>
      </widget>
+    </item>
+    <item>
+     <spacer name="verticalSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
     </item>
     <item>
      <widget class="QWidget" name="widget_10" native="true">
@@ -121,7 +152,9 @@ border: 2px solid #096033;
                </property>
                <property name="font">
                 <font>
-                 <pointsize>15</pointsize>
+                 <family>DM Sans</family>
+                 <pointsize>12</pointsize>
+                 <italic>false</italic>
                  <bold>true</bold>
                 </font>
                </property>
@@ -187,6 +220,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <italic>false</italic>
                        <bold>true</bold>
                       </font>
                      </property>
@@ -209,11 +243,19 @@ border: 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>Open Sans</family>
+                       <pointsize>9</pointsize>
+                       <italic>false</italic>
+                       <bold>true</bold>
+                      </font>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
                      <property name="placeholderText">
-                      <string>Product Name:</string>
+                      <string>Ex: Dog Food(Beef &amp; Veg)</string>
                      </property>
                     </widget>
                    </item>
@@ -221,7 +263,9 @@ border: 2px solid #096033;
                     <widget class="QLabel" name="label_4">
                      <property name="font">
                       <font>
+                       <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <italic>false</italic>
                        <bold>true</bold>
                       </font>
                      </property>
@@ -248,48 +292,7 @@ border: 2px solid #096033;
                       <string/>
                      </property>
                      <property name="placeholderText">
-                      <string>Selling Price:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLabel" name="label_5">
-                     <property name="font">
-                      <font>
-                       <pointsize>12</pointsize>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>EXPIRATION DATE:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QDateEdit" name="EDate_DE">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>25</width>
-                       <height>35</height>
-                      </size>
-                     </property>
-                     <property name="buttonSymbols">
-                      <enum>QAbstractSpinBox::NoButtons</enum>
-                     </property>
-                     <property name="specialValueText">
-                      <string/>
-                     </property>
-                     <property name="displayFormat">
-                      <string>dd-mm-yyyy</string>
-                     </property>
-                     <property name="calendarPopup">
-                      <bool>true</bool>
+                      <string>Ex: 250</string>
                      </property>
                     </widget>
                    </item>
@@ -309,59 +312,24 @@ border : 2px solid #096033;
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout">
                    <item>
-                    <widget class="QLabel" name="label_7">
-                     <property name="font">
-                      <font>
-                       <family>DM Sans</family>
-                       <pointsize>12</pointsize>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>COST PRICE:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
-                    <widget class="QLineEdit" name="CPrice_LE">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
-                     <property name="minimumSize">
-                      <size>
-                       <width>25</width>
-                       <height>35</height>
-                      </size>
-                     </property>
-                     <property name="text">
-                      <string/>
-                     </property>
-                     <property name="placeholderText">
-                      <string>Cost Price:</string>
-                     </property>
-                    </widget>
-                   </item>
-                   <item>
                     <widget class="QLabel" name="label_8">
                      <property name="font">
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <italic>false</italic>
                        <bold>true</bold>
                       </font>
                      </property>
                      <property name="text">
-                      <string>QUANTITY:</string>
+                      <string>UNIT TYPE:</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="Quan_LE">
+                    <widget class="QComboBox" name="UType_CB">
                      <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
                        <horstretch>0</horstretch>
                        <verstretch>0</verstretch>
                       </sizepolicy>
@@ -372,29 +340,47 @@ border : 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
-                     <property name="text">
-                      <string/>
-                     </property>
                      <property name="placeholderText">
-                      <string>Quantity: </string>
+                      <string>UNDEFINED</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <spacer name="verticalSpacer">
-                     <property name="orientation">
-                      <enum>Qt::Vertical</enum>
+                    <widget class="QLabel" name="label_6">
+                     <property name="text">
+                      <string>CATEGORY:</string>
                      </property>
-                     <property name="sizeType">
-                      <enum>QSizePolicy::Fixed</enum>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QComboBox" name="CType_CB">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
                      </property>
-                     <property name="sizeHint" stdset="0">
+                     <property name="minimumSize">
                       <size>
                        <width>25</width>
                        <height>35</height>
                       </size>
                      </property>
-                    </spacer>
+                     <property name="font">
+                      <font>
+                       <family>Open Sans</family>
+                       <pointsize>9</pointsize>
+                       <italic>false</italic>
+                       <bold>true</bold>
+                      </font>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Ex: Dog Food</string>
+                     </property>
+                     <property name="frame">
+                      <bool>true</bool>
+                     </property>
+                    </widget>
                    </item>
                   </layout>
                  </widget>
@@ -404,7 +390,14 @@ border : 2px solid #096033;
              </item>
              <item>
               <widget class="QWidget" name="widget_5" native="true">
-               <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <item>
+                 <widget class="QLabel" name="label_5">
+                  <property name="text">
+                   <string>DESCRIPTION:</string>
+                  </property>
+                 </widget>
+                </item>
                 <item>
                  <widget class="QLineEdit" name="desc_LE">
                   <property name="sizePolicy">
@@ -419,11 +412,14 @@ border : 2px solid #096033;
                     <height>35</height>
                    </size>
                   </property>
-                  <property name="text">
-                   <string>Description: </string>
-                  </property>
                   <property name="alignment">
                    <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+                  </property>
+                  <property name="placeholderText">
+                   <string>A food for Dogs.</string>
+                  </property>
+                  <property name="clearButtonEnabled">
+                   <bool>false</bool>
                   </property>
                  </widget>
                 </item>
@@ -522,6 +518,9 @@ border : 2px solid #096033;
      <spacer name="verticalSpacer_2">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
       </property>
       <property name="sizeHint" stdset="0">
        <size>

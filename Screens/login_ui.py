@@ -103,6 +103,16 @@ class Ui_MainWindow(object):
         self.label_3 = QtWidgets.QLabel(self.widget_3)
         self.label_3.setObjectName("label_3")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.label_3)
+        self.passwordLE = QtWidgets.QLineEdit(self.widget_3)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.passwordLE.sizePolicy().hasHeightForWidth())
+        self.passwordLE.setSizePolicy(sizePolicy)
+        self.passwordLE.setMinimumSize(QtCore.QSize(0, 35))
+        self.passwordLE.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.passwordLE.setObjectName("passwordLE")
+        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.passwordLE)
         self.userLE = QtWidgets.QLineEdit(self.widget_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
@@ -112,15 +122,6 @@ class Ui_MainWindow(object):
         self.userLE.setMinimumSize(QtCore.QSize(0, 35))
         self.userLE.setObjectName("userLE")
         self.formLayout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.userLE)
-        self.passwordLE = QtWidgets.QLineEdit(self.widget_3)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.passwordLE.sizePolicy().hasHeightForWidth())
-        self.passwordLE.setSizePolicy(sizePolicy)
-        self.passwordLE.setMinimumSize(QtCore.QSize(0, 35))
-        self.passwordLE.setObjectName("passwordLE")
-        self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.passwordLE)
         self.gridLayout.addLayout(self.formLayout, 1, 0, 1, 1)
         self.verticalLayout_2.addWidget(self.widget_3)
         self.widget_4 = QtWidgets.QWidget(self.widget_2)
@@ -154,7 +155,10 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.passwordLE.returnPressed.connect(self.login_btn.click) # type: ignore
+        self.userLE.returnPressed.connect(self.passwordLE.setFocus) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
