@@ -8,10 +8,9 @@ def vali_email(email):
         return True
     else:
         return False
-    
 
 def vali_phono(phone_number):
-    pattern = re.compile(r'^\+369[- ]?\(?\d{3}\)?[- ]?\d{3}[- ]?\d{4}$')
+    pattern = re.compile(r'^\+369\d{9}$')
     if pattern.match(phone_number):
         return True
     else:

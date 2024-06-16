@@ -1,22 +1,19 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow,QDialog, QPushButton, QWidget
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
-from PyQt5.QtGui import QIntValidator
-
-from .Registration_user_ui import Ui_MainWindow
-from .DLog_tempalert_ui import Ui_Dialog
-
 from Database.DBController import dbcont
 
-from PyQt5 import QtWidgets, QtGui, QtCore
+from .DLog_Alert_BtnLess_ui import Ui_Dialog
 
-
-class DLGsucc(QDialog, Ui_Dialog):
+class DLG_Alert(QDialog, Ui_Dialog):
     
     def __init__(self,parent = None):
         super().__init__(parent)
         
         self.setupUi(self)
+        self.label.setText(self.alertmsg)
+        self.setWindowFlags(Qt.Popup)
         
-        self.succ_btn.clicked.connect(self.close)
         
+    def confirmed(self):
+        print()

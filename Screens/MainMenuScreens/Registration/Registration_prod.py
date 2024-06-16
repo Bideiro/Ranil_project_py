@@ -4,7 +4,7 @@ from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 from PyQt5.QtGui import QIntValidator
 
 from .Registration_prod_ui import Ui_MainWindow
-from .Dlog_tempalert import DLGsucc
+from Dialogs.DLog_Alert import DLG_Alert
 from Database.DBController import *
 
 
@@ -35,13 +35,11 @@ class Registration_prod_Window(QMainWindow, Ui_MainWindow):
         self.back_btnsgl.emit()
         
     def init_prod_reg_protocol(self):
-        
-        
         self.db.reg_prod_protocol(Pname = self.PName_LE.text(), Sprice=self.SPrice_LE.text(),
                             Utype= self.UType_CB.currentIndex(),Ctype= self.CType_CB.currentIndex(),
                             desc=self.desc_LE.text()
                             )
         
-        dlg = DLGsucc(self)
+        dlg = DLG_Alert()
         dlg.exec()
         self.back_btnsgl.emit()

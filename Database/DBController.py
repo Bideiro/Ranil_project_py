@@ -35,16 +35,15 @@ class dbcont:
         listed = [row[0] for row in self.mycursor]
         return listed
     
+
     def get_sex(self):
         self.mycursor.execute("SELECT Sex FROM sex ORDER BY SexID")
         listed = [row[0] for row in self.mycursor]
         return listed
     
-    
-    
-    def reg_protocol(self, fname, lname, uname, email, loa, bday, gender, pos, phono, Dhired, address, passcode):
-        sql =" INSERT INTO accounts (Fname, Lname, Uname, Email, LevelID, Bday, GenderID, Position, Phono, HireDate, address,Passcode) VALUES (%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"
-        val = (fname, lname, uname, email, loa, bday, gender, pos, phono, Dhired, address, passcode)
+    def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
+        sql =" INSERT INTO accounts (LevelID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) VALUES (%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"
+        val = (LevelID, Uname, Passcode, fname, lname,sex,phono, email,pos, Dhired, Bdate,address)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         

@@ -235,9 +235,6 @@ border : 2px solid #096033;
                      <property name="cursorPosition">
                       <number>0</number>
                      </property>
-                     <property name="placeholderText">
-                      <string>First Name:</string>
-                     </property>
                     </widget>
                    </item>
                    <item>
@@ -270,7 +267,7 @@ border : 2px solid #096033;
                       </size>
                      </property>
                      <property name="placeholderText">
-                      <string>Username:</string>
+                      <string/>
                      </property>
                     </widget>
                    </item>
@@ -335,7 +332,7 @@ border : 2px solid #096033;
                       </font>
                      </property>
                      <property name="text">
-                      <string>GENDER:</string>
+                      <string>SEX:</string>
                      </property>
                     </widget>
                    </item>
@@ -388,10 +385,42 @@ border : 2px solid #096033;
                       </size>
                      </property>
                      <property name="text">
-                      <string/>
+                      <string>+36</string>
+                     </property>
+                     <property name="maxLength">
+                      <number>13</number>
                      </property>
                      <property name="placeholderText">
-                      <string>Phone Number:</string>
+                      <string>+369123456789</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLabel" name="label_14">
+                     <property name="text">
+                      <string>PASSCODE:</string>
+                     </property>
+                    </widget>
+                   </item>
+                   <item>
+                    <widget class="QLineEdit" name="PCode_LE">
+                     <property name="sizePolicy">
+                      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                       <horstretch>0</horstretch>
+                       <verstretch>0</verstretch>
+                      </sizepolicy>
+                     </property>
+                     <property name="minimumSize">
+                      <size>
+                       <width>25</width>
+                       <height>35</height>
+                      </size>
+                     </property>
+                     <property name="maxLength">
+                      <number>6</number>
+                     </property>
+                     <property name="placeholderText">
+                      <string>123456</string>
                      </property>
                     </widget>
                    </item>
@@ -448,9 +477,6 @@ border: 2px solid #096033;
                      <property name="text">
                       <string/>
                      </property>
-                     <property name="placeholderText">
-                      <string>Last Name:</string>
-                     </property>
                     </widget>
                    </item>
                    <item>
@@ -486,7 +512,7 @@ border: 2px solid #096033;
                       <string/>
                      </property>
                      <property name="placeholderText">
-                      <string>Email:</string>
+                      <string>Ex: Example@sample.com</string>
                      </property>
                     </widget>
                    </item>
@@ -506,7 +532,7 @@ border: 2px solid #096033;
                     </widget>
                    </item>
                    <item>
-                    <widget class="QDateEdit" name="Bday_DE">
+                    <widget class="QDateEdit" name="BDate_DE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -586,7 +612,7 @@ border: 2px solid #096033;
                       <string/>
                      </property>
                      <property name="placeholderText">
-                      <string>Position:</string>
+                      <string>Admin</string>
                      </property>
                     </widget>
                    </item>
@@ -644,12 +670,12 @@ border: 2px solid #096033;
                       </font>
                      </property>
                      <property name="text">
-                      <string>PASSCODE:</string>
+                      <string>CONFIRM PASSCODE:</string>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLineEdit" name="PCode_LE">
+                    <widget class="QLineEdit" name="CPass_LE">
                      <property name="sizePolicy">
                       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                        <horstretch>0</horstretch>
@@ -661,6 +687,12 @@ border: 2px solid #096033;
                        <width>25</width>
                        <height>35</height>
                       </size>
+                     </property>
+                     <property name="maxLength">
+                      <number>6</number>
+                     </property>
+                     <property name="placeholderText">
+                      <string>123456</string>
                      </property>
                     </widget>
                    </item>
@@ -680,6 +712,13 @@ border: 2px solid #096033;
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_7">
                 <item>
+                 <widget class="QLabel" name="label_15">
+                  <property name="text">
+                   <string>ADDRESS:</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
                  <widget class="QLineEdit" name="address_LE">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -697,7 +736,7 @@ border: 2px solid #096033;
                    <string/>
                   </property>
                   <property name="placeholderText">
-                   <string>Address:</string>
+                   <string>Phillipines</string>
                   </property>
                  </widget>
                 </item>
