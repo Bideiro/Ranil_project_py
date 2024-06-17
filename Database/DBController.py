@@ -85,6 +85,9 @@ class dbcont:
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
+        
+    
+        
 if __name__ == '__main__':
     
     db =dbcont('admin', 123456)
