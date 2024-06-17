@@ -87,6 +87,8 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.Secu_1.UInfo_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.User_Info))
         self.Secu_1.ULogs_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.User_Logs))
         
+        self.User_Info.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Secu_1))
+        
         # Registration Buttons
         self.Reg_1.prod_reg_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Reg_prod))
         self.Reg_1.user_reg_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Reg_user))
