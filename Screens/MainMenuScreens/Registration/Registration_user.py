@@ -79,6 +79,7 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
                         Bdate= self.BDate_DE.date().toPyDate(),
                         address= self.address_LE.text()
                         )
+        
         succdlg = DLG_Alert()
         succdlg.exec()
         self.back_btnsgl.emit()

@@ -260,4 +260,4 @@ class Ui_Dialog(object):
         self.pushButton.setText(_translate("Dialog", "BACK"))
         self.pushButton_3.setText(_translate("Dialog", "DISABLE"))
         self.pushButton_2.setText(_translate("Dialog", "UPDATE"))
-import All_In_Resource_rc
+import assets.All_In_Resource_rc

@@ -16,11 +16,15 @@ from .MainMenuScreens.Registration.Registration_user import Registration_user_Wi
 
 from .MainMenuScreens.Sales.Sales import Sales_Window
 
+from .MainMenuScreens.Transaction.Transaction_1 import Transaction_1_Window
+
+from .MainMenuScreens.Inventory.Inventory import Inventory_Window
+
 from .MainMenuScreens.Reports.Reports_1 import Reports_1_Window
 
 from .MainMenuScreens.Records.Records_1 import Records_1_Window
 
-from .MainMenuScreens.Transaction.Transaction_1 import Transaction_1_Window
+
 
 from .MainMenuScreens.About import AboutWindow
 
@@ -46,11 +50,14 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
         self.Sales = Sales_Window()
         
-        self.Reports_1 = Reports_1_Window()
+        self.Trans_1 = Transaction_1_Window()
+        
+        self.Inven = Inventory_Window()
         
         self.Records_1 = Records_1_Window()
         
-        self.Trans_1 = Transaction_1_Window()
+        self.Reports_1 = Reports_1_Window()
+        
         
         self.about = AboutWindow()
         
@@ -68,11 +75,16 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
         self.stackedWidget.addWidget(self.Sales)
         
-        self.stackedWidget.addWidget(self.Reports_1)
+        self.stackedWidget.addWidget(self.Trans_1)
+        
+        self.stackedWidget.addWidget(self.Inven)
         
         self.stackedWidget.addWidget(self.Records_1)
         
-        self.stackedWidget.addWidget(self.Trans_1)
+        self.stackedWidget.addWidget(self.Reports_1)
+        
+        
+        
         
         self.stackedWidget.addWidget(self.about)
         
@@ -114,7 +126,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.about)
         
     def on_inventory_sdbtn_clicked(self):
-        self.stackedWidget.setCurrentWidget(self.about)
+        self.stackedWidget.setCurrentWidget(self.Inven)
         
     def on_maintenance_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.about)

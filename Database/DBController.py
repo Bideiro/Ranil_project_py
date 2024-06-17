@@ -74,19 +74,40 @@ class dbcont:
         return self.mycursor.fetchall()
     
     def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
-        sql =" INSERT INTO accounts (LevelID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) VALUES (%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"
+        sql =""" INSERT INTO accounts (LevelID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
+                    VALUES (%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"""
         val = (LevelID, Uname, Passcode, fname, lname,sex,phono, email,pos, Dhired, Bdate,address)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
     def reg_prod_protocol(self,Pname, Sprice, Utype , Ctype ,desc = None):
-        sql =" INSERT INTO products (ProductName, SellingPrice, Description, QuantityTypeID, ProductTypeID) VALUES (%s, %s,%s ,%s,%s)"
+        sql =""" INSERT INTO products (ProductName, SellingPrice, Description, QuantityTypeID, ProductTypeID)
+                    VALUES (%s, %s,%s ,%s,%s)"""
         val = (Pname, Sprice,desc, Utype, Ctype )
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
+    def update_user_protocol(self,oldUlist, NewUlist):
+        sql = """
+        UPDATE accounts
+        SET LevelID = %s, Uname = %s, Fname = %s, Lname = %s, SexID = %s, Phono = %s, Email = %s, Position = %s, HireDate = %s, Birthdate = %s, Address = %s
+        WHERE Uname = %s AND Fname = %s AND Lname = %s;
+        """
+        self.mycursor.execute(sql,NewUlist + oldUlist)
+        self.mydb.commit()
         
-    
+        
+    def update_prod_protocol(self,oldPlist, NewPlist ):
+        
+        sql ="""
+        UPDATE products
+        SET ProductName = %s, SellingPrice = %s, Description = %s, QuantityTypeID = %s, ProductTypeID = %s
+        WHERE ProductName = %s AND ProductID = %s;
+        """
+        self.mycursor.execute(sql,NewPlist + oldPlist)
+        self.mydb.commit()
+        
+        pass
         
 if __name__ == '__main__':
     
