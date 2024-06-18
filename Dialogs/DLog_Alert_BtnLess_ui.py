@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Screens\MainMenuScreens\Registration\Dialogs\DLog_Alert_BtnLess.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Dialogs\DLog_Alert_BtnLess.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -30,10 +30,12 @@ class Ui_Dialog(object):
         self.gridLayout.setObjectName("gridLayout")
         self.widget = QtWidgets.QWidget(Dialog)
         self.widget.setObjectName("widget")
-        self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setSpacing(0)
-        self.verticalLayout.setObjectName("verticalLayout")
+        self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget)
+        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setSpacing(0)
+        self.horizontalLayout.setObjectName("horizontalLayout")
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem)
         self.label = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
         font.setFamily("DM Sans")
@@ -42,7 +44,9 @@ class Ui_Dialog(object):
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
-        self.verticalLayout.addWidget(self.label)
+        self.horizontalLayout.addWidget(self.label)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout.addItem(spacerItem1)
         self.gridLayout.addWidget(self.widget, 0, 0, 1, 1)
 
         self.retranslateUi(Dialog)

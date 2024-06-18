@@ -10,8 +10,38 @@ def vali_email(email):
         return False
 
 def vali_phono(phone_number):
-    pattern = re.compile(r'^\+369\d{9}$')
+    pattern = re.compile(r'^\+639\d{9}$')
     if pattern.match(phone_number):
         return True
     else:
         return False
+    
+def check_user_validity(LevelID ,Uname ,pass1 ,pass2,Fname ,Lname ,SexID ,Phono ,Email ,Pos ,HDate ,BDate ,Add):
+    
+    if len(Fname) <= 2:
+        return 'First name must be 2 or more characters!'
+    elif len(Lname) <= 2:
+        return 'Last name must be 2 or more characters!'
+    elif Uname == '':
+        return 'Empty Username field!'
+    elif not vali_email(Email):
+        return 'Invalid Email!'
+    elif not (LevelID == 0 or LevelID == 1):
+        return 'Input level of access!'
+    elif not (SexID == 0 or SexID == 1):
+        return 'Input gender!'
+    elif Pos == '':
+        return 'Empty Position field!'
+    elif not vali_phono(Phono):
+        print(vali_phono(Phono))
+        return 'Invalid Phone Number'
+    elif len(pass1) == 6 and len(pass2) == 6:
+        return 'Not enough passcode characters!'
+    elif pass2 != pass1:
+        return 'Passcodes dont match!'
+    else:
+        return True
+
+def check_prod_validity():
+    
+    pass

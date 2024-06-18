@@ -71,7 +71,7 @@
            </spacer>
           </item>
           <item>
-           <widget class="QLineEdit" name="lineEdit"/>
+           <widget class="QLineEdit" name="search_LE"/>
           </item>
           <item>
            <spacer name="horizontalSpacer_4">
@@ -90,16 +90,16 @@
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="refreshbtn">
+           <widget class="QPushButton" name="Search_btn">
             <property name="text">
-             <string>Refresh</string>
+             <string>Search</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="testbtn">
+           <widget class="QPushButton" name="Refresh_btn">
             <property name="text">
-             <string>Search</string>
+             <string>Refresh</string>
             </property>
            </widget>
           </item>
@@ -111,11 +111,11 @@
          <property name="enabled">
           <bool>true</bool>
          </property>
-         <property name="minimumSize">
-          <size>
-           <width>500</width>
-           <height>400</height>
-          </size>
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
          </property>
          <property name="font">
           <font>
@@ -133,11 +133,30 @@
           <bool>true</bool>
          </property>
          <property name="gridStyle">
-          <enum>Qt::NoPen</enum>
+          <enum>Qt::SolidLine</enum>
          </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
+         </property>
+         <attribute name="horizontalHeaderVisible">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="horizontalHeaderHighlightSections">
+          <bool>true</bool>
+         </attribute>
+         <attribute name="verticalHeaderVisible">
+          <bool>false</bool>
+         </attribute>
          <column>
           <property name="text">
            <string>Product ID</string>
+          </property>
+          <property name="background">
+           <color>
+            <red>42</red>
+            <green>114</green>
+            <blue>222</blue>
+           </color>
           </property>
          </column>
          <column>

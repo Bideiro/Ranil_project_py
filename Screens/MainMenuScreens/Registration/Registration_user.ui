@@ -309,16 +309,6 @@ border : 2px solid #096033;
                      <property name="placeholderText">
                       <string>Level of Access</string>
                      </property>
-                     <item>
-                      <property name="text">
-                       <string notr="true">Admin</string>
-                      </property>
-                     </item>
-                     <item>
-                      <property name="text">
-                       <string>Employee</string>
-                      </property>
-                     </item>
                     </widget>
                    </item>
                    <item>
@@ -385,7 +375,7 @@ border : 2px solid #096033;
                       </size>
                      </property>
                      <property name="text">
-                      <string>+36</string>
+                      <string>+63</string>
                      </property>
                      <property name="maxLength">
                       <number>13</number>

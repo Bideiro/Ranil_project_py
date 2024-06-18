@@ -7,7 +7,7 @@ from .Registration_user_ui import Ui_MainWindow
 from Dialogs.DLog_Alert import DLG_Alert
 
 from Database.DBController import dbcont
-from Database.App_functions import vali_email, vali_phono
+from Database.App_functions import check_user_validity
 
 from PyQt5 import QtWidgets, QtGui, QtCore
 class Registration_user_Window(QMainWindow, Ui_MainWindow):
@@ -26,41 +26,25 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         self.PCode_LE.setValidator(self.onlyInt)
         self.CPass_LE.setValidator(self.onlyInt)
         self.Sex_CB.addItems(self.db.get_sex())
+        self.Level_CB.addItems(self.db.get_levelid())
         
     def prev_window(self):
         self.back_btnsgl.emit()
         
     def init_reg_protocol(self):
-        
-        valid = False
-        err = 'Unknown Error'
-        
         # Checking Input validity
         
-        if self.Phono_LE.text() == '':
-            err = 'No Phone Number!'
-        elif self.Sex_CB.currentIndex() == -1:
-            err = 'Sex not set!'
-        elif self.Level_CB.currentIndex() == -1:
-            err = 'Set Level of Access!'
-        elif not vali_email(self.email_LE.text()):
-            err = 'Invalid Email!'
-        elif not vali_phono(self.Phono_LE.text()):
-            
-            err = 'Invalid Phone Number!'
-        elif len(self.PCode_LE.text()) != 6:
-            print(self.Phono_LE.text())
-            print(self.Phono_LE.text().replace('+', '', 1))
-            err = 'Invalid Passcode!'
-        elif self.PCode_LE.text() != self.CPass_LE.text():
-            err = 'Passcodes doesnt match!'
-        else:
-            valid = True
-        if valid:
+        funcmsg = check_user_validity(LevelID= self.Level_CB.currentIndex(), Uname= self.user_LE.text(),
+                            pass1= self.PCode_LE.text(), pass2= self.CPass_LE.text(),
+                            Fname= self.FName_LE.text(), Lname= self.LName_LE.text(),
+                            SexID= self.Sex_CB.currentIndex(), Phono= self.Phono_LE.text().replace('+', '', 1),
+                            Email= self.email_LE.text(), Pos= self.pos_LE.text(),
+                            HDate= self.DHire_DE.date().toPyDate(), BDate= self.BDate_DE.date().toPyDate(),
+                            Add= self.address_LE.text())
+        if funcmsg == True:
             self.confirmed_reg()
-            
         else:
-            errdlg = DLG_Alert(msg= err)
+            errdlg = DLG_Alert(msg= funcmsg)
             errdlg.exec()
         
     def confirmed_reg(self):

@@ -2,6 +2,8 @@ import mysql.connector
 
 class dbcont:
     
+    # create singleton
+    
     def __init__(self, user,passwd):
         self.user = user
         self.passwd = passwd
@@ -12,7 +14,6 @@ class dbcont:
             database="ranil_proj"
         )
         self.mycursor = self.mydb.cursor()
-        
         
         
     def login(self):
@@ -41,12 +42,16 @@ class dbcont:
         listed = [row[0] for row in self.mycursor]
         return listed
     
+    def get_levelid(self):
+        self.mycursor.execute("SELECT Level FROM levels ORDER BY LEvelID")
+        listed = [row[0] for row in self.mycursor]
+        return listed
+    
     def get_id_value(self,value,sex = None):
         if sex != None:
             sql = "SELECT Sex FROM sex WHERE SexID = 1"
             self.mycursor.execute(sql)
             return self.mycursor.fetchone()[0]
-
         
     def get_user_creds(self, User = None, Passcode = None, colint = None, Fname = None , Lname = None):
         
@@ -73,6 +78,26 @@ class dbcont:
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
+    def get_all_prod(self):
+        
+        sql = "SELECT * FROM products"
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
+    def search_prod(self, searchstr):
+        sql = """
+                SELECT ProductID, ProductName, SellingPrice, Stock, ExpirationDate FROM products
+                WHERE ProductID LIKE %s
+                OR ProductName LIKE %s
+                OR SellingPrice LIKE %s
+                OR ExpirationDate LIKE %s
+                OR Stock LIKE %s
+                """
+        searchstr = '%' + searchstr + '%'
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr)
+        self.mycursor.execute(sql,val)
+        return self.mycursor.fetchall()
+        
     def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
         sql =""" INSERT INTO accounts (LevelID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
                     VALUES (%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"""
