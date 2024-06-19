@@ -26,9 +26,9 @@ def check_user_validity(LevelID ,Uname ,pass1 ,pass2,Fname ,Lname ,SexID ,Phono 
         return 'Empty Username field!'
     elif not vali_email(Email):
         return 'Invalid Email!'
-    elif not (LevelID == 0 or LevelID == 1):
+    elif LevelID == -1:
         return 'Input level of access!'
-    elif not (SexID == 0 or SexID == 1):
+    elif SexID == -1:
         return 'Input gender!'
     elif Pos == '':
         return 'Empty Position field!'
@@ -42,6 +42,15 @@ def check_user_validity(LevelID ,Uname ,pass1 ,pass2,Fname ,Lname ,SexID ,Phono 
     else:
         return True
 
-def check_prod_validity():
+def check_prod_validity(Pname, Utype, Sprice, Cat):
     
-    pass
+    if Pname == '':
+        return 'Empty Product name field!'
+    elif Utype == -1:
+        return 'Empty Unit type field!'
+    elif Sprice == '':
+        return 'Empty Selling price field!'
+    elif Cat == -1:
+        return 'Category not set!'
+    else:
+        return True

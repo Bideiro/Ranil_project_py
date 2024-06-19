@@ -54,8 +54,9 @@ class dbcont:
             return self.mycursor.fetchone()[0]
         
     def get_user_creds(self, User = None, Passcode = None, colint = None, Fname = None , Lname = None):
-        
-        if User == None and Passcode == None:
+        print('db cont')
+        print(Fname + Lname)
+        if User != None and Passcode != None:
             sql = 'SELECT * FROM accounts'
             self.mycursor.execute(sql)
         elif Fname != None and Lname != None:
@@ -121,8 +122,12 @@ class dbcont:
         self.mycursor.execute(sql,NewUlist + oldUlist)
         self.mydb.commit()
         
+        print(self.get_all_names())
         
     def update_prod_protocol(self,oldPlist, NewPlist ):
+        
+        print(NewPlist)
+        print(oldPlist)
         
         sql ="""
         UPDATE products

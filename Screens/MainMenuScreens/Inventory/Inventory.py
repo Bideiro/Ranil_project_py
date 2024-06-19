@@ -1,11 +1,8 @@
-import sys
-import os
-import mysql.connector
-from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget, QTableWidgetItem, QTableWidget, QDialog
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QDialog
 
 from Database.DBController import dbcont
 
-from .Dlog_editprod_ui import Ui_Dialog
+from .Dialogs.Dlog_editprod_ui import Ui_Dialog
 from .Inventory_ui import Ui_MainWindow
 
 
@@ -34,7 +31,7 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         self.Refresh_btn.clicked.connect(self.set_tableElements)
         self.Search_btn.clicked.connect(self.search)
         
-        self.tableWidget.cellClicked.connect(self.on_cell_clicked)
+        self.tableWidget.cellClicked.connect(self.on_rowclicked)
 
     def set_tableElements(self):
         result = self.db.get_all_prod()
@@ -43,11 +40,6 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
                 self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-
-    #Function for getting data
-    def get_Data(self):
-        result = self.db.get_all_prod()
-        return result
     
     def search(self):
         self.tableWidget.clear()
@@ -67,7 +59,7 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
             print('Error')
             return
         
-    def on_cell_clicked(self, row, column):
+    def on_rowclicked(self, row, column):
         item = self.tableWidget.item(row, column)
         if item is not None:
             # Instantiate and show your custom dialog
