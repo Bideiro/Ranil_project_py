@@ -5,7 +5,6 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 
 from .DLog_UpdateUserDetails_ui import Ui_Dialog
 from Dialogs.DLog_Alert import DLG_Alert
-from Database.DBController import dbcont
 from Database.App_functions import check_user_validity
 
 class DLG_Edit_User(QDialog, Ui_Dialog):
@@ -17,7 +16,6 @@ class DLG_Edit_User(QDialog, Ui_Dialog):
         
         self.currlist = Ulist
         self.setupUi(self)
-        self.db = dbcont('admin', 123456)
         
         self.back_btn.clicked.connect(lambda: self.done(0))
         self.update_btn.clicked.connect(self.init_update_user)
@@ -36,8 +34,6 @@ class DLG_Edit_User(QDialog, Ui_Dialog):
         self.Pos_LE.setText(self.currlist[9])
         self.DHired_DE.setDate(self.currlist[10])
         self.Address_LE.setText(self.currlist[12])
-        print(int(self.currlist[6]))
-        print(self.currlist[6])
         
     def init_update_user(self):
         funcmsg = check_user_validity(LevelID= self.ULevel_CB.currentIndex(), Uname= self.UName_LE.text(),

@@ -2,15 +2,10 @@ from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QDialog
 
 from Database.DBController import dbcont
 
-from .Dialogs.Dlog_editprod_ui import Ui_Dialog
+from .Dialogs.Dlog_UpdateProdDetails import DLG_Edit_Prod
 from .Inventory_ui import Ui_MainWindow
 
 
-class EditProductDialog(QDialog, Ui_Dialog):
-    def __init__(self, parent=None):
-        super().__init__(parent)
-        self.setupUi(self)
-        
 class Inventory_Window(QMainWindow, Ui_MainWindow):
     
     def __init__(self):
@@ -31,37 +26,59 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         self.Refresh_btn.clicked.connect(self.set_tableElements)
         self.Search_btn.clicked.connect(self.search)
         
-        self.tableWidget.cellClicked.connect(self.on_rowclicked)
+        self.Product_Table.itemClicked.connect(self.clicked_item)
 
     def set_tableElements(self):
         result = self.db.get_all_prod()
         self.search_LE.clear()
-        self.tableWidget.setRowCount(len(result))
+        self.Product_Table.setRowCount(len(result))
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
-                self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+
+                if column_number == 6:
+                    data = self.db.get_id_value(id= data, unit= True)
+                if column_number == 7:
+                    data = self.db.get_id_value(id= data, cate= True)
+                self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
     
     def search(self):
-        self.tableWidget.clear()
+        # self.Product_Table.setRowCount(0)
+        
+        while self.Product_Table.rowCount() > 0:
+            self.Product_Table.removeRow(0)
         searchResult = self.db.search_prod(self.search_LE.text())
 
         #Set number of rows to match search results
-        self.tableWidget.setRowCount(len(searchResult))
+       
 
         #Populate table with search result
         if searchResult:
-            self.tableWidget.setRowCount(len(searchResult))
+            self.Product_Table.setRowCount(len(searchResult))
+            print(len(searchResult))
+            print(searchResult)
             for row_number, row_data in enumerate(searchResult):
-                self.tableWidget.insertRow(row_number)
+                self.Product_Table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-        else: 
+                    if column_number == 6:
+                        data = self.db.get_id_value(id= data, unit= True)
+                    if column_number == 7:
+                        data = self.db.get_id_value(id= data, cate= True)
+                    self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+        else:
             print('Error')
             return
         
-    def on_rowclicked(self, row, column):
-        item = self.tableWidget.item(row, column)
-        if item is not None:
-            # Instantiate and show your custom dialog
-            dialog = EditProductDialog()
-            dialog.exec_()
+    def clicked_item(self, item):
+        row = item.row()
+        column_count = self.Product_Table.columnCount()
+        row_values = []
+        
+        for column in range(column_count):
+            cell_item = self.Product_Table.item(row, column)
+            if cell_item is not None:
+                row_values.append(cell_item.text())
+            else:
+                row_values.append('')
+        Dlg = DLG_Edit_Prod(Plist= row_values)
+        Dlg.exec()
+        

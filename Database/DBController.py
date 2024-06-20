@@ -26,53 +26,43 @@ class dbcont:
         res = self.mycursor.fetchone()[0]
         return bool(res)
     
-    # def get_unit_types(self):
-    #     self.mycursor.execute("SELECT UnitType FROM unit_type ORDER BY UnitTypeID")
-    #     listed = [row[0] for row in self.mycursor]
-    #     return listed
-    
-    # def get_cate_types(self):
-    #     self.mycursor.execute("SELECT Category FROM product_category ORDER BY CategoryID")
-    #     listed = [row[0] for row in self.mycursor]
-    #     return listed
-    
-    # def get_sex(self):
-    #     self.mycursor.execute("SELECT Sex FROM sex ORDER BY SexID")
-    #     listed = [row[0] for row in self.mycursor]
-    #     return listed
-    
-    # def get_levelid(self):
-    #     self.mycursor.execute("SELECT Level FROM levels ORDER BY LEvelID")
-    #     listed = [row[0] for row in self.mycursor]
-    #     return listed
-    
-    def get_id_value(self,value = None,sex = None ,cate = None, level = None, unit = None):
-        
+    def get_id_value(self,value = None, id = None,sex = None ,cate = None, level = None, unit = None):
         if sex != None:
-            if value != None:
+            if id != None:
                 sql = 'SELECT Sex FROM sex WHERE SexID = %s'
+            elif value != None:
+                sql = 'SELECT SexID FROM sex WHERE Sex = %s'
             else:
                 sql = "SELECT Sex FROM sex ORDER BY SexID"
         elif cate != None:
-            if value != None:
-                sql = 'SELECT Category FROM product_category WHERE CategoryID = %s'
+            if id != None:
+                sql = 'SELECT Category FROM category WHERE CategoryID = %s'
+            elif value != None:
+                sql = 'SELECT CategoryID FROM category WHERE Category = %s'
             else:
-                sql = "SELECT Category FROM product_category ORDER BY CategoryID"
+                sql = "SELECT Category FROM category ORDER BY CategoryID"
         elif level != None:
-            if value != None:
+            if id != None:
                 sql = 'SELECT Level FROM levels WHERE LevelID = %s'
+            elif value != None:
+                sql = 'SELECT LevelID FROM levels WHERE Level = %s'
             else:
                 sql = 'SELECT Level FROM levels ORDER BY LevelID'
         elif unit != None:
-            if value != None:
+            if id != None:
                 sql = 'SELECT UnitType FROM unit_type WHERE UnitTypeID = %s'
+            elif value != None:
+                sql = 'SELECT UnitTypeID FROM unit_type WHERE UnitType = %s'
             else:
                 sql = 'SELECT UnitType FROM unit_type ORDER BY UnitTypeID'
         else:
             print('No selected table!')
             return None
         
-        if value != None:
+        if id != None:
+            self.mycursor.execute(sql, (id,))
+            return self.mycursor.fetchone()[0]
+        elif value != None:
             self.mycursor.execute(sql, (value,))
             return self.mycursor.fetchone()[0]
         else:
@@ -114,7 +104,7 @@ class dbcont:
     
     def search_prod(self, searchstr):
         sql = """
-                SELECT ProductID, ProductName, SellingPrice, Stock, ExpirationDate FROM products
+                SELECT ProductID, ProductName, SellingPrice, Stock, ExpirationDate, Description, UnitTypeID, CategoryID FROM products
                 WHERE ProductID LIKE %s
                 OR ProductName LIKE %s
                 OR SellingPrice LIKE %s
@@ -134,7 +124,7 @@ class dbcont:
         self.mydb.commit()
         
     def reg_prod_protocol(self,Pname, Sprice, Utype , Ctype ,desc = None):
-        sql =""" INSERT INTO products (ProductName, SellingPrice, Description, QuantityTypeID, ProductTypeID)
+        sql =""" INSERT INTO products (ProductName, SellingPrice, Description, UnitTypeID, CategoryID)
                     VALUES (%s, %s,%s ,%s,%s)"""
         val = (Pname, Sprice,desc, Utype, Ctype )
         self.mycursor.execute(sql,val)

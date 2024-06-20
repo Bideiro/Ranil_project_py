@@ -49,7 +49,6 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         else:
             Dlg = DLG_Alert(msg='Select a User first!')
             Dlg.exec()
-            
         
     def createlist(self):
         self.accountList.clear()
@@ -70,7 +69,7 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         self.ULevel_L.setText(UserCreds[9])
         self.Email_L.setText(UserCreds[8])
         self.BDay_L.setText(UserCreds[11].strftime("%B %d, %Y"))
-        self.Sex_L.setText(self.db.get_id_value(value= UserCreds[6], sex = True))
+        self.Sex_L.setText(self.db.get_id_value(id= UserCreds[6], sex = True))
         self.Phono_L.setText(UserCreds[7])
         self.Pos_L.setText(UserCreds[9])
         self.HDate_L.setText(UserCreds[11].strftime("%B %d, %Y"))
