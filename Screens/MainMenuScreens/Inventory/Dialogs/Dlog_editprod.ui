@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>720</width>
-    <height>454</height>
+    <height>453</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -25,7 +25,7 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_4">
+  <layout class="QVBoxLayout" name="verticalLayout_5">
    <property name="spacing">
     <number>0</number>
    </property>
@@ -36,9 +36,6 @@
     <number>0</number>
    </property>
    <property name="rightMargin">
-    <number>0</number>
-   </property>
-   <property name="bottomMargin">
     <number>0</number>
    </property>
    <item>
@@ -200,7 +197,7 @@ border: 2px solid #096033;
                   </font>
                  </property>
                  <property name="text">
-                  <string>PRODUCT ID:</string>
+                  <string>DESCRIPTION:</string>
                  </property>
                 </widget>
                </item>
@@ -237,7 +234,7 @@ border: 2px solid #096033;
                   </font>
                  </property>
                  <property name="text">
-                  <string>PRICE: </string>
+                  <string>SELLING PRICE:</string>
                  </property>
                 </widget>
                </item>
@@ -274,7 +271,7 @@ border: 2px solid #096033;
                   </font>
                  </property>
                  <property name="text">
-                  <string>QUANTITY:</string>
+                  <string>UNIT TYPE:</string>
                  </property>
                 </widget>
                </item>
@@ -316,7 +313,7 @@ border: 2px solid #096033;
                   </font>
                  </property>
                  <property name="text">
-                  <string>EXP. DATE:</string>
+                  <string>CATEGORY:</string>
                  </property>
                 </widget>
                </item>
@@ -333,7 +330,7 @@ border: 2px solid #096033;
              <widget class="QWidget" name="widget_5" native="true">
               <layout class="QHBoxLayout" name="horizontalLayout_9">
                <item>
-                <widget class="QLineEdit" name="lineEdit_2">
+                <widget class="QLineEdit" name="PName_LE">
                  <property name="minimumSize">
                   <size>
                    <width>25</width>
@@ -349,7 +346,7 @@ border: 2px solid #096033;
              <widget class="QWidget" name="widget_7" native="true">
               <layout class="QHBoxLayout" name="horizontalLayout_8">
                <item>
-                <widget class="QLineEdit" name="lineEdit">
+                <widget class="QLineEdit" name="Desc_LE">
                  <property name="minimumSize">
                   <size>
                    <width>25</width>
@@ -365,7 +362,7 @@ border: 2px solid #096033;
              <widget class="QWidget" name="widget_12" native="true">
               <layout class="QHBoxLayout" name="horizontalLayout_12">
                <item>
-                <widget class="QLineEdit" name="lineEdit_3">
+                <widget class="QLineEdit" name="SPrice_LE">
                  <property name="minimumSize">
                   <size>
                    <width>25</width>
@@ -381,40 +378,7 @@ border: 2px solid #096033;
              <widget class="QWidget" name="widget_13" native="true">
               <layout class="QHBoxLayout" name="horizontalLayout_10">
                <item>
-                <spacer name="horizontalSpacer">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Fixed</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>100</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
-               <item>
-                <widget class="QPushButton" name="sub_btn">
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../../../../assets/All_In_Resource.qrc">
-                   <normaloff>:/Icons/Icons/minus.png</normaloff>:/Icons/Icons/minus.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>30</width>
-                   <height>30</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <widget class="QLineEdit" name="lineEdit_4">
+                <widget class="QComboBox" name="Unit_CB">
                  <property name="minimumSize">
                   <size>
                    <width>25</width>
@@ -423,39 +387,6 @@ border: 2px solid #096033;
                  </property>
                 </widget>
                </item>
-               <item>
-                <widget class="QPushButton" name="add_btn">
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="icon">
-                  <iconset resource="../../../../assets/All_In_Resource.qrc">
-                   <normaloff>:/Icons/Icons/plus.png</normaloff>:/Icons/Icons/plus.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>20</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item>
-                <spacer name="horizontalSpacer_2">
-                 <property name="orientation">
-                  <enum>Qt::Horizontal</enum>
-                 </property>
-                 <property name="sizeType">
-                  <enum>QSizePolicy::Fixed</enum>
-                 </property>
-                 <property name="sizeHint" stdset="0">
-                  <size>
-                   <width>100</width>
-                   <height>20</height>
-                  </size>
-                 </property>
-                </spacer>
-               </item>
               </layout>
              </widget>
             </item>
@@ -463,47 +394,12 @@ border: 2px solid #096033;
              <widget class="QWidget" name="widget_14" native="true">
               <layout class="QHBoxLayout" name="horizontalLayout_11">
                <item>
-                <widget class="QDateEdit" name="dateEdit_2">
+                <widget class="QComboBox" name="Cat_CB">
                  <property name="minimumSize">
                   <size>
-                   <width>100</width>
+                   <width>25</width>
                    <height>35</height>
                   </size>
-                 </property>
-                 <property name="wrapping">
-                  <bool>false</bool>
-                 </property>
-                 <property name="frame">
-                  <bool>true</bool>
-                 </property>
-                 <property name="buttonSymbols">
-                  <enum>QAbstractSpinBox::NoButtons</enum>
-                 </property>
-                 <property name="dateTime">
-                  <datetime>
-                   <hour>0</hour>
-                   <minute>0</minute>
-                   <second>0</second>
-                   <year>2024</year>
-                   <month>6</month>
-                   <day>7</day>
-                  </datetime>
-                 </property>
-                 <property name="displayFormat">
-                  <string>dd-mm-yyyy</string>
-                 </property>
-                 <property name="calendarPopup">
-                  <bool>true</bool>
-                 </property>
-                 <property name="currentSectionIndex">
-                  <number>0</number>
-                 </property>
-                 <property name="date">
-                  <date>
-                   <year>2024</year>
-                   <month>6</month>
-                   <day>7</day>
-                  </date>
                  </property>
                 </widget>
                </item>

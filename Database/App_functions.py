@@ -33,10 +33,9 @@ def check_user_validity(LevelID ,Uname ,pass1 ,pass2,Fname ,Lname ,SexID ,Phono 
     elif Pos == '':
         return 'Empty Position field!'
     elif not vali_phono(Phono):
-        print(vali_phono(Phono))
         return 'Invalid Phone Number'
-    elif len(pass1) == 6 and len(pass2) == 6:
-        return 'Not enough passcode characters!'
+    elif len(pass1) != 6 and len(pass2) != 6:
+        return 'Passcode requires 6 characters!'
     elif pass2 != pass1:
         return 'Passcodes dont match!'
     else:

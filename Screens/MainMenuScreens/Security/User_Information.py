@@ -38,8 +38,8 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
             if Dlg.result() == 1:
                 newUlist = [Dlg.ULevel_CB.currentIndex() ,Dlg.UName_LE.text(),
                         Dlg.FName_LE.text(), Dlg.LName_LE.text(),
-                        Dlg.Sex_CB.currentIndex(), Dlg.Phono_LE.text(),
-                        Dlg.Email_LE.text(), Dlg.Pos_LE.text().replace('+', '', 1),
+                        Dlg.Sex_CB.currentIndex(), Dlg.Phono_LE.text().replace('+', '', 1),
+                        Dlg.Email_LE.text(), Dlg.Pos_LE.text(),
                         Dlg.DHired_DE.date().toPyDate(), Dlg.BDate_DE.date().toPyDate(),
                         Dlg.Address_LE.text()]
                 oldUlist = [self.shown_user[2], self.shown_user[4], self.shown_user[5]]

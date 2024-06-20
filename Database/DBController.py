@@ -3,7 +3,6 @@ import mysql.connector
 class dbcont:
     
     # create singleton
-    
     def __init__(self, user,passwd):
         self.user = user
         self.passwd = passwd
@@ -27,31 +26,59 @@ class dbcont:
         res = self.mycursor.fetchone()[0]
         return bool(res)
     
-    def get_unit_types(self):
-        self.mycursor.execute("SELECT UnitType FROM unit_type ORDER BY UnitTypeID")
-        listed = [row[0] for row in self.mycursor]
-        return listed
+    # def get_unit_types(self):
+    #     self.mycursor.execute("SELECT UnitType FROM unit_type ORDER BY UnitTypeID")
+    #     listed = [row[0] for row in self.mycursor]
+    #     return listed
     
-    def get_cate_types(self):
-        self.mycursor.execute("SELECT Category FROM product_category ORDER BY CategoryID")
-        listed = [row[0] for row in self.mycursor]
-        return listed
+    # def get_cate_types(self):
+    #     self.mycursor.execute("SELECT Category FROM product_category ORDER BY CategoryID")
+    #     listed = [row[0] for row in self.mycursor]
+    #     return listed
     
-    def get_sex(self):
-        self.mycursor.execute("SELECT Sex FROM sex ORDER BY SexID")
-        listed = [row[0] for row in self.mycursor]
-        return listed
+    # def get_sex(self):
+    #     self.mycursor.execute("SELECT Sex FROM sex ORDER BY SexID")
+    #     listed = [row[0] for row in self.mycursor]
+    #     return listed
     
-    def get_levelid(self):
-        self.mycursor.execute("SELECT Level FROM levels ORDER BY LEvelID")
-        listed = [row[0] for row in self.mycursor]
-        return listed
+    # def get_levelid(self):
+    #     self.mycursor.execute("SELECT Level FROM levels ORDER BY LEvelID")
+    #     listed = [row[0] for row in self.mycursor]
+    #     return listed
     
-    def get_id_value(self,value,sex = None):
+    def get_id_value(self,value = None,sex = None ,cate = None, level = None, unit = None):
+        
         if sex != None:
-            sql = "SELECT Sex FROM sex WHERE SexID = 1"
-            self.mycursor.execute(sql)
+            if value != None:
+                sql = 'SELECT Sex FROM sex WHERE SexID = %s'
+            else:
+                sql = "SELECT Sex FROM sex ORDER BY SexID"
+        elif cate != None:
+            if value != None:
+                sql = 'SELECT Category FROM product_category WHERE CategoryID = %s'
+            else:
+                sql = "SELECT Category FROM product_category ORDER BY CategoryID"
+        elif level != None:
+            if value != None:
+                sql = 'SELECT Level FROM levels WHERE LevelID = %s'
+            else:
+                sql = 'SELECT Level FROM levels ORDER BY LevelID'
+        elif unit != None:
+            if value != None:
+                sql = 'SELECT UnitType FROM unit_type WHERE UnitTypeID = %s'
+            else:
+                sql = 'SELECT UnitType FROM unit_type ORDER BY UnitTypeID'
+        else:
+            print('No selected table!')
+            return None
+        
+        if value != None:
+            self.mycursor.execute(sql, (value,))
             return self.mycursor.fetchone()[0]
+        else:
+            self.mycursor.execute(sql)
+            listed = [row[0] for row in self.mycursor]
+            return listed
         
     def get_user_creds(self, User = None, Passcode = None, colint = None, Fname = None , Lname = None):
         print('db cont')
@@ -143,9 +170,10 @@ if __name__ == '__main__':
     
     db =dbcont('admin', 123456)
     
-    Ulist =db.get_user_creds(Fname= 'Admin' , Lname= 'Admin')
+    # Ulist =db.get_user_creds(Fname= 'Admin' , Lname= 'Admin')
     
-    print (Ulist[4])
+    # print (Ulist[4])
     
+    print(db.get_id_value(sex=True,value= 1))
     
     pass

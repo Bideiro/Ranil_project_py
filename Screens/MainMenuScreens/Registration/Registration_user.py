@@ -25,8 +25,8 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         self.onlyInt = QIntValidator()
         self.PCode_LE.setValidator(self.onlyInt)
         self.CPass_LE.setValidator(self.onlyInt)
-        self.Sex_CB.addItems(self.db.get_sex())
-        self.Level_CB.addItems(self.db.get_levelid())
+        self.Sex_CB.addItems(self.db.get_id_value(sex=True))
+        self.Level_CB.addItems(self.db.get_id_value(level=True))
         
     def prev_window(self):
         self.back_btnsgl.emit()
