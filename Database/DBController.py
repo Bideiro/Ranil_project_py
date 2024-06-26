@@ -121,7 +121,7 @@ class dbcont:
         self.mycursor.execute(sql,(id,))
         return self.mycursor.fetchone()[0]
 
-    def search_prod(self, searchstr, inv = None, trans = None, id = None):
+    def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None ):
         
         if inv:
             sql = """
@@ -156,6 +156,14 @@ class dbcont:
                     """
             self.mycursor.execute(sql,(searchstr,))
             return self.mycursor.fetchone()
+        elif receipt:
+            sql = """
+                    SELECT RPID, ProductName FROM products
+                    WHERE RPID LIKE %s
+                    """
+            self.mycursor.execute(sql,(searchstr,))
+            return self.mycursor.fetchone()
+
         print("huh")
         return 0
         
