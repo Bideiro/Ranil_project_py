@@ -3,7 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 from PyQt5 import QtGui
 from Screens.Login import LoginWindow
-from Screens.ForgotPass import ForgotPassWindow
+from Screens.ForgotPass.ForgotPass import ForgotPassWindow
 from Screens.MainMenu import MainMenuWindow
 
 

@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>850</width>
-    <height>491</height>
+    <height>493</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -103,7 +103,7 @@ border-radius: 80px;
                    <string/>
                   </property>
                   <property name="pixmap">
-                   <pixmap resource="../assets/All_In_Resource.qrc">:/Icons/Icons/profile.png</pixmap>
+                   <pixmap resource="../../assets/All_In_Resource.qrc">:/Icons/Icons/profile.png</pixmap>
                   </property>
                   <property name="scaledContents">
                    <bool>true</bool>
@@ -148,7 +148,7 @@ background-color:rgba(0,0,0,0);
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout">
                 <item>
-                 <widget class="QPushButton" name="pushButton_14">
+                 <widget class="QPushButton" name="RJ_FB">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -159,7 +159,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../assets/All_In_Resource.qrc">
+                   <iconset resource="../../assets/All_In_Resource.qrc">
                     <normaloff>:/Icons/Icons/facebook.png</normaloff>:/Icons/Icons/facebook.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -171,7 +171,7 @@ background-color:rgba(0,0,0,0);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_15">
+                 <widget class="QPushButton" name="RJ_Email">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -182,7 +182,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../assets/All_In_Resource.qrc">
+                   <iconset resource="../../assets/All_In_Resource.qrc">
                     <normaloff>:/Icons/Icons/email.png</normaloff>:/Icons/Icons/email.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -194,7 +194,7 @@ background-color:rgba(0,0,0,0);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_16">
+                 <widget class="QPushButton" name="RJ_Phono">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -205,7 +205,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../assets/All_In_Resource.qrc">
+                   <iconset resource="../../assets/All_In_Resource.qrc">
                     <normaloff>:/Icons/Icons/phone.png</normaloff>:/Icons/Icons/phone.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -221,6 +221,22 @@ background-color:rgba(0,0,0,0);
              </item>
             </layout>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <widget class="QWidget" name="oval2" native="true">
@@ -249,7 +265,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="pixmap">
-                   <pixmap resource="../assets/All_In_Resource.qrc">:/Icons/Icons/profile.png</pixmap>
+                   <pixmap resource="../../assets/All_In_Resource.qrc">:/Icons/Icons/profile.png</pixmap>
                   </property>
                   <property name="scaledContents">
                    <bool>true</bool>
@@ -294,7 +310,7 @@ background-color:rgba(0,0,0,0);
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_2">
                 <item>
-                 <widget class="QPushButton" name="pushButton_17">
+                 <widget class="QPushButton" name="DD_FB">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -305,7 +321,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../assets/All_In_Resource.qrc">
+                   <iconset resource="../../assets/All_In_Resource.qrc">
                     <normaloff>:/Icons/Icons/facebook.png</normaloff>:/Icons/Icons/facebook.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -317,7 +333,7 @@ background-color:rgba(0,0,0,0);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_18">
+                 <widget class="QPushButton" name="DD_Email">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -328,7 +344,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../assets/All_In_Resource.qrc">
+                   <iconset resource="../../assets/All_In_Resource.qrc">
                     <normaloff>:/Icons/Icons/email.png</normaloff>:/Icons/Icons/email.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -340,7 +356,7 @@ background-color:rgba(0,0,0,0);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_19">
+                 <widget class="QPushButton" name="DD_Phono">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -351,7 +367,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../assets/All_In_Resource.qrc">
+                   <iconset resource="../../assets/All_In_Resource.qrc">
                     <normaloff>:/Icons/Icons/phone.png</normaloff>:/Icons/Icons/phone.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -367,6 +383,22 @@ background-color:rgba(0,0,0,0);
              </item>
             </layout>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer_4">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeType">
+             <enum>QSizePolicy::Fixed</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <widget class="QWidget" name="oval3" native="true">
@@ -395,7 +427,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="pixmap">
-                   <pixmap resource="../assets/All_In_Resource.qrc">:/Icons/Icons/profile.png</pixmap>
+                   <pixmap resource="../../assets/All_In_Resource.qrc">:/Icons/Icons/profile.png</pixmap>
                   </property>
                   <property name="scaledContents">
                    <bool>true</bool>
@@ -420,7 +452,7 @@ background-color:rgba(0,0,0,0);
                </property>
                <property name="text">
                 <string>MACAM, 
-FRANCHESCA </string>
+FRANCHESCA JANE</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -440,7 +472,7 @@ background-color:rgba(0,0,0,0);
                </property>
                <layout class="QHBoxLayout" name="horizontalLayout_6">
                 <item>
-                 <widget class="QPushButton" name="pushButton_23">
+                 <widget class="QPushButton" name="FJ_FB">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -451,7 +483,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../assets/All_In_Resource.qrc">
+                   <iconset resource="../../assets/All_In_Resource.qrc">
                     <normaloff>:/Icons/Icons/facebook.png</normaloff>:/Icons/Icons/facebook.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -463,7 +495,7 @@ background-color:rgba(0,0,0,0);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_24">
+                 <widget class="QPushButton" name="FJ_Email">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -474,7 +506,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../assets/All_In_Resource.qrc">
+                   <iconset resource="../../assets/All_In_Resource.qrc">
                     <normaloff>:/Icons/Icons/email.png</normaloff>:/Icons/Icons/email.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -486,7 +518,7 @@ background-color:rgba(0,0,0,0);
                  </widget>
                 </item>
                 <item>
-                 <widget class="QPushButton" name="pushButton_25">
+                 <widget class="QPushButton" name="FJ_Phono">
                   <property name="sizePolicy">
                    <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                     <horstretch>0</horstretch>
@@ -497,7 +529,7 @@ background-color:rgba(0,0,0,0);
                    <string/>
                   </property>
                   <property name="icon">
-                   <iconset resource="../assets/All_In_Resource.qrc">
+                   <iconset resource="../../assets/All_In_Resource.qrc">
                     <normaloff>:/Icons/Icons/phone.png</normaloff>:/Icons/Icons/phone.png</iconset>
                   </property>
                   <property name="iconSize">
@@ -557,6 +589,7 @@ background-color:rgba(0,0,0,0);
  </widget>
  <resources>
   <include location="aboutrec.qrc"/>
+  <include location="../../assets/All_In_Resource.qrc"/>
   <include location="../assets/All_In_Resource.qrc"/>
  </resources>
  <connections/>

@@ -23,7 +23,7 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         
         self.db = dbcont('admin', '123456')
-        self.back_btn.clicked.connect(self.createlist)
+        self.back_btn.clicked.connect(self.prev_window)
         
         self.createlist()
         self.accountList.clicked.connect(self.list_clicked)
@@ -36,14 +36,15 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
             Dlg = DLG_Edit_User( Ulist= self.shown_user)
             Dlg.exec()
             if Dlg.result() == 1:
-                newUlist = [Dlg.ULevel_CB.currentIndex() ,Dlg.UName_LE.text(),
-                        Dlg.FName_LE.text(), Dlg.LName_LE.text(),
+                newUlist = [Dlg.ULevel_CB.currentIndex() ,self.db._create_rid(id= self.shown_user[0],typeID= Dlg.ULevel_CB.currentIndex(),user= True),
+                        Dlg.UName_LE.text(), Dlg.FName_LE.text(), Dlg.LName_LE.text(),
                         Dlg.Sex_CB.currentIndex(), Dlg.Phono_LE.text().replace('+', '', 1),
                         Dlg.Email_LE.text(), Dlg.Pos_LE.text(),
                         Dlg.DHired_DE.date().toPyDate(), Dlg.BDate_DE.date().toPyDate(),
                         Dlg.Address_LE.text()]
-                oldUlist = [self.shown_user[2], self.shown_user[4], self.shown_user[5]]
-                self.db.update_user_protocol(oldUlist , newUlist)
+                UID = [self.shown_user[0]]
+                print(self.shown_user[0])
+                self.db.update_user_protocol(UID , newUlist)
                 self.createlist()
                 self.reset_values()
         else:
@@ -66,15 +67,14 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         
         print(UserCreds)
         self.Name_L.setText(self.accountList.currentItem().text())
-        self.ULevel_L.setText(UserCreds[9])
-        self.Email_L.setText(UserCreds[8])
-        self.BDay_L.setText(UserCreds[11].strftime("%B %d, %Y"))
-        self.Sex_L.setText(self.db.get_id_value(id= UserCreds[6], sex = True))
-        self.Phono_L.setText(UserCreds[7])
-        self.Pos_L.setText(UserCreds[9])
+        self.ULevel_L.setText(self.db.get_id_value(id=UserCreds[1],level=True))
+        self.Email_L.setText(UserCreds[9])
+        self.BDay_L.setText(UserCreds[12].strftime("%B %d, %Y"))
+        self.Sex_L.setText(self.db.get_id_value(id= UserCreds[7], sex = True))
+        self.Phono_L.setText(UserCreds[8])
+        self.Pos_L.setText(UserCreds[10])
         self.HDate_L.setText(UserCreds[11].strftime("%B %d, %Y"))
         self.shown_user = UserCreds
-        
         
     def reset_values(self):
         self.Name_L.setText('None')

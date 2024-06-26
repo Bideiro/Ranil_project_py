@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>848</width>
-    <height>567</height>
+    <width>850</width>
+    <height>677</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -50,7 +50,7 @@ gridline-color: rgb(255, 255, 255);
 }
 
 /* Side Buttons */ 
-#about_sdbtn, #help_sdbtn ,#inventory_sdbtn, #maintenance_sdbtn, #records_sdbtn,#registration_sdbtn,#reports_sdbtn,#sales_sdbtn,#security_sdbtn,#transaction_sdbtn{
+#about_sdbtn, #help_sdbtn ,#inventory_sdbtn, #maintenance_sdbtn, #records_sdbtn,#registration_sdbtn,#reports_sdbtn,#sales_sdbtn,#security_sdbtn,#transaction_sdbtn, #log_out_sdbtn{
 	color: green;
 	border: 3px solid green;
 	text-align: left;
@@ -61,11 +61,11 @@ gridline-color: rgb(255, 255, 255);
 	font-weight: bold;
 	font-size: 15px;
 }
-#about_sdbtn:hover, #help_sdbtn:hover ,#inventory_sdbtn:hover, #maintenance_sdbtn:hover, #records_sdbtn:hover,#registration_sdbtn:hover,#reports_sdbtn:hover,#sales_sdbtn:hover,#security_sdbtn:hover,#transaction_sdbtn:hover {
+#about_sdbtn:hover, #help_sdbtn:hover ,#inventory_sdbtn:hover, #maintenance_sdbtn:hover, #records_sdbtn:hover,#registration_sdbtn:hover,#reports_sdbtn:hover,#sales_sdbtn:hover,#security_sdbtn:hover,#transaction_sdbtn:hover, #log_out_sdbtn:hover {
 	background-color: green;
 	color: white;
 }
-#about_sdbtn:checked, #help_sdbtn:checked,#inventory_sdbtn:checked, #maintenance_sdbtn:checked, #records_sdbtn:checked,#registration_sdbtn:checked,#reports_sdbtn:checked,#sales_sdbtn:checked,#security_sdbtn:checked,#transaction_sdbtn:checked {
+#about_sdbtn:checked, #help_sdbtn:checked,#inventory_sdbtn:checked, #maintenance_sdbtn:checked, #records_sdbtn:checked,#registration_sdbtn:checked,#reports_sdbtn:checked,#sales_sdbtn:checked,#security_sdbtn:checked,#transaction_sdbtn:checked , #log_out_sdbtn:checked{
 	background-color: green;
 	color: white;
 }
@@ -293,7 +293,7 @@ gridline-color: rgb(255, 255, 255);
             <x>0</x>
             <y>0</y>
             <width>123</width>
-            <height>510</height>
+            <height>610</height>
            </rect>
           </property>
           <property name="setVisible" stdset="0">
@@ -457,6 +457,13 @@ gridline-color: rgb(255, 255, 255);
              </property>
              <property name="autoExclusive">
               <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="log_out_sdbtn">
+             <property name="text">
+              <string>Log Out</string>
              </property>
             </widget>
            </item>

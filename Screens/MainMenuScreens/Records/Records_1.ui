@@ -52,7 +52,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="receipts_btn">
+        <widget class="QPushButton" name="SReciepts_btn">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>
@@ -94,7 +94,7 @@
         </spacer>
        </item>
        <item>
-        <widget class="QPushButton" name="trans_btn">
+        <widget class="QPushButton" name="TReceipts_btn">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
            <horstretch>0</horstretch>

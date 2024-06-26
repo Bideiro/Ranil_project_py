@@ -6,21 +6,21 @@ from .Records_1_ui import Ui_MainWindow
 from PyQt5 import QtWidgets, QtGui, QtCore
 class Records_1_Window(QMainWindow, Ui_MainWindow):
 
-    trans_btnsgl = QtCore.pyqtSignal()
-    receipts_btnsgl = QtCore.pyqtSignal()
+    SReciepts_btnsgl = QtCore.pyqtSignal()
+    TReceipts_btnsgl = QtCore.pyqtSignal()
     
     def __init__(self):
         super(Records_1_Window,self).__init__()
         self.setupUi(self)
         
         
-        self.trans_btn.clicked.connect(self.to_trans)
-        self.receipts_btn.clicked.connect(self.to_receipt)
+        self.SReciepts_btn.clicked.connect(self.to_Supp_trans)
+        self.TReceipts_btn.clicked.connect(self.to_Trans_receipt)
         
-    def to_trans(self):
+    def to_Supp_trans(self):
         print("trans")
-        self.trans_btnsgl.emit()
+        self.SReciepts_btnsgl.emit()
         
-    def to_receipt(self):
+    def to_Trans_receipt(self):
         print("receipts")
-        self.receipts_btnsgl.emit()
+        self.TReceipts_btnsgl.emit()

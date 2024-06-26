@@ -29,7 +29,7 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         self.Product_Table.itemClicked.connect(self.clicked_item)
 
     def set_tableElements(self):
-        result = self.db.get_all_prod()
+        result = self.db.get_all_prod(inv=True)
         self.search_LE.clear()
         self.Product_Table.setRowCount(len(result))
         for row_number, row_data in enumerate(result):
@@ -42,15 +42,12 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
                 self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
     
     def search(self):
-        # self.Product_Table.setRowCount(0)
+        self.Product_Table.setRowCount(0)
         
-        while self.Product_Table.rowCount() > 0:
-            self.Product_Table.removeRow(0)
-        searchResult = self.db.search_prod(self.search_LE.text())
+        searchResult = self.db.search_prod(self.search_LE.text(),inv= True)
 
         #Set number of rows to match search results
-       
-
+        self.Product_Table.setRowCount(len(searchResult))
         #Populate table with search result
         if searchResult:
             self.Product_Table.setRowCount(len(searchResult))
@@ -71,14 +68,22 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
     def clicked_item(self, item):
         row = item.row()
         column_count = self.Product_Table.columnCount()
-        row_values = []
+        prod_values = []
         
         for column in range(column_count):
             cell_item = self.Product_Table.item(row, column)
             if cell_item is not None:
-                row_values.append(cell_item.text())
+                prod_values.append(cell_item.text())
             else:
-                row_values.append('')
-        Dlg = DLG_Edit_Prod(Plist= row_values)
+                prod_values.append('')
+        Dlg = DLG_Edit_Prod(Plist= prod_values)
         Dlg.exec()
+        if Dlg.result() == 1:
+            print(prod_values[7])
+            newPlist = [self.db._create_rid(id= self.db.get_id_value(value= Dlg.Cat_CB.currentIndex(),cate=True),prod=True), Dlg.PName_LE.text(),Dlg.SPrice_LE.text(),Dlg.Desc_LE.text(),Dlg.Unit_CB.currentIndex(),Dlg.Cat_CB.currentIndex()]
+            oldPlist = [prod_values[0]]
+            self.db.update_prod_protocol(oldPlist, newPlist)
+        self.set_tableElements()
+        
+        
         

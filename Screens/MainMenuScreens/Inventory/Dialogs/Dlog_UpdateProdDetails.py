@@ -24,18 +24,19 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
         self.setWindowFlags(Qt.FramelessWindowHint)
         
         self.Unit_CB.addItems(self.db.get_id_value(unit=True))
-        self.ULevel_CB.addItems(self.db.get_id_value(level= True))
+        self.Cat_CB.addItems(self.db.get_id_value(cate= True))
         
-        self.PName_LE.setText(Plist[1])
-        self.Desc_LE.setText(Plist[5])
-        self.SPrice_LE.setText(Plist[2])
-        self.Unit_CB.setCurrentIndex(Plist[6])
-        
+        self.PName_LE.setText(Plist[2])
+        self.Desc_LE.setText(Plist[6])
+        self.SPrice_LE.setText(Plist[3])
+        self.Unit_CB.setCurrentIndex(self.db.get_id_value(value= Plist[7],unit=True))
+        self.Cat_CB.setCurrentIndex(self.db.get_id_value(value= Plist[8],cate=True))
     def disable_prod(self):
         print('disable button clicked')
         
     def init_update_prod(self):
-        funcmsg = check_prod_validity()
+        funcmsg = check_prod_validity(Pname= self.PName_LE.text(), Utype= self.Unit_CB.currentIndex(),
+                                    Sprice= self.SPrice_LE.text(), Cat= self.Cat_CB.currentIndex())
         if funcmsg != True:
             Dlg = DLG_Alert(msg= funcmsg)
             Dlg.exec()
@@ -43,6 +44,6 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
             self.confirmed_update()
     
     def confirmed_update(self):
-        Dlg =  DLG_Alert()
+        Dlg = DLG_Alert()
         Dlg.exec()
         self.done(1)

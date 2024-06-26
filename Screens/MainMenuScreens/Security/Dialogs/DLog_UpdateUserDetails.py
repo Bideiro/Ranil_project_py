@@ -5,6 +5,7 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 
 from .DLog_UpdateUserDetails_ui import Ui_Dialog
 from Dialogs.DLog_Alert import DLG_Alert
+from Database.DBController import dbcont
 from Database.App_functions import check_user_validity
 
 class DLG_Edit_User(QDialog, Ui_Dialog):
@@ -15,6 +16,7 @@ class DLG_Edit_User(QDialog, Ui_Dialog):
         super().__init__(parent)
         
         self.currlist = Ulist
+        self.db = dbcont('admin',123456)
         self.setupUi(self)
         
         self.back_btn.clicked.connect(lambda: self.done(0))
@@ -23,17 +25,17 @@ class DLG_Edit_User(QDialog, Ui_Dialog):
         
         self.Sex_CB.addItems(self.db.get_id_value(sex= True))
         self.ULevel_CB.addItems(self.db.get_id_value(level= True))
-        self.FName_LE.setText(self.currlist[4])
-        self.LName_LE.setText(self.currlist[5])
-        self.UName_LE.setText(self.currlist[2])
+        self.FName_LE.setText(self.currlist[5])
+        self.LName_LE.setText(self.currlist[6])
+        self.UName_LE.setText(self.currlist[3])
         self.ULevel_CB.setCurrentIndex(int(self.currlist[1]))
-        self.Email_LE.setText(self.currlist[8])
-        self.BDate_DE.setDate(self.currlist[11])
-        self.Sex_CB.setCurrentIndex(int(self.currlist[6]))
-        self.Phono_LE.setText('+' + self.currlist[7])
-        self.Pos_LE.setText(self.currlist[9])
-        self.DHired_DE.setDate(self.currlist[10])
-        self.Address_LE.setText(self.currlist[12])
+        self.Email_LE.setText(self.currlist[9])
+        self.BDate_DE.setDate(self.currlist[12])
+        self.Sex_CB.setCurrentIndex(int(self.currlist[7]))
+        self.Phono_LE.setText('+' + self.currlist[8])
+        self.Pos_LE.setText(self.currlist[10])
+        self.DHired_DE.setDate(self.currlist[11])
+        self.Address_LE.setText(self.currlist[13])
         
     def init_update_user(self):
         funcmsg = check_user_validity(LevelID= self.ULevel_CB.currentIndex(), Uname= self.UName_LE.text(),

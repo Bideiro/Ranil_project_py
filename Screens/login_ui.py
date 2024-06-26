@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Screens\Login.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\Login.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -110,7 +110,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.passwordLE.sizePolicy().hasHeightForWidth())
         self.passwordLE.setSizePolicy(sizePolicy)
         self.passwordLE.setMinimumSize(QtCore.QSize(0, 35))
-        self.passwordLE.setFocusPolicy(QtCore.Qt.NoFocus)
+        self.passwordLE.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.passwordLE.setObjectName("passwordLE")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.passwordLE)
         self.userLE = QtWidgets.QLineEdit(self.widget_3)

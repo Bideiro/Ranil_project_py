@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Screens\MainMenu.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenu.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(848, 567)
+        MainWindow.resize(850, 677)
         MainWindow.setStyleSheet("QMainWindow {\n"
 "    var w = window.innerWidth;\n"
 "    var h = window.innerHeight;\n"
@@ -49,7 +49,7 @@ class Ui_MainWindow(object):
 "}\n"
 "\n"
 "/* Side Buttons */ \n"
-"#about_sdbtn, #help_sdbtn ,#inventory_sdbtn, #maintenance_sdbtn, #records_sdbtn,#registration_sdbtn,#reports_sdbtn,#sales_sdbtn,#security_sdbtn,#transaction_sdbtn{\n"
+"#about_sdbtn, #help_sdbtn ,#inventory_sdbtn, #maintenance_sdbtn, #records_sdbtn,#registration_sdbtn,#reports_sdbtn,#sales_sdbtn,#security_sdbtn,#transaction_sdbtn, #log_out_sdbtn{\n"
 "    color: green;\n"
 "    border: 3px solid green;\n"
 "    text-align: left;\n"
@@ -60,11 +60,11 @@ class Ui_MainWindow(object):
 "    font-weight: bold;\n"
 "    font-size: 15px;\n"
 "}\n"
-"#about_sdbtn:hover, #help_sdbtn:hover ,#inventory_sdbtn:hover, #maintenance_sdbtn:hover, #records_sdbtn:hover,#registration_sdbtn:hover,#reports_sdbtn:hover,#sales_sdbtn:hover,#security_sdbtn:hover,#transaction_sdbtn:hover {\n"
+"#about_sdbtn:hover, #help_sdbtn:hover ,#inventory_sdbtn:hover, #maintenance_sdbtn:hover, #records_sdbtn:hover,#registration_sdbtn:hover,#reports_sdbtn:hover,#sales_sdbtn:hover,#security_sdbtn:hover,#transaction_sdbtn:hover, #log_out_sdbtn:hover {\n"
 "    background-color: green;\n"
 "    color: white;\n"
 "}\n"
-"#about_sdbtn:checked, #help_sdbtn:checked,#inventory_sdbtn:checked, #maintenance_sdbtn:checked, #records_sdbtn:checked,#registration_sdbtn:checked,#reports_sdbtn:checked,#sales_sdbtn:checked,#security_sdbtn:checked,#transaction_sdbtn:checked {\n"
+"#about_sdbtn:checked, #help_sdbtn:checked,#inventory_sdbtn:checked, #maintenance_sdbtn:checked, #records_sdbtn:checked,#registration_sdbtn:checked,#reports_sdbtn:checked,#sales_sdbtn:checked,#security_sdbtn:checked,#transaction_sdbtn:checked , #log_out_sdbtn:checked{\n"
 "    background-color: green;\n"
 "    color: white;\n"
 "}\n"
@@ -155,7 +155,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.sideBar = QtWidgets.QWidget()
-        self.sideBar.setGeometry(QtCore.QRect(0, 0, 123, 510))
+        self.sideBar.setGeometry(QtCore.QRect(0, 0, 123, 610))
         self.sideBar.setProperty("setVisible", False)
         self.sideBar.setObjectName("sideBar")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.sideBar)
@@ -226,6 +226,9 @@ class Ui_MainWindow(object):
         self.about_sdbtn.setAutoExclusive(True)
         self.about_sdbtn.setObjectName("about_sdbtn")
         self.verticalLayout.addWidget(self.about_sdbtn)
+        self.log_out_sdbtn = QtWidgets.QPushButton(self.sideBar)
+        self.log_out_sdbtn.setObjectName("log_out_sdbtn")
+        self.verticalLayout.addWidget(self.log_out_sdbtn)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem2)
         self.scrollArea.setWidget(self.sideBar)
@@ -261,4 +264,5 @@ class Ui_MainWindow(object):
         self.help_sdbtn.setText(_translate("MainWindow", "Help"))
         self.maintenance_sdbtn.setText(_translate("MainWindow", "Maintenance"))
         self.about_sdbtn.setText(_translate("MainWindow", "About"))
+        self.log_out_sdbtn.setText(_translate("MainWindow", "Log Out"))
 import assets.All_In_Resource_rc
