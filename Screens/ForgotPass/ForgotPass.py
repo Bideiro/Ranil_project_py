@@ -49,7 +49,8 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
             if Dlg_OI.Input_LE.text() == otp:
                 self.showResetPassWindow()
             else:
-                QMessageBox.warning(self, "Error", "OTP does not match. Please try again.")
+                Dlg = DLG_Alert(msg='OTP does not match. Please try again.')
+                Dlg.exec()
 
     def send_otp_email(self, receiver_email, otp):
         sender_email = 'raineeyd@gmail.com'
