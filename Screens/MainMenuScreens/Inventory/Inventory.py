@@ -76,13 +76,16 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
                 prod_values.append(cell_item.text())
             else:
                 prod_values.append('')
+        print(prod_values)
         Dlg = DLG_Edit_Prod(Plist= prod_values)
         Dlg.exec()
         if Dlg.result() == 1:
-            print(prod_values[7])
-            newPlist = [self.db._create_rid(id= self.db.get_id_value(value= Dlg.Cat_CB.currentIndex(),cate=True),prod=True), Dlg.PName_LE.text(),Dlg.SPrice_LE.text(),Dlg.Desc_LE.text(),Dlg.Unit_CB.currentIndex(),Dlg.Cat_CB.currentIndex()]
+            self.newPlist = [self.db._create_rid(RID= prod_values[0],typeID=Dlg.Cat_CB.currentIndex(),prod=True),
+                        Dlg.PName_LE.text(),Dlg.SPrice_LE.text(),
+                        Dlg.Desc_LE.text(),Dlg.Unit_CB.currentIndex(),
+                        Dlg.Cat_CB.currentIndex()]
             oldPlist = [prod_values[0]]
-            self.db.update_prod_protocol(oldPlist, newPlist)
+            self.db.update_prod_protocol(RPID=oldPlist, NewPlist = self.newPlist)
         self.set_tableElements()
         
         

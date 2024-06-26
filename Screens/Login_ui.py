@@ -110,6 +110,7 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.passwordLE.sizePolicy().hasHeightForWidth())
         self.passwordLE.setSizePolicy(sizePolicy)
         self.passwordLE.setMinimumSize(QtCore.QSize(0, 35))
+        self.passwordLE.setFocusPolicy(QtCore.Qt.ClickFocus)
         self.passwordLE.setObjectName("passwordLE")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.passwordLE)
         self.userLE = QtWidgets.QLineEdit(self.widget_3)
@@ -166,4 +167,4 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "Password:"))
         self.login_btn.setText(_translate("MainWindow", "LOGIN"))
         self.forgotpass_btn.setText(_translate("MainWindow", "FORGOT PASSWORD"))
-import All_In_Resource_rc
+import assets.All_In_Resource_rc

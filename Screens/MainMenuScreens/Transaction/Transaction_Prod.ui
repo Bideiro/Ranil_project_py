@@ -26,17 +26,11 @@
         <widget class="QWidget" name="widget_2" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_10">
           <item>
-           <spacer name="horizontalSpacer_21">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+           <widget class="QLabel" name="label_7">
+            <property name="text">
+             <string>Search:</string>
             </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>85</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
+           </widget>
           </item>
           <item>
            <widget class="QLineEdit" name="Search_LE"/>
@@ -106,6 +100,15 @@
             </property>
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
             </property>
             <property name="sortingEnabled">
              <bool>true</bool>
@@ -233,6 +236,9 @@
           </item>
           <item>
            <widget class="QTableWidget" name="SProducts_Table">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
             <property name="sizePolicy">
              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -244,6 +250,18 @@
               <width>0</width>
               <height>150</height>
              </size>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
+            <property name="gridStyle">
+             <enum>Qt::NoPen</enum>
             </property>
             <attribute name="verticalHeaderVisible">
              <bool>false</bool>
@@ -260,7 +278,7 @@
             </column>
             <column>
              <property name="text">
-              <string>Count</string>
+              <string>Amount</string>
              </property>
             </column>
            </widget>
@@ -523,7 +541,7 @@
              <item>
               <widget class="QPushButton" name="Add_btn">
                <property name="text">
-                <string>Change Quantity</string>
+                <string>Change Amount</string>
                </property>
               </widget>
              </item>

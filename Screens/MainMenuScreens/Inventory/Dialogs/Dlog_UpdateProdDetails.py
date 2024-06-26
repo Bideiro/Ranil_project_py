@@ -18,6 +18,8 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
         self.setupUi(self)
         self.db = dbcont('admin',123456)
         
+        print(Plist)
+        
         self.Back_btn.clicked.connect(lambda: self.done(0))
         self.Update_btn.clicked.connect(self.init_update_prod)
         self.Disable_btn.clicked.connect(self.disable_prod)
@@ -26,11 +28,11 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
         self.Unit_CB.addItems(self.db.get_id_value(unit=True))
         self.Cat_CB.addItems(self.db.get_id_value(cate= True))
         
-        self.PName_LE.setText(Plist[2])
-        self.Desc_LE.setText(Plist[6])
-        self.SPrice_LE.setText(Plist[3])
-        self.Unit_CB.setCurrentIndex(self.db.get_id_value(value= Plist[7],unit=True))
-        self.Cat_CB.setCurrentIndex(self.db.get_id_value(value= Plist[8],cate=True))
+        self.PName_LE.setText(Plist[1])
+        self.Desc_LE.setText(Plist[5])
+        self.SPrice_LE.setText(Plist[2])
+        self.Unit_CB.setCurrentIndex(self.db.get_id_value(value= Plist[6],unit=True))
+        self.Cat_CB.setCurrentIndex(self.db.get_id_value(value= Plist[7],cate=True))
     def disable_prod(self):
         print('disable button clicked')
         

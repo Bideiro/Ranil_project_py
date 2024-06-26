@@ -105,7 +105,7 @@ class dbcont:
     def get_all_prod(self, inv = None , trans = None):
         
         if inv:
-            sql = "SELECT * FROM products"
+            sql = "SELECT RPID, ProductName,SellingPrice, Stock, ExpirationDate, Description, UnitTypeID, CategoryID FROM products"
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
         else:
@@ -188,19 +188,23 @@ class dbcont:
         
     def update_prod_protocol(self,RPID, NewPlist ):
         
-        print(NewPlist)
-        print(RPID)
-        # update sql about product id
-        
         sql ="""
         UPDATE products
-        SET ProductID = %s, ProductName = %s, SellingPrice = %s, Description = %s, UnitTypeID = %s, CategoryID = %s
-        WHERE ProductID = %s;
+        SET RPID = %s, ProductName = %s, SellingPrice = %s, Description = %s, UnitTypeID = %s, CategoryID = %s
+        WHERE RPID = %s;
         """
         self.mycursor.execute(sql,NewPlist + RPID)
         self.mydb.commit()
         
-    def _create_rid(self, id ,typeID ,prod = None, user = None, new = None):
+    def _create_rid(self,typeID, id = None ,RID = None,prod = None, user = None, new = None):
+        
+        if RID != None:
+            if user != None:
+                sql = 'Select UID FROM accounts WHERE RUID = %s'
+            elif prod != None:
+                sql = 'Select ProductID FROM products WHERE RPID = %s'
+            self.mycursor.execute(sql ,(RID,))
+            id = self.mycursor.fetchone()[0]
         
         if user != None:
             if typeID == 0:
@@ -227,21 +231,6 @@ class dbcont:
     def log_out(self):
         self.UMana.reset_UserMana()  
         
-        
-    def update_prod_protocol(self,oldPlist, NewPlist):
-        
-        print(NewPlist)
-        print(oldPlist)
-        
-        sql ="""
-        UPDATE products
-        SET ProductName = %s, SellingPrice = %s, Description = %s, QuantityTypeID = %s, ProductTypeID = %s
-        WHERE ProductName = %s AND ProductID = %s;
-        """
-        self.mycursor.execute(sql, (NewPlist + oldPlist))
-        self.mydb.commit()
-        
-        pass
     
     def get_RUID_user(self, uname ,email,check = None):
         if check:

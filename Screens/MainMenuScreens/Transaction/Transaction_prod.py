@@ -16,9 +16,9 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
     Done_btnsgl = QtCore.pyqtSignal()
     
     Sprod = None
-    Stablerowcnt = 0
     StableRPID = set()
     SProdConfirmed = []
+    SprodRow = None
     
     def __init__(self):
         super(Trans_prod_Window,self).__init__()
@@ -28,6 +28,7 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
         self.Product_Table.itemClicked.connect(self.clicked_item_prod)
         self.SProducts_Table.itemClicked.connect(self.clicked_item_sprod)
         self.Add_btn.clicked.connect(self.add_quantity)
+        self.RProduct_btn.clicked.connect(self.remove_sprod)
         self.AProduct_btn.clicked.connect(self.add_to_list)
         self.Done_btn.clicked.connect(self.confirmed_order)
         self.Search_btn.clicked.connect(self.search)
@@ -62,7 +63,14 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
                 self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-                
+        
+    def current_prod_reset(self):
+        self.PName_L.setText(None)
+        self.RUID_L.setText(None)
+        self.SPrice_L.setText(None)
+        self.EDate_L.setText(None)
+        self.Quantity_LE.setText(None)
+        
     def clicked_item_prod(self, item):
         row = item.row()
         column_count = self.Product_Table.columnCount()
@@ -85,11 +93,25 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
         
     def clicked_item_sprod(self, item):
         Sprod = self.db.search_prod(searchstr= self.SProducts_Table.item(item.row(), 0).text() ,id=True)
+        self.SprodRow = item.row()
         self.PName_L.setText(Sprod[1])
         self.RUID_L.setText(Sprod[0])
         self.SPrice_L.setText(str(Sprod[2]))
         self.EDate_L.setText(str(Sprod[4]))
         self.Quantity_LE.setText(self.SProducts_Table.item(item.row(), 2).text())
+        
+    def remove_sprod(self):
+        if self.SprodRow != None:
+            RPID_item = self.SProducts_Table.item(self.SprodRow, 0)
+            self.StableRPID.discard(RPID_item.text())
+            print(self.StableRPID)
+            
+            self.SProducts_Table.removeRow(self.SprodRow)
+            self.SprodRow = None
+            self.current_prod_reset()
+        else:
+            Dlg = DLG_Alert(msg='No Selected Product in order list!')
+            Dlg.exec()
         
     def add_to_list(self):
         if self.Sprod:
