@@ -229,13 +229,13 @@ class dbcont:
         
         
 
-    def update_user_passcode(self,Uname, NewPcode):
+    def update_user_passcode(self,RUID, passcode):
         sql = """
         UPDATE accounts
         SET Passcode = %s
-        WHERE Uname = %s;
+        WHERE RUID = %s;
         """    
-        self.mycursor.execute(sql, (NewPcode, Uname))
+        self.mycursor.execute(sql, (passcode,RUID))
         self.mydb.commit()
 
 
@@ -254,20 +254,28 @@ class dbcont:
         
         pass
     
-    def fetch_old_passcode_from_db(self, uname):
-        # Implement your logic to fetch old passcode from database based on uname
-        sql = """
-        SELECT Passcode
-        FROM accounts
-        WHERE Uname = %s;
-        """
-        self.mycursor.execute(sql, (uname,))
-        result = self.mycursor.fetchone()
-        if result:
-            return result[0]  # Return the passcode
+    def get_RUID_user(self, uname ,email,check = None):
+        if check:
+            sql = """
+            SELECT RUID
+            FROM accounts
+            WHERE Uname = %s AND Email = %s;
+            """
+            self.mycursor.execute(sql, (uname,email))
+            result = self.mycursor.fetchone()
+            if result:
+                return True # Return the passcode
+            else:
+                return False  # Handle case where user is not found or passcode is not retrieved
         else:
-            return None  # Handle case where user is not found or passcode is not retrieved
-        
+            sql = """
+            SELECT RUID
+            FROM accounts
+            WHERE Uname = %s AND Email = %s;
+            """
+            self.mycursor.execute(sql, (uname,email))
+            return self.mycursor.fetchone()[0]
+            
 if __name__ == '__main__':
     db =dbcont('admin', 123456)
     

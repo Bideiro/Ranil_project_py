@@ -4,53 +4,60 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QInputDialog
 from PyQt5 import QtCore
-from .ForgotPass_ui import Ui_MainWindow  # Replace with your UI file import
-from Dialogs.DLog_InputAdminPasscode import DLG_Change
+
+
+
+from .ForgotPass_ui import Ui_MainWindow
+from Database.DBController import dbcont
+
+from Dialogs.DLog_AdminPasscode import DLG_AdminPass
+from Dialogs.DLog_Oneline_Input import DLG_Oneline_Input
+from Dialogs.DLog_Alert import DLG_Alert
 
 class ForgotPassWindow(QMainWindow, Ui_MainWindow):
     
-    back = QtCore.pyqtSignal()
+    back_btnsgl = QtCore.pyqtSignal()
     
     def __init__(self):
         super(ForgotPassWindow, self).__init__()
         self.setupUi(self)
-        self.send_btn.clicked.connect(self.on_send_btn_clicked)  # Connect send button click to handler
-        self.user_input = None
-
-    @QtCore.pyqtSlot()
-    def on_back_btn_clicked(self):
-        print("Back button clicked")
-        self.back.emit()
-    
-    def generate_otp(self):
-        # Generate a 6-digit random OTP
-        return str(random.randint(100000, 999999))  # Convert OTP to string for comparison
-    
-    def on_send_btn_clicked(self):
-        # Fetch user and email inputs (assuming you have self.user_LE and self.email_LE)
-        self.user_input = self.user_LE.text()
-        receiver_email = self.email_LE.text()
-
-        # Generate OTP and send OTP email
-        otp = self.generate_otp()
-        self.send_otp_email(receiver_email, otp)
-
-        # Open a dialog to get OTP from user
-        user_otp, ok_pressed = QInputDialog.getText(self, "OTP Verification", "Enter the OTP sent to your email:")
+        self.otp = None
+        self.db = dbcont('admin', 123456)
+        self.send_btn.clicked.connect(self.validate_creds)
+        self.back_btn.clicked.connect(lambda: self.back_btnsgl.emit())
         
-        if ok_pressed:
-            if user_otp == otp:
-                QMessageBox.information(self, "Success", "OTP matched. Proceed to reset password.")
-                # Emit signal or handle UI feedback for successful OTP verification
+    def validate_creds(self):
+        check = self.db.get_RUID_user(uname=self.user_LE.text(), email= self.email_LE.text(),check=True)
+        if check:
+            self.otp_protocol()
+        else:
+            Dlg =DLG_Alert(msg='Not in database!')
+            Dlg.exec()
+    
+    def otp_protocol(self):
+        self.user_input = self.user_LE.text()
+        self.receiver_email = self.email_LE.text()
+        otp = str(random.randint(100000, 999999))
+        
+        if otp:
+            self.send_otp_email(self.receiver_email, otp)
+        
+        Dlg_OI = DLG_Oneline_Input(msg= 'Enter the OTP sent to your email:')
+        Dlg_OI.exec()
+        
+        if Dlg_OI.result() == 1:
+            if Dlg_OI.Input_LE.text() == otp:
+                Dlg = DLG_Alert()
+                Dlg.exec()
+                
                 self.showResetPassWindow()
-                self.back.emit()
+                self.back_btnsgl.emit()
             else:
                 QMessageBox.warning(self, "Error", "OTP does not match. Please try again.")
 
     def send_otp_email(self, receiver_email, otp):
         sender_email = 'raineeyd@gmail.com'
         password = 'xfmx wybe mpyx swhm'
-
         subject = 'OTP for Verification'
         body = f'Your OTP for verification is: {otp}'
 
@@ -67,12 +74,14 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
             text = msg.as_string()
             server.sendmail(sender_email, receiver_email, text)
             server.quit()
-            print("Success: OTP sent successfully")
+            print(f'Success: OTP sent successfully: {otp}')
         except smtplib.SMTPException as e:
             print(f"Error: {e}")
 
     def showResetPassWindow(self):
-        from Screens.ForgotPass import ForgotPassWindow
-        Reset_Pass_Window = DLG_Change(userName=self.user_LE.text())
-        Reset_Pass_Window.exec()
+        Dlg_ConfirmPass = DLG_AdminPass()
+        Dlg_ConfirmPass.exec()
+        if Dlg_ConfirmPass.result() == 1:
+            
+            pass
 

@@ -42,7 +42,7 @@ class MainWindow(QtWidgets.QMainWindow):
 
         # Signals "BACK" to Widgets
 
-        self.ForgotPass.back.connect(
+        self.ForgotPass.back_btnsgl.connect(
             lambda: self.MainStack.setCurrentWidget(self.Login)
         )
 
