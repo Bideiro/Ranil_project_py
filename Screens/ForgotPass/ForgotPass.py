@@ -47,11 +47,7 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
         
         if Dlg_OI.result() == 1:
             if Dlg_OI.Input_LE.text() == otp:
-                Dlg = DLG_Alert()
-                Dlg.exec()
-                
                 self.showResetPassWindow()
-                self.back_btnsgl.emit()
             else:
                 QMessageBox.warning(self, "Error", "OTP does not match. Please try again.")
 
@@ -82,6 +78,12 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
         Dlg_ConfirmPass = DLG_AdminPass()
         Dlg_ConfirmPass.exec()
         if Dlg_ConfirmPass.result() == 1:
+            self.RUID = self.db.get_RUID_user(uname=self.user_LE.text(), email= self.email_LE.text())
+            self.db.update_passcode(RUID= self.RUID,passcode= Dlg_ConfirmPass.PCode_LE.text())
+            Dlg = DLG_Alert()
+            Dlg.exec()
+            self.back_btnsgl.emit()
             
-            pass
+            
+            
 

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(625, 308)
+        Dialog.resize(625, 313)
         Dialog.setStyleSheet("#widget{\n"
 "background-color: black;\n"
 "border: 3px solid #ABE27D;\n"

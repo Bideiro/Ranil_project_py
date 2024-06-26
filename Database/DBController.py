@@ -228,17 +228,6 @@ class dbcont:
         self.UMana.reset_UserMana()  
         
         
-
-    def update_user_passcode(self,RUID, passcode):
-        sql = """
-        UPDATE accounts
-        SET Passcode = %s
-        WHERE RUID = %s;
-        """    
-        self.mycursor.execute(sql, (passcode,RUID))
-        self.mydb.commit()
-
-
     def update_prod_protocol(self,oldPlist, NewPlist):
         
         print(NewPlist)
@@ -275,6 +264,15 @@ class dbcont:
             """
             self.mycursor.execute(sql, (uname,email))
             return self.mycursor.fetchone()[0]
+        
+    def update_passcode(self,RUID, passcode):
+        sql = """
+        UPDATE accounts
+        SET Passcode = %s
+        WHERE RUID = %s;
+        """
+        self.mycursor.execute(sql, (passcode,RUID))
+        self.mydb.commit()
             
 if __name__ == '__main__':
     db =dbcont('admin', 123456)
