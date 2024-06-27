@@ -20,12 +20,26 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.db = dbcont('admin', 123456)
         
-        
         self.AProduct_btn.clicked.connect(self.Dlg_add_prod)
         self.Finish_btn.clicked.connect(self.init_add_receipt)
     
     def init_add_receipt(self):
-        
+        rows_list = []
+        for row in range(self.Products_Table.rowCount()):
+            row_data = []
+            for column in range(self.Products_Table.columnCount()):
+                item = self.Products_Table.item(row, column)
+                row_data.append(item.text() if item is not None else '')
+            rows_list.append(row_data)
+            
+        Total = 0
+        for value in rows_list:
+            Total += ( int(value[2]) * int(value[3]) )
+            
+        print(Total)
+        self.db.add_receipt(RefNo= self.RNumber_LE.text(), TPrice= Total, PType= 1 ,
+                            ODate= self.ODate_DE.date().toPyDate(),DDate= self.DDate_DE.date().toPyDate(),
+                            GCashRef= self.GCRef_LE.text(), Plist= rows_list)
         
         pass
     

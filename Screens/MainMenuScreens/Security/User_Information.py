@@ -5,6 +5,7 @@ from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 import datetime
 
 from Database.DBController import dbcont
+from Database.User_Manager import UserMana
 
 from .Dialogs.DLog_UpdateUserDetails import DLG_Edit_User
 from Dialogs.DLog_Alert import DLG_Alert
@@ -14,6 +15,9 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 class User_Information_Window(QMainWindow, Ui_MainWindow):
     back_btnsgl = QtCore.pyqtSignal()
     
+    User = UserMana()
+    db = dbcont()
+    
     shown_user = None
     namelist = None
     selectedIndex = None
@@ -21,14 +25,18 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(User_Information_Window,self).__init__()
         self.setupUi(self)
-        
-        self.db = dbcont('admin', '123456')
-        self.back_btn.clicked.connect(self.prev_window)
-        
+
         self.createlist()
+        
+
+        self.back_btn.clicked.connect(self.prev_window)
         self.accountList.clicked.connect(self.list_clicked)
         
         self.Edit_btn.clicked.connect(self.init_edit_protocol)
+        
+    def set_CU_details(self):
+        self.CULevel_L.setText(self.db.get_id_value(id= self.User.Level, level=True))
+        self.CUName_L.setText(self.User.User)
         
     def init_edit_protocol(self):
         

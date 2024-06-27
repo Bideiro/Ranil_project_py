@@ -3,11 +3,19 @@ from Database.User_Manager import UserMana
 
 # from User_Manager import UserMana
 
-class dbcont:
+class dbcont(object):
     
+    _instance = None
     UMana = UserMana()
     
-    def __init__(self, user,passwd):
+    def __new__(cls, *args, **kwargs):
+        if cls._instance == None:
+            cls._instance = super(dbcont, cls).__new__(cls)
+        return cls._instance
+    
+    def __init__(self, user = None,passwd = None):
+        if not hasattr(self,'initialized'):
+            self.initialized = True
         self.user = user
         self.passwd = passwd
         self.mydb = mysql.connector.connect(
@@ -77,7 +85,6 @@ class dbcont:
             return listed
         
     def get_user_creds(self, User = None, Passcode = None, colint = None, Fname = None , Lname = None):
-        print('db cont')
         print(Fname + Lname)
         if User != None and Passcode != None:
             sql = 'SELECT * FROM accounts'
@@ -105,11 +112,11 @@ class dbcont:
     def get_all_prod(self, inv = None , trans = None):
         
         if inv:
-            sql = "SELECT RPID, ProductName,SellingPrice, Stock, ExpirationDate, Description, UnitTypeID, CategoryID FROM products"
+            sql = "SELECT RPID, ProductName,SellingPrice, TotalStock, ExpirationDate, Description, UnitTypeID, CategoryID FROM products"
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
         else:
-            sql = "SELECT RPID , ProductName, SellingPrice, Stock, ExpirationDate FROM products"
+            sql = "SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products"
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
         
@@ -125,12 +132,12 @@ class dbcont:
         
         if inv:
             sql = """
-                    SELECT ProductID, ProductName, SellingPrice, Stock, ExpirationDate, Description, UnitTypeID, CategoryID FROM products
+                    SELECT ProductID, ProductName, SellingPrice, TotalStock, ExpirationDate, Description, UnitTypeID, CategoryID FROM products
                     WHERE ProductID LIKE %s
                     OR ProductName LIKE %s
                     OR SellingPrice LIKE %s
                     OR ExpirationDate LIKE %s
-                    OR Stock LIKE %s
+                    OR TotalStock LIKE %s
                     """
             searchstr = '%' + searchstr + '%'
             val = (searchstr,searchstr,searchstr,searchstr,searchstr)
@@ -138,12 +145,12 @@ class dbcont:
             return self.mycursor.fetchall()
         elif trans:
             sql = """
-                    SELECT ProductID, ProductName, SellingPrice, Stock, ExpirationDate FROM products
+                    SELECT ProductID, ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
                     WHERE ProductID LIKE %s
                     OR ProductName LIKE %s
                     OR SellingPrice LIKE %s
                     OR ExpirationDate LIKE %s
-                    OR Stock LIKE %s
+                    OR TotalStock LIKE %s
                     """
             searchstr = '%' + searchstr + '%'
             val = (searchstr,searchstr,searchstr,searchstr,searchstr)
@@ -151,7 +158,7 @@ class dbcont:
             return self.mycursor.fetchall()
         elif id:
             sql = """
-                    SELECT RPID, ProductName, SellingPrice, Stock, ExpirationDate FROM products
+                    SELECT RPID, ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
                     WHERE RPID LIKE %s
                     """
             self.mycursor.execute(sql,(searchstr,))
@@ -181,18 +188,56 @@ class dbcont:
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
+    def add_receipt(self,RefNo, TPrice ,ODate, DDate, PType, Plist, GCashRef = None):
+        
+        sql = """INSERT INTO supplier_receipts (User, ReceiptRef, TotalPrice, PaymentTypeID, OrderDate, DeliveryDate, GCashRef)
+                VALUES (%s,%s,%s,%s,%s,%s,%s)"""
+        val = ('dei', RefNo, TPrice, PType, ODate, DDate, GCashRef)
+        self.mycursor.execute(sql,val)
+        self.mydb.commit()
+        
+        self.add_supplied_products(RefNo= RefNo, DDate= DDate, Plist= Plist)
+        
+        
+    def add_inven(self, RPID, Quantity):
+        
+        sql ="""SELECT TotalStock FROM products
+                WHERE RPID = %s
+            """
+        self.mycursor.execute(sql,(RPID,))
+        
+        passtock = self.mycursor.fetchone()[0]
+        newstock = int(passtock) + int(Quantity)
+        sql = """
+                UPDATE products SET TotalStock = %s
+                WHERE RPID = %s
+            """
+        self.mycursor.execute(sql,(newstock,RPID))
+        self.mydb.commit()
+        
+        sql ="""SELECT * FROM products"""
+        self.mycursor.execute(sql)
+        print(self.mycursor.fetchall())
+        
+    def add_supplied_products(self,RefNo,DDate, Plist):
+        
+        sql = """INSERT INTO products_supplied (ProductID, SupplierReceiptID, Quantity, StartingQuantity, Date, CostPrice)
+                VALUES (%s,%s,%s,%s,%s,%s)"""
+        for prod in Plist:
+            val = (prod[0], RefNo, prod[3], prod[3],DDate, prod[2])
+            self.mycursor.execute(sql,val)
+            self.mydb.commit()
+            self.add_inven(prod[0],prod[3])
+        
     def update_user_protocol(self,UID, NewUlist):
-        print('dbcont')
         sql = """
         UPDATE accounts
         SET LevelID = %s, RUID = %s, Uname = %s, Fname = %s, Lname = %s, SexID = %s, Phono = %s, Email = %s, Position = %s, HireDate = %s, Birthdate = %s, Address = %s
         WHERE UID = %s;
         """
         self.mycursor.execute(sql,NewUlist + UID)
-        print('execute')
         self.mydb.commit()
-        
-        print(self.get_all_names())
+
         
     def update_prod_protocol(self,RPID, NewPlist ):
         
@@ -234,11 +279,6 @@ class dbcont:
         else:
             unit_id = typeID + '-' + id
             return unit_id
-        
-        
-    def log_out(self):
-        self.UMana.reset_UserMana()  
-        
     
     def get_RUID_user(self, uname ,email,check = None):
         if check:

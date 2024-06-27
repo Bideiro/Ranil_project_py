@@ -1,13 +1,15 @@
 import sys
 from PyQt5 import QtWidgets
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
-from PyQt5 import QtGui
+
+from Database.User_Manager import UserMana
 from Screens.Login import LoginWindow
 from Screens.ForgotPass.ForgotPass import ForgotPassWindow
 from Screens.MainMenu import MainMenuWindow
 
 
 class MainWindow(QtWidgets.QMainWindow):
+    
+    User = UserMana()
     def __init__(self):
         super(MainWindow, self).__init__()
 
@@ -33,6 +35,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.MainStack.addWidget(self.MainMenu)
 
         # Connecting signals
+        
+        self.MainMenu.log_out_btnsgl.connect(self.Log_out_protocol)
         # Singals "TO" widgets
 
         self.Login.forgot.connect(
@@ -47,6 +51,12 @@ class MainWindow(QtWidgets.QMainWindow):
         )
 
         self.show()
+        
+    def Log_out_protocol(self):
+        self.User.reset_UserMana()
+        self.Login.userLE.clear()
+        self.Login.passwordLE.clear()
+        self.MainStack.setCurrentWidget(self.Login)
 
     def Login_protocol(self):
         print("Login Attempt")

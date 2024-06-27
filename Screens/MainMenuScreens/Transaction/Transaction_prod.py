@@ -64,6 +64,10 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
             for column_number, data in enumerate(row_data):
                 self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         
+    def clean_sprod_table(self):
+        self.SProdConfirmed =[]
+        self.SProducts_Table.setRowCount(0)
+        
     def current_prod_reset(self):
         self.PName_L.setText(None)
         self.RUID_L.setText(None)
@@ -106,10 +110,19 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
             self.StableRPID.discard(RPID_item.text())
             print(self.StableRPID)
             
+            for item in self.SProdConfirmed[:]:  # Iterate over a copy of the list
+                if item[0] == RPID_item:
+                    print('removed')
+                    print(item)
+                    self.SProdConfirmed.remove(item)
+
+            print( self.SProdConfirmed)
+            
             self.SProducts_Table.removeRow(self.SprodRow)
             self.SprodRow = None
             self.current_prod_reset()
         else:
+            print( self.SProdConfirmed)
             Dlg = DLG_Alert(msg='No Selected Product in order list!')
             Dlg.exec()
         
@@ -153,6 +166,7 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
             print(f"Item '{search_text}' not found.")
 
     def confirmed_order(self):
+        self.SProdConfirmed = []
         for row in range(self.SProducts_Table.rowCount()):
             row_data = []
             for col in range(self.SProducts_Table.columnCount()):
@@ -164,4 +178,16 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
             self.SProdConfirmed.append(row_data)
             
             print(self.SProdConfirmed)
-        self.Done_btnsgl.emit()
+        
+        hasamount = True
+        for data in self.SProdConfirmed:
+            if int(data[2]) == 0:
+                Dlg = DLG_Alert(msg= f'Item: {data[1]} has no amount!')
+                Dlg.exec()
+                hasamount = False
+        if hasamount:
+            if self.SProdConfirmed == []:
+                Dlg = DLG_Alert(msg='No selected products!')
+                Dlg.exec()
+            else:
+                self.Done_btnsgl.emit()

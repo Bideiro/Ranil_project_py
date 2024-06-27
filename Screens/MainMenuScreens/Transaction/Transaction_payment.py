@@ -9,34 +9,36 @@ from Dialogs.DLog_Alert import DLG_Alert
 class Payment_Window(QMainWindow, Ui_MainWindow):
     
     cancel_btnsgl = QtCore.pyqtSignal()
+    db = dbcont()
     
-    
-    def __init__(self,SProdList):
+    def __init__(self,SProdList = None):
         super(Payment_Window,self).__init__()
         self.prodlist = None
         self.setupUi(self)
-        self.prodlist = SProdList
         
+        if SProdList == None:
+            self.prodlist = []
+        else:
+            self.prodlist = SProdList
         
-        self.db = dbcont('admin', 123456)
-        
-        # self.Home_btn.clicked.connect(self.get_totalprice)
+        self.Home_btn.clicked.connect(lambda: print(self.prodlist))
         self.Cash_btn.clicked.connect(self.set_table_elements)
         self.Cancel_btn.clicked.connect(self.clean_screen)
         self.CDiscount_btn.clicked.connect(self.set_totalprice)
+        
     def clean_screen(self):
-        self.Product_Table.clear()
-        self.TPrice_L.setText(0)
-        self.Discount_L.setText(0)
+        self.Product_Table.setRowCount(0)
+        self.TPrice_L.setText('0')
+        self.Discount_LE.setText('0')
         self.prev_window()
         
-    
     def prev_window(self):
         self.cancel_btnsgl.emit()
 
     def init_screen(self):
         self.set_totalprice()
         self.set_table_elements()
+        print(self.prodlist)
     
     def set_totalprice(self):
         totalprice = 0

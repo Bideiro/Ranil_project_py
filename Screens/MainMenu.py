@@ -30,8 +30,13 @@ from .MainMenuScreens.Reports.Reports_1 import Reports_1_Window
 from .MainMenuScreens.About import AboutWindow
 
 from Database.DBController import dbcont
+from Database.User_Manager import UserMana
 from PyQt5 import QtWidgets, QtGui, QtCore
 class MainMenuWindow( QMainWindow, Ui_MainWindow):
+    
+    log_out_btnsgl = QtCore.pyqtSignal()
+    User = UserMana()
+    db = dbcont()
     
     def __init__(self):
         super(MainMenuWindow,self).__init__()
@@ -52,7 +57,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.Sales = Sales_Window()
         
         self.Trans_prod = Trans_prod_Window()
-        self.Payment = Payment_Window(SProdList= self.Trans_prod.SProdConfirmed)
+        self.Payment = Payment_Window()
         
         self.Inven = Inventory_Window()
         
@@ -116,8 +121,8 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         # Sales Buttons
         
         # Transaction Buttons
-        self.Trans_prod.Done_btnsgl.connect(lambda: self.init_confirmed_payment())
-        
+        self.Trans_prod.Done_btnsgl.connect(self.init_confirmed_payment)
+        self.Payment.cancel_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Trans_prod))
         
         # Records Buttons
         self.Records_1.SReciepts_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
@@ -126,8 +131,28 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
         # Help Buttons
         
+        #Log Out
+        self.log_out_sdbtn.clicked.connect(self.init_log_out)
+        
+    def init_log_out(self):
+        self.security_sdbtn.setChecked(False)
+        self.registration_sdbtn.setChecked(False)
+        self.sales_sdbtn.setChecked(False)
+        self.transaction_sdbtn.setChecked(False)
+        self.inventory_sdbtn.setChecked(False)
+        self.records_sdbtn.setChecked(False)
+        self.reports_sdbtn.setChecked(False)
+        self.maintenance_sdbtn.setChecked(False)
+        self.about_sdbtn.setChecked(False)
+        self.help_sdbtn.setChecked(False)
+
+        self.stackedWidget.setCurrentWidget(self.Home)
+        self.log_out_btnsgl.emit()
+        
     def init_confirmed_payment(self):
+        self.Payment.prodlist = self.Trans_prod.SProdConfirmed
         self.Payment.init_screen()
+        print('done buton pressed')
         self.stackedWidget.setCurrentWidget(self.Payment)
     
     
@@ -135,6 +160,8 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     # Functions changing windows
     
     def on_security_sdbtn_clicked(self):
+        self.User_Info.CUName_L.setText(self.User.User)
+        self.User_Info.CULevel_L.setText(self.db.get_id_value(id= self.User.Level, level=True))
         self.stackedWidget.setCurrentWidget(self.Secu_1)
         
     def on_registration_sdbtn_clicked(self):
@@ -147,6 +174,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.about)
         
     def on_inventory_sdbtn_clicked(self):
+        self.Inven.set_tableElements()
         self.stackedWidget.setCurrentWidget(self.Inven)
         
     def on_maintenance_sdbtn_clicked(self):
@@ -163,13 +191,3 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
     def on_transaction_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.Trans_prod)
-        
-        
-    # Registration
-    
-    
-    # @pyqtSlot()
-    # def on_forgotpass_btn_clicked(self):
-    #     print("forgot")
-    #     self.forgot.emit()
-        

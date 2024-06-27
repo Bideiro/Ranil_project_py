@@ -12,13 +12,18 @@ class UserMana(object):
     def __init__(self):
         if not hasattr(self,'initialized'):
             self.initialized = True
+        self.UID = None
+        self.User = None
+        self.Pass = None
+        self.Level = None
             
     def reset_UserMana(cls):
-        cls._instance.UID = None
-        cls._instance.User = None
-        cls._instance.Pass = None
-        cls._instance.Level = None
-        cls._instance = None
+        if cls._instance:
+            cls._instance.UID = None
+            cls._instance.User = None
+            cls._instance.Pass = None
+            cls._instance.Level = None
+            cls._instance = None
         
     def set_user(self, UID, User, Pass,Level):
         self.UID = UID

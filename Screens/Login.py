@@ -5,6 +5,7 @@ from PyQt5.QtGui import QIntValidator
 
 from .Login_ui import Ui_MainWindow
 from Database.DBController import dbcont
+from Database.User_Manager import UserMana
 from PyQt5 import QtWidgets, QtGui, QtCore
 class LoginWindow(QMainWindow, Ui_MainWindow):
 
@@ -16,7 +17,6 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(LoginWindow,self).__init__()
         self.setupUi(self)
-        
         self.userLE.setFocus()
         self.onlyInt = QIntValidator()
         self.passwordLE.setMaxLength(6)
