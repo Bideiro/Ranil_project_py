@@ -32,12 +32,8 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         
         self.Edit_btn.clicked.connect(self.init_edit_protocol)
         
-    def set_CU_details(self):
-        self.CULevel_L.setText(self.db.get_levels(id= self.User.Level))
-        self.CUName_L.setText(self.User.User)
-        
+    
     def init_edit_protocol(self):
-        
         if self.shown_user:
             Dlg = DLG_Edit_User( Ulist= self.shown_user)
             Dlg.exec()
@@ -49,13 +45,16 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
                         Dlg.DHired_DE.date().toPyDate(), Dlg.BDate_DE.date().toPyDate(),
                         Dlg.Address_LE.text()]
                 UID = [self.shown_user[0]]
-                print(self.shown_user[0])
                 self.db.update_user_protocol(UID , newUlist)
                 self.createlist()
                 self.reset_values()
         else:
             Dlg = DLG_Alert(msg='Select a User first!')
             Dlg.exec()
+            
+    def set_CU_details(self):
+        self.CULevel_L.setText(self.db.get_levels(id= self.User.Level))
+        self.CUName_L.setText(self.User.User)
         
     def createlist(self):
         self.accountList.clear()
@@ -67,12 +66,12 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         self.accountList.update()
 
     def list_clicked(self):
-        self.selectedIndex = self.accountList.currentIndex() #FIX
-        selected_item = self.accountList.currentRow()# Get the currently selected item
+        selected_item = self.accountList.currentRow()
         UserCreds = self.db.get_user_creds(Fname= self.namelist[selected_item][0], Lname= self.namelist[selected_item][1])
         
         print(UserCreds)
         self.Name_L.setText(self.accountList.currentItem().text())
+        self.SUID_L.setText(UserCreds[2])
         self.ULevel_L.setText(self.db.get_levels(id=UserCreds[1]))
         self.Email_L.setText(UserCreds[9])
         self.BDay_L.setText(UserCreds[12].strftime("%B %d, %Y"))

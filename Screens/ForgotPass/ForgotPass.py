@@ -76,7 +76,7 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
             print(f"Error: {e}")
 
     def showResetPassWindow(self):
-        Dlg_ConfirmPass = DLG_AdminPass()
+        Dlg_ConfirmPass = DLG_CheckPass()
         Dlg_ConfirmPass.exec()
         if Dlg_ConfirmPass.result() == 1:
             self.RUID = self.db.get_RUID_user(uname=self.user_LE.text(), email= self.email_LE.text())

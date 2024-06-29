@@ -7,33 +7,56 @@
     <x>0</x>
     <y>0</y>
     <width>950</width>
-    <height>687</height>
+    <height>487</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">.QWidget{
+background-color: #F8F8F0;
+}
+
+.QPushButton{
+background-color: #096033;
+border: 2px solid;
+color: white
+}
+#search_LE{
+border : 1px solid gray;
+color: black
+}
+#Product_Table{
+border : 2px solid #ABE27D;
+}</string>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
+    <property name="spacing">
+     <number>0</number>
+    </property>
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QWidget" name="widget" native="true">
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
         <widget class="QWidget" name="widget_2" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item>
-           <widget class="Line" name="line">
-            <property name="lineWidth">
-             <number>5</number>
-            </property>
-            <property name="midLineWidth">
-             <number>5</number>
-            </property>
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-           </widget>
-          </item>
+          <property name="leftMargin">
+           <number>12</number>
+          </property>
           <item>
            <widget class="QLabel" name="label">
             <property name="sizePolicy">
@@ -44,9 +67,8 @@
             </property>
             <property name="font">
              <font>
-              <family>DM Sans 14pt SemiBold</family>
-              <pointsize>15</pointsize>
-              <weight>75</weight>
+              <family>DM Sans</family>
+              <pointsize>24</pointsize>
               <bold>true</bold>
              </font>
             </property>
@@ -56,23 +78,20 @@
            </widget>
           </item>
           <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
+           <widget class="QLineEdit" name="search_LE">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
             </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
+            <property name="minimumSize">
              <size>
-              <width>40</width>
-              <height>20</height>
+              <width>400</width>
+              <height>30</height>
              </size>
             </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QLineEdit" name="search_LE"/>
+           </widget>
           </item>
           <item>
            <spacer name="horizontalSpacer_4">
@@ -92,15 +111,49 @@
           </item>
           <item>
            <widget class="QPushButton" name="Search_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Search</string>
+             <string>SEARCH</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="Refresh_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Refresh</string>
+             <string>REFRESH</string>
             </property>
            </widget>
           </item>
@@ -108,112 +161,171 @@
         </widget>
        </item>
        <item>
-        <widget class="QTableWidget" name="Product_Table">
-         <property name="enabled">
-          <bool>true</bool>
-         </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <property name="font">
-          <font>
-           <family>DM Sans 14pt ExtraBold</family>
-           <weight>75</weight>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Plain</enum>
-         </property>
-         <property name="lineWidth">
-          <number>0</number>
-         </property>
-         <property name="sizeAdjustPolicy">
-          <enum>QAbstractScrollArea::AdjustToContents</enum>
-         </property>
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="showGrid">
-          <bool>true</bool>
-         </property>
-         <property name="gridStyle">
-          <enum>Qt::SolidLine</enum>
-         </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
-         <attribute name="horizontalHeaderVisible">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="horizontalHeaderHighlightSections">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="horizontalHeaderMinimumSectionSize">
-          <number>32</number>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="verticalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderMinimumSectionSize">
-          <number>24</number>
-         </attribute>
-         <attribute name="verticalHeaderStretchLastSection">
-          <bool>false</bool>
-         </attribute>
-         <column>
-          <property name="text">
-           <string>Product ID</string>
-          </property>
-          <property name="background">
-           <color>
-            <red>42</red>
-            <green>114</green>
-            <blue>222</blue>
-           </color>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Product Name</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Price</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Stock</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Expiration Date</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Description</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Unit Type</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Category</string>
-          </property>
-         </column>
+        <widget class="QWidget" name="widget_4" native="true">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="QTableWidget" name="Product_Table">
+            <property name="enabled">
+             <bool>true</bool>
+            </property>
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans 14pt ExtraBold</family>
+              <bold>false</bold>
+             </font>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Plain</enum>
+            </property>
+            <property name="lineWidth">
+             <number>0</number>
+            </property>
+            <property name="sizeAdjustPolicy">
+             <enum>QAbstractScrollArea::AdjustToContents</enum>
+            </property>
+            <property name="editTriggers">
+             <set>QAbstractItemView::NoEditTriggers</set>
+            </property>
+            <property name="alternatingRowColors">
+             <bool>true</bool>
+            </property>
+            <property name="showGrid">
+             <bool>true</bool>
+            </property>
+            <property name="gridStyle">
+             <enum>Qt::SolidLine</enum>
+            </property>
+            <property name="sortingEnabled">
+             <bool>true</bool>
+            </property>
+            <attribute name="horizontalHeaderVisible">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="horizontalHeaderCascadingSectionResizes">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="horizontalHeaderMinimumSectionSize">
+             <number>32</number>
+            </attribute>
+            <attribute name="horizontalHeaderHighlightSections">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="horizontalHeaderStretchLastSection">
+             <bool>true</bool>
+            </attribute>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <attribute name="verticalHeaderMinimumSectionSize">
+             <number>24</number>
+            </attribute>
+            <attribute name="verticalHeaderStretchLastSection">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Product ID</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="background">
+              <color>
+               <red>42</red>
+               <green>114</green>
+               <blue>222</blue>
+              </color>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Product Name</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <bold>true</bold>
+              </font>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Category</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <bold>true</bold>
+              </font>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Unit Type</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <bold>true</bold>
+              </font>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Selling Price</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <bold>true</bold>
+              </font>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Expiration Date</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <bold>true</bold>
+              </font>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Stock</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <bold>true</bold>
+              </font>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Description</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <bold>true</bold>
+              </font>
+             </property>
+            </column>
+           </widget>
+          </item>
+         </layout>
         </widget>
        </item>
       </layout>

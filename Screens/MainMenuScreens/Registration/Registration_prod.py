@@ -2,12 +2,13 @@ import sys
 from PyQt5.QtWidgets import QMainWindow, QWidget
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 from PyQt5.QtGui import QIntValidator
-
 from .Registration_prod_ui import Ui_MainWindow
+
 from Dialogs.DLog_Alert import DLG_Alert
+from Dialogs.DLog_ImputAdminPass import DLG_AdminCheckPass
+
 from Database.DBController import dbcont
 from Database.App_functions import check_prod_validity
-
 
 from PyQt5 import QtWidgets, QtGui, QtCore
 class Registration_prod_Window(QMainWindow, Ui_MainWindow):
@@ -46,11 +47,14 @@ class Registration_prod_Window(QMainWindow, Ui_MainWindow):
         
     def confirmed_reg(self):
         
-        self.db.reg_prod_protocol(Pname = self.PName_LE.text(), Sprice=self.SPrice_LE.text(),
-                            Utype= self.UType_CB.currentIndex(),Ctype= self.CType_CB.currentIndex(),
-                            desc=self.desc_LE.text()
-                            )
+        Dlg = DLG_AdminCheckPass()
+        Dlg.exec()
         
-        dlg = DLG_Alert()
-        dlg.exec()
-        self.back_btnsgl.emit()
+        if Dlg.result() == 1:
+            self.db.reg_prod_protocol(Pname = self.PName_LE.text(), Sprice=self.SPrice_LE.text(),
+                                Utype= self.UType_CB.currentIndex(),Ctype= self.CType_CB.currentIndex(),
+                                desc=self.desc_LE.text()
+                                )
+            dlg = DLG_Alert()
+            dlg.exec()
+            self.back_btnsgl.emit()

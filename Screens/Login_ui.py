@@ -111,6 +111,7 @@ class Ui_MainWindow(object):
         self.passwordLE.setSizePolicy(sizePolicy)
         self.passwordLE.setMinimumSize(QtCore.QSize(0, 35))
         self.passwordLE.setFocusPolicy(QtCore.Qt.ClickFocus)
+        self.passwordLE.setEchoMode(QtWidgets.QLineEdit.Password)
         self.passwordLE.setObjectName("passwordLE")
         self.formLayout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.passwordLE)
         self.userLE = QtWidgets.QLineEdit(self.widget_3)

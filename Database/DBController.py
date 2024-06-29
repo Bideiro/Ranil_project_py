@@ -133,8 +133,8 @@ class dbcont(object):
         else:
             print('No Arguements! (Get Unit Type)')
         
+    # Getting User Data
     def get_user_creds(self, User = None, Passcode = None, colint = None, Fname = None , Lname = None):
-        print(Fname + Lname)
         if User != None and Passcode != None:
             sql = 'SELECT * FROM accounts'
             self.mycursor.execute(sql)
@@ -158,6 +158,7 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
         
+    # Getting Product Data
     def get_all_prod(self, inv = None , trans = None):
         
         if inv:
@@ -417,8 +418,7 @@ class dbcont(object):
         """
         self.mycursor.execute(sql, (passcode,RUID))
         self.mydb.commit()
-            
-            
+
     # temp
     def get_all_supp_receipts(self):
         
@@ -470,6 +470,10 @@ class dbcont(object):
                 """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
+    
+    
+    # User log functions
+    
     
 if __name__ == '__main__':
     db =dbcont('admin', 123456)

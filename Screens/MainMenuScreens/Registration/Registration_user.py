@@ -5,7 +5,7 @@ from PyQt5.QtGui import QIntValidator
 
 from .Registration_user_ui import Ui_MainWindow
 from Dialogs.DLog_Alert import DLG_Alert
-from Dialogs.DLog_CheckPasscode import DLG_CheckPass
+from Dialogs.DLog_ImputAdminPass import DLG_AdminCheckPass
 
 from Database.DBController import dbcont
 from Database.App_functions import check_user_validity
@@ -55,9 +55,8 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         
     def confirmed_reg(self):
         
-        Dlg = DLG_CheckPass()
+        Dlg = DLG_AdminCheckPass()
         Dlg.exec()
-        
         if Dlg.result() == 1:
             self.db.reg_user_protocol(LevelID= self.Level_CB.currentIndex(),
                             Uname= self.user_LE.text(),
@@ -72,7 +71,6 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
                             Bdate= self.BDate_DE.date().toPyDate(),
                             address= self.address_LE.text()
                             )
-            
-        succdlg = DLG_Alert()
-        succdlg.exec()
-        self.back_btnsgl.emit()
+            succdlg = DLG_Alert()
+            succdlg.exec()
+            self.back_btnsgl.emit()
