@@ -37,9 +37,9 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
 
-                if column_number == 6:
+                if column_number == 3:
                     data = self.db.get_unittype(id= data)
-                if column_number == 7:
+                if column_number == 2:
                     data = self.db.get_cate(id= data)
                 self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
     
@@ -53,15 +53,13 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         #Populate table with search result
         if searchResult:
             self.Product_Table.setRowCount(len(searchResult))
-            print(len(searchResult))
-            print(searchResult)
             for row_number, row_data in enumerate(searchResult):
                 self.Product_Table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    if column_number == 6:
-                        data = self.db.get_id_value(id= data, unit= True)
-                    if column_number == 7:
-                        data = self.db.get_id_value(id= data, cate= True)
+                    if column_number == 3:
+                        data = self.db.get_unittype(id= data)
+                    if column_number == 2:
+                        data = self.db.get_cate(id= data)
                     self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
             print('Error')
@@ -78,7 +76,6 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
                 prod_values.append(cell_item.text())
             else:
                 prod_values.append('')
-        print(prod_values)
         Dlg = DLG_Edit_Prod(Plist= prod_values)
         Dlg.exec()
         if Dlg.result() == 1:

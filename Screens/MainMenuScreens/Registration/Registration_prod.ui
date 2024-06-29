@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1076</width>
-    <height>561</height>
+    <width>970</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="font">
@@ -24,13 +24,17 @@
    <property name="styleSheet">
     <string notr="true">#centralwidget{background-color: rgb(255, 255, 255);}
 
-.QLabel{
-	font: 700 12pt &quot;DM Sans&quot;;
+#Desc_PTE{
+border : 2px solid #096033;
+background-color:rgba(0,0,0,0);
 }
 
-.QComboBox , .QLineEdit{
-	font: 700 9pt &quot;Open Sans&quot;;
-}</string>
+.QComboBox, .QLineEdit, .QPlainTextEdit
+{
+border : 2px solid #096033;
+}
+
+</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_7">
     <item>
@@ -41,7 +45,7 @@
          <property name="font">
           <font>
            <family>DM Sans</family>
-           <pointsize>12</pointsize>
+           <pointsize>24</pointsize>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -55,23 +59,10 @@
      </widget>
     </item>
     <item>
-     <spacer name="verticalSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item>
      <widget class="QWidget" name="widget_10" native="true">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
       <layout class="QHBoxLayout" name="horizontalLayout_4">
        <item>
         <spacer name="horizontalSpacer_2">
@@ -130,7 +121,7 @@ color: white;
           <item>
            <widget class="QWidget" name="widget_2" native="true">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -153,7 +144,7 @@ border: 2px solid #096033;
                <property name="font">
                 <font>
                  <family>DM Sans</family>
-                 <pointsize>12</pointsize>
+                 <pointsize>15</pointsize>
                  <italic>false</italic>
                  <bold>true</bold>
                 </font>
@@ -219,7 +210,7 @@ border: 2px solid #096033;
                      <property name="font">
                       <font>
                        <family>DM Sans</family>
-                       <pointsize>12</pointsize>
+                       <pointsize>13</pointsize>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -245,10 +236,10 @@ border: 2px solid #096033;
                      </property>
                      <property name="font">
                       <font>
-                       <family>Open Sans</family>
+                       <family>DM Sans</family>
                        <pointsize>9</pointsize>
                        <italic>false</italic>
-                       <bold>true</bold>
+                       <bold>false</bold>
                       </font>
                      </property>
                      <property name="text">
@@ -264,7 +255,7 @@ border: 2px solid #096033;
                      <property name="font">
                       <font>
                        <family>DM Sans</family>
-                       <pointsize>12</pointsize>
+                       <pointsize>13</pointsize>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -288,6 +279,12 @@ border: 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                       <pointsize>9</pointsize>
+                      </font>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -302,28 +299,55 @@ border: 2px solid #096033;
                 <item>
                  <widget class="QWidget" name="widget_3" native="true">
                   <property name="styleSheet">
-                   <string notr="true">.QComboBox
-{
-border : 2px solid #096033;
-}
-.QLineEdit{
-border : 2px solid #096033;
-}</string>
+                   <string notr="true"/>
                   </property>
                   <layout class="QVBoxLayout" name="verticalLayout">
                    <item>
-                    <widget class="QLabel" name="label_8">
-                     <property name="font">
-                      <font>
-                       <family>DM Sans</family>
-                       <pointsize>12</pointsize>
-                       <italic>false</italic>
-                       <bold>true</bold>
-                      </font>
-                     </property>
-                     <property name="text">
-                      <string>UNIT TYPE:</string>
-                     </property>
+                    <widget class="QWidget" name="widget_11" native="true">
+                     <layout class="QHBoxLayout" name="horizontalLayout_3">
+                      <property name="leftMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>0</number>
+                      </property>
+                      <item>
+                       <widget class="QLabel" name="label_8">
+                        <property name="font">
+                         <font>
+                          <family>DM Sans</family>
+                          <pointsize>13</pointsize>
+                          <italic>false</italic>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>UNIT TYPE:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="UAdd_btn">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <pointsize>10</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>ADD</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
                     </widget>
                    </item>
                    <item>
@@ -340,16 +364,61 @@ border : 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
                      <property name="placeholderText">
-                      <string>UNDEFINED</string>
+                      <string/>
                      </property>
                     </widget>
                    </item>
                    <item>
-                    <widget class="QLabel" name="label_6">
-                     <property name="text">
-                      <string>CATEGORY:</string>
-                     </property>
+                    <widget class="QWidget" name="widget_12" native="true">
+                     <layout class="QHBoxLayout" name="horizontalLayout_5">
+                      <property name="leftMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="topMargin">
+                       <number>0</number>
+                      </property>
+                      <property name="bottomMargin">
+                       <number>0</number>
+                      </property>
+                      <item>
+                       <widget class="QLabel" name="label_6">
+                        <property name="font">
+                         <font>
+                          <family>DM Sans</family>
+                          <pointsize>13</pointsize>
+                          <bold>true</bold>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>CATEGORY:</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QPushButton" name="CAdd_btn">
+                        <property name="sizePolicy">
+                         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                          <horstretch>0</horstretch>
+                          <verstretch>0</verstretch>
+                         </sizepolicy>
+                        </property>
+                        <property name="font">
+                         <font>
+                          <pointsize>10</pointsize>
+                         </font>
+                        </property>
+                        <property name="text">
+                         <string>ADD</string>
+                        </property>
+                       </widget>
+                      </item>
+                     </layout>
                     </widget>
                    </item>
                    <item>
@@ -368,14 +437,11 @@ border : 2px solid #096033;
                      </property>
                      <property name="font">
                       <font>
-                       <family>Open Sans</family>
+                       <family>DM Sans</family>
                        <pointsize>9</pointsize>
                        <italic>false</italic>
-                       <bold>true</bold>
+                       <bold>false</bold>
                       </font>
-                     </property>
-                     <property name="placeholderText">
-                      <string>Ex: Dog Food</string>
                      </property>
                      <property name="frame">
                       <bool>true</bool>
@@ -393,33 +459,23 @@ border : 2px solid #096033;
                <layout class="QVBoxLayout" name="verticalLayout_8">
                 <item>
                  <widget class="QLabel" name="label_5">
+                  <property name="font">
+                   <font>
+                    <family>DM Sans</family>
+                    <pointsize>13</pointsize>
+                    <italic>false</italic>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>DESCRIPTION:</string>
                   </property>
                  </widget>
                 </item>
                 <item>
-                 <widget class="QLineEdit" name="desc_LE">
-                  <property name="sizePolicy">
-                   <sizepolicy hsizetype="Expanding" vsizetype="MinimumExpanding">
-                    <horstretch>0</horstretch>
-                    <verstretch>0</verstretch>
-                   </sizepolicy>
-                  </property>
-                  <property name="minimumSize">
-                   <size>
-                    <width>25</width>
-                    <height>35</height>
-                   </size>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-                  </property>
+                 <widget class="QPlainTextEdit" name="Desc_PTE">
                   <property name="placeholderText">
-                   <string>A food for Dogs.</string>
-                  </property>
-                  <property name="clearButtonEnabled">
-                   <bool>false</bool>
+                   <string>A food for dogs.</string>
                   </property>
                  </widget>
                 </item>
@@ -440,7 +496,7 @@ border : 2px solid #096033;
                   <property name="font">
                    <font>
                     <family>DM Sans</family>
-                    <pointsize>12</pointsize>
+                    <pointsize>13</pointsize>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -479,7 +535,7 @@ border : 2px solid #096033;
                   <property name="font">
                    <font>
                     <family>DM Sans</family>
-                    <pointsize>12</pointsize>
+                    <pointsize>13</pointsize>
                     <italic>false</italic>
                     <bold>true</bold>
                    </font>
@@ -513,22 +569,6 @@ border : 2px solid #096033;
        </item>
       </layout>
      </widget>
-    </item>
-    <item>
-     <spacer name="verticalSpacer_2">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>40</height>
-       </size>
-      </property>
-     </spacer>
     </item>
    </layout>
   </widget>

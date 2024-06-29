@@ -7,15 +7,12 @@ from Dialogs.DLog_Oneline_Input_ui import Ui_Dialog
 from Dialogs.DLog_Alert import DLG_Alert
 class DLG_Oneline_Input(QDialog, Ui_Dialog):
     
-    def __init__(self,msg = None,parent = None):
+    def __init__(self,msg,parent = None):
         super().__init__(parent)
         
         self.setupUi(self)
-        if msg == None:
-            self.alertmsg = 'Input:'
-        else:
-            self.alertmsg = msg
-        self.label.setText(self.alertmsg)
+
+        self.label.setText(msg)
         self.Confirm_btn.clicked.connect(self.confirm)
         
         # self.setWindowFlags(Qt.Popup)

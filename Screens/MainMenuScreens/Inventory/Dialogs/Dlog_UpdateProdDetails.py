@@ -25,14 +25,16 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
         self.Disable_btn.clicked.connect(self.disable_prod)
         self.setWindowFlags(Qt.FramelessWindowHint)
         
-        self.Unit_CB.addItems(self.db.get_id_value(unit=True))
-        self.Cat_CB.addItems(self.db.get_id_value(cate= True))
+        self.Unit_CB.addItems(self.db.get_unittype(all=True))
+        self.Cat_CB.addItems(self.db.get_cate(all= True))
         
         self.PName_LE.setText(Plist[1])
-        self.Desc_LE.setText(Plist[5])
-        self.SPrice_LE.setText(Plist[2])
-        self.Unit_CB.setCurrentIndex(self.db.get_id_value(value= Plist[6],unit=True))
-        self.Cat_CB.setCurrentIndex(self.db.get_id_value(value= Plist[7],cate=True))
+        self.Desc_PTE.setText(Plist[7])
+        self.SPrice_LE.setText(Plist[4])
+        self.Unit_CB.setCurrentIndex(self.db.get_unittype(value= Plist[3]))
+        self.Cat_CB.setCurrentIndex(self.db.get_cate(value= Plist[2]))
+        
+        
     def disable_prod(self):
         print('disable button clicked')
         

@@ -53,7 +53,7 @@ class Registration_prod_Window(QMainWindow, Ui_MainWindow):
         if Dlg.result() == 1:
             self.db.reg_prod_protocol(Pname = self.PName_LE.text(), Sprice=self.SPrice_LE.text(),
                                 Utype= self.UType_CB.currentIndex(),Ctype= self.CType_CB.currentIndex(),
-                                desc=self.desc_LE.text()
+                                desc=self.Desc_PTE.text()
                                 )
             dlg = DLG_Alert()
             dlg.exec()

@@ -158,25 +158,17 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
         
-    # Getting Product Data
+    # Getting Product Data( Inventory )
     def get_all_prod(self, inv = None , trans = None):
         
         if inv:
-            sql = "SELECT RPID, ProductName,SellingPrice, TotalStock, ExpirationDate, Description, UnitTypeID, CategoryID FROM products"
+            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products"
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
         else:
             sql = "SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products"
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
-        
-    def prod_price(self, id):
-        sql = """
-                    SELECT SellingPrice FROM products
-                    WHERE RPID LIKE %s
-                    """
-        self.mycursor.execute(sql,(id,))
-        return self.mycursor.fetchone()[0]
 
     def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None ):
         
@@ -223,6 +215,14 @@ class dbcont(object):
 
         print("huh")
         return 0
+        
+    def prod_price(self, id):
+        sql = """
+                    SELECT SellingPrice FROM products
+                    WHERE RPID LIKE %s
+                    """
+        self.mycursor.execute(sql,(id,))
+        return self.mycursor.fetchone()[0]
         
     def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
         sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
