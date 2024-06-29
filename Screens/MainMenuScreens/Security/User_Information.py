@@ -27,15 +27,13 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
 
         self.createlist()
-        
-
         self.back_btn.clicked.connect(self.prev_window)
         self.accountList.clicked.connect(self.list_clicked)
         
         self.Edit_btn.clicked.connect(self.init_edit_protocol)
         
     def set_CU_details(self):
-        self.CULevel_L.setText(self.db.get_id_value(id= self.User.Level, level=True))
+        self.CULevel_L.setText(self.db.get_levels(id= self.User.Level))
         self.CUName_L.setText(self.User.User)
         
     def init_edit_protocol(self):
@@ -75,10 +73,10 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         
         print(UserCreds)
         self.Name_L.setText(self.accountList.currentItem().text())
-        self.ULevel_L.setText(self.db.get_id_value(id=UserCreds[1],level=True))
+        self.ULevel_L.setText(self.db.get_levels(id=UserCreds[1]))
         self.Email_L.setText(UserCreds[9])
         self.BDay_L.setText(UserCreds[12].strftime("%B %d, %Y"))
-        self.Sex_L.setText(self.db.get_id_value(id= UserCreds[7], sex = True))
+        self.Sex_L.setText(self.db.get_sex(id= UserCreds[7]))
         self.Phono_L.setText(UserCreds[8])
         self.Pos_L.setText(UserCreds[10])
         self.HDate_L.setText(UserCreds[11].strftime("%B %d, %Y"))

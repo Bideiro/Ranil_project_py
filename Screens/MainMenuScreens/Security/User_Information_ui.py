@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Screens\MainMenuScreens\Security\User_Information.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Security\User_Information.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -63,7 +63,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_17.setObjectName("horizontalLayout_17")
         self.label_16 = QtWidgets.QLabel(self.widget_10)
         self.label_16.setText("")
-        self.label_16.setPixmap(QtGui.QPixmap("c:\\Users\\dei\\Documents\\Programming\\Ranil_projecy_py\\Screens\\MainMenuScreens\\Security\\../../../../../../../../Downloads/ICONS/profile.png"))
+        self.label_16.setPixmap(QtGui.QPixmap("c:\\Users\\dei\\Documents\\Programming\\Ranil_project_py\\Screens\\MainMenuScreens\\Security\\../../../../../../../../Downloads/ICONS/profile.png"))
         self.label_16.setScaledContents(True)
         self.label_16.setObjectName("label_16")
         self.horizontalLayout_17.addWidget(self.label_16)
@@ -131,7 +131,7 @@ class Ui_MainWindow(object):
         self.VUPic_L.setSizePolicy(sizePolicy)
         self.VUPic_L.setMinimumSize(QtCore.QSize(250, 0))
         self.VUPic_L.setText("")
-        self.VUPic_L.setPixmap(QtGui.QPixmap("c:\\Users\\dei\\Documents\\Programming\\Ranil_projecy_py\\Screens\\MainMenuScreens\\Security\\../../../../../../../../Downloads/ICONS/profile.png"))
+        self.VUPic_L.setPixmap(QtGui.QPixmap("c:\\Users\\dei\\Documents\\Programming\\Ranil_project_py\\Screens\\MainMenuScreens\\Security\\../../../../../../../../Downloads/ICONS/profile.png"))
         self.VUPic_L.setScaledContents(True)
         self.VUPic_L.setObjectName("VUPic_L")
         self.horizontalLayout_12.addWidget(self.VUPic_L)
@@ -289,7 +289,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "USER INFORMATION"))
         self.CUIcon_L.setText(_translate("MainWindow", "User Icon"))
         self.CUName_L.setText(_translate("MainWindow", "UserName"))
-        self.label_18.setText(_translate("MainWindow", "User Level:"))
+        self.label_18.setText(_translate("MainWindow", "User Level: "))
         self.CULevel_L.setText(_translate("MainWindow", "None"))
         self.label_20.setText(_translate("MainWindow", "   User Information"))
         self.label_22.setText(_translate("MainWindow", "Full Name: "))

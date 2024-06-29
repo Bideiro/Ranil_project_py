@@ -118,7 +118,7 @@ border: 2px solid #096033;
                 <item>
                  <widget class="QLabel" name="label_18">
                   <property name="text">
-                   <string>User Level:</string>
+                   <string>User Level: </string>
                   </property>
                  </widget>
                 </item>

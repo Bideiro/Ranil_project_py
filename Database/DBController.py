@@ -42,19 +42,19 @@ class dbcont(object):
     # Getting data from Tables
     
     def get_cate(self, value= None, id=None,all = None):
-        if value:
+        if value != None:
             sql = """
                 SELECT CategoryID FROM category WHERE Category = %s
             """
             self.mycursor.execute(sql, (value,))
             return self.mycursor.fetchone()[0]
-        elif id:
+        elif id != None:
             sql = """
                 SELECT category FROM category WHERE CategoryID = %s
             """
             self.mycursor.execute(sql, (id,))
             return self.mycursor.fetchone()[0]
-        elif all:
+        elif all != None:
             sql = """
                 SELECT Category FROM Category ORDER BY CategoryID
             """
@@ -65,20 +65,19 @@ class dbcont(object):
             print('No Arguements! (Get Cate)')
             
     def get_levels(self, value= None, id= None, all= None):
-        
-        if value:
+        if value != None:
             sql = """
                 SELECT LevelID FROM levels WHERE Level = %s
             """
             self.mycursor.execute(sql, (value,))
             return self.mycursor.fetchone()[0]
-        elif id:
+        elif id != None:
             sql = """
                 SELECT Level FROM levels WHERE LevelID = %s
             """
-            self.mycursor.execute(sql, (value,))
+            self.mycursor.execute(sql, (id,))
             return self.mycursor.fetchone()[0]
-        elif all:
+        elif all != None:
             sql = """
                 SELECT Level FROM levels ORDER BY LevelID
             """
@@ -89,19 +88,19 @@ class dbcont(object):
             print('No Arguements! (Get levels)')
             
     def get_sex(self,value= None,id=None, all=None):
-        if value:
+        if value != None:
             sql = """
                 SELECT SexID FROM sex WHERE Sex = %s
             """
             self.mycursor.execute(sql, (value,))
             return self.mycursor.fetchone()[0]
-        elif id:
+        elif id != None:
             sql = """
                 SELECT Sex FROM sex WHERE SexID = %s
             """
-            self.mycursor.execute(sql, (value,))
+            self.mycursor.execute(sql, (id,))
             return self.mycursor.fetchone()[0]
-        elif all:
+        elif all != None:
             sql = """
                 SELECT Sex FROM sex ORDER BY SexID
             """
@@ -112,19 +111,19 @@ class dbcont(object):
             print('No Arguements! (Get sex)')
         
     def get_unittype(self,value=None, id=None, all=None):
-        if value:
+        if value != None:
             sql = """
                 SELECT UnitTypeID FROM unit_type WHERE UnitType = %s
             """
             self.mycursor.execute(sql, (value,))
             return self.mycursor.fetchone()[0]
-        elif id:
+        elif id != None:
             sql = """
                 SELECT UnitType FROM unit_type WHERE UnitTypeID = %s
             """
             self.mycursor.execute(sql, (id,))
             return self.mycursor.fetchone()[0]
-        elif all:
+        elif all != None:
             sql = """
                 SELECT UnitType FROM unit_type ORDER BY UnitTypeID
             """

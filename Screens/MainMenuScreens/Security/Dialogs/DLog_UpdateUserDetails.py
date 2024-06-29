@@ -23,8 +23,8 @@ class DLG_Edit_User(QDialog, Ui_Dialog):
         self.update_btn.clicked.connect(self.init_update_user)
         self.setWindowFlags(Qt.FramelessWindowHint)
         
-        self.Sex_CB.addItems(self.db.get_id_value(sex= True))
-        self.ULevel_CB.addItems(self.db.get_id_value(level= True))
+        self.Sex_CB.addItems(self.db.get_sex(all= True))
+        self.ULevel_CB.addItems(self.db.get_levels(all= True))
         self.FName_LE.setText(self.currlist[5])
         self.LName_LE.setText(self.currlist[6])
         self.UName_LE.setText(self.currlist[3])
