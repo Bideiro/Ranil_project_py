@@ -162,7 +162,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     
     def on_security_sdbtn_clicked(self):
         self.User_Info.CUName_L.setText(self.User.User)
-        self.User_Info.CULevel_L.setText(self.db.get_id_value(id= self.User.Level, level=True))
+        self.User_Info.CULevel_L.setText(self.db.get_levels(id= self.User.Level))
         self.stackedWidget.setCurrentWidget(self.Secu_1)
         
     def on_registration_sdbtn_clicked(self):
