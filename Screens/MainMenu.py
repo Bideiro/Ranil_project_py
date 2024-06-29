@@ -122,6 +122,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
         # Transaction Buttons
         self.Trans_prod.Done_btnsgl.connect(self.init_confirmed_payment)
+        self.Payment.atrans_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Trans_prod))
         self.Payment.cancel_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Trans_prod))
         
         # Records Buttons

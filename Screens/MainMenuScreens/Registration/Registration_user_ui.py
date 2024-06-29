@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Screens\MainMenuScreens\Registration\Registration_user.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Registration\Registration_user.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -95,10 +95,10 @@ class Ui_MainWindow(object):
 "border: 2px solid #096033;\n"
 "}")
         self.widget_2.setObjectName("widget_2")
-        self.verticalLayout_3 = QtWidgets.QVBoxLayout(self.widget_2)
-        self.verticalLayout_3.setObjectName("verticalLayout_3")
+        self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget_2)
+        self.horizontalLayout_4.setObjectName("horizontalLayout_4")
         self.label = QtWidgets.QLabel(self.widget_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
@@ -111,7 +111,12 @@ class Ui_MainWindow(object):
         self.label.setFont(font)
         self.label.setStyleSheet("background-color:rgba(0,0,0,0);")
         self.label.setObjectName("label")
-        self.verticalLayout_3.addWidget(self.label)
+        self.horizontalLayout_4.addWidget(self.label)
+        self.NRUID_L = QtWidgets.QLabel(self.widget_2)
+        self.NRUID_L.setObjectName("NRUID_L")
+        self.horizontalLayout_4.addWidget(self.NRUID_L)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_4.addItem(spacerItem1)
         self.verticalLayout_5.addWidget(self.widget_2)
         self.widget_10 = QtWidgets.QWidget(self.widget)
         self.widget_10.setObjectName("widget_10")
@@ -414,8 +419,8 @@ class Ui_MainWindow(object):
         self.back_btn.setMinimumSize(QtCore.QSize(0, 40))
         self.back_btn.setObjectName("back_btn")
         self.horizontalLayout_2.addWidget(self.back_btn)
-        spacerItem1 = QtWidgets.QSpacerItem(500, 0, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem1)
+        spacerItem2 = QtWidgets.QSpacerItem(500, 0, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem2)
         self.save_btn = QtWidgets.QPushButton(self.widget_6)
         self.save_btn.setMinimumSize(QtCore.QSize(0, 40))
         self.save_btn.setObjectName("save_btn")
@@ -423,11 +428,11 @@ class Ui_MainWindow(object):
         self.verticalLayout_4.addWidget(self.widget_6)
         self.verticalLayout_5.addWidget(self.widget_10)
         self.horizontalLayout_3.addWidget(self.widget)
-        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem2)
+        spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem3)
         self.verticalLayout_8.addWidget(self.widget_11)
-        spacerItem3 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
-        self.verticalLayout_8.addItem(spacerItem3)
+        spacerItem4 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.verticalLayout_8.addItem(spacerItem4)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -438,6 +443,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label_2.setText(_translate("MainWindow", "REGISTER USER"))
         self.label.setText(_translate("MainWindow", "Account Details"))
+        self.NRUID_L.setText(_translate("MainWindow", "None"))
         self.label_8.setText(_translate("MainWindow", "FIRST NAME:"))
         self.label_9.setText(_translate("MainWindow", "USERNAME:"))
         self.label_10.setText(_translate("MainWindow", "LEVEL OF ACCESS:"))
@@ -452,7 +458,7 @@ class Ui_MainWindow(object):
         self.label_3.setText(_translate("MainWindow", "LAST NAME:"))
         self.label_4.setText(_translate("MainWindow", "EMAIL:"))
         self.email_LE.setPlaceholderText(_translate("MainWindow", "Ex: Example@sample.com"))
-        self.label_5.setText(_translate("MainWindow", "BIRTHDAY:"))
+        self.label_5.setText(_translate("MainWindow", "BIRTHDATE:"))
         self.label_6.setText(_translate("MainWindow", "POSITION:"))
         self.pos_LE.setPlaceholderText(_translate("MainWindow", "Admin"))
         self.label_7.setText(_translate("MainWindow", "DATE HIRED:"))

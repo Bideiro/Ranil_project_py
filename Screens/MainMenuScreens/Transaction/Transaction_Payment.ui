@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>983</width>
-    <height>592</height>
+    <width>588</width>
+    <height>806</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,85 +15,38 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">.QWidget
-{border:1px solid black;}</string>
+    <string notr="true">.QWidget{
+background-color: #F8F8F0
+}
+#widget_2{
+border: 2px solid #ABE27D;
+}
+#widget_9{
+background-color: #F8F8F0;
+}
+.QPushButton{
+background-color: #096033;
+border: 2px solid;
+color: white
+}
+#Cash_btn, #pushButton_3{
+background-color: #ABE27D;
+border: 2px solid black;
+color: black
+}
+#Search_LE{
+border : 1px solid gray;
+color: black
+}
+.QTableWidget{
+border: 1px solid black;
+}
+.QLineEdit{
+background-color: #F8F8F0;
+color: black
+}</string>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_8">
-    <item>
-     <widget class="QWidget" name="widget" native="true">
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QWidget" name="widget_10" native="true">
-         <layout class="QHBoxLayout" name="horizontalLayout">
-          <item>
-           <widget class="QLabel" name="label_7">
-            <property name="text">
-             <string>List of Products:</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_15">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>321</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QTableWidget" name="Product_Table">
-         <property name="sizeAdjustPolicy">
-          <enum>QAbstractScrollArea::AdjustToContents</enum>
-         </property>
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
-         </property>
-         <property name="alternatingRowColors">
-          <bool>true</bool>
-         </property>
-         <property name="sortingEnabled">
-          <bool>true</bool>
-         </property>
-         <attribute name="horizontalHeaderMinimumSectionSize">
-          <number>32</number>
-         </attribute>
-         <attribute name="horizontalHeaderStretchLastSection">
-          <bool>true</bool>
-         </attribute>
-         <attribute name="verticalHeaderVisible">
-          <bool>false</bool>
-         </attribute>
-         <attribute name="verticalHeaderMinimumSectionSize">
-          <number>24</number>
-         </attribute>
-         <column>
-          <property name="text">
-           <string>ID</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Product Name</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>Quantity</string>
-          </property>
-         </column>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item>
      <widget class="QWidget" name="widget_2" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_3">
@@ -105,23 +58,197 @@
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
               <widget class="QLabel" name="label">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>30</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="text">
-                <string>Final Receipt</string>
+                <string>FINAL RECEIPT</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget" native="true">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>300</height>
+             </size>
+            </property>
+            <layout class="QVBoxLayout" name="verticalLayout">
+             <item>
+              <widget class="QTableWidget" name="Product_Table">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                </font>
+               </property>
+               <property name="sizeAdjustPolicy">
+                <enum>QAbstractScrollArea::AdjustToContents</enum>
+               </property>
+               <property name="editTriggers">
+                <set>QAbstractItemView::NoEditTriggers</set>
+               </property>
+               <property name="alternatingRowColors">
+                <bool>true</bool>
+               </property>
+               <property name="sortingEnabled">
+                <bool>true</bool>
+               </property>
+               <attribute name="horizontalHeaderCascadingSectionResizes">
+                <bool>false</bool>
+               </attribute>
+               <attribute name="horizontalHeaderMinimumSectionSize">
+                <number>19</number>
+               </attribute>
+               <attribute name="horizontalHeaderStretchLastSection">
+                <bool>true</bool>
+               </attribute>
+               <attribute name="verticalHeaderVisible">
+                <bool>false</bool>
+               </attribute>
+               <attribute name="verticalHeaderMinimumSectionSize">
+                <number>21</number>
+               </attribute>
+               <column>
+                <property name="text">
+                 <string>ID</string>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>DM Sans</family>
+                 </font>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Product Name</string>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>DM Sans</family>
+                 </font>
+                </property>
+               </column>
+               <column>
+                <property name="text">
+                 <string>Quantity</string>
+                </property>
+                <property name="font">
+                 <font>
+                  <family>DM Sans</family>
+                 </font>
+                </property>
+               </column>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_11" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_9">
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>SUBTOTAL:</string>
                </property>
               </widget>
              </item>
              <item>
-              <spacer name="horizontalSpacer_5">
+              <spacer name="horizontalSpacer_3">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>378</width>
+                 <width>40</width>
                  <height>20</height>
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="QLabel" name="SPrice_L">
+               <property name="font">
+                <font>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>0</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_8" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QLabel" name="label_4">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Discount:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="Discount_LE">
+               <property name="minimumSize">
+                <size>
+                 <width>300</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="maxLength">
+                <number>3</number>
+               </property>
+               <property name="placeholderText">
+                <string>Ex: 50, 75, 20</string>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -130,29 +257,16 @@
            <widget class="QWidget" name="widget_7" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <spacer name="horizontalSpacer_9">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>162</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Total Price:</string>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>20</pointsize>
+                 <bold>true</bold>
+                </font>
                </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLabel" name="TPrice_L">
                <property name="text">
-                <string>TextLabel</string>
+                <string>TOTAL:</string>
                </property>
               </widget>
              </item>
@@ -169,103 +283,19 @@
                </property>
               </spacer>
              </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="widget_8" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
-              <spacer name="horizontalSpacer_11">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+              <widget class="QLabel" name="TPrice_L">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>20</pointsize>
+                 <bold>true</bold>
+                </font>
                </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>84</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_4">
                <property name="text">
-                <string>Discount:</string>
+                <string>0</string>
                </property>
               </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="Discount_LE">
-               <property name="text">
-                <string/>
-               </property>
-               <property name="placeholderText">
-                <string>Ex: 50, 75, 20</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="CDiscount_btn">
-               <property name="text">
-                <string>Calculate</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_12">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>83</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-            </layout>
-           </widget>
-          </item>
-          <item>
-           <widget class="QWidget" name="widget_9" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <item>
-              <spacer name="horizontalSpacer_13">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>122</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QLabel" name="label_6">
-               <property name="text">
-                <string>Price Paid:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="lineEdit"/>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_14">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>122</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
             </layout>
            </widget>
@@ -274,57 +304,52 @@
            <widget class="QWidget" name="widget_5" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
-              <spacer name="horizontalSpacer_6">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>90</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QPushButton" name="Cash_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                </font>
+               </property>
                <property name="text">
-                <string>Cash</string>
+                <string>CASH</string>
                </property>
               </widget>
              </item>
              <item>
-              <spacer name="horizontalSpacer_8">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+              <widget class="QPushButton" name="GCash_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-               <property name="sizeHint" stdset="0">
+               <property name="minimumSize">
                 <size>
-                 <width>91</width>
-                 <height>20</height>
+                 <width>200</width>
+                 <height>40</height>
                 </size>
                </property>
-              </spacer>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushButton_3">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                </font>
+               </property>
                <property name="text">
-                <string>Gcash</string>
+                <string>GCASH</string>
                </property>
               </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_7">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>90</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
              </item>
             </layout>
            </widget>
@@ -335,29 +360,33 @@
        <item>
         <widget class="QWidget" name="widget_3" native="true">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
-          <item>
-           <spacer name="horizontalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
+          <property name="leftMargin">
+           <number>0</number>
+          </property>
+          <property name="rightMargin">
+           <number>0</number>
+          </property>
           <item>
            <widget class="QPushButton" name="Cancel_btn">
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>40</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Cancel</string>
+             <string>CANCEL</string>
             </property>
            </widget>
           </item>
@@ -368,7 +397,7 @@
             </property>
             <property name="sizeHint" stdset="0">
              <size>
-              <width>40</width>
+              <width>70</width>
               <height>20</height>
              </size>
             </property>
@@ -376,43 +405,21 @@
           </item>
           <item>
            <widget class="QPushButton" name="Home_btn">
-            <property name="text">
-             <string>Home</string>
-            </property>
-           </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_4">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
+            <property name="minimumSize">
              <size>
-              <width>40</width>
-              <height>20</height>
+              <width>100</width>
+              <height>40</height>
              </size>
             </property>
-           </spacer>
-          </item>
-          <item>
-           <widget class="QPushButton" name="ATrans_btn">
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Another Transaction</string>
+             <string>HOME</string>
             </property>
            </widget>
-          </item>
-          <item>
-           <spacer name="horizontalSpacer_3">
-            <property name="orientation">
-             <enum>Qt::Horizontal</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>40</width>
-              <height>20</height>
-             </size>
-            </property>
-           </spacer>
           </item>
          </layout>
         </widget>

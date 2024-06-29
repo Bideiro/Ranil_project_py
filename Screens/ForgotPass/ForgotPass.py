@@ -10,7 +10,7 @@ from PyQt5 import QtCore
 from .ForgotPass_ui import Ui_MainWindow
 from Database.DBController import dbcont
 
-from Dialogs.DLog_AdminPasscode import DLG_AdminPass
+from Dialogs.DLog_CheckPasscode import DLG_CheckPass
 from Dialogs.DLog_Oneline_Input import DLG_Oneline_Input
 from Dialogs.DLog_Alert import DLG_Alert
 
@@ -84,7 +84,3 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
             Dlg = DLG_Alert()
             Dlg.exec()
             self.back_btnsgl.emit()
-            
-            
-            
-

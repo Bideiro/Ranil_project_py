@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1193</width>
-    <height>717</height>
+    <width>1132</width>
+    <height>745</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -15,8 +15,40 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">.QWidget
-{border:1px solid black;}</string>
+    <string notr="true">.QWidget{
+background-color: #F8F8F0
+}
+#widget_4, #widget{
+border: 2px solid #ABE27D;
+}
+#widget_9{
+background-color: #F8F8F0;
+}
+.QPushButton{
+background-color: #096033;
+border: 2px solid;
+color: white
+}
+#Search_LE{
+border : 1px solid gray;
+color: black
+}
+.QTableWidget{
+border: 1px solid black;
+}
+#Quantity_LE{
+border : 2px solid #096033;
+background-color: #F8F8F0;
+color: black
+}
+#Cate_CB{
+border : 1px solid gray;
+color: black
+}
+#Add_btn, #RProduct_btn{
+background-color:rgba(0,0,0,0);
+border: none
+}</string>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout_12">
     <item>
@@ -27,16 +59,56 @@
          <layout class="QHBoxLayout" name="horizontalLayout_10">
           <item>
            <widget class="QLabel" name="label_7">
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
+            </property>
             <property name="text">
+             <string/>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="Search_LE">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>300</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <italic>false</italic>
+             </font>
+            </property>
+            <property name="placeholderText">
              <string>Search:</string>
             </property>
            </widget>
           </item>
           <item>
-           <widget class="QLineEdit" name="Search_LE"/>
-          </item>
-          <item>
-           <widget class="QComboBox" name="Cate_CB"/>
+           <widget class="QComboBox" name="Cate_CB">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>30</height>
+             </size>
+            </property>
+           </widget>
           </item>
           <item>
            <spacer name="horizontalSpacer_20">
@@ -53,15 +125,49 @@
           </item>
           <item>
            <widget class="QPushButton" name="Search_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>10</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Search</string>
+             <string>SEARCH</string>
             </property>
            </widget>
           </item>
           <item>
            <widget class="QPushButton" name="CSearch_btn">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>100</width>
+              <height>30</height>
+             </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
+            </property>
             <property name="text">
-             <string>Clear Search</string>
+             <string>CLEAR</string>
             </property>
            </widget>
           </item>
@@ -86,17 +192,16 @@
          <layout class="QVBoxLayout" name="verticalLayout_6">
           <item>
            <widget class="QTableWidget" name="Product_Table">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="MinimumExpanding">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
             <property name="minimumSize">
              <size>
-              <width>650</width>
+              <width>500</width>
               <height>0</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Plain</enum>
@@ -110,50 +215,63 @@
             <property name="alternatingRowColors">
              <bool>true</bool>
             </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
             <property name="sortingEnabled">
              <bool>true</bool>
             </property>
-            <attribute name="horizontalHeaderMinimumSectionSize">
-             <number>32</number>
-            </attribute>
             <attribute name="horizontalHeaderStretchLastSection">
              <bool>true</bool>
             </attribute>
             <attribute name="verticalHeaderVisible">
              <bool>false</bool>
             </attribute>
-            <attribute name="verticalHeaderMinimumSectionSize">
-             <number>24</number>
-            </attribute>
-            <attribute name="verticalHeaderStretchLastSection">
-             <bool>false</bool>
-            </attribute>
             <column>
              <property name="text">
               <string>Product ID</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+              </font>
              </property>
             </column>
             <column>
              <property name="text">
               <string>Product Name</string>
              </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+              </font>
+             </property>
             </column>
             <column>
              <property name="text">
               <string>Price</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+              </font>
              </property>
             </column>
             <column>
              <property name="text">
               <string>Stock</string>
              </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+              </font>
+             </property>
             </column>
             <column>
              <property name="text">
               <string>Expiration Date</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+              </font>
              </property>
             </column>
            </widget>
@@ -185,8 +303,15 @@
           </item>
           <item>
            <widget class="QLabel" name="label">
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <pointsize>30</pointsize>
+              <bold>true</bold>
+             </font>
+            </property>
             <property name="text">
-             <string>Order List</string>
+             <string>ORDER LIST</string>
             </property>
            </widget>
           </item>
@@ -211,38 +336,48 @@
          <layout class="QVBoxLayout" name="verticalLayout_4">
           <item>
            <widget class="QWidget" name="widget_9" native="true">
-            <layout class="QHBoxLayout" name="horizontalLayout_8">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>Selected Products:</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_4">
+              <spacer name="horizontalSpacer_5">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>31</width>
+                 <width>40</width>
                  <height>20</height>
                 </size>
                </property>
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="RProduct_btn">
-               <property name="text">
-                <string>Remove Product</string>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QPushButton" name="AProduct_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>150</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
-                <string>Add Product</string>
+                <string>ADD PRODUCT</string>
                </property>
               </widget>
              </item>
@@ -251,11 +386,8 @@
           </item>
           <item>
            <widget class="QTableWidget" name="SProducts_Table">
-            <property name="enabled">
-             <bool>true</bool>
-            </property>
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+             <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -266,6 +398,11 @@
               <height>150</height>
              </size>
             </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
+            </property>
             <property name="sizeAdjustPolicy">
              <enum>QAbstractScrollArea::AdjustToContents</enum>
             </property>
@@ -275,43 +412,43 @@
             <property name="alternatingRowColors">
              <bool>true</bool>
             </property>
-            <property name="selectionBehavior">
-             <enum>QAbstractItemView::SelectRows</enum>
-            </property>
-            <property name="gridStyle">
-             <enum>Qt::SolidLine</enum>
-            </property>
             <property name="sortingEnabled">
              <bool>true</bool>
             </property>
-            <attribute name="horizontalHeaderMinimumSectionSize">
-             <number>32</number>
-            </attribute>
             <attribute name="horizontalHeaderStretchLastSection">
              <bool>true</bool>
             </attribute>
             <attribute name="verticalHeaderVisible">
              <bool>false</bool>
             </attribute>
-            <attribute name="verticalHeaderMinimumSectionSize">
-             <number>24</number>
-            </attribute>
-            <attribute name="verticalHeaderStretchLastSection">
-             <bool>false</bool>
-            </attribute>
             <column>
              <property name="text">
               <string>ID</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+              </font>
              </property>
             </column>
             <column>
              <property name="text">
               <string>Product Name</string>
              </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+              </font>
+             </property>
             </column>
             <column>
              <property name="text">
-              <string>Amount</string>
+              <string>Quantity</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+              </font>
              </property>
             </column>
            </widget>
@@ -326,37 +463,70 @@
            <widget class="QWidget" name="widget_5" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_11">
              <item>
-              <spacer name="horizontalSpacer">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>40</width>
-                 <height>20</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QLabel" name="label_3">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>20</pointsize>
+                 <italic>true</italic>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="text">
-                <string>Current Product</string>
+                <string>Selected Product:</string>
                </property>
               </widget>
              </item>
              <item>
-              <spacer name="horizontalSpacer_5">
+              <spacer name="horizontalSpacer">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Preferred</enum>
+               </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>40</width>
+                 <width>200</width>
                  <height>20</height>
                 </size>
                </property>
               </spacer>
+             </item>
+             <item>
+              <widget class="QPushButton" name="RProduct_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>50</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset>
+                 <normaloff>:/Icons/Icons/remove.png</normaloff>:/Icons/Icons/remove.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+              </widget>
              </item>
             </layout>
            </widget>
@@ -365,20 +535,13 @@
            <widget class="QWidget" name="widget_15" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_7">
              <item>
-              <spacer name="horizontalSpacer_12">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>77</width>
-                 <height>4</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QLabel" name="label_4">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Product Name:</string>
                </property>
@@ -386,6 +549,12 @@
              </item>
              <item>
               <widget class="QLabel" name="PName_L">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>None</string>
                </property>
@@ -411,20 +580,13 @@
            <widget class="QWidget" name="widget_16" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
-              <spacer name="horizontalSpacer_14">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>87</width>
-                 <height>3</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QLabel" name="label_6">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Product ID:</string>
                </property>
@@ -432,6 +594,12 @@
              </item>
              <item>
               <widget class="QLabel" name="RUID_L">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>None</string>
                </property>
@@ -457,20 +625,13 @@
            <widget class="QWidget" name="widget_17" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_5">
              <item>
-              <spacer name="horizontalSpacer_16">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>83</width>
-                 <height>4</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QLabel" name="label_8">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Selling Price:</string>
                </property>
@@ -478,6 +639,12 @@
              </item>
              <item>
               <widget class="QLabel" name="SPrice_L">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>None</string>
                </property>
@@ -503,20 +670,13 @@
            <widget class="QWidget" name="widget_18" native="true">
             <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
-              <spacer name="horizontalSpacer_17">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>75</width>
-                 <height>3</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
-             <item>
               <widget class="QLabel" name="label_9">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Expiration Date:</string>
                </property>
@@ -524,6 +684,12 @@
              </item>
              <item>
               <widget class="QLabel" name="EDate_L">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>None</string>
                </property>
@@ -550,42 +716,78 @@
             <layout class="QHBoxLayout" name="horizontalLayout_3">
              <item>
               <widget class="QLabel" name="label_5">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
-                <string>Amount:</string>
+                <string>Set Quantity:</string>
                </property>
               </widget>
              </item>
              <item>
-              <widget class="QLineEdit" name="Quantity_LE"/>
-             </item>
-             <item>
-              <spacer name="horizontalSpacer_10">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
+              <widget class="QLineEdit" name="Quantity_LE">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
                </property>
-               <property name="sizeHint" stdset="0">
+               <property name="minimumSize">
                 <size>
-                 <width>11</width>
-                 <height>20</height>
+                 <width>200</width>
+                 <height>40</height>
                 </size>
                </property>
-              </spacer>
+              </widget>
              </item>
              <item>
               <widget class="QPushButton" name="Add_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                </font>
+               </property>
                <property name="text">
-                <string>Change Amount</string>
+                <string/>
+               </property>
+               <property name="icon">
+                <iconset resource="../../../assets/All_In_Resource.qrc">
+                 <normaloff>:/Icons/Icons/right-arrow black.png</normaloff>:/Icons/Icons/right-arrow black.png</iconset>
+               </property>
+               <property name="iconSize">
+                <size>
+                 <width>30</width>
+                 <height>30</height>
+                </size>
+               </property>
+               <property name="checkable">
+                <bool>false</bool>
                </property>
               </widget>
              </item>
              <item>
-              <spacer name="horizontalSpacer_11">
+              <spacer name="horizontalSpacer_4">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
                </property>
                <property name="sizeHint" stdset="0">
                 <size>
-                 <width>11</width>
+                 <width>40</width>
                  <height>20</height>
                 </size>
                </property>
@@ -599,8 +801,26 @@
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
               <widget class="QPushButton" name="Clear_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>120</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
-                <string>Clear</string>
+                <string>CLEAR</string>
                </property>
               </widget>
              </item>
@@ -619,8 +839,26 @@
              </item>
              <item>
               <widget class="QPushButton" name="Done_btn">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="minimumSize">
+                <size>
+                 <width>120</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                </font>
+               </property>
                <property name="text">
-                <string>Done</string>
+                <string>DONE</string>
                </property>
               </widget>
              </item>
@@ -636,6 +874,8 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../assets/All_In_Resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

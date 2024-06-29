@@ -15,6 +15,8 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
     
     Done_btnsgl = QtCore.pyqtSignal()
     
+    db = dbcont()
+    
     Sprod = None
     StableRPID = set()
     SProdConfirmed = []
@@ -23,38 +25,18 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(Trans_prod_Window,self).__init__()
         self.setupUi(self)
-        self.db = dbcont('admin', 123456)
         self.set_tableElements()
+        
         self.Product_Table.itemClicked.connect(self.clicked_item_prod)
         self.SProducts_Table.itemClicked.connect(self.clicked_item_sprod)
+        
         self.Add_btn.clicked.connect(self.add_quantity)
         self.RProduct_btn.clicked.connect(self.remove_sprod)
         self.AProduct_btn.clicked.connect(self.add_to_list)
         self.Done_btn.clicked.connect(self.confirmed_order)
         self.Search_btn.clicked.connect(self.search)
+        self.CSearch_btn.clicked.connect(self.set_tableElements)
         self.Clear_btn.clicked.connect(lambda: self.SProducts_Table.clear())
-        
-    def search(self):
-        self.Product_Table.setRowCount(0)
-        searchResult = self.db.search_prod(self.Search_LE.text(), trans= True)
-        #Set number of rows to match search results
-        self.Product_Table.setRowCount(len(searchResult))
-        #Populate table with search result
-        if searchResult:
-            self.Product_Table.setRowCount(len(searchResult))
-            print(len(searchResult))
-            print(searchResult)
-            for row_number, row_data in enumerate(searchResult):
-                self.Product_Table.insertRow(row_number)
-                for column_number, data in enumerate(row_data):
-                    if column_number == 6:
-                        data = self.db.get_id_value(id= data, unit= True)
-                    if column_number == 7:
-                        data = self.db.get_id_value(id= data, cate= True)
-                    self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-        else:
-            print('Error')
-            return
         
     def set_tableElements(self):
         result = self.db.get_all_prod(trans= True)
@@ -63,17 +45,20 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
                 self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-        
-    def clean_sprod_table(self):
-        self.SProdConfirmed =[]
-        self.SProducts_Table.setRowCount(0)
-        
-    def current_prod_reset(self):
-        self.PName_L.setText(None)
-        self.RUID_L.setText(None)
-        self.SPrice_L.setText(None)
-        self.EDate_L.setText(None)
-        self.Quantity_LE.setText(None)
+                
+    def search(self):
+        self.Product_Table.setRowCount(0)
+        searchResult = self.db.search_prod( searchstr= self.Search_LE.text(), trans= True)
+        if searchResult:
+            self.Product_Table.setRowCount(len(searchResult))
+            for row_number, row_data in enumerate(searchResult):
+                self.Product_Table.insertRow(row_number)
+                for column_number, data in enumerate(row_data):
+                    if column_number == 6:
+                        data = self.db.get_id_value(id= data, unit= True)
+                    if column_number == 7:
+                        data = self.db.get_id_value(id= data, cate= True)
+                    self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         
     def clicked_item_prod(self, item):
         row = item.row()
@@ -92,7 +77,7 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
         self.SPrice_L.setText(prod_values[2])
         self.EDate_L.setText(prod_values[4])
         
-        self.Sprod = [prod_values[0],prod_values[1],prod_values[2],prod_values[4]]
+        self.Sprod = [prod_values[0],prod_values[1],prod_values[2],prod_values[3],prod_values[4]]
         print(self.Sprod)
         
     def clicked_item_sprod(self, item):
@@ -108,30 +93,26 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
         if self.SprodRow != None:
             RPID_item = self.SProducts_Table.item(self.SprodRow, 0)
             self.StableRPID.discard(RPID_item.text())
-            print(self.StableRPID)
             
-            for item in self.SProdConfirmed[:]:  # Iterate over a copy of the list
+            for item in self.SProdConfirmed[:]:
                 if item[0] == RPID_item:
-                    print('removed')
-                    print(item)
                     self.SProdConfirmed.remove(item)
-
-            print( self.SProdConfirmed)
             
             self.SProducts_Table.removeRow(self.SprodRow)
             self.SprodRow = None
             self.current_prod_reset()
         else:
-            print( self.SProdConfirmed)
             Dlg = DLG_Alert(msg='No Selected Product in order list!')
             Dlg.exec()
         
     def add_to_list(self):
         if self.Sprod:
-            if self.Sprod[0] not in self.StableRPID:
+            if self.Sprod[3] == '0':
+                Dlg = DLG_Alert(msg=f'{self.Sprod[1]}({self.Sprod[0]}) has 0 Stock!')
+                Dlg.exec()
                 
+            elif self.Sprod[0] not in self.StableRPID:
                 self.StableRPID.add(self.Sprod[0])
-                
                 rowpos = self.SProducts_Table.rowCount()
                 self.SProducts_Table.insertRow(rowpos)
                 
@@ -148,22 +129,23 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
             Dlg.exec()
         
     def add_quantity(self):
-        search_text = self.RUID_L.text()
-        found_item = None
+        selquantity = None
         for row in range(self.SProducts_Table.rowCount()):
-            for col in range(self.SProducts_Table.columnCount()):
-                item = self.SProducts_Table.item(row, col)
-                if item is not None and item.text() == search_text:
-                    found_item = item
-                    break
-            if found_item is not None:
+            item = self.SProducts_Table.item(row, 0)
+            if item.text() == self.Sprod[0]:
+                selquantity = self.SProducts_Table.item(row, 2)
                 break
         
-        if found_item is not None:
-            row = found_item.row()
-            self.SProducts_Table.setItem(row,2,QTableWidgetItem(self.Quantity_LE.text()))
+        if selquantity is not None:
+            if int(self.Quantity_LE.text()) <= int(self.Sprod[3]):
+                row = selquantity.row()
+                self.SProducts_Table.setItem(row,2,QTableWidgetItem(self.Quantity_LE.text()))
+            else:
+                Dlg = DLG_Alert(msg='Not enough stock!')
+                Dlg.exec()
         else:
-            print(f"Item '{search_text}' not found.")
+            Dlg = DLG_Alert(msg='Selected item was removed or not Added!')
+            Dlg.exec()
 
     def confirmed_order(self):
         self.SProdConfirmed = []
@@ -171,23 +153,31 @@ class Trans_prod_Window(QMainWindow, Ui_MainWindow):
             row_data = []
             for col in range(self.SProducts_Table.columnCount()):
                 item = self.SProducts_Table.item(row, col)
-                if item is not None:
-                    row_data.append(item.text())
-                else:
-                    row_data.append('')
+                row_data.append(item.text())
+                
             self.SProdConfirmed.append(row_data)
             
-            print(self.SProdConfirmed)
-        
         hasamount = True
         for data in self.SProdConfirmed:
             if int(data[2]) == 0:
                 Dlg = DLG_Alert(msg= f'Item: {data[1]} has no amount!')
                 Dlg.exec()
                 hasamount = False
+                
         if hasamount:
             if self.SProdConfirmed == []:
                 Dlg = DLG_Alert(msg='No selected products!')
                 Dlg.exec()
             else:
                 self.Done_btnsgl.emit()
+        
+    def clean_sprod_table(self):
+        self.SProdConfirmed =[]
+        self.SProducts_Table.setRowCount(0)
+        
+    def current_prod_reset(self):
+        self.PName_L.setText(None)
+        self.RUID_L.setText(None)
+        self.SPrice_L.setText(None)
+        self.EDate_L.setText(None)
+        self.Quantity_LE.setText(None)

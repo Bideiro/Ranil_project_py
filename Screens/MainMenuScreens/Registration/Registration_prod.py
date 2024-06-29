@@ -28,8 +28,8 @@ class Registration_prod_Window(QMainWindow, Ui_MainWindow):
         
         self.onlyInt = QIntValidator()
         self.SPrice_LE.setValidator(self.onlyInt)
-        self.CType_CB.addItems(self.db.get_id_value(cate=True))
-        self.UType_CB.addItems(self.db.get_id_value(unit=True))
+        self.CType_CB.addItems(self.db.get_cate(all=True))
+        self.UType_CB.addItems(self.db.get_unittype(all=True))
         
     def prev_window(self):
         self.back_btnsgl.emit()

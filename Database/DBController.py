@@ -1,12 +1,18 @@
 import mysql.connector
 from Database.User_Manager import UserMana
 
-# from User_Manager import UserMana
-
+# Due to time constraints this will be the most un optimized code. ever.
 class dbcont(object):
     
     _instance = None
-    UMana = UserMana()
+    User = UserMana()
+    mydb = mysql.connector.connect(
+            host="localhost",
+            user= "root",
+            passwd= "password",
+            database="ranil_proj")
+    
+    mycursor = mydb.cursor()
     
     def __new__(cls, *args, **kwargs):
         if cls._instance == None:
@@ -18,16 +24,9 @@ class dbcont(object):
             self.initialized = True
         self.user = user
         self.passwd = passwd
-        self.mydb = mysql.connector.connect(
-            host="localhost",
-            user= "root",
-            passwd= "password",
-            database="ranil_proj"
-            )
-        self.mycursor = self.mydb.cursor()
     
     def login(self):
-        sql = " SELECT EXISTS (SELECT 1 FROM accounts WHERE Uname = %s AND passcode = %s) AS is_found"
+        sql = " SELECT EXISTS (SELECT 1 FROM accounts WHERE BINARY Uname = %s AND BINARY passcode = %s) AS is_found"
         val = (self.user, self.passwd)
         self.mycursor.execute(sql,val)
         res = self.mycursor.fetchone()[0]
@@ -37,52 +36,103 @@ class dbcont(object):
             val = (self.user, self.passwd)
             self.mycursor.execute(sql,val)
             curruser = self.mycursor.fetchone()
-            self.UMana.set_user(UID= curruser[0],User= curruser[1], Pass=curruser[2],Level= curruser[3])
+            self.User.set_user(UID= curruser[0],User= curruser[1], Pass=curruser[2],Level= curruser[3])
         return bool(res)
     
-    def get_id_value(self,value = None, id = None,sex = None ,cate = None, level = None, unit = None):
-        if sex != None:
-            if id != None:
-                sql = 'SELECT Sex FROM sex WHERE SexID = %s'
-            elif value != None:
-                sql = 'SELECT SexID FROM sex WHERE Sex = %s'
-            else:
-                sql = "SELECT Sex FROM sex ORDER BY SexID"
-        elif cate != None:
-            if id != None:
-                sql = 'SELECT Category FROM category WHERE CategoryID = %s'
-            elif value != None:
-                sql = 'SELECT CategoryID FROM category WHERE Category = %s'
-            else:
-                sql = "SELECT Category FROM category ORDER BY CategoryID"
-        elif level != None:
-            if id != None:
-                sql = 'SELECT Level FROM levels WHERE LevelID = %s'
-            elif value != None:
-                sql = 'SELECT LevelID FROM levels WHERE Level = %s'
-            else:
-                sql = 'SELECT Level FROM levels ORDER BY LevelID'
-        elif unit != None:
-            if id != None:
-                sql = 'SELECT UnitType FROM unit_type WHERE UnitTypeID = %s'
-            elif value != None:
-                sql = 'SELECT UnitTypeID FROM unit_type WHERE UnitType = %s'
-            else:
-                sql = 'SELECT UnitType FROM unit_type ORDER BY UnitTypeID'
-        else:
-            print('No selected table!')
-            return None
-        
-        if id != None:
-            self.mycursor.execute(sql, (id,))
-            return self.mycursor.fetchone()[0]
-        elif value != None:
+    # Getting data from Tables
+    
+    def get_cate(self, value= None, id=None,all = None):
+        if value:
+            sql = """
+                SELECT CategoryID FROM category WHERE Category = %s
+            """
             self.mycursor.execute(sql, (value,))
             return self.mycursor.fetchone()[0]
-        else:
+        elif id:
+            sql = """
+                SELECT category FROM category WHERE CategoryID = %s
+            """
+            self.mycursor.execute(sql, (id,))
+            return self.mycursor.fetchone()[0]
+        elif all:
+            sql = """
+                SELECT Category FROM Category ORDER BY CategoryID
+            """
             self.mycursor.execute(sql)
             listed = [row[0] for row in self.mycursor]
             return listed
+        else:
+            print('No Arguements! (Get Cate)')
+            
+    def get_levels(self, value= None, id= None, all= None):
+        
+        if value:
+            sql = """
+                SELECT LevelID FROM levels WHERE Level = %s
+            """
+            self.mycursor.execute(sql, (value,))
+            return self.mycursor.fetchone()[0]
+        elif id:
+            sql = """
+                SELECT Level FROM levels WHERE LevelID = %s
+            """
+            self.mycursor.execute(sql, (value,))
+            return self.mycursor.fetchone()[0]
+        elif all:
+            sql = """
+                SELECT Level FROM levels ORDER BY LevelID
+            """
+            self.mycursor.execute(sql)
+            listed = [row[0] for row in self.mycursor]
+            return listed
+        else:
+            print('No Arguements! (Get levels)')
+            
+    def get_sex(self,value= None,id=None, all=None):
+        if value:
+            sql = """
+                SELECT SexID FROM sex WHERE Sex = %s
+            """
+            self.mycursor.execute(sql, (value,))
+            return self.mycursor.fetchone()[0]
+        elif id:
+            sql = """
+                SELECT Sex FROM sex WHERE SexID = %s
+            """
+            self.mycursor.execute(sql, (value,))
+            return self.mycursor.fetchone()[0]
+        elif all:
+            sql = """
+                SELECT Sex FROM sex ORDER BY SexID
+            """
+            self.mycursor.execute(sql)
+            listed = [row[0] for row in self.mycursor]
+            return listed
+        else:
+            print('No Arguements! (Get sex)')
+        
+    def get_unittype(self,value=None, id=None, all=None):
+        if value:
+            sql = """
+                SELECT UnitTypeID FROM unit_type WHERE UnitType = %s
+            """
+            self.mycursor.execute(sql, (value,))
+            return self.mycursor.fetchone()[0]
+        elif id:
+            sql = """
+                SELECT UnitType FROM unit_type WHERE UnitTypeID = %s
+            """
+            self.mycursor.execute(sql, (id,))
+            return self.mycursor.fetchone()[0]
+        elif all:
+            sql = """
+                SELECT UnitType FROM unit_type ORDER BY UnitTypeID
+            """
+            self.mycursor.execute(sql)
+            listed = [row[0] for row in self.mycursor]
+            return listed
+        else:
+            print('No Arguements! (Get Unit Type)')
         
     def get_user_creds(self, User = None, Passcode = None, colint = None, Fname = None , Lname = None):
         print(Fname + Lname)
@@ -177,14 +227,14 @@ class dbcont(object):
     def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
         sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
                     VALUES (%s,%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"""
-        val = (LevelID, self._create_rid(id= LevelID, user=True),Uname, Passcode, fname, lname,sex,phono, email,pos, Dhired, Bdate,address)
+        val = (LevelID, self._create_rid(id= LevelID, user=True, new=True),Uname, Passcode, fname, lname,sex,phono, email,pos, Dhired, Bdate,address)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
     def reg_prod_protocol(self,Pname, Sprice, Utype , Ctype ,desc = None):
-        sql =""" INSERT INTO products (RPID, ProductName, SellingPrice, Description, UnitTypeID, CategoryID)
-                    VALUES (%s, %s, %s,%s ,%s,%s)"""
-        val = (self._create_rid(id=Ctype,prod=True),Pname, Sprice,desc, Utype, Ctype )
+        sql =""" INSERT INTO products (RPID, ProductName, SellingPrice, Description, TotalStock,UnitTypeID, CategoryID)
+                    VALUES (%s, %s, %s,%s ,%s,%s,%s)"""
+        val = (self._create_rid(typeID=Ctype,prod=True,new=True),Pname, Sprice,desc, 0,Utype, Ctype )
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
@@ -197,7 +247,6 @@ class dbcont(object):
         self.mydb.commit()
         
         self.add_supplied_products(RefNo= RefNo, DDate= DDate, Plist= Plist)
-        
         
     def add_inven(self, RPID, Quantity):
         
@@ -238,6 +287,58 @@ class dbcont(object):
         self.mycursor.execute(sql,NewUlist + UID)
         self.mydb.commit()
 
+    def add_sold_receipt(self,Price, PPrice, SoldProductsList, GCashRef = None):
+        sql = "SELECT NOW() "
+        self.mycursor.execute(sql)
+        currdate = self.mycursor.fetchone()[0]
+        
+        sql = """
+            INSERT INTO receipts (UID, Price, PaidPrice, PurchaseDate, GCashReference )
+            VALUES (%s,%s,%s,%s,%s)
+        """
+        val = (self.User.UID, Price,PPrice, currdate, GCashRef)
+        self.mycursor.execute(sql,val)
+        self.mydb.commit()
+        
+        sql = """
+        SELECT ID FROM receipts 
+        WHERE UID = %s AND
+        Price = %s AND 
+        PaidPrice = %s AND 
+        PurchaseDate = %s 
+        """
+        val = (self.User.UID, Price,PPrice, currdate)
+        self.mycursor.execute(sql,val)
+        try:
+            receiptID = self.mycursor.fetchone()[0]
+            print(receiptID)
+        except:
+            print('rID')
+            print(receiptID)
+        self.add_sold_products(SoldPlist= SoldProductsList, RID= receiptID,currdate=currdate)
+        
+    def add_sold_products(self, SoldPlist, RID, currdate):
+        
+        
+        sql1 = """
+            SELECT TotalStock, SellingPrice FROM products WHERE RPID = %s
+        """
+        
+        sql2 = """
+            UPDATE products SET TotalStock = %s WHERE RPID = %s
+        """
+        sql3 = """INSERT INTO products_sold (ProductID, ReceiptID, Quantity, Price,Date)
+                VALUES (%s,%s,%s,%s,%s)"""
+                
+        for prod in SoldPlist:
+            self.mycursor.execute(sql1, (prod[0],))
+            currprod = list(self.mycursor.fetchone())
+            print('curr')
+            print(currprod)
+            currprod[0] = currprod[0] - int(prod[2]) 
+            self.mycursor.execute(sql2, (currprod[0],prod[0]))
+            self.mycursor.execute(sql3, (prod[0],RID, prod[2], currprod[1], currdate))
+            self.mydb.commit()
         
     def update_prod_protocol(self,RPID, NewPlist ):
         
@@ -249,7 +350,7 @@ class dbcont(object):
         self.mycursor.execute(sql,NewPlist + RPID)
         self.mydb.commit()
         
-    def _create_rid(self,typeID, id = None ,RID = None,prod = None, user = None, new = None):
+    def _create_rid(self, typeID = None , id = None ,RID = None,prod = None, user = None, new = None):
         
         if RID != None:
             if user != None:
@@ -270,12 +371,19 @@ class dbcont(object):
             id = str(id).zfill(4)
             
         if new: 
-            sql = ''
-            
-            self.mycursor.execute(sql)
-            nextid = self.mycursor.fetchone()[0]
-            unit_id = typeID + '-' + nextid
-            return unit_id
+            if prod:
+                sql = "SELECT COUNT(*) FROM products"
+                self.mycursor.execute(sql)
+                nextid =int(self.mycursor.fetchone()[0]) + 1
+                print(nextid)
+                unit_id = typeID + '-' + str(nextid).zfill(4)
+                return unit_id
+            else:
+                sql = "SELECT COUNT(*) FROM accounts;"
+                self.mycursor.execute(sql)
+                nextid =int(self.mycursor.fetchone()[0]) + 1
+                unit_id = typeID + '-' + str(nextid).zfill(3)
+                return unit_id
         else:
             unit_id = typeID + '-' + id
             return unit_id
@@ -311,6 +419,59 @@ class dbcont(object):
         self.mycursor.execute(sql, (passcode,RUID))
         self.mydb.commit()
             
+            
+    # temp
+    def get_all_supp_receipts(self):
+        
+        sql = """
+            SELECT * FROM supplier_receipts
+        """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+            
+    # sales db
+        
+    def get_all_sales(self):
+        
+        sql = "SELECT * FROM sales"
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
+    def search_sales(self, searchstr):
+        sql = """
+                SELECT DateTime, User, Total, ReferenceNo FROM sales
+                WHERE DateTime LIKE %s
+                OR User LIKE %s
+                OR Total LIKE %s
+                OR ReferenceNo LIKE %s
+                """
+        searchstr = '%' + searchstr + '%'
+        val = (searchstr,searchstr,searchstr,searchstr)
+        self.mycursor.execute(sql,val)
+        return self.mycursor.fetchall()
+    
+    def set_yearly_sales(self):
+        sql = """
+                SELECT 
+                    YEAR(DateTime) AS Year,
+                    SUM(Total) AS TotalSum
+                FROM 
+                    ranil_proj.sales
+                GROUP BY 
+                    YEAR(DateTime)
+                ORDER BY 
+                    Year;
+                """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
+    def get_years(self):
+        sql = """
+                SELECT DISTINCT YEAR(DateTime) as Year FROM sales ORDER BY Year
+                """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
 if __name__ == '__main__':
     db =dbcont('admin', 123456)
     

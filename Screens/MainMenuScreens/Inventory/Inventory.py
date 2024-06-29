@@ -38,9 +38,9 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
             for column_number, data in enumerate(row_data):
 
                 if column_number == 6:
-                    data = self.db.get_id_value(id= data, unit= True)
+                    data = self.db.get_unittype(id= data)
                 if column_number == 7:
-                    data = self.db.get_id_value(id= data, cate= True)
+                    data = self.db.get_cate(id= data)
                 self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
     
     def search(self):

@@ -134,11 +134,11 @@ background-color: #ABE27D;
 border: 2px solid #096033;
 }</string>
             </property>
-            <layout class="QVBoxLayout" name="verticalLayout_3">
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
              <item>
               <widget class="QLabel" name="label">
                <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+                <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
                  <horstretch>0</horstretch>
                  <verstretch>0</verstretch>
                 </sizepolicy>
@@ -158,6 +158,26 @@ border: 2px solid #096033;
                 <string>Account Details</string>
                </property>
               </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="NRUID_L">
+               <property name="text">
+                <string>None</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <spacer name="horizontalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>
@@ -517,7 +537,7 @@ border: 2px solid #096033;
                       </font>
                      </property>
                      <property name="text">
-                      <string>BIRTHDAY:</string>
+                      <string>BIRTHDATE:</string>
                      </property>
                     </widget>
                    </item>
