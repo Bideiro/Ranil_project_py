@@ -225,39 +225,56 @@ class dbcont(object):
         self.mycursor.execute(sql,(id,))
         return self.mycursor.fetchone()[0]
     
-    def add_sold_receipt(self,Price, PPrice, SoldProductsList, Split, GCashRef = None):
+    def add_sold_protocol(self,Price, PPrice, SoldProductsList, Ptype, GCashRef = None):
         # Getting todays Date
         sql = "SELECT NOW() "
         self.mycursor.execute(sql)
         currdate = self.mycursor.fetchone()[0]
         # inserting into Transaction_receipts
         sql = """
-            INSERT INTO receipts (RUID, Price, PaidPrice, PurchaseDate, GCashReference, SplitPayment)
+            INSERT INTO transaction_receipts (RUID, Price, PaidPrice, PurchaseDate, GCashReference, PaymentTypeID)
             VALUES (%s,%s,%s,%s,%s,%s)
         """
-        val = (self.User.RUID, Price,PPrice, currdate, GCashRef)
+        val = (self.User.RUID, Price,PPrice, currdate, GCashRef,Ptype)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
         # getting receipt_ID
         sql = """
-            SELECT ID FROM transaction_receipts
-            WHERE UID = %s AND
-            Price = %s AND
-            PaidPrice = %s AND
-            PurchaseDate = %s
+            SELECT LAST_INSERT_ID()
             """
-        val = (self.User.UID, Price,PPrice, currdate)
-        self.mycursor.execute(sql,val)
-        
-        try:
-            receiptID = self.mycursor.fetchone()[0]
-            print(receiptID)
-        except:
-            print('rID')
-            print(receiptID)
-            
+        self.mycursor.execute(sql)
+        receiptID = self.mycursor.fetchone()[0]
+
         self.add_sold_products(SoldPlist= SoldProductsList, RID= receiptID,currdate=currdate)
+        
+    def add_sold_products(self, SoldPlist, RID, currdate):
+        # [['00-0001', 'Royal Canin', '1']]
+        
+        # # getting selling price from product table
+        sql1 = """
+            SELECT SellingPrice FROM products WHERE RPID = %s
+        """
+        # setting new total stock from product table
+        sql2 = """
+            UPDATE products SET TotalStock = TotalStock - %s WHERE RPID = %s
+        """
+        # setting current stock from products_supplied table
+        sql3 = """
+            UPDATE products_supplied SET CurrentQuantity = CurrentQuantity - %s WHERE RPID = %s AND SupplierReceiptID = %s
+        """
+        sql4 = """
+            INSERT INTO products_sold (ReceiptID, ProductID, Quantity, Price, Date)
+            VALUES (%s,%s,%s,%s,%s)
+        """
+
+        for prod in SoldPlist:
+            self.mycursor.execute(sql1, (prod[0],))
+            price = self.mycursor.fetchone()[0]
+            self.mycursor.execute(sql2, (prod[2], prod[0]))
+            self.mycursor.execute(sql3, (int(prod[2]), prod[0], str(RID)))
+            self.mycursor.execute(sql4, (RID, prod[0],prod[2], price, currdate))
+            self.mydb.commit()
     
     # Getting Product Data( Inventory )
     def get_all_prod(self, inv = None , trans = None):
@@ -366,30 +383,6 @@ class dbcont(object):
         """
         self.mycursor.execute(sql,NewUlist + UID)
         self.mydb.commit()
-
-        
-    def add_sold_products(self, SoldPlist, RID, currdate):
-        
-        
-        sql1 = """
-            SELECT TotalStock, SellingPrice FROM products WHERE RPID = %s
-        """
-        
-        sql2 = """
-            UPDATE products SET TotalStock = %s WHERE RPID = %s
-        """
-        sql3 = """INSERT INTO products_sold (ProductID, ReceiptID, Quantity, Price,Date)
-                VALUES (%s,%s,%s,%s,%s)"""
-                
-        for prod in SoldPlist:
-            self.mycursor.execute(sql1, (prod[0],))
-            currprod = list(self.mycursor.fetchone())
-            print('curr')
-            print(currprod)
-            currprod[0] = currprod[0] - int(prod[2]) 
-            self.mycursor.execute(sql2, (currprod[0],prod[0]))
-            self.mycursor.execute(sql3, (prod[0],RID, prod[2], currprod[1], currdate))
-            self.mydb.commit()
         
     def update_prod_protocol(self,RPID, NewPlist ):
         
@@ -456,6 +449,7 @@ class dbcont(object):
             FROM accounts
             WHERE Uname = %s AND Email = %s;
             """
+            
             self.mycursor.execute(sql, (uname,email))
             result = self.mycursor.fetchone()
             if result:
@@ -493,7 +487,7 @@ class dbcont(object):
         
     def get_all_sales(self):
         
-        sql = "SELECT * FROM sales"
+        sql = "SELECT * FROM transaction_receipts"
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
@@ -532,6 +526,38 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
+    def get_inventory(self):
+        sql = """
+                SELECT ProductID, ProductID, Quantity, Quantity FROM products_sold
+                """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
+    def search_inventory_rec(self, searchstr):
+        sql = "SELECT ProductID, ProductName, AddedQuantity, ReducedQuantity FROM products_sold WHERE Date = %s"
+        self.mycursor.execute(sql, (searchstr,))
+        
+        #val = (searchstr,)
+        #self.mycursor.execute(sql,val)
+        #self.mycursor.close()
+        return self.mycursor.fetchall()
+    
+    def get_salesR(self):
+        sql = """
+                SELECT PurchaseDate, Price FROM Transaction_receipts
+                """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
+    def search_sales_rep(self, searchstr):
+        sql = "SELECT DateTime, Total FROM sales WHERE DateTime = %s"
+        self.mycursor.execute(sql, (searchstr,))
+        
+        return self.mycursor.fetchall()
+    
+    def get_transactions(self, start_date, end_date):
+        sql = "SELECT DateTime, Total FROM SALES WHERE DateTime BETWEEN %s AND %s"
+        self.mycursor.execute(sql, (start_date, end_date))
     
     # User log functions
     

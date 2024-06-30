@@ -26,9 +26,10 @@ from .MainMenuScreens.Records.Add_Receipt import add_reciept_Window
 from .MainMenuScreens.Records.Transaction_Records import Trans_Rec_Window
 
 from .MainMenuScreens.Reports.Reports_1 import Reports_1_Window
+from .MainMenuScreens.Reports.Inventory_Report import Inventory_Report_Window
+from .MainMenuScreens.Reports.Sales_Report import Sales_Report_Window
 
 from .MainMenuScreens.Maintenance.Maintenance_1 import Maintenance_Window
-
 from .MainMenuScreens.About import AboutWindow
 
 from Database.DBController import dbcont
@@ -68,6 +69,8 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.Trans_Receipts = Trans_Rec_Window()
         
         self.Reports_1 = Reports_1_Window()
+        self.Inventory_Report = Inventory_Report_Window()
+        self.Sales_Report = Sales_Report_Window()
         
         self.Main_1 = Maintenance_Window()
         self.about = AboutWindow()
@@ -97,6 +100,8 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.addWidget(self.Trans_Receipts)
         
         self.stackedWidget.addWidget(self.Reports_1)
+        self.stackedWidget.addWidget(self.Inventory_Report)
+        self.stackedWidget.addWidget(self.Sales_Report)
         
         self.stackedWidget.addWidget(self.Main_1)
         
@@ -134,8 +139,11 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
         self.Supp_Receipts.Add_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Add_Supp_Receipt))
         self.Supp_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
-        
         self.Trans_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
+        # Reports Buttons
+        
+        self.Reports_1.inven_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Inventory_Report))
+        self.Reports_1.sales_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Sales_Report))
         
         # Reports Buttons
         

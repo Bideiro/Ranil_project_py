@@ -28,11 +28,6 @@ class Sales_Window(QMainWindow, Ui_MainWindow):
         self.Sales_Table.setRowCount(len(result))
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
-
-                if column_number == 6:
-                    data = self.db.get_id_value(id= data, unit= True)
-                if column_number == 7:
-                    data = self.db.get_id_value(id= data, cate= True)
                 self.Sales_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
 
         self.Sales_Table.setHorizontalHeaderLabels(['DateTime', 'User', 'Total', 'ReferenceNo'])

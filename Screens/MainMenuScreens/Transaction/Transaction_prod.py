@@ -22,8 +22,10 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
     StableRPID = set()
     SProdConfirmed = []
     SprodRow = None
+    TotalPrice = None
     
-    TotalPrice = 0
+    amtpaid = None
+    GCashRef = None
     
     def __init__(self, parent= None):
         super(Trans_Prod_Window,self).__init__(parent)
@@ -196,24 +198,32 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         Dlg = DLG_CashAmount(price=self.TotalPrice)
         Dlg.exec()
         if Dlg.result() == 1:
-            amtpaid = Dlg.Input_LE.text()
+            self.amtpaid = Dlg.Input_LE.text()
+            self.init_payment_protocol(payment= 0)
         
     def confirmed_payment_GCash(self):
         Dlg = DLG_GCash(price=self.TotalPrice)
         Dlg.exec()
-        print(Dlg.result())
+        if Dlg.result() == 1:
+            self.amtpaid = Dlg.Input_LE.text()
+            self.GCashRef = Dlg.Input2_LE.text()
+            self.init_payment_protocol(payment= 1)
 
     def confirmed_split_payment(self):
         Dlg = DLG_SplitPayment(price=self.TotalPrice)
         Dlg.exec()
-        print(Dlg.result())
+        if Dlg.result() == 1:
+            self.amtpaid = int(Dlg.Input_LE.text()) + int(Dlg.Input3_LE.text())
+            self.GCashRef = Dlg.Input2_LE.text()
+            self.init_payment_protocol(payment= 2)
     
-    def init_payment_protocol(self):
-        
-        
-        
-        
-        pass
+    def init_payment_protocol(self, payment):
+        self.db.add_sold_protocol(
+            Price= self.TPrice_L.text(), PPrice= self.amtpaid,
+            SoldProductsList= self.SProdConfirmed,
+            GCashRef= self.GCashRef, Ptype= payment
+        )
+        self.set_tableElements()
     
     def set_totalprice(self):
         totalprice = 0
