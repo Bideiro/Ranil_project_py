@@ -526,6 +526,8 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
+    
+    # sales and reports
     def get_inventory(self):
         sql = """
                 SELECT ProductID, ProductID, Quantity, Quantity FROM products_sold
@@ -536,10 +538,6 @@ class dbcont(object):
     def search_inventory_rec(self, searchstr):
         sql = "SELECT ProductID, ProductName, AddedQuantity, ReducedQuantity FROM products_sold WHERE Date = %s"
         self.mycursor.execute(sql, (searchstr,))
-        
-        #val = (searchstr,)
-        #self.mycursor.execute(sql,val)
-        #self.mycursor.close()
         return self.mycursor.fetchall()
     
     def get_salesR(self):

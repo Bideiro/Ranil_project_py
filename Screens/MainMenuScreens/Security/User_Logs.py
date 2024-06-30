@@ -10,3 +10,4 @@ class User_Logs_Window(QMainWindow, Ui_MainWindow):
         super(User_Logs_Window,self).__init__()
         self.setupUi(self)
         
+        

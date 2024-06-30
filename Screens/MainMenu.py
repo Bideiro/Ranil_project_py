@@ -145,8 +145,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.Reports_1.inven_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Inventory_Report))
         self.Reports_1.sales_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Sales_Report))
         
-        # Reports Buttons
-        
         # Help Buttons
         
         #Log Out
