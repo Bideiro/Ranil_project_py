@@ -23,8 +23,11 @@ from .MainMenuScreens.Inventory.Inventory import Inventory_Window
 from .MainMenuScreens.Records.Records_1 import Records_1_Window
 from .MainMenuScreens.Records.Supplier_Record import Supp_Rec_Window
 from .MainMenuScreens.Records.Add_Receipt import add_reciept_Window
+from .MainMenuScreens.Records.Transaction_Records import Trans_Rec_Window
 
 from .MainMenuScreens.Reports.Reports_1 import Reports_1_Window
+
+from .MainMenuScreens.Maintenance.Maintenance_1 import Maintenance_Window
 
 from .MainMenuScreens.About import AboutWindow
 
@@ -62,10 +65,11 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.Records_1 = Records_1_Window()
         self.Supp_Receipts = Supp_Rec_Window()
         self.Add_Supp_Receipt = add_reciept_Window()
+        self.Trans_Receipts = Trans_Rec_Window()
         
         self.Reports_1 = Reports_1_Window()
         
-        
+        self.Main_1 = Maintenance_Window()
         self.about = AboutWindow()
     
         
@@ -90,8 +94,11 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.addWidget(self.Records_1)
         self.stackedWidget.addWidget(self.Supp_Receipts)
         self.stackedWidget.addWidget(self.Add_Supp_Receipt)
+        self.stackedWidget.addWidget(self.Trans_Receipts)
         
         self.stackedWidget.addWidget(self.Reports_1)
+        
+        self.stackedWidget.addWidget(self.Main_1)
         
         self.stackedWidget.addWidget(self.about)
         
@@ -119,9 +126,17 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
         # Transaction Buttons
         
+        
         # Records Buttons
         self.Records_1.SReciepts_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
+        self.Records_1.TReceipts_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Trans_Receipts))
+        
+        
         self.Supp_Receipts.Add_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Add_Supp_Receipt))
+        self.Supp_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
+        
+        self.Trans_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
+        
         # Reports Buttons
         
         # Help Buttons
@@ -170,8 +185,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.Inven.set_tableElements()
         self.stackedWidget.setCurrentWidget(self.Inven)
         
-    def on_maintenance_sdbtn_clicked(self):
-        self.stackedWidget.setCurrentWidget(self.about)
         
     def on_records_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.Records_1)
@@ -179,7 +192,8 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     def on_reports_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.Reports_1)
         
+    def on_maintenance_sdbtn_clicked(self):
+        self.stackedWidget.setCurrentWidget(self.Main_1)
+        
     def on_about_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.about)
-        
-

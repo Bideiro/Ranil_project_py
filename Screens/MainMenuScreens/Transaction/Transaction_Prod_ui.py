@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(2086, 634)
+        MainWindow.resize(2292, 634)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet(".QWidget{\n"
 "background-color: #F8F8F0\n"
@@ -647,6 +647,14 @@ class Ui_MainWindow(object):
         self.FGcash_btn.setFont(font)
         self.FGcash_btn.setObjectName("FGcash_btn")
         self.horizontalLayout_17.addWidget(self.FGcash_btn)
+        self.SPayment_btn = QtWidgets.QPushButton(self.widget_24)
+        self.SPayment_btn.setMinimumSize(QtCore.QSize(200, 40))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(13)
+        self.SPayment_btn.setFont(font)
+        self.SPayment_btn.setObjectName("SPayment_btn")
+        self.horizontalLayout_17.addWidget(self.SPayment_btn)
         self.verticalLayout_2.addWidget(self.widget_24)
         self.verticalLayout_8.addWidget(self.widget_13)
         self.widget_25 = QtWidgets.QWidget(self.FReceipt_w)
@@ -737,6 +745,7 @@ class Ui_MainWindow(object):
         self.TPrice_L.setText(_translate("MainWindow", "0"))
         self.FCash_btn.setText(_translate("MainWindow", "CASH"))
         self.FGcash_btn.setText(_translate("MainWindow", "GCASH"))
+        self.SPayment_btn.setText(_translate("MainWindow", "SPLIT PAYMENT"))
         self.FCancel_btn.setText(_translate("MainWindow", "CANCEL"))
         self.FHome_btn.setText(_translate("MainWindow", "HOME"))
 import assets.All_In_Resource_rc

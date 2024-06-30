@@ -10,8 +10,8 @@ from Database.DBController import dbcont
 from .Transaction_Prod_ui import Ui_MainWindow
 from Dialogs.DLog_Alert import DLG_Alert
 from .Dialog.DLog_CashAmount import DLG_CashAmount
-from .Dialog.DLog_GCashAmount import DLG_GCashAmount
-from .Dialog.DLog_GCashRef import DLG_GCashRef
+from .Dialog.DLog_GCash import DLG_GCash
+from .Dialog.DLog_PaymentCombined import DLG_SplitPayment
 from PyQt5 import QtCore
 
 class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
@@ -59,6 +59,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.FHome_btn.clicked.connect(lambda: print('home btn cliked'))
         self.FCash_btn.clicked.connect(self.confirmed_payment_cash)
         self.FGcash_btn.clicked.connect(self.confirmed_payment_GCash)
+        self.SPayment_btn.clicked.connect(self.confirmed_split_payment)
                 
     def search(self):
         self.Product_Table.setRowCount(0)
@@ -216,17 +217,14 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
             amtpaid = Dlg.Input_LE.text()
         
     def confirmed_payment_GCash(self):
-        Dlg = DLG_GCashAmount(price=self.TotalPrice)
+        Dlg = DLG_GCash(price=self.TotalPrice)
         Dlg.exec()
         print(Dlg.result())
-        if Dlg.result() == 1:
-            print('tite')
-            Dlg_GCRef = DLG_GCashRef()
-            Dlg_GCRef.exec()
-                
-            # GCref = Dlg_GCRef.Input_LE.text()
-            # amtpaid = Dlg.Input_LE.text()
-            # Dlg = 
+
+    def confirmed_split_payment(self):
+        Dlg = DLG_SplitPayment(price=self.TotalPrice)
+        Dlg.exec()
+        print(Dlg.result())
         
 
     def set_final_table_elements(self):
@@ -276,16 +274,16 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
             button.clicked.connect(self.on_button_click)
             
             # Setting button design
-            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
             button.setSizePolicy(sizePolicy)
-            button.setMinimumSize(QtCore.QSize(100, 30))
+            button.setFixedSize(QtCore.QSize(100, 30))
             button.setProperty('buttonNumber', index)
             # --END--
             
             row = index // 3
             col = index % 3
             self.BLContent_GL.addWidget(button, row, col)
-            
+
     def on_button_click(self):
         sender = self.sender()
         self.Main_w.setVisible(True)

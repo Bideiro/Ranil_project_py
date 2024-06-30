@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>963</width>
-    <height>696</height>
+    <height>663</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -70,7 +70,6 @@ border : 2px solid #ABE27D;
              <font>
               <family>DM Sans</family>
               <pointsize>24</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -201,7 +200,6 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -251,7 +249,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -270,7 +267,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -282,7 +278,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -294,7 +289,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -330,7 +324,6 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -369,7 +362,6 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -395,7 +387,6 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -421,7 +412,6 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -436,24 +426,6 @@ border : 2px solid #ABE27D;
        <item>
         <widget class="QWidget" name="widget_4" native="true">
          <layout class="QHBoxLayout" name="horizontalLayout_5">
-          <property name="topMargin">
-           <number>0</number>
-          </property>
-          <property name="bottomMargin">
-           <number>0</number>
-          </property>
-         </layout>
-        </widget>
-       </item>
-       <item>
-        <widget class="QWidget" name="widget_3" native="true">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
-         <layout class="QHBoxLayout" name="horizontalLayout_6">
           <property name="topMargin">
            <number>0</number>
           </property>

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>2086</width>
+    <width>2292</width>
     <height>634</height>
    </rect>
   </property>
@@ -1236,6 +1236,25 @@ color: black
                </property>
                <property name="text">
                 <string>GCASH</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="SPayment_btn">
+               <property name="minimumSize">
+                <size>
+                 <width>200</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>13</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>SPLIT PAYMENT</string>
                </property>
               </widget>
              </item>

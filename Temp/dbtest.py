@@ -1,69 +1,47 @@
 import mysql.connector
+import os
+import datetime
 
-# db = mysql.connector.connect(
-#     host="localhost",
-#     user="root",
-#     passwd="passwords",
-#     database="ranil_proj"
-# )
-
-
-try:
-    db = mysql.connector.connect(
+def backup_database(host, user, password, database, backup_dir):
+    # Ensure the backup directory exists
+    os.makedirs(backup_dir, exist_ok=True)
+    
+    # Create a backup file name with the current date
+    backup_file = os.path.join(backup_dir, f"{database}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.sql")
+    
+    # Connect to the database
+    conn = mysql.connector.connect(
     host="localhost",
     user="root",
-    passwd="passwords",
+    passwd="password",
     database="ranil_proj"
-)
-except Exception as e:
-    print(e)
-    exit()
+    )
+    cursor = conn.cursor()
     
-mycursor = db.cursor()
+    # Get the list of tables
+    cursor.execute("SHOW TABLES")
+    tables = cursor.fetchall()
+    
+    with open(backup_file, "w") as f:
+        for table in tables:
+            table_name = table[0]
+            # Write the table structure
+            cursor.execute(f"SHOW CREATE TABLE {table_name}")
+            create_table_stmt = cursor.fetchone()[1]
+            f.write(f"{create_table_stmt};\n\n")
+            
+            # Write the table data
+            cursor.execute(f"SELECT * FROM {table_name}")
+            rows = cursor.fetchall()
+            for row in rows:
+                row_data = ', '.join([f"'{str(item)}'" if item is not None else 'NULL' for item in row])
+                f.write(f"INSERT INTO {table_name} VALUES ({row_data});\n")
+            f.write("\n")
+    
+    print(f"Backup completed: {backup_file}")
+    
+    cursor.close()
+    conn.close()
 
-# mycursor.execute("CREATE DATABASE testdb")
-
-
-# intserting into database
-
-# mycursor.execute("INSERT INTO person(name,age) VALUES (%s,%s)" , ("tim",19))
-
-# sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
-# val = ("John", "Highway 21")
-# mycursor.execute(sql, val)
-
-
-# inserting multiple
-
-# sql = "INSERT INTO customers (name, address) VALUES (%s, %s)"
-# val = [
-#   ('Peter', 'Lowstreet 4'),
-#   ('Amy', 'Apple st 652'),
-#   ('Hannah', 'Mountain 21'),
-#   ('Michael', 'Valley 345'),
-#   ('Sandy', 'Ocean blvd 2'),
-#   ('Betty', 'Green Grass 1'),
-#   ('Richard', 'Sky st 331'),
-#   ('Susan', 'One way 98'),
-#   ('Vicky', 'Yellow Garden 2'),
-#   ('Ben', 'Park Lane 38'),
-#   ('William', 'Central st 954'),
-#   ('Chuck', 'Main Road 989'),
-#   ('Viola', 'Sideway 1633')
-# ]
-
-# mycursor.executemany(sql, val)
-
-
-
-mycursor.execute("DESCRIBE testdb")
-for x in mycursor:
-    print(x)
-
-# mycursor.execute("SELECT * FROM ranil_proj.testdb")
-# for x in mycursor:
-#     print(x)
-
-
-
-# db.commit()
+# Example usage
+backup_database( "ranil_proj", "./backup_directory")

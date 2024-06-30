@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="Icons">
+    <file>Icons/delete.png</file>
+    <file>Icons/enter.png</file>
+    <file>Icons/plus.png</file>
     <file>Icons/add.png</file>
     <file>Icons/calendar.png</file>
     <file>Icons/close.png</file>

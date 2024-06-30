@@ -8,6 +8,7 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 class Supp_Rec_Window(QMainWindow, Ui_MainWindow):
 
     Add_btnsgl = QtCore.pyqtSignal()
+    back_btnsgl = QtCore.pyqtSignal()
     
     db = dbcont()
     
