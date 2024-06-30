@@ -191,6 +191,29 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
                 self.FReceipt_w.setVisible(True)
     
     # all about final
+
+    def confirmed_payment_cash(self):
+        Dlg = DLG_CashAmount(price=self.TotalPrice)
+        Dlg.exec()
+        if Dlg.result() == 1:
+            amtpaid = Dlg.Input_LE.text()
+        
+    def confirmed_payment_GCash(self):
+        Dlg = DLG_GCash(price=self.TotalPrice)
+        Dlg.exec()
+        print(Dlg.result())
+
+    def confirmed_split_payment(self):
+        Dlg = DLG_SplitPayment(price=self.TotalPrice)
+        Dlg.exec()
+        print(Dlg.result())
+    
+    def init_payment_protocol(self):
+        
+        
+        
+        
+        pass
     
     def set_totalprice(self):
         totalprice = 0
@@ -209,24 +232,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
                 Dlg.exec()
         else:
             self.TPrice_L.setText(str(totalprice))
-        
-    def confirmed_payment_cash(self):
-        Dlg = DLG_CashAmount(price=self.TotalPrice)
-        Dlg.exec()
-        if Dlg.result() == 1:
-            amtpaid = Dlg.Input_LE.text()
-        
-    def confirmed_payment_GCash(self):
-        Dlg = DLG_GCash(price=self.TotalPrice)
-        Dlg.exec()
-        print(Dlg.result())
-
-    def confirmed_split_payment(self):
-        Dlg = DLG_SplitPayment(price=self.TotalPrice)
-        Dlg.exec()
-        print(Dlg.result())
-        
-
+    
     def set_final_table_elements(self):
         self.FProduct_Table.setRowCount(len(self.SProdConfirmed))
         for row_number, row_data in enumerate(self.SProdConfirmed):

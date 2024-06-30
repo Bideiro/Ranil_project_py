@@ -32,11 +32,11 @@ class dbcont(object):
         res = self.mycursor.fetchone()[0]
         
         if bool(res):
-            sql = " SELECT UID, Uname, Passcode, LevelID FROM accounts WHERE Uname = %s AND passcode = %s"
+            sql = " SELECT UID, RUID, Uname, Passcode, LevelID FROM accounts WHERE Uname = %s AND passcode = %s"
             val = (self.user, self.passwd)
             self.mycursor.execute(sql,val)
             curruser = self.mycursor.fetchone()
-            self.User.set_user(UID= curruser[0],User= curruser[1], Pass=curruser[2],Level= curruser[3])
+            self.User.set_user(UID= curruser[0], RUID= curruser[1],User= curruser[2], Pass=curruser[3],Level= curruser[4])
         return bool(res)
     
     # Getting data from Tables
@@ -158,6 +158,23 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
         
+        
+    # Registration
+    def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
+        sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
+                    VALUES (%s,%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"""
+        val = (LevelID, self._create_rid(id= LevelID, user=True, new=True),Uname, Passcode, fname, lname,sex,phono, email,pos, Dhired, Bdate,address)
+        self.mycursor.execute(sql,val)
+        self.mydb.commit()
+        
+    def reg_prod_protocol(self,Pname, Sprice, Utype , Ctype ,desc = None):
+        sql =""" INSERT INTO products (RPID, ProductName, SellingPrice, Description, TotalStock,UnitTypeID, CategoryID)
+                    VALUES (%s, %s, %s,%s ,%s,%s,%s)"""
+        val = (self._create_rid(typeID=Ctype,prod=True,new=True),Pname, Sprice,desc, 0,Utype, Ctype )
+        self.mycursor.execute(sql,val)
+        self.mydb.commit()
+        
+        
     # Transaction 
     def get_prod_search(self, searchcate= None, searchstr=None, all= None):
         if all != None:
@@ -208,6 +225,39 @@ class dbcont(object):
         self.mycursor.execute(sql,(id,))
         return self.mycursor.fetchone()[0]
     
+    def add_sold_receipt(self,Price, PPrice, SoldProductsList, Split, GCashRef = None):
+        # Getting todays Date
+        sql = "SELECT NOW() "
+        self.mycursor.execute(sql)
+        currdate = self.mycursor.fetchone()[0]
+        # inserting into Transaction_receipts
+        sql = """
+            INSERT INTO receipts (RUID, Price, PaidPrice, PurchaseDate, GCashReference, SplitPayment)
+            VALUES (%s,%s,%s,%s,%s,%s)
+        """
+        val = (self.User.RUID, Price,PPrice, currdate, GCashRef)
+        self.mycursor.execute(sql,val)
+        self.mydb.commit()
+        
+        # getting receipt_ID
+        sql = """
+            SELECT ID FROM transaction_receipts
+            WHERE UID = %s AND
+            Price = %s AND
+            PaidPrice = %s AND
+            PurchaseDate = %s
+            """
+        val = (self.User.UID, Price,PPrice, currdate)
+        self.mycursor.execute(sql,val)
+        
+        try:
+            receiptID = self.mycursor.fetchone()[0]
+            print(receiptID)
+        except:
+            print('rID')
+            print(receiptID)
+            
+        self.add_sold_products(SoldPlist= SoldProductsList, RID= receiptID,currdate=currdate)
     
     # Getting Product Data( Inventory )
     def get_all_prod(self, inv = None , trans = None):
@@ -267,21 +317,6 @@ class dbcont(object):
         print("huh")
         return 0
         
-
-        
-    def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
-        sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
-                    VALUES (%s,%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"""
-        val = (LevelID, self._create_rid(id= LevelID, user=True, new=True),Uname, Passcode, fname, lname,sex,phono, email,pos, Dhired, Bdate,address)
-        self.mycursor.execute(sql,val)
-        self.mydb.commit()
-        
-    def reg_prod_protocol(self,Pname, Sprice, Utype , Ctype ,desc = None):
-        sql =""" INSERT INTO products (RPID, ProductName, SellingPrice, Description, TotalStock,UnitTypeID, CategoryID)
-                    VALUES (%s, %s, %s,%s ,%s,%s,%s)"""
-        val = (self._create_rid(typeID=Ctype,prod=True,new=True),Pname, Sprice,desc, 0,Utype, Ctype )
-        self.mycursor.execute(sql,val)
-        self.mydb.commit()
         
     def add_receipt(self,RefNo, TPrice ,ODate, DDate, PType, Plist, GCashRef = None):
         
@@ -332,35 +367,6 @@ class dbcont(object):
         self.mycursor.execute(sql,NewUlist + UID)
         self.mydb.commit()
 
-    def add_sold_receipt(self,Price, PPrice, SoldProductsList, GCashRef = None):
-        sql = "SELECT NOW() "
-        self.mycursor.execute(sql)
-        currdate = self.mycursor.fetchone()[0]
-        
-        sql = """
-            INSERT INTO receipts (UID, Price, PaidPrice, PurchaseDate, GCashReference )
-            VALUES (%s,%s,%s,%s,%s)
-        """
-        val = (self.User.UID, Price,PPrice, currdate, GCashRef)
-        self.mycursor.execute(sql,val)
-        self.mydb.commit()
-        
-        sql = """
-        SELECT ID FROM receipts 
-        WHERE UID = %s AND
-        Price = %s AND 
-        PaidPrice = %s AND 
-        PurchaseDate = %s 
-        """
-        val = (self.User.UID, Price,PPrice, currdate)
-        self.mycursor.execute(sql,val)
-        try:
-            receiptID = self.mycursor.fetchone()[0]
-            print(receiptID)
-        except:
-            print('rID')
-            print(receiptID)
-        self.add_sold_products(SoldPlist= SoldProductsList, RID= receiptID,currdate=currdate)
         
     def add_sold_products(self, SoldPlist, RID, currdate):
         
@@ -395,7 +401,7 @@ class dbcont(object):
         self.mycursor.execute(sql,NewPlist + RPID)
         self.mydb.commit()
         
-    def _create_rid(self, typeID = None , id = None ,RID = None,prod = None, user = None, new = None):
+    def _create_rid(self, typeID = None , id = None, date= None,RID = None,prod = None, user = None, receipt = None, new = None):
         
         if RID != None:
             if user != None:
@@ -411,9 +417,16 @@ class dbcont(object):
             else:
                 typeID = 'EMP'
             id = str(id).zfill(3)
+            
         elif prod != None:
             typeID = str(typeID).zfill(2)
             id = str(id).zfill(4)
+            
+        elif receipt != None:
+            
+            
+            
+            pass
             
         if new: 
             if prod:
@@ -423,12 +436,15 @@ class dbcont(object):
                 print(nextid)
                 unit_id = typeID + '-' + str(nextid).zfill(4)
                 return unit_id
-            else:
+            elif user:
                 sql = "SELECT COUNT(*) FROM accounts;"
                 self.mycursor.execute(sql)
                 nextid =int(self.mycursor.fetchone()[0]) + 1
                 unit_id = typeID + '-' + str(nextid).zfill(3)
                 return unit_id
+            elif receipt:
+                
+                pass
         else:
             unit_id = typeID + '-' + id
             return unit_id

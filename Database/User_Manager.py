@@ -16,17 +16,20 @@ class UserMana(object):
         self.User = None
         self.Pass = None
         self.Level = None
+        self.RUID = None
             
     def reset_UserMana(cls):
         if cls._instance:
+            cls._instance.RUID = None
             cls._instance.UID = None
             cls._instance.User = None
             cls._instance.Pass = None
             cls._instance.Level = None
             cls._instance = None
         
-    def set_user(self, UID, User, Pass,Level):
+    def set_user(self, UID, RUID, User, Pass, Level ):
         self.UID = UID
         self.User = User
         self.Pass = Pass
         self.Level = Level
+        self.RUID = RUID

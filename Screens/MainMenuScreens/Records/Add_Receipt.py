@@ -41,8 +41,6 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
                             ODate= self.ODate_DE.date().toPyDate(),DDate= self.DDate_DE.date().toPyDate(),
                             GCashRef= self.GCRef_LE.text(), Plist= rows_list)
         
-        pass
-    
     def Dlg_add_prod(self):
         
         Dlg = DLG_Insert_Prod(RPIDlist= self.TableRPID)
