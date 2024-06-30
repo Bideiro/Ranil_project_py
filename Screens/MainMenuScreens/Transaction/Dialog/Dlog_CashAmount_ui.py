@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Transaction\Dialog\Dlog_CashAmount.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Transaction\Dialog\DLog_CashAmount.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(442, 206)
+        Dialog.resize(455, 199)
         Dialog.setStyleSheet("#widget{\n"
 "background-color: #F8F8F0;\n"
 "border: 3px solid #ABE27D;\n"
@@ -34,7 +34,6 @@ class Ui_Dialog(object):
 "}")
         self.verticalLayout_3 = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout_3.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout_3.setSpacing(0)
         self.verticalLayout_3.setObjectName("verticalLayout_3")
         self.widget = QtWidgets.QWidget(Dialog)
         font = QtGui.QFont()
@@ -42,8 +41,6 @@ class Ui_Dialog(object):
         self.widget.setFont(font)
         self.widget.setObjectName("widget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout.setContentsMargins(0, 0, 0, 0)
-        self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(self.widget)
         font = QtGui.QFont()
@@ -54,32 +51,32 @@ class Ui_Dialog(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
-        self.lineEdit = QtWidgets.QLineEdit(self.widget)
+        self.Input_LE = QtWidgets.QLineEdit(self.widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy)
-        self.lineEdit.setMinimumSize(QtCore.QSize(25, 35))
+        sizePolicy.setHeightForWidth(self.Input_LE.sizePolicy().hasHeightForWidth())
+        self.Input_LE.setSizePolicy(sizePolicy)
+        self.Input_LE.setMinimumSize(QtCore.QSize(25, 35))
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setPointSize(11)
-        self.lineEdit.setFont(font)
-        self.lineEdit.setObjectName("lineEdit")
-        self.verticalLayout.addWidget(self.lineEdit)
+        self.Input_LE.setFont(font)
+        self.Input_LE.setObjectName("Input_LE")
+        self.verticalLayout.addWidget(self.Input_LE)
         self.widget_2 = QtWidgets.QWidget(self.widget)
         self.widget_2.setObjectName("widget_2")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(self.widget_2)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
-        self.pushButton_2 = QtWidgets.QPushButton(self.widget_2)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(0, 40))
+        self.ok_btn = QtWidgets.QPushButton(self.widget_2)
+        self.ok_btn.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setPointSize(14)
         font.setBold(True)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.verticalLayout_2.addWidget(self.pushButton_2)
+        self.ok_btn.setFont(font)
+        self.ok_btn.setObjectName("ok_btn")
+        self.verticalLayout_2.addWidget(self.ok_btn)
         self.verticalLayout.addWidget(self.widget_2)
         self.verticalLayout_3.addWidget(self.widget)
 
@@ -90,5 +87,5 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "INPUT PAYMENT"))
-        self.lineEdit.setPlaceholderText(_translate("Dialog", "Enter Amount Paid"))
-        self.pushButton_2.setText(_translate("Dialog", "OK"))
+        self.Input_LE.setPlaceholderText(_translate("Dialog", "Enter Amount Paid"))
+        self.ok_btn.setText(_translate("Dialog", "OK"))

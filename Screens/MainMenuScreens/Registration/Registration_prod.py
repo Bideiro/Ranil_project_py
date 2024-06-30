@@ -31,6 +31,12 @@ class Registration_prod_Window(QMainWindow, Ui_MainWindow):
         self.SPrice_LE.setValidator(self.onlyInt)
         self.CType_CB.addItems(self.db.get_cate(all=True))
         self.UType_CB.addItems(self.db.get_unittype(all=True))
+        self.CType_CB.setCurrentIndex(0)
+        self.NRPID_L.setText(self.db._create_rid(typeID=self.CType_CB.currentIndex(),prod=True,new=True))
+        self.CType_CB.currentIndexChanged.connect(self.update_NRPID)
+        
+    def update_NRPID(self):
+        self.NRPID_L.setText(self.db._create_rid(typeID=self.CType_CB.currentIndex(),prod=True,new=True))
         
     def prev_window(self):
         self.back_btnsgl.emit()
@@ -46,14 +52,13 @@ class Registration_prod_Window(QMainWindow, Ui_MainWindow):
             errdlg.exec()
         
     def confirmed_reg(self):
-        
         Dlg = DLG_AdminCheckPass()
         Dlg.exec()
         
         if Dlg.result() == 1:
             self.db.reg_prod_protocol(Pname = self.PName_LE.text(), Sprice=self.SPrice_LE.text(),
                                 Utype= self.UType_CB.currentIndex(),Ctype= self.CType_CB.currentIndex(),
-                                desc=self.Desc_PTE.text()
+                                desc=self.Desc_PTE.toPlainText()
                                 )
             dlg = DLG_Alert()
             dlg.exec()

@@ -81,7 +81,7 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         if Dlg.result() == 1:
             self.newPlist = [self.db._create_rid(RID= prod_values[0],typeID=Dlg.Cat_CB.currentIndex(),prod=True),
                         Dlg.PName_LE.text(),Dlg.SPrice_LE.text(),
-                        Dlg.Desc_LE.text(),Dlg.Unit_CB.currentIndex(),
+                        Dlg.Desc_PTE.toPlainText(),Dlg.Unit_CB.currentIndex(),
                         Dlg.Cat_CB.currentIndex()]
             oldPlist = [prod_values[0]]
             self.db.update_prod_protocol(RPID=oldPlist, NewPlist = self.newPlist)

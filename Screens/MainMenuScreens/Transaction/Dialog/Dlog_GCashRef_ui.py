@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Transaction\Dialog\Dlog_GCashRef.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Transaction\Dialog\DLog_GCashRef.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -52,33 +52,33 @@ class Ui_Dialog(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.verticalLayout.addWidget(self.label)
-        self.lineEdit = QtWidgets.QLineEdit(self.widget)
+        self.Input_LE = QtWidgets.QLineEdit(self.widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.lineEdit.sizePolicy().hasHeightForWidth())
-        self.lineEdit.setSizePolicy(sizePolicy)
-        self.lineEdit.setMinimumSize(QtCore.QSize(25, 35))
+        sizePolicy.setHeightForWidth(self.Input_LE.sizePolicy().hasHeightForWidth())
+        self.Input_LE.setSizePolicy(sizePolicy)
+        self.Input_LE.setMinimumSize(QtCore.QSize(25, 35))
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setPointSize(11)
-        self.lineEdit.setFont(font)
-        self.lineEdit.setMaxLength(13)
-        self.lineEdit.setObjectName("lineEdit")
-        self.verticalLayout.addWidget(self.lineEdit)
+        self.Input_LE.setFont(font)
+        self.Input_LE.setMaxLength(13)
+        self.Input_LE.setObjectName("Input_LE")
+        self.verticalLayout.addWidget(self.Input_LE)
         self.widget_2 = QtWidgets.QWidget(self.widget)
         self.widget_2.setObjectName("widget_2")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget_2)
         self.horizontalLayout.setObjectName("horizontalLayout")
-        self.pushButton_2 = QtWidgets.QPushButton(self.widget_2)
-        self.pushButton_2.setMinimumSize(QtCore.QSize(0, 40))
+        self.ok_btn = QtWidgets.QPushButton(self.widget_2)
+        self.ok_btn.setMinimumSize(QtCore.QSize(0, 40))
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setPointSize(14)
         font.setBold(True)
-        self.pushButton_2.setFont(font)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout.addWidget(self.pushButton_2)
+        self.ok_btn.setFont(font)
+        self.ok_btn.setObjectName("ok_btn")
+        self.horizontalLayout.addWidget(self.ok_btn)
         self.verticalLayout.addWidget(self.widget_2)
         self.verticalLayout_2.addWidget(self.widget)
 
@@ -89,5 +89,5 @@ class Ui_Dialog(object):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
         self.label.setText(_translate("Dialog", "INPUT GCASH REFERENCE NUMBER"))
-        self.lineEdit.setPlaceholderText(_translate("Dialog", "Reference Number:"))
-        self.pushButton_2.setText(_translate("Dialog", "OK"))
+        self.Input_LE.setPlaceholderText(_translate("Dialog", "Reference Number:"))
+        self.ok_btn.setText(_translate("Dialog", "OK"))

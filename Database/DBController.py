@@ -158,6 +158,57 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
         
+    # Transaction 
+    def get_prod_search(self, searchcate= None, searchstr=None, all= None):
+        if all != None:
+            sql = """
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        elif searchcate != -1 and searchstr == None:
+            sql = """
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE CategoryID = %s
+            """
+            self.mycursor.execute(sql,(searchcate,))
+            return self.mycursor.fetchall()
+        elif searchstr != '' and searchcate != -1:
+            sql = """
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products 
+                    WHERE (RPID LIKE %s
+                        OR ProductName LIKE %s
+                        OR SellingPrice LIKE %s
+                        OR ExpirationDate LIKE %s
+                        OR TotalStock LIKE %s)
+                    AND CategoryID = %s
+            """
+            searchstr = '%' + searchstr + '%'
+            self.mycursor.execute(sql,(searchstr,searchstr,searchstr,searchstr,searchstr,searchcate))
+            return self.mycursor.fetchall()
+        elif searchstr != '' and searchcate == -1:
+            sql = """
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products 
+                    WHERE RPID LIKE %s
+                    OR ProductName LIKE %s
+                    OR SellingPrice LIKE %s
+                    OR ExpirationDate LIKE %s
+                    OR TotalStock LIKE %s 
+            """
+            searchstr = '%' + searchstr + '%'
+            self.mycursor.execute(sql,(searchstr,searchstr,searchstr,searchstr,searchstr))
+            return self.mycursor.fetchall()
+        else:
+            print('fok')
+        
+    def prod_price(self, id):
+        sql = """
+                    SELECT SellingPrice FROM products
+                    WHERE RPID = %s
+                    """
+        self.mycursor.execute(sql,(id,))
+        return self.mycursor.fetchone()[0]
+    
+    
     # Getting Product Data( Inventory )
     def get_all_prod(self, inv = None , trans = None):
         
@@ -216,13 +267,7 @@ class dbcont(object):
         print("huh")
         return 0
         
-    def prod_price(self, id):
-        sql = """
-                    SELECT SellingPrice FROM products
-                    WHERE RPID LIKE %s
-                    """
-        self.mycursor.execute(sql,(id,))
-        return self.mycursor.fetchone()[0]
+
         
     def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
         sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 

@@ -161,7 +161,7 @@ border: 2px solid #096033;
               </widget>
              </item>
              <item>
-              <widget class="QLabel" name="label_7">
+              <widget class="QLabel" name="NRPID_L">
                <property name="font">
                 <font>
                  <family>DM Sans</family>

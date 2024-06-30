@@ -16,8 +16,7 @@ from .MainMenuScreens.Registration.Registration_user import Registration_user_Wi
 
 from .MainMenuScreens.Sales.Sales import Sales_Window
 
-from .MainMenuScreens.Transaction.Transaction_prod import Trans_prod_Window
-from .MainMenuScreens.Transaction.Transaction_payment import Payment_Window
+from .MainMenuScreens.Transaction.Transaction_Prod import Trans_Prod_Window
 
 from .MainMenuScreens.Inventory.Inventory import Inventory_Window
 
@@ -56,8 +55,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
         self.Sales = Sales_Window()
         
-        self.Trans_prod = Trans_prod_Window()
-        self.Payment = Payment_Window()
+        self.Trans_prod = Trans_Prod_Window()
         
         self.Inven = Inventory_Window()
         
@@ -86,7 +84,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.addWidget(self.Sales)
         
         self.stackedWidget.addWidget(self.Trans_prod)
-        self.stackedWidget.addWidget(self.Payment)
         
         self.stackedWidget.addWidget(self.Inven)
         
@@ -121,9 +118,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         # Sales Buttons
         
         # Transaction Buttons
-        self.Trans_prod.Done_btnsgl.connect(self.init_confirmed_payment)
-        self.Payment.atrans_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Trans_prod))
-        self.Payment.cancel_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Trans_prod))
         
         # Records Buttons
         self.Records_1.SReciepts_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
@@ -150,11 +144,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.Home)
         self.log_out_btnsgl.emit()
         
-    def init_confirmed_payment(self):
-        self.Payment.prodlist = self.Trans_prod.SProdConfirmed
-        self.Payment.init_screen()
-        print('done buton pressed')
-        self.stackedWidget.setCurrentWidget(self.Payment)
     
     
     @pyqtSlot()
@@ -169,6 +158,10 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
     def on_sales_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.Sales)
+        
+    def on_transaction_sdbtn_clicked(self):
+        self.Trans_prod.reset_page()
+        self.stackedWidget.setCurrentWidget(self.Trans_prod)
         
     def on_help_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.about)
@@ -189,5 +182,4 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     def on_about_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.about)
         
-    def on_transaction_sdbtn_clicked(self):
-        self.stackedWidget.setCurrentWidget(self.Trans_prod)
+
