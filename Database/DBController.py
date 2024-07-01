@@ -1,6 +1,7 @@
 import mysql.connector
 from Database.User_Manager import UserMana
 
+
 # Due to time constraints this will be the most un optimized code. ever.
 class dbcont(object):
     
@@ -39,6 +40,19 @@ class dbcont(object):
             self.User.set_user(UID= curruser[0], RUID= curruser[1],User= curruser[2], Pass=curruser[3],Level= curruser[4])
             self.log_login()
         return bool(res)
+    
+    def Restore_sql(self, backup_file):
+        with open(backup_file, "r") as f:
+            sql_commands = f.read().split(";\n")
+
+        for command in sql_commands:
+            if command.strip():
+                self.mycursor.execute(command)
+                self.mydb.commit()
+                
+    def Backup_sql(self):
+        self.mycursor.execute("SHOW TABLES")
+        return self.mycursor.fetchall()
     
     def log_login(self):
         
@@ -651,10 +665,6 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
-    # def get_transactions(self, start_date, end_date):
-    #     sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate BETWEEN %s AND %s"
-    #     self.mycursor.execute(sql, (start_date, end_date))
-    
     def search_inventory_rec(self, SDate, EDate = None):
         if EDate == None:
             sql = "SELECT ReceiptID, ProductID, Quantity, Price FROM products_sold WHERE Date = %s"
@@ -665,6 +675,11 @@ class dbcont(object):
         
         return self.mycursor.fetchall()
     
+    # def get_transactions(self, start_date, end_date):
+    #     sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate BETWEEN %s AND %s"
+    #     self.mycursor.execute(sql, (start_date, end_date))
+    
+
     def get_salesR(self):
         sql = """
                 SELECT PurchaseDate, Price FROM Transaction_receipts
