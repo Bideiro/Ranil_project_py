@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>2292</width>
-    <height>634</height>
+    <height>593</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -82,7 +82,7 @@ color: black
             <x>0</x>
             <y>0</y>
             <width>480</width>
-            <height>596</height>
+            <height>555</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_3">
@@ -516,8 +516,8 @@ color: black
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
-                 <normaloff>:/Icons/remove.png</normaloff>:/Icons/remove.png</iconset>
+                <iconset resource="../../../assets/All_In_Resource.qrc">
+                 <normaloff>:/Icons/Icons/remove.png</normaloff>:/Icons/Icons/remove.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
@@ -957,6 +957,15 @@ color: black
                <property name="alternatingRowColors">
                 <bool>true</bool>
                </property>
+               <property name="selectionMode">
+                <enum>QAbstractItemView::SingleSelection</enum>
+               </property>
+               <property name="selectionBehavior">
+                <enum>QAbstractItemView::SelectRows</enum>
+               </property>
+               <property name="horizontalScrollMode">
+                <enum>QAbstractItemView::ScrollPerPixel</enum>
+               </property>
                <property name="sortingEnabled">
                 <bool>true</bool>
                </property>
@@ -1312,10 +1321,10 @@ color: black
            </spacer>
           </item>
           <item>
-           <widget class="QPushButton" name="FHome_btn">
+           <widget class="QPushButton" name="ATrans_btn">
             <property name="minimumSize">
              <size>
-              <width>100</width>
+              <width>250</width>
               <height>40</height>
              </size>
             </property>
@@ -1326,7 +1335,7 @@ color: black
              </font>
             </property>
             <property name="text">
-             <string>HOME</string>
+             <string>ANOTHER TRANSACTION</string>
             </property>
            </widget>
           </item>

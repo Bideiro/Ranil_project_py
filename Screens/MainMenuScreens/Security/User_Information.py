@@ -90,6 +90,7 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         self.Phono_L.setText('None')
         self.Pos_L.setText('None')
         self.HDate_L.setText('None')
+        self.SUID_L.setText('None')
         
     def prev_window(self):
         self.back_btnsgl.emit()

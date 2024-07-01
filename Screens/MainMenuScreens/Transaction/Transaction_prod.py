@@ -12,6 +12,7 @@ from Dialogs.DLog_Alert import DLG_Alert
 from .Dialog.DLog_CashAmount import DLG_CashAmount
 from .Dialog.DLog_GCash import DLG_GCash
 from .Dialog.DLog_PaymentCombined import DLG_SplitPayment
+from Dialogs.DLog_Confirm import DLG_Confirm
 from PyQt5 import QtCore
 
 class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
@@ -58,9 +59,9 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         # Final Widget
         self.Discount_LE.textChanged.connect(self.set_totalprice)
         self.FCancel_btn.clicked.connect(self.change_widget)
-        self.FHome_btn.clicked.connect(lambda: print('home btn cliked'))
         self.FCash_btn.clicked.connect(self.confirmed_payment_cash)
         self.FGcash_btn.clicked.connect(self.confirmed_payment_GCash)
+        self.ATrans_btn.clicked.connect(self.another_trans)
         self.SPayment_btn.clicked.connect(self.confirmed_split_payment)
                 
     def search(self):
@@ -264,6 +265,15 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.EDate_L.setText(None)
         self.Quantity_LE.setText(None)
         
+        
+    def another_trans(self):
+        Dlg = DLG_Confirm()
+        Dlg.exec()
+        
+        if Dlg.result() == 1:
+            self.change_widget()
+            self.reset_page()
+        
     def change_widget(self):
         if self.FReceipt_w.isVisible():
             self.Order_w.setVisible(True)
@@ -281,6 +291,8 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.BList_w.setVisible(True)
         self.set_dybutton()
         self.set_tableElements()
+        self.clean_sprod_table()
+        
         
     def set_dybutton(self):
         cate_list = self.db.get_cate(all=True)

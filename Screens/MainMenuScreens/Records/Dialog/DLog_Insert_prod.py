@@ -14,6 +14,7 @@ class DLG_Insert_Prod(QDialog, Ui_Dialog):
     selRPID = None
     selPrice = None
     selAmount = None
+    selEdate = None
     RPIDList = None
     
     def __init__(self,parent = None, RPIDlist = None):
@@ -21,6 +22,7 @@ class DLG_Insert_Prod(QDialog, Ui_Dialog):
         self.setupUi(self)
         self.db = dbcont('admin',123456)
         self.RPIDList = RPIDlist
+        print(self.RPIDList)
         
         self.set_table_elements()
         
@@ -43,7 +45,7 @@ class DLG_Insert_Prod(QDialog, Ui_Dialog):
             Dlg.exec()
             
         else:
-            Dlg_amount = DLG_Receipt_Product(msg='Enter Amount:', msg2='Enter Price Bought:')
+            Dlg_amount = DLG_Receipt_Product(msg='Enter Amount:', msg2='Enter Price Bought:',msg3= 'Expiration Date: ')
             self.onlyInt = QIntValidator()
             Dlg_amount.Input_LE.setValidator(self.onlyInt)
             Dlg_amount.Input2_LE.setValidator(self.onlyInt)
@@ -52,6 +54,7 @@ class DLG_Insert_Prod(QDialog, Ui_Dialog):
             if Dlg_amount.result() == 1:
                 self.selAmount = Dlg_amount.Input_LE.text()
                 self.selPrice = Dlg_amount.Input2_LE.text()
+                self.selEdate = str(Dlg_amount.EDate_DE.date().toPyDate())
                 print(self.selRPID)
                 print(self.selAmount)
                 self.done(1)
@@ -70,10 +73,10 @@ class DLG_Insert_Prod(QDialog, Ui_Dialog):
         self.Product_Table.setRowCount(len(result))
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
-                if column_number == 6:
-                    data = self.db.get_id_value(id= data, unit= True)
-                if column_number == 7:
-                    data = self.db.get_id_value(id= data, cate= True)
+                if column_number == 3:
+                    data = self.db.get_unittype(id= data)
+                if column_number == 2:
+                    data = self.db.get_cate(id= data)
                 self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
     
     def set_item(self,item):
@@ -100,10 +103,10 @@ class DLG_Insert_Prod(QDialog, Ui_Dialog):
             for row_number, row_data in enumerate(searchResult):
                 self.Product_Table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    if column_number == 6:
-                        data = self.db.get_id_value(id= data, unit= True)
-                    if column_number == 7:
-                        data = self.db.get_id_value(id= data, cate= True)
+                    if column_number == 3:
+                        data = self.db.get_unittype(id= data)
+                    if column_number == 2:
+                        data = self.db.get_cate(id= data)
                     self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
             print('Error')

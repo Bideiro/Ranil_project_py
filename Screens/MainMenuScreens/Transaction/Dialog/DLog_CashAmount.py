@@ -21,13 +21,15 @@ class DLG_CashAmount(QDialog, Ui_Dialog):
         self.ok_btn.clicked.connect(self.confirmed)
         
     def confirmed(self):
-        print(self.Input_LE.text())
-        print(self.price)
-        if int(self.Input_LE.text()) < self.price:
+        if self.Input_LE.text() == '':
+            Dlg = DLG_Alert(msg= f'Empty amount field!')
+            self.done(0)
+            Dlg.exec()
+        elif int(self.Input_LE.text()) < self.price:
             Dlg = DLG_Alert(msg= f'Insufficient cash!')
             self.done(0)
             Dlg.exec()
-        if int(self.Input_LE.text()) > self.price:
+        elif int(self.Input_LE.text()) > self.price:
             change = int(self.Input_LE.text()) - self.price
             Dlg = DLG_Alert(msg= f'Transaction succesfull! (Change is {str(change)})')
             self.done(1)

@@ -37,9 +37,48 @@ class dbcont(object):
             self.mycursor.execute(sql,val)
             curruser = self.mycursor.fetchone()
             self.User.set_user(UID= curruser[0], RUID= curruser[1],User= curruser[2], Pass=curruser[3],Level= curruser[4])
+            
+        self.log_login()
         return bool(res)
     
+    def log_login(self):
+        
+        sql = "SELECT NOW() "
+        self.mycursor.execute(sql)
+        currdate = self.mycursor.fetchone()[0]
+        
+        sql = """
+            INSERT INTO logs (UserID, UserLevel, User , Activity , DateTime)
+            VALUES (%s,%s,%s,%s,%s)
+        """
+        
+        val = (self.User.RUID, self.get_levels(id =self.User.Level), self.User.User, 'Logged in', currdate)
+        self.mycursor.execute(sql,val)
+        self.mydb.commit()
+
+    def log_logout(self):
+            
+            sql = "SELECT NOW() "
+            self.mycursor.execute(sql)
+            currdate = self.mycursor.fetchone()[0]
+            
+            sql = """
+                INSERT INTO logs (UserID, UserLevel, User , Activity , DateTime)
+                VALUES (%s,%s,%s,%s,%s)
+            """
+            
+            val = (self.User.UID, self.User.Level, self.User.User, 'Logged Out', currdate)
+            self.mycursor.execute(sql,val)
+            self.mydb.commit()
     # Getting data from Tables
+    
+    def get_logs(self):
+        
+        sql = """
+            SELECT UserID, UserLevel, User, Activity, DateTime FROM logs
+        """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
     
     def get_cate(self, value= None, id=None,all = None):
         if value != None:
@@ -133,6 +172,31 @@ class dbcont(object):
         else:
             print('No Arguements! (Get Unit Type)')
         
+    def get_payment_type(self,value=None, id=None, all=None):
+        if value != None:
+            sql = """
+                SELECT PaymentTypeID FROM payment_type WHERE PaymentType = %s
+            """
+            self.mycursor.execute(sql, (value,))
+            return self.mycursor.fetchone()[0]
+        elif id != None:
+            sql = """
+                SELECT PaymentType FROM payment_type WHERE PaymentTypeID = %s
+            """
+            print(id)
+            self.mycursor.execute(sql, (id,))
+            return self.mycursor.fetchone()[0]
+        elif all != None:
+            sql = """
+                SELECT PaymentType FROM payment_type ORDER BY PaymentTypeID
+            """
+            self.mycursor.execute(sql)
+            listed = [row[0] for row in self.mycursor]
+            return listed
+        else:
+            print('No Arguements! (Get payment Type)')
+        
+        
     # Getting User Data
     def get_user_creds(self, User = None, Passcode = None, colint = None, Fname = None , Lname = None):
         if User != None and Passcode != None:
@@ -160,6 +224,19 @@ class dbcont(object):
         
         
     # Registration
+    
+    def add_cate(self, cate):
+        
+        sql =""" INSERT INTO category (Category) VALUES (%s)"""
+        self.mycursor.execute(sql,(cate,))
+        self.mydb.commit()
+        
+    def add_unittype(self, unit):
+        
+        sql =""" INSERT INTO unit_type (UnitType) VALUES (%s)"""
+        self.mycursor.execute(sql,(unit,))
+        self.mydb.commit()
+    
     def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
         sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
                     VALUES (%s,%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"""
@@ -175,7 +252,7 @@ class dbcont(object):
         self.mydb.commit()
         
         
-    # Transaction 
+    # Transaction
     def get_prod_search(self, searchcate= None, searchstr=None, all= None):
         if all != None:
             sql = """
@@ -235,17 +312,20 @@ class dbcont(object):
             INSERT INTO transaction_receipts (RUID, Price, PaidPrice, PurchaseDate, GCashReference, PaymentTypeID)
             VALUES (%s,%s,%s,%s,%s,%s)
         """
-        val = (self.User.RUID, Price,PPrice, currdate, GCashRef,Ptype)
+        val = (self.User.RUID ,Price,PPrice, currdate, GCashRef,Ptype)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
+        ID = self.mycursor.lastrowid
+        str(ID).zfill(5)
         
-        # getting receipt_ID
+        receiptID = currdate.strftime('%y%m%d') + str(ID).zfill(5)
+        
         sql = """
-            SELECT LAST_INSERT_ID()
-            """
-        self.mycursor.execute(sql)
-        receiptID = self.mycursor.fetchone()[0]
-
+            UPDATE transaction_receipts SET TransactionReceiptID = %s 
+            WHERE ID = %s
+        """
+        val = (receiptID, ID)
+        self.mycursor.execute(sql, val)
         self.add_sold_products(SoldPlist= SoldProductsList, RID= receiptID,currdate=currdate)
         
     def add_sold_products(self, SoldPlist, RID, currdate):
@@ -277,8 +357,7 @@ class dbcont(object):
             self.mydb.commit()
     
     # Getting Product Data( Inventory )
-    def get_all_prod(self, inv = None , trans = None):
-        
+    def get_all_prod(self, inv = None , trans = None, records = None):
         if inv:
             sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products"
             self.mycursor.execute(sql)
@@ -289,11 +368,10 @@ class dbcont(object):
             return self.mycursor.fetchall()
 
     def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None ):
-        
         if inv:
             sql = """
-                    SELECT ProductID, ProductName, SellingPrice, TotalStock, ExpirationDate, Description, UnitTypeID, CategoryID FROM products
-                    WHERE ProductID LIKE %s
+                    SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products
+                    WHERE RPID LIKE %s
                     OR ProductName LIKE %s
                     OR SellingPrice LIKE %s
                     OR ExpirationDate LIKE %s
@@ -334,12 +412,12 @@ class dbcont(object):
         print("huh")
         return 0
         
+    # record
+    def add_receipt(self,RefNo, TPrice ,ODate, DDate, Plist):
         
-    def add_receipt(self,RefNo, TPrice ,ODate, DDate, PType, Plist, GCashRef = None):
-        
-        sql = """INSERT INTO supplier_receipts (User, ReceiptRef, TotalPrice, PaymentTypeID, OrderDate, DeliveryDate, GCashRef)
-                VALUES (%s,%s,%s,%s,%s,%s,%s)"""
-        val = ('dei', RefNo, TPrice, PType, ODate, DDate, GCashRef)
+        sql = """INSERT INTO supplier_receipts (RUID, ReceiptRef, TotalPrice, OrderDate, DeliveryDate)
+                VALUES (%s,%s,%s,%s,%s)"""
+        val = (self.User.UID, RefNo, TPrice, ODate, DDate)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
@@ -367,13 +445,41 @@ class dbcont(object):
         
     def add_supplied_products(self,RefNo,DDate, Plist):
         
-        sql = """INSERT INTO products_supplied (ProductID, SupplierReceiptID, Quantity, StartingQuantity, Date, CostPrice)
-                VALUES (%s,%s,%s,%s,%s,%s)"""
+        sql = """INSERT INTO products_supplied (RPID, SupplierReceiptID, BoughtQuantity, CurrentQuantity, Date, CostPrice, ExpirationDate)
+                VALUES (%s,%s,%s,%s,%s,%s,%s)"""
         for prod in Plist:
-            val = (prod[0], RefNo, prod[3], prod[3],DDate, prod[2])
+            val = (prod[0], RefNo, prod[3], prod[3],DDate, prod[2],prod[4])
             self.mycursor.execute(sql,val)
             self.mydb.commit()
             self.add_inven(prod[0],prod[3])
+            self.set_dynamic_expdate(RPID= prod[0])
+        
+    def set_dynamic_expdate(self, RPID):
+        
+        sql = """
+        SELECT
+            ExpirationDate,
+            ABS(DATEDIFF(ExpirationDate, NOW())) AS date_diff
+        FROM
+            products_supplied
+        WHERE
+            RPID = %s AND CurrentQuantity > 0
+        ORDER BY
+            date_diff
+        LIMIT 1;
+            """
+
+        self.mycursor.execute(sql,(RPID,))
+        latestEdate = self.mycursor.fetchone()[0]
+        print('adding to products dydate')
+        print(latestEdate)
+        print(RPID)
+        
+        sql = """
+            UPDATE products SET ExpirationDate = %s WHERE RPID = %s
+        """
+        self.mycursor.execute(sql, (latestEdate,RPID))
+        self.mydb.commit()
         
     def update_user_protocol(self,UID, NewUlist):
         sql = """
@@ -453,9 +559,9 @@ class dbcont(object):
             self.mycursor.execute(sql, (uname,email))
             result = self.mycursor.fetchone()
             if result:
-                return True # Return the passcode
+                return True
             else:
-                return False  # Handle case where user is not found or passcode is not retrieved
+                return False
         else:
             sql = """
             SELECT RUID
@@ -486,21 +592,23 @@ class dbcont(object):
     # sales db
         
     def get_all_sales(self):
-        
-        sql = "SELECT * FROM transaction_receipts"
+        sql = "SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts"
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
     def search_sales(self, searchstr):
         sql = """
-                SELECT DateTime, User, Total, ReferenceNo FROM sales
-                WHERE DateTime LIKE %s
-                OR User LIKE %s
-                OR Total LIKE %s
-                OR ReferenceNo LIKE %s
+                SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
+                WHERE PurchaseDate LIKE %s OR
+                TransactionReceiptID LIKE %s OR 
+                RUID LIKE %s OR
+                Price LIKE %s OR
+                PaidPrice LIKE %s OR
+                GCashReference LIKE %s OR
+                PaymentTypeID LIKE %s
                 """
         searchstr = '%' + searchstr + '%'
-        val = (searchstr,searchstr,searchstr,searchstr)
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
         self.mycursor.execute(sql,val)
         return self.mycursor.fetchall()
     

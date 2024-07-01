@@ -116,7 +116,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         # Signal Recievers
         # Security Buttons
         self.Secu_1.UInfo_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.User_Info))
-        self.Secu_1.ULogs_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.User_Logs))
+        self.Secu_1.ULogs_btnsgl.connect(self.refresh_logs)
         
         self.User_Info.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Secu_1))
         
@@ -131,15 +131,18 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
         # Transaction Buttons
         
-        
         # Records Buttons
         self.Records_1.SReciepts_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
         self.Records_1.TReceipts_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Trans_Receipts))
         
-        
-        self.Supp_Receipts.Add_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Add_Supp_Receipt))
         self.Supp_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
+        self.Supp_Receipts.Add_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Add_Supp_Receipt))
+        self.Add_Supp_Receipt.Finish_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
+        self.Add_Supp_Receipt.Back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
+        
         self.Trans_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
+        
+
         # Reports Buttons
         
         self.Reports_1.inven_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Inventory_Report))
@@ -150,7 +153,13 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         #Log Out
         self.log_out_sdbtn.clicked.connect(self.init_log_out)
         
+    def refresh_logs(self):
+        self.User_Logs.set_tableElements()
+        self.stackedWidget.setCurrentWidget(self.User_Logs)
+        
+        
     def init_log_out(self):
+        self.db.log_logout()
         self.security_sdbtn.setChecked(False)
         self.registration_sdbtn.setChecked(False)
         self.sales_sdbtn.setChecked(False)
@@ -161,9 +170,9 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.maintenance_sdbtn.setChecked(False)
         self.about_sdbtn.setChecked(False)
         self.help_sdbtn.setChecked(False)
-
         self.stackedWidget.setCurrentWidget(self.Home)
         self.log_out_btnsgl.emit()
+        
         
     
     
@@ -172,6 +181,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     
     def on_security_sdbtn_clicked(self):
         self.User_Info.set_CU_details()
+        self.User_Info.createlist()
         self.stackedWidget.setCurrentWidget(self.Secu_1)
         
     def on_registration_sdbtn_clicked(self):
@@ -190,7 +200,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     def on_inventory_sdbtn_clicked(self):
         self.Inven.set_tableElements()
         self.stackedWidget.setCurrentWidget(self.Inven)
-        
         
     def on_records_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.Records_1)

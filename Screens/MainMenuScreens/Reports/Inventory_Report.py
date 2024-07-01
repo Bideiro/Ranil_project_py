@@ -26,11 +26,7 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
         self.dateEdit.setCalendarPopup(True)
 
     def set_tableElements(self):
-        self.tableWidget.setRowCount(0)
         searchResult = self.db.get_inventory()
-        self.tableWidget.setRowCount(len(searchResult))
-        
-        
         self.tableWidget.setRowCount(0)
         if searchResult:
             self.tableWidget.setRowCount(len(searchResult))
@@ -39,11 +35,6 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    # if column_number == 6:
-                    #     data = self.db.get_id_value(id= data, unit= True)
-                    # if column_number == 7:
-                    #     data = self.db.get_id_value(id= data, cate= True)
-                    print('Setting item...')
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
     
     def dateRangeToggle(self, selected):

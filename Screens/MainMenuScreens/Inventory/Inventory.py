@@ -36,21 +36,19 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         self.Product_Table.setRowCount(len(result))
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
-
                 if column_number == 3:
                     data = self.db.get_unittype(id= data)
+                    pass
                 if column_number == 2:
                     data = self.db.get_cate(id= data)
+                    pass
                 self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
     
     def search(self):
         self.Product_Table.setRowCount(0)
-        
         searchResult = self.db.search_prod(self.search_LE.text(),inv= True)
 
-        #Set number of rows to match search results
         self.Product_Table.setRowCount(len(searchResult))
-        #Populate table with search result
         if searchResult:
             self.Product_Table.setRowCount(len(searchResult))
             for row_number, row_data in enumerate(searchResult):
@@ -81,7 +79,7 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         if Dlg.result() == 1:
             self.newPlist = [self.db._create_rid(RID= prod_values[0],typeID=Dlg.Cat_CB.currentIndex(),prod=True),
                         Dlg.PName_LE.text(),Dlg.SPrice_LE.text(),
-                        Dlg.Desc_PTE.toPlainText(),Dlg.Unit_CB.currentIndex(),
+                        Dlg.Desc_LE.text(),Dlg.Unit_CB.currentIndex(),
                         Dlg.Cat_CB.currentIndex()]
             oldPlist = [prod_values[0]]
             self.db.update_prod_protocol(RPID=oldPlist, NewPlist = self.newPlist)

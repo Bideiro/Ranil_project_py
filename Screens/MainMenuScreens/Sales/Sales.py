@@ -22,40 +22,31 @@ class Sales_Window(QMainWindow, Ui_MainWindow):
         self.monthlySalesbtn.clicked.connect(self.changeTableMonthly)
         #self.Sales_Table.itemClicked.connect(self.clicked_item)
         self.comboBox.setVisible(False)
+        
+        
     def set_tableElements(self):
+        
         result = self.db.get_all_sales()
         self.search_LE.clear()
         self.Sales_Table.setRowCount(len(result))
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
+                if column_number == 6 :
+                    data = self.db.get_payment_type(id= data)
                 self.Sales_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-
-        self.Sales_Table.setHorizontalHeaderLabels(['DateTime', 'User', 'Total', 'ReferenceNo'])
-        self.Sales_Table.setColumnHidden(2, False)  # Hide the third column (index 2)
-        self.Sales_Table.setColumnHidden(3, False)  # Hide the fourth column (index 3)
-    def search(self):
-        # self.Sales_Table.setRowCount(0)
         
-        while self.Sales_Table.rowCount() > 0:
-            self.Sales_Table.removeRow(0)
+    def search(self):
         searchResult = self.db.search_sales(self.search_LE.text())
-
-        #Populate table with search result
+        self.Sales_Table.setRowCount(0)
         if searchResult:
             self.Sales_Table.setRowCount(len(searchResult))
-            print(len(searchResult))
-            print(searchResult)
             for row_number, row_data in enumerate(searchResult):
                 self.Sales_Table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    if column_number == 4:
-                        data = self.db.get_id_value(id= data, unit= True)
-                    if column_number == 5:
-                        data = self.db.get_id_value(id= data, cate= True)
+                    if column_number == 6 :
+                        data = self.db.get_payment_type(id= data)
                     self.Sales_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-        else:
-            print('Error')
-            return
+        
     def changeTableYearly(self):
         result = self.db.set_yearly_sales() #Shows monthly sales in wrong column
         self.Sales_Table.setRowCount(len(result))

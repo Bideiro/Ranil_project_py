@@ -262,6 +262,17 @@ border : 2px solid #ABE27D;
             </column>
             <column>
              <property name="text">
+              <string>Reference Number</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <bold>true</bold>
+              </font>
+             </property>
+            </column>
+            <column>
+             <property name="text">
               <string>User</string>
              </property>
              <property name="font">
@@ -273,7 +284,7 @@ border : 2px solid #ABE27D;
             </column>
             <column>
              <property name="text">
-              <string>Total</string>
+              <string>Total Price</string>
              </property>
              <property name="font">
               <font>
@@ -284,13 +295,17 @@ border : 2px solid #ABE27D;
             </column>
             <column>
              <property name="text">
-              <string>Reference Number</string>
+              <string>Paid Price</string>
              </property>
-             <property name="font">
-              <font>
-               <family>DM Sans</family>
-               <bold>true</bold>
-              </font>
+            </column>
+            <column>
+             <property name="text">
+              <string>GCashReference</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>PaymentType</string>
              </property>
             </column>
            </widget>

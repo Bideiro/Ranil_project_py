@@ -98,7 +98,12 @@
         </column>
         <column>
          <property name="text">
-          <string>New Column</string>
+          <string>Category</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Unit Type</string>
          </property>
         </column>
         <column>
@@ -108,22 +113,17 @@
         </column>
         <column>
          <property name="text">
-          <string>Stock</string>
-         </property>
-        </column>
-        <column>
-         <property name="text">
           <string>Expiration Date</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>Description</string>
+          <string>Stock</string>
          </property>
         </column>
         <column>
          <property name="text">
-          <string>Category</string>
+          <string>Description</string>
          </property>
         </column>
        </widget>

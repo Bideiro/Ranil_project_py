@@ -95,7 +95,7 @@ color: black;
        <widget class="QWidget" name="widget_3" native="true">
         <layout class="QVBoxLayout" name="verticalLayout_3">
          <item>
-          <widget class="QLineEdit" name="lineEdit">
+          <widget class="QLineEdit" name="Input_LE">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -117,7 +117,7 @@ color: black;
        <widget class="QWidget" name="widget_2" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="back">
+          <widget class="QPushButton" name="back_btn">
            <property name="minimumSize">
             <size>
              <width>0</width>
@@ -153,7 +153,7 @@ color: black;
           </spacer>
          </item>
          <item>
-          <widget class="QPushButton" name="ok">
+          <widget class="QPushButton" name="ok_btn">
            <property name="minimumSize">
             <size>
              <width>30</width>

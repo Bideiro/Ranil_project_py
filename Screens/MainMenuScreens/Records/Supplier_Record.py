@@ -15,12 +15,11 @@ class Supp_Rec_Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(Supp_Rec_Window,self).__init__()
         self.setupUi(self)
-        
-        
         self.set_tableElements()
         
         self.Add_btn.clicked.connect(lambda: self.Add_btnsgl.emit())
         self.Refresh_btn.clicked.connect(self.set_tableElements)
+        self.Back_btn.clicked.connect(lambda: self.back_btnsgl.emit())
     
     
     def set_tableElements(self):

@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1224, 683)
+        MainWindow.resize(1228, 623)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet(".QWidget{\n"
 "background-color: #F8F8F0\n"
@@ -226,7 +226,7 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "SUPPLIER RECORDS"))
         self.Search_btn.setText(_translate("MainWindow", "SEARCH"))
         self.Refresh_btn.setText(_translate("MainWindow", "REFRESH"))
-        self.Delete_btn.setText(_translate("MainWindow", "DELETE"))
+        self.Delete_btn.setText(_translate("MainWindow", "DISABLE"))
         self.SReceipts_Table.setSortingEnabled(True)
         item = self.SReceipts_Table.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "ID"))

@@ -21,14 +21,15 @@ class DLG_GCash(QDialog, Ui_Dialog):
         self.ok_btn.clicked.connect(self.confirmed)
         
     def confirmed(self):
-        if int(self.Input_LE.text()) < self.price:
-            Dlg = DLG_Alert(msg= 'Insufficient cash!')
+        if self.Input1_LE.text() == '':
+            Dlg = DLG_Alert(msg= 'Empty amount field!')
             Dlg.exec()
-            
         elif self.Input2_LE.text() == '':
             Dlg = DLG_Alert(msg= 'No GCash reference number!')
             Dlg.exec()
-            
+        elif int(self.Input_LE.text()) < self.price:
+            Dlg = DLG_Alert(msg= 'Insufficient cash!')
+            Dlg.exec()
         elif int(self.Input_LE.text()) > self.price:
             change = int(self.Input_LE.text()) - self.price
             Dlg = DLG_Alert(msg= f'Transaction succesfull! (Change is {str(change)})')
