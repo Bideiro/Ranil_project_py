@@ -175,11 +175,6 @@
           </property>
           <column>
            <property name="text">
-            <string>Product ID</string>
-           </property>
-          </column>
-          <column>
-           <property name="text">
             <string>Product Name</string>
            </property>
           </column>
@@ -191,6 +186,16 @@
           <column>
            <property name="text">
             <string>Price</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Product ID</string>
+           </property>
+          </column>
+          <column>
+           <property name="text">
+            <string>Date</string>
            </property>
           </column>
          </widget>

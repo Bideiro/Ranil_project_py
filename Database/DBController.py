@@ -660,26 +660,21 @@ class dbcont(object):
     # sales and reports
     def get_inventory(self):
         sql = """
-                SELECT ReceiptID, ProductID, Quantity, Price FROM products_sold
+                SELECT ReceiptID, ProductID, Quantity, Price, Date FROM products_sold
                 """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
     def search_inventory_rec(self, SDate, EDate = None):
         if EDate == None:
-            sql = "SELECT ReceiptID, ProductID, Quantity, Price FROM products_sold WHERE Date = %s"
+            sql = "SELECT ReceiptID, ProductID, Quantity, Price, Date FROM products_sold WHERE Date = %s"
             self.mycursor.execute(sql, (SDate,))
         else:
-            sql = "SELECT ReceiptID, ProductID, Quantity, Price FROM products_sold WHERE Date = BETWEEN %s AND %s"
+            sql = "SELECT ReceiptID, ProductID, Quantity, Price, Date FROM products_sold WHERE Date BETWEEN %s AND %s"
             self.mycursor.execute(sql, (SDate,EDate))
         
         return self.mycursor.fetchall()
     
-    # def get_transactions(self, start_date, end_date):
-    #     sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate BETWEEN %s AND %s"
-    #     self.mycursor.execute(sql, (start_date, end_date))
-    
-
     def get_salesR(self):
         sql = """
                 SELECT PurchaseDate, Price FROM Transaction_receipts
@@ -692,13 +687,10 @@ class dbcont(object):
             sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate = %s"
             self.mycursor.execute(sql, (SDate,))
         else:
-            sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate BETWEEN %s AND %s"
+            sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate  BETWEEN %s AND %s"
             self.mycursor.execute(sql, (SDate,EDate))
         
         return self.mycursor.fetchall()
-    
-    # idunno wher but needs
-    
 
     def get_algo_data(self):
         sql = "SELECT * FROM algoproddb"
