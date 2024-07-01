@@ -1,3 +1,4 @@
+from pickle import TRUE
 import mysql.connector
 from Database.User_Manager import UserMana
 
@@ -381,7 +382,7 @@ class dbcont(object):
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
 
-    def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None ):
+    def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None):
         if inv:
             sql = """
                     SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products
@@ -395,6 +396,7 @@ class dbcont(object):
             val = (searchstr,searchstr,searchstr,searchstr,searchstr)
             self.mycursor.execute(sql,val)
             return self.mycursor.fetchall()
+        
         elif trans:
             sql = """
                     SELECT ProductID, ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
@@ -422,8 +424,6 @@ class dbcont(object):
                     """
             self.mycursor.execute(sql,(searchstr,))
             return self.mycursor.fetchone()
-
-        print("huh")
         return 0
         
     # record

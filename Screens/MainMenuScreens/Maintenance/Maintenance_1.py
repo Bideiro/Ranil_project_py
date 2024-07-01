@@ -1,4 +1,6 @@
 import mysql.connector
+import os
+from datetime import datetime
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
 
@@ -27,22 +29,26 @@ class Maintenance_Window(QMainWindow, Ui_MainWindow):
             else:
                 Dlg = DLG_Alert(msg='No SQL file Selected!')
                 Dlg.exec()
-
+                    
     def exportData(self):
         try:
             # Connect to the MySQL database
             conn = mysql.connector.connect(
-            host="localhost",
-            user= "root",
-            passwd= "password",
-            database="ranil_proj")
+                host="localhost",
+                user= "root",
+                passwd= "password",
+                database="ranil_proj")
             cursor = conn.cursor()
             cursor.execute("SHOW TABLES")
 
             tables = cursor.fetchall()
             options = QFileDialog.Options()
-            filePath, _ = QFileDialog.getSaveFileName(self, "Save the SQL Backup File", "", "SQL Files (*.sql);;All Files (*)", options=options)
-            if filePath:
+            directory = QFileDialog.getExistingDirectory(self, "Select Directory to Save SQL Backup File", options=options)
+            if directory:
+                # Get today's date and format it
+                today = datetime.now().strftime("%Y-%m-%d")
+                filename = f"backup_{today}.sql"  # Hardcoded filename with today's date
+                filePath = os.path.join(directory, filename)
                 with open(filePath, 'w') as f:
                     for table in tables:
                         table_name = table[0]
@@ -61,7 +67,7 @@ class Maintenance_Window(QMainWindow, Ui_MainWindow):
                                 insert_stmt = f"INSERT INTO {table_name} ({col_names}) VALUES ({values});"
                                 f.write(f"{insert_stmt}\n")
                             f.write("\n")
-                        
+                
                 QMessageBox.information(self, "Success", "Data exported successfully!")
             cursor.close()
             conn.close()
