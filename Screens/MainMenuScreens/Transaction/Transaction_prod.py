@@ -265,7 +265,6 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.EDate_L.setText(None)
         self.Quantity_LE.setText(None)
         
-        
     def another_trans(self):
         Dlg = DLG_Confirm()
         Dlg.exec()

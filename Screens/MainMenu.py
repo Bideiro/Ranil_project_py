@@ -136,9 +136,10 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.Records_1.TReceipts_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Trans_Receipts))
         
         self.Supp_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
-        self.Supp_Receipts.Add_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Add_Supp_Receipt))
-        self.Add_Supp_Receipt.Finish_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
+        self.Supp_Receipts.Add_btnsgl.connect(self.toaddsuppreceipt)
+        self.Add_Supp_Receipt.Finish_btnsgl.connect(self.addsuppfinish_btn)
         self.Add_Supp_Receipt.Back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
+    
         
         self.Trans_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
         
@@ -152,6 +153,15 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
         #Log Out
         self.log_out_sdbtn.clicked.connect(self.init_log_out)
+        
+    def toaddsuppreceipt(self):
+        self.Add_Supp_Receipt.RNumber_LE.clear()
+        self.stackedWidget.setCurrentWidget(self.Add_Supp_Receipt)
+        
+        
+    def addsuppfinish_btn(self):
+        self.Supp_Receipts.set_tableElements()
+        self.stackedWidget.setCurrentWidget(self.Supp_Receipts)
         
     def refresh_logs(self):
         self.User_Logs.set_tableElements()
@@ -185,9 +195,13 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.Secu_1)
         
     def on_registration_sdbtn_clicked(self):
+        self.Reg_prod.PName_LE.clear()
+        self.Reg_prod.SPrice_LE.clear()
+        self.Reg_prod.Desc_PTE.clear()
         self.stackedWidget.setCurrentWidget(self.Reg_1)
         
     def on_sales_sdbtn_clicked(self):
+        self.Sales.set_tableElements()
         self.stackedWidget.setCurrentWidget(self.Sales)
         
     def on_transaction_sdbtn_clicked(self):

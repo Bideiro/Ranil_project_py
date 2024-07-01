@@ -6,6 +6,7 @@ from PyQt5.QtGui import QIntValidator
 from .Login_ui import Ui_MainWindow
 from Database.DBController import dbcont
 from Database.User_Manager import UserMana
+from Dialogs.DLog_Alert import DLG_Alert
 from PyQt5 import QtWidgets, QtGui, QtCore
 class LoginWindow(QMainWindow, Ui_MainWindow):
 
@@ -31,7 +32,8 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         if mydb.login():
             self.logsucc_admin.emit()
         else:
-            print("Invalid credentials")
+            Dlg = DLG_Alert(msg='Invalid Username or Password!')
+            Dlg.exec()
         
     @pyqtSlot()
     def on_forgotpass_btn_clicked(self):

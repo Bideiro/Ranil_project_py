@@ -152,9 +152,9 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label.setText(_translate("Dialog", "INPUT AMOUNT PAID IN GCASH"))
+        self.label.setText(_translate("Dialog", "INPUT AMOUNT PAID IN CASH"))
         self.Input_LE.setPlaceholderText(_translate("Dialog", "Enter Amount Paid:"))
-        self.label_3.setText(_translate("Dialog", "INPUT AMOUNT PAID IN CASH"))
+        self.label_3.setText(_translate("Dialog", "INPUT AMOUNT PAID IN GCASH"))
         self.Input3_LE.setPlaceholderText(_translate("Dialog", "Enter Amount Paid:"))
         self.label_2.setText(_translate("Dialog", "INPUT GCASH REFERENCE NUMBER"))
         self.Input2_LE.setPlaceholderText(_translate("Dialog", "Reference Number:"))

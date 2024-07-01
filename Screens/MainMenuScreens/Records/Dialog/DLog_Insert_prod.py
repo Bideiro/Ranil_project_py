@@ -45,7 +45,7 @@ class DLG_Insert_Prod(QDialog, Ui_Dialog):
             Dlg.exec()
             
         else:
-            Dlg_amount = DLG_Receipt_Product(msg='Enter Amount:', msg2='Enter Price Bought:',msg3= 'Expiration Date: ')
+            Dlg_amount = DLG_Receipt_Product(msg='Enter Quantity:', msg2='Enter Price Bought:',msg3= 'Expiration Date: ')
             self.onlyInt = QIntValidator()
             Dlg_amount.Input_LE.setValidator(self.onlyInt)
             Dlg_amount.Input2_LE.setValidator(self.onlyInt)

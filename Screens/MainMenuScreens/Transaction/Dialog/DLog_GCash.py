@@ -21,7 +21,7 @@ class DLG_GCash(QDialog, Ui_Dialog):
         self.ok_btn.clicked.connect(self.confirmed)
         
     def confirmed(self):
-        if self.Input1_LE.text() == '':
+        if self.Input_LE.text() == '':
             Dlg = DLG_Alert(msg= 'Empty amount field!')
             Dlg.exec()
         elif self.Input2_LE.text() == '':
@@ -33,6 +33,7 @@ class DLG_GCash(QDialog, Ui_Dialog):
         elif int(self.Input_LE.text()) > self.price:
             change = int(self.Input_LE.text()) - self.price
             Dlg = DLG_Alert(msg= f'Transaction succesfull! (Change is {str(change)})')
+            self.done(1)
             Dlg.exec()
             
         else:

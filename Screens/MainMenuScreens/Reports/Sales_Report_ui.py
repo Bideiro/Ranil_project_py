@@ -50,7 +50,6 @@ class Ui_MainWindow(object):
         font.setFamily("DM Sans 14pt SemiBold")
         font.setPointSize(15)
         font.setBold(True)
-        font.setWeight(75)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.horizontalLayout_3.addWidget(self.label)
@@ -67,6 +66,7 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.horizontalLayout_4.addWidget(self.label_2)
         self.dateEdit = QtWidgets.QDateEdit(self.widget_3)
+        self.dateEdit.setCalendarPopup(True)
         self.dateEdit.setObjectName("dateEdit")
         self.horizontalLayout_4.addWidget(self.dateEdit)
         self.label_3 = QtWidgets.QLabel(self.widget_3)
@@ -74,6 +74,7 @@ class Ui_MainWindow(object):
         self.horizontalLayout_4.addWidget(self.label_3)
         self.dateEdit2 = QtWidgets.QDateEdit(self.widget_3)
         self.dateEdit2.setEnabled(False)
+        self.dateEdit2.setCalendarPopup(True)
         self.dateEdit2.setObjectName("dateEdit2")
         self.horizontalLayout_4.addWidget(self.dateEdit2)
         self.horizontalLayout_3.addWidget(self.widget_3)
@@ -101,9 +102,9 @@ class Ui_MainWindow(object):
         self.verticalLayout.addWidget(self.tableWidget)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        self.pushButton_2 = QtWidgets.QPushButton(self.layoutWidget)
-        self.pushButton_2.setObjectName("pushButton_2")
-        self.horizontalLayout_2.addWidget(self.pushButton_2)
+        self.backBtn = QtWidgets.QPushButton(self.layoutWidget)
+        self.backBtn.setObjectName("backBtn")
+        self.horizontalLayout_2.addWidget(self.backBtn)
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem2)
         self.generateBtn = QtWidgets.QPushButton(self.layoutWidget)
@@ -114,6 +115,7 @@ class Ui_MainWindow(object):
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
+        self.radioButton.clicked['bool'].connect(self.dateEdit2.setEnabled) # type: ignore
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -130,5 +132,5 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "DateTime"))
         item = self.tableWidget.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Total"))
-        self.pushButton_2.setText(_translate("MainWindow", "Back"))
+        self.backBtn.setText(_translate("MainWindow", "Back"))
         self.generateBtn.setText(_translate("MainWindow", "Generate PDF"))

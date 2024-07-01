@@ -14,22 +14,20 @@ from Database.DBController import dbcont
 from PyQt5 import QtWidgets, QtGui, QtCore
 class Sales_Report_Window(QMainWindow, Ui_MainWindow):
 
+    back_btnsgl = QtCore.pyqtSignal()
     
+    db = dbcont()
     def __init__(self):
         super(Sales_Report_Window, self).__init__()
         self.setupUi(self)
-        self.db = dbcont('admin', 123456)
         self.set_tableElements()
         self.generateBtn.clicked.connect(self.print_to_pdf)
         self.Search_btn.clicked.connect(self.search)
-        self.radioButton.toggled.connect(self.dateRangeToggle)
-        self.dateEdit.setCalendarPopup(True)
+        self.Refresh_btn.clicked.connect(self.set_tableElements)
+        self.backBtn.clicked.connect(self.prev_window)
 
     def set_tableElements(self):
-        self.tableWidget.setRowCount(0)
         searchResult = self.db.get_salesR()
-        self.tableWidget.setRowCount(len(searchResult))
-        
         self.tableWidget.setRowCount(0)
         if searchResult:
             self.tableWidget.setRowCount(len(searchResult))
@@ -38,61 +36,33 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    # if column_number == 6:
-                    #     data = self.db.get_id_value(id= data, unit= True)
-                    # if column_number == 7:
-                    #     data = self.db.get_id_value(id= data, cate= True)
-                    print('Setting item...')
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-    
-    def dateRangeToggle(self, selected):
-        if selected:
-            self.dateEdit2.setEnabled(True)
-        else:
-            self.dateEdit2.setEnabled(False)
-    
-    def get_date_1(self):
-        selected_date_1 = self.dateEdit.date()
-        date_str = selected_date_1.toString('yyyy-MM-dd')
-        print(f"Selected Date: {date_str}")
-        return date_str
+
+    def prev_window(self):
+        self.back_btnsgl.emit()
 
     def search(self):
-        date = self.dateEdit.date().toPyDate()
+        start_date = self.dateEdit.date().toPyDate()
+        end_date = self.dateEdit2.date().toPyDate()
+        
+        if self.radioButton.isChecked() and start_date != end_date:
+            searchResult = self.db.search_sales_rep(start_date, end_date)
+        else:
+            searchResult = self.db.search_sales_rep(start_date)
 
-        searchResult = self.db.search_sales_rep(date)
+        # Update the table widget with the search results
         self.tableWidget.setRowCount(0)
         if searchResult:
             self.tableWidget.setRowCount(len(searchResult))
-            #print(len(searchResult))
+            print(len(searchResult))
             print(searchResult)
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    # if column_number == 6:
-                    #     data = self.db.get_id_value(id= data, unit= True)
-                    # if column_number == 7:
-                    #     data = self.db.get_id_value(id= data, cate= True)
                     print('Setting item...')
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
-            print('No transactions found for the selected date.')
-        
-    def pdf_layout_grid(self, pdf):
-        pdf.drawString(90, 810, 'x100')
-        pdf.drawString(190, 810, 'x200')
-        pdf.drawString(290, 810, 'x300')
-        pdf.drawString(390, 810, 'x400')
-        pdf.drawString(490, 810, 'x500')
-
-        pdf.drawString(10, 100, 'y100')
-        pdf.drawString(10, 200, 'y200')
-        pdf.drawString(10, 300, 'y300')
-        pdf.drawString(10, 400, 'y400')
-        pdf.drawString(10, 500, 'y500')
-        pdf.drawString(10, 600, 'y600')
-        pdf.drawString(10, 700, 'y700')
-        pdf.drawString(10, 800, 'y800')
+            print('No transactions found for the selected date or date range.')
 
     def print_to_pdf(self):
         # Create a document

@@ -94,14 +94,14 @@ class Sales_Window(QMainWindow, Ui_MainWindow):
                 curryear = self.comboBox.currentText()
                 sql= f"""
                     SELECT 
-                        MONTH(DateTime) AS Month,
-                        SUM(Total) AS TotalSum
+                        MONTH(PurchaseDate) AS Month,
+                        SUM(Price) AS TotalSum
                     FROM 
-                        ranil_proj.sales
+                        transaction_receipts
                     WHERE
-                        YEAR(DateTime) = '{curryear}'
+                        YEAR(PurchaseDate) = '{curryear}'
                     GROUP BY 
-                        MONTH(DateTime)
+                        MONTH(PurchaseDate)
                     ORDER BY 
                         Month;
                     """

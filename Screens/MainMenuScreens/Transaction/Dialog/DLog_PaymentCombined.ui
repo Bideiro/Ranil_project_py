@@ -84,7 +84,7 @@ color: black;
             </font>
            </property>
            <property name="text">
-            <string>INPUT AMOUNT PAID IN GCASH</string>
+            <string>INPUT AMOUNT PAID IN CASH</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -138,7 +138,7 @@ color: black;
             </font>
            </property>
            <property name="text">
-            <string>INPUT AMOUNT PAID IN CASH</string>
+            <string>INPUT AMOUNT PAID IN GCASH</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>

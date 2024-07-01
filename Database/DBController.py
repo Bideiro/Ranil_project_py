@@ -37,8 +37,7 @@ class dbcont(object):
             self.mycursor.execute(sql,val)
             curruser = self.mycursor.fetchone()
             self.User.set_user(UID= curruser[0], RUID= curruser[1],User= curruser[2], Pass=curruser[3],Level= curruser[4])
-            
-        self.log_login()
+            self.log_login()
         return bool(res)
     
     def log_login(self):
@@ -65,9 +64,9 @@ class dbcont(object):
             sql = """
                 INSERT INTO logs (UserID, UserLevel, User , Activity , DateTime)
                 VALUES (%s,%s,%s,%s,%s)
-            """
+            """ 
             
-            val = (self.User.UID, self.User.Level, self.User.User, 'Logged Out', currdate)
+            val = (self.User.RUID, self.get_levels(id =self.User.Level), self.User.User, 'Logged Out', currdate)
             self.mycursor.execute(sql,val)
             self.mydb.commit()
     # Getting data from Tables
@@ -303,6 +302,7 @@ class dbcont(object):
         return self.mycursor.fetchone()[0]
     
     def add_sold_protocol(self,Price, PPrice, SoldProductsList, Ptype, GCashRef = None):
+        print('helo')
         # Getting todays Date
         sql = "SELECT NOW() "
         self.mycursor.execute(sql)
@@ -596,6 +596,8 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
+    # PNEINDG FICX
+    
     def search_sales(self, searchstr):
         sql = """
                 SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
@@ -608,19 +610,25 @@ class dbcont(object):
                 PaymentTypeID LIKE %s
                 """
         searchstr = '%' + searchstr + '%'
-        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
+        
+        # if searchstr == 'cash':
+        #     PTID = 0
+        # elif searchstr == 0:
+        #     PTID == 
+        
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr, searchstr)
         self.mycursor.execute(sql,val)
         return self.mycursor.fetchall()
     
     def set_yearly_sales(self):
         sql = """
                 SELECT 
-                    YEAR(DateTime) AS Year,
-                    SUM(Total) AS TotalSum
+                    YEAR(PurchaseDate) AS Year,
+                    SUM(Price) AS TotalSum
                 FROM 
-                    ranil_proj.sales
+                    transaction_receipts
                 GROUP BY 
-                    YEAR(DateTime)
+                    YEAR(PurchaseDate)
                 ORDER BY 
                     Year;
                 """
@@ -629,7 +637,7 @@ class dbcont(object):
     
     def get_years(self):
         sql = """
-                SELECT DISTINCT YEAR(DateTime) as Year FROM sales ORDER BY Year
+                SELECT DISTINCT YEAR(PurchaseDate) as Year FROM transaction_receipts ORDER BY Year
                 """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
@@ -638,14 +646,23 @@ class dbcont(object):
     # sales and reports
     def get_inventory(self):
         sql = """
-                SELECT ProductID, ProductID, Quantity, Quantity FROM products_sold
+                SELECT ReceiptID, ProductID, Quantity, Price FROM products_sold
                 """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
-    def search_inventory_rec(self, searchstr):
-        sql = "SELECT ProductID, ProductName, AddedQuantity, ReducedQuantity FROM products_sold WHERE Date = %s"
-        self.mycursor.execute(sql, (searchstr,))
+    # def get_transactions(self, start_date, end_date):
+    #     sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate BETWEEN %s AND %s"
+    #     self.mycursor.execute(sql, (start_date, end_date))
+    
+    def search_inventory_rec(self, SDate, EDate = None):
+        if EDate == None:
+            sql = "SELECT ReceiptID, ProductID, Quantity, Price FROM products_sold WHERE Date = %s"
+            self.mycursor.execute(sql, (SDate,))
+        else:
+            sql = "SELECT ReceiptID, ProductID, Quantity, Price FROM products_sold WHERE Date = BETWEEN %s AND %s"
+            self.mycursor.execute(sql, (SDate,EDate))
+        
         return self.mycursor.fetchall()
     
     def get_salesR(self):
@@ -655,18 +672,23 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
-    def search_sales_rep(self, searchstr):
-        sql = "SELECT DateTime, Total FROM sales WHERE DateTime = %s"
-        self.mycursor.execute(sql, (searchstr,))
+    def search_sales_rep(self, SDate, EDate = None):
+        if EDate == None:
+            sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate = %s"
+            self.mycursor.execute(sql, (SDate,))
+        else:
+            sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate BETWEEN %s AND %s"
+            self.mycursor.execute(sql, (SDate,EDate))
         
         return self.mycursor.fetchall()
     
-    def get_transactions(self, start_date, end_date):
-        sql = "SELECT DateTime, Total FROM SALES WHERE DateTime BETWEEN %s AND %s"
-        self.mycursor.execute(sql, (start_date, end_date))
+    # idunno wher but needs
     
-    # User log functions
-    
+
+    def get_algo_data(self):
+        sql = "SELECT * FROM algoproddb"
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
     
 if __name__ == '__main__':
     db =dbcont('admin', 123456)

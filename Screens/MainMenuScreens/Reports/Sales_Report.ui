@@ -55,7 +55,6 @@
               <font>
                <family>DM Sans 14pt SemiBold</family>
                <pointsize>15</pointsize>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -98,7 +97,11 @@
                </widget>
               </item>
               <item>
-               <widget class="QDateEdit" name="dateEdit"/>
+               <widget class="QDateEdit" name="dateEdit">
+                <property name="calendarPopup">
+                 <bool>true</bool>
+                </property>
+               </widget>
               </item>
               <item>
                <widget class="QLabel" name="label_3">
@@ -111,6 +114,9 @@
                <widget class="QDateEdit" name="dateEdit2">
                 <property name="enabled">
                  <bool>false</bool>
+                </property>
+                <property name="calendarPopup">
+                 <bool>true</bool>
                 </property>
                </widget>
               </item>
@@ -182,7 +188,7 @@
         <item>
          <layout class="QHBoxLayout" name="horizontalLayout_2">
           <item>
-           <widget class="QPushButton" name="pushButton_2">
+           <widget class="QPushButton" name="backBtn">
             <property name="text">
              <string>Back</string>
             </property>
@@ -218,5 +224,22 @@
   </widget>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>radioButton</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>dateEdit2</receiver>
+   <slot>setEnabled(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>313</x>
+     <y>38</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>511</x>
+     <y>35</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

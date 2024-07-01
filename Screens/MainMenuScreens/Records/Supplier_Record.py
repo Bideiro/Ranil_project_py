@@ -20,6 +20,7 @@ class Supp_Rec_Window(QMainWindow, Ui_MainWindow):
         self.Add_btn.clicked.connect(lambda: self.Add_btnsgl.emit())
         self.Refresh_btn.clicked.connect(self.set_tableElements)
         self.Back_btn.clicked.connect(lambda: self.back_btnsgl.emit())
+        
     
     
     def set_tableElements(self):
