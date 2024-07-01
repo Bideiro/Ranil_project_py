@@ -11,6 +11,8 @@ layout = QVBoxLayout()
 button1 = QPushButton('Button 1')
 label = QLabel('Label')
 button2 = QPushButton('Button 2')
+
+
 layout.addWidget(label)
 layout.addWidget(button1)
 

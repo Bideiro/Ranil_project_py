@@ -8,10 +8,13 @@ from Database.DBController import dbcont
 
 
 from .Transaction_Prod_ui import Ui_MainWindow
+
 from Dialogs.DLog_Alert import DLG_Alert
 from .Dialog.DLog_CashAmount import DLG_CashAmount
 from .Dialog.DLog_GCash import DLG_GCash
 from .Dialog.DLog_PaymentCombined import DLG_SplitPayment
+from .Dialog.DLog_Receipt import DLG_Receipt
+
 from Dialogs.DLog_Confirm import DLG_Confirm
 from PyQt5 import QtCore
 
@@ -224,6 +227,9 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
             SoldProductsList= self.SProdConfirmed,
             GCashRef= self.GCashRef, Ptype= payment
         )
+        dlg_receipt = DLG_Receipt(prodlist=self.SProdConfirmed)
+        dlg_receipt.exec()
+        print(self.SProdConfirmed)
         self.set_tableElements()
     
     def set_totalprice(self):
