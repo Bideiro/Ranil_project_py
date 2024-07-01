@@ -136,7 +136,7 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
         
         # Add title and date
         title = Paragraph("Inventory Report", styles['Title'])
-        date = Paragraph("For the date: " + self.dateEdit.date().toString("yyyy-MM-dd"), styles['Normal'])
+        date = Paragraph("For the date: " + self.FDate_DE.date().toString("yyyy-MM-dd"), styles['Normal'])
         elements.append(title)
         elements.append(Spacer(1, 12))
         elements.append(date)
