@@ -35,21 +35,18 @@ class MainWindow(QtWidgets.QMainWindow):
         self.MainStack.addWidget(self.MainMenu)
 
         # Connecting signals
+        # for resizing
+        # self.MainMenu.resize_trig.connect(self.resize_app)
         
         self.MainMenu.log_out_btnsgl.connect(self.Log_out_protocol)
         # Singals "TO" widgets
 
-        self.Login.forgot.connect(
-            lambda: self.MainStack.setCurrentWidget(self.ForgotPass)
-        )
+        self.Login.forgot.connect(lambda: self.MainStack.setCurrentWidget(self.ForgotPass))
         self.Login.logsucc_admin.connect(self.Login_protocol)
 
         # Signals "BACK" to Widgets
 
-        self.ForgotPass.back_btnsgl.connect(
-            lambda: self.MainStack.setCurrentWidget(self.Login)
-        )
-
+        self.ForgotPass.back_btnsgl.connect(lambda: self.MainStack.setCurrentWidget(self.Login))
         self.show()
         
     def Log_out_protocol(self):
@@ -61,6 +58,10 @@ class MainWindow(QtWidgets.QMainWindow):
     def Login_protocol(self):
         print("Login Attempt")
         self.MainStack.setCurrentWidget(self.MainMenu)
+        
+    def resize_app(self):
+        currentWidget = self.MainStack.currentWidget()
+        self.resize(currentWidget.minimumSizeHint())
 
 
 if __name__ == "__main__":

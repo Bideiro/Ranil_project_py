@@ -38,6 +38,7 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 class MainMenuWindow( QMainWindow, Ui_MainWindow):
     
     log_out_btnsgl = QtCore.pyqtSignal()
+    resize_trig = QtCore.pyqtSignal()
     User = UserMana()
     db = dbcont()
     
@@ -114,6 +115,11 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.Home)
         
         # Signal Recievers
+        
+        # For resizing the window
+        self.Trans_prod.resize_sgl.connect(self.window_size_handler)
+        
+        
         # Security Buttons
         self.Secu_1.UInfo_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.User_Info))
         self.Secu_1.ULogs_btnsgl.connect(self.refresh_logs)
@@ -183,8 +189,11 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.Home)
         self.log_out_btnsgl.emit()
         
-        
-    
+    def window_size_handler(self):
+        print('resizing')
+        currentWidget = self.stackedWidget.currentWidget()
+        self.resize(currentWidget.minimumSizeHint())
+        self.resize_trig.emit()
     
     @pyqtSlot()
     # Functions changing windows

@@ -1,12 +1,14 @@
-import sys
-from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget
-from PyQt5 import QtCore, QtWidgets
-
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+import os
+from PyQt5.QtWidgets import QMainWindow,QVBoxLayout,QHBoxLayout , QTableWidgetItem, QWidget, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QIntValidator
+from PyQt5 import QtCore, QtWidgets
+from PyQt5.QtWidgets import QMainWindow, QPushButton
+from PyQt5.QtPrintSupport import QPrinter
+from PyQt5.QtGui import QPainter
+from PyQt5.QtCore import QSizeF, QStandardPaths, QDateTime
+
+
 from Database.DBController import dbcont
-
-
 from .Transaction_Prod_ui import Ui_MainWindow
 
 from Dialogs.DLog_Alert import DLG_Alert
@@ -19,6 +21,7 @@ from Dialogs.DLog_Confirm import DLG_Confirm
 from PyQt5 import QtCore
 
 class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
+    resize_sgl = QtCore.pyqtSignal()
     
     db = dbcont()
     
@@ -60,12 +63,14 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.SProducts_Table.itemClicked.connect(self.clicked_item_sprod)
         
         # Final Widget
+        self.PReceipt_btn.setEnabled(False)
         self.Discount_LE.textChanged.connect(self.set_totalprice)
         self.FCancel_btn.clicked.connect(self.change_widget)
         self.FCash_btn.clicked.connect(self.confirmed_payment_cash)
         self.FGcash_btn.clicked.connect(self.confirmed_payment_GCash)
         self.ATrans_btn.clicked.connect(self.another_trans)
         self.SPayment_btn.clicked.connect(self.confirmed_split_payment)
+        self.PReceipt_btn.clicked.connect(self.print_widget)
                 
     def search(self):
         self.Product_Table.setRowCount(0)
@@ -227,10 +232,10 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
             SoldProductsList= self.SProdConfirmed,
             GCashRef= self.GCashRef, Ptype= payment
         )
-        dlg_receipt = DLG_Receipt(prodlist=self.SProdConfirmed)
-        dlg_receipt.exec()
-        print(self.SProdConfirmed)
-        self.set_tableElements()
+        self.dlg_receipt = DLG_Receipt(prodlist=self.SProdConfirmed,Tprice= self.TotalPrice,
+                                    Ptype= payment, Pprice= self.amtpaid, RID = self.db.get_recent_receiptID())
+        self.dlg_receipt.exec()
+        self.PReceipt_btn.setEnabled(True)
     
     def set_totalprice(self):
         totalprice = 0
@@ -255,6 +260,40 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         for row_number, row_data in enumerate(self.SProdConfirmed):
             for column_number, data in enumerate(row_data):
                 self.FProduct_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+    
+    def print_widget(self):
+        printer = QPrinter()
+        output_directory = QStandardPaths.writableLocation(QStandardPaths.DesktopLocation)
+        if not os.path.exists(output_directory):
+            os.makedirs(output_directory)
+        
+        # Get current date and time
+        current_datetime = QDateTime.currentDateTime()
+        timestamp = current_datetime.toString('yyyyMMdd_hh_mm')
+
+        output_file = os.path.join(output_directory, f'Receipt_{self.dlg_receipt.RID_L.text()}_{timestamp}.pdf')
+        printer.setOutputFileName(output_file)
+        
+        # Adjust widget size
+        widget_size = self.dlg_receipt.size()
+        widget_width = widget_size.width()
+        widget_height = widget_size.height()
+
+        # Set paper size
+        resolution = printer.resolution()
+        paper_size = QSizeF(widget_width / resolution * 25.4, widget_height / resolution * 25.4)  # Convert pixels to mm
+
+        printer.setPaperSize(paper_size, QPrinter.Millimeter)
+        printer.setFullPage(True)
+
+        # Set margins
+        printer.setPageMargins(0, 0, 0, 0, QPrinter.Millimeter)
+        
+        painter = QPainter(printer)
+        self.dlg_receipt.render(painter)
+        painter.end()
+        print(f'Saved PDF to {output_file}')
+    
     
     # all about screens
     def clean_sprod_table(self):
@@ -283,9 +322,9 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         if self.FReceipt_w.isVisible():
             self.Order_w.setVisible(True)
             self.FReceipt_w.setVisible(False)
-            print('to order')
+            self.resize_sgl.emit()
         else:
-            print('to final')
+            self.resize_sgl.emit()
             self.confirmed_order()
             print(self.SProdConfirmed)
     
@@ -298,30 +337,48 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.set_tableElements()
         self.clean_sprod_table()
         
-        
     def set_dybutton(self):
         cate_list = self.db.get_cate(all=True)
         cate_list.insert(0, 'All')
+        cnt = 0
+        layout = QHBoxLayout()
+        widget = QWidget()
+        mainlayout = QVBoxLayout()
         for index, label in enumerate(cate_list):
+            cnt += 1
             button = QPushButton(label, self)
             button.clicked.connect(self.on_button_click)
-            
             # Setting button design
-            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            sizePolicy.setHeightForWidth(button.sizePolicy().hasHeightForWidth())
             button.setSizePolicy(sizePolicy)
-            button.setFixedSize(QtCore.QSize(100, 30))
+            button.setMinimumSize(QtCore.QSize(50, 50))
             button.setProperty('buttonNumber', index)
             # --END--
+            layout.addWidget(button)
             
-            row = index // 3
-            col = index % 3
-            self.BLContent_GL.addWidget(button, row, col)
+            if cnt % 3 == 0:
+                widget.setLayout(layout)
+                mainlayout.addWidget(widget)
+                layout = QHBoxLayout()
+                widget = QWidget()
+            elif cnt == len(cate_list):
+                widget.setLayout(layout)
+                mainlayout.addWidget(widget)
+                layout = QHBoxLayout()
+                widget = QWidget()
+        spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Expanding)
+        mainlayout.addItem(spacer)
+        self.Buttons_w.setLayout(mainlayout)
 
     def on_button_click(self):
         sender = self.sender()
         self.Main_w.setVisible(True)
         self.Order_w.setVisible(True)
         self.BList_w.setVisible(False)
+        self.resize_sgl.emit()
         self.Cate_CB.setCurrentIndex(sender.property('buttonNumber'))
         
     def sort_search_table(self):

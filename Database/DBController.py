@@ -371,6 +371,14 @@ class dbcont(object):
             self.mycursor.execute(sql4, (RID, prod[0],prod[2], price, currdate))
             self.mydb.commit()
     
+    def get_recent_receiptID(self):
+        
+        sql = """
+        SELECT TransactionReceiptID FROM transaction_receipts ORDER BY ID DESC LIMIT 1;
+
+        """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchone()[0]
     # Getting Product Data( Inventory )
     def get_all_prod(self, inv = None , trans = None, records = None):
         if inv:

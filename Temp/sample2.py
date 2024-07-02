@@ -1,24 +1,44 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QPushButton, QLabel
 import sys
+from PyQt5.QtWidgets import QApplication, QPushButton, QVBoxLayout, QWidget, QLabel, QHBoxLayout
+from PyQt5.QtGui import QIcon
+from PyQt5.QtCore import QSize
 
-app = QApplication(sys.argv)
+def on_button_clicked():
+    label.setText("Button Clicked!")
 
-window = QWidget()
-window.setWindowTitle('Vertical Layout Example')
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    window = QWidget()
+    window.setWindowTitle('QPushButton Properties Example')
 
-layout = QVBoxLayout()
+    layout = QVBoxLayout()
+    window.setLayout(layout)
 
-button1 = QPushButton('Button 1')
-label = QLabel('Label')
-button2 = QPushButton('Button 2')
+    # Create a label to display messages
+    label = QLabel("Click the button...")
+    layout.addWidget(label)
 
+    # Create a horizontal layout for the button and checkbox
+    button_layout = QHBoxLayout()
 
-layout.addWidget(label)
-layout.addWidget(button1)
+    # Create a QPushButton
+    button = QPushButton('Click Me')
+    button.setToolTip('This is a QPushButton')
+    button.setIcon(QIcon('icon.png'))  # Set an icon
+    button.setIconSize(QSize(24, 24))  # Set icon size
 
-layout.addWidget(button2)
+    # Set button properties
+    button.setFixedSize(QSize(150, 50))  # Set fixed size
+    button.setCheckable(True)  # Make the button checkable
+    button.setChecked(False)  # Initially unchecked
+    button.setDefault(False)  # Not the default button in a dialog
 
-window.setLayout(layout)
+    # Connect button signal to slot
+    button.clicked.connect(on_button_clicked)
 
-window.show()
-sys.exit(app.exec_())
+    # Add button to the layout
+    button_layout.addWidget(button)
+    layout.addLayout(button_layout)
+
+    window.show()
+    sys.exit(app.exec_())

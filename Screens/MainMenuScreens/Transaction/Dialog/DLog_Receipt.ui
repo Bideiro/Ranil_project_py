@@ -15,7 +15,7 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QWidget" name="widget" native="true">
+    <widget class="QWidget" name="Receipt" native="true">
      <property name="styleSheet">
       <string notr="true">#widget{
 background-color: #F8F8F0;
@@ -249,7 +249,7 @@ border: 2px solid #096033;
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="TotalPrice">
+          <widget class="QLabel" name="TotalPrice_L">
            <property name="text">
             <string>TextLabel</string>
            </property>
@@ -361,7 +361,7 @@ border: 2px solid #096033;
           </spacer>
          </item>
          <item>
-          <widget class="QLabel" name="RID">
+          <widget class="QLabel" name="RID_L">
            <property name="font">
             <font>
              <family>DM Sans</family>

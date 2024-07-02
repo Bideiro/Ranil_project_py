@@ -1,5 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QDialog, QPushButton, QWidget, QVBoxLayout,QHBoxLayout ,QSpacerItem, QSizePolicy, QLabel
+from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
+from PyQt5.QtGui import QPainter
 
 from PyQt5.QtCore import Qt
 
@@ -12,22 +14,28 @@ class DLG_Receipt(QDialog, Ui_Dialog):
     
     db = dbcont()
     
-    def __init__(self, prodlist, parent = None):
+    def __init__(self, prodlist, Tprice ,Ptype, Pprice, RID, parent = None):
         super().__init__(parent)
         self.setupUi(self)
         self.setWindowFlags(Qt.Popup)
         self.Plist = prodlist
         self.create_prodlist()
+        self.TotalPrice_L.setText(str(Tprice))
+        if Ptype == 0:
+            self.PMethod_L.setText('Cash')
+        elif Ptype == 1:
+            self.PMethod_L.setText('GCash')
+        else:
+            self.PMethod_L.setText('Split Payment ( GCash + Cash )')
+        self.APaid_L.setText(str(Pprice))
+        self.RID_L.setText(str(RID))
         
-    
     def create_prodlist(self):
         
         prodlistlayout = QVBoxLayout()
         
         for prod in self.Plist:
             dbprod = self.db.get_prod_search(searchstr= prod[0], searchcate= -1)
-            print('showing dbprod')
-            print(dbprod)
             labelwidget = QWidget()
             layout = QHBoxLayout()
             spacer1 = QSpacerItem(10, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
@@ -52,4 +60,3 @@ class DLG_Receipt(QDialog, Ui_Dialog):
             prodlistlayout.addWidget(labelwidget)
         
         self.ProdList_w.setLayout(prodlistlayout)
-        
