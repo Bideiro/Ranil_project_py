@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow
+from PyQt5.QtWidgets import QMainWindow, QLineEdit
 from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIntValidator
 
@@ -14,6 +14,7 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
     logsucc_admin = QtCore.pyqtSignal()
     forgot = QtCore.pyqtSignal()
     
+    User = UserMana()
     
     def __init__(self):
         super(LoginWindow,self).__init__()
@@ -23,6 +24,17 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         self.passwordLE.setMaxLength(6)
         self.passwordLE.setValidator(self.onlyInt)
         
+        self.SPass_RB.toggled.connect(self.change_echo)
+        
+        
+    def change_echo(self):
+        if self.SPass_RB.isChecked():
+            self.passwordLE.setEchoMode(QLineEdit.EchoMode.Normal)
+        else:
+            self.passwordLE.setEchoMode(QLineEdit.EchoMode.Password)
+        
+        
+        
     @pyqtSlot()
     # initiate login
     def on_login_btn_clicked(self):
@@ -30,7 +42,10 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         
         mydb = dbcont(self.userLE.text(), self.passwordLE.text())
         if mydb.login():
-            self.logsucc_admin.emit()
+            if self.User.Level == 0:
+                self.logsucc_admin.emit()
+            else:
+                self.logsucc_emp.emit()
         else:
             Dlg = DLG_Alert(msg='Invalid Username or Password!')
             Dlg.exec()

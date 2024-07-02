@@ -2,7 +2,7 @@ import sys
 from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 
-from .MainMenu_ui import Ui_MainWindow
+from .MainMenu_E_ui import Ui_MainWindow
 
 from .MainMenuScreens.Home import HomeWindow
 
@@ -35,7 +35,7 @@ from .MainMenuScreens.About.About import AboutWindow
 from Database.DBController import dbcont
 from Database.User_Manager import UserMana
 from PyQt5 import QtWidgets, QtGui, QtCore
-class MainMenuWindow( QMainWindow, Ui_MainWindow):
+class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
     
     log_out_btnsgl = QtCore.pyqtSignal()
     resize_trig = QtCore.pyqtSignal()
@@ -43,7 +43,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     db = dbcont()
     
     def __init__(self):
-        super(MainMenuWindow,self).__init__()
+        super(MainMenuWindow_E,self).__init__()
         self.setupUi(self)
         
         # Initializing Screens
@@ -177,8 +177,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
     def init_log_out(self):
         self.db.log_logout()
-        self.security_sdbtn.setChecked(False)
-        self.registration_sdbtn.setChecked(False)
         self.sales_sdbtn.setChecked(False)
         self.transaction_sdbtn.setChecked(False)
         self.inventory_sdbtn.setChecked(False)

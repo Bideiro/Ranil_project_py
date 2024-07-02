@@ -31,7 +31,6 @@ class Sales_Window(QMainWindow, Ui_MainWindow):
         
         
     def set_tableElements(self):
-        
         result = self.db.get_all_sales()
         self.search_LE.clear()
         self.Sales_Table.setRowCount(len(result))
@@ -39,7 +38,9 @@ class Sales_Window(QMainWindow, Ui_MainWindow):
             for column_number, data in enumerate(row_data):
                 if column_number == 6 :
                     data = self.db.get_payment_type(id= data)
-                self.Sales_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                item = QTableWidgetItem(str(data))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.Sales_Table.setItem(row_number, column_number, item)
         
     def search(self):
         searchResult = self.db.search_sales(self.search_LE.text())

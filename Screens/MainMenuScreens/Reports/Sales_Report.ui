@@ -105,7 +105,7 @@ border : 2px solid #ABE27D;
              <widget class="QWidget" name="widget_3" native="true">
               <layout class="QHBoxLayout" name="horizontalLayout_4">
                <item>
-                <widget class="QRadioButton" name="radioButton">
+                <widget class="QRadioButton" name="DRange_RB">
                  <property name="font">
                   <font>
                    <family>DM Sans</family>
@@ -129,7 +129,7 @@ border : 2px solid #ABE27D;
                 </widget>
                </item>
                <item>
-                <widget class="QDateEdit" name="dateEdit">
+                <widget class="QDateEdit" name="SDate_DE">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                    <horstretch>0</horstretch>
@@ -165,7 +165,7 @@ border : 2px solid #ABE27D;
                 </widget>
                </item>
                <item>
-                <widget class="QDateEdit" name="dateEdit2">
+                <widget class="QDateEdit" name="EDate_DE">
                  <property name="enabled">
                   <bool>false</bool>
                  </property>
@@ -387,18 +387,18 @@ border : 2px solid #ABE27D;
  <resources/>
  <connections>
   <connection>
-   <sender>radioButton</sender>
+   <sender>DRange_RB</sender>
    <signal>clicked(bool)</signal>
-   <receiver>dateEdit2</receiver>
+   <receiver>EDate_DE</receiver>
    <slot>setEnabled(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>313</x>
-     <y>38</y>
+     <x>508</x>
+     <y>52</y>
     </hint>
     <hint type="destinationlabel">
-     <x>511</x>
-     <y>35</y>
+     <x>781</x>
+     <y>57</y>
     </hint>
    </hints>
   </connection>

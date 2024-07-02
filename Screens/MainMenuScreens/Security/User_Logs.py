@@ -14,6 +14,12 @@ class User_Logs_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.set_tableElements()
         
+        self.Log_Table.setColumnWidth(0,150)
+        self.Log_Table.setColumnWidth(1,150)
+        self.Log_Table.setColumnWidth(2,150)
+        self.Log_Table.setColumnWidth(3,150)
+        self.Log_Table.setColumnWidth(4,200)
+        
         
     def set_tableElements(self):
             self.Log_Table.setRowCount(0)
@@ -22,4 +28,6 @@ class User_Logs_Window(QMainWindow, Ui_MainWindow):
             self.Log_Table.setRowCount(len(result))
             for row_number, row_data in enumerate(result):
                 for column_number, data in enumerate(row_data):
-                    self.Log_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                    item = QTableWidgetItem(str(data))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.Log_Table.setItem(row_number, column_number, item)

@@ -18,7 +18,12 @@ class Trans_Rec_Window(QMainWindow, Ui_MainWindow):
         self.set_tableElements()
         self.Back_btn.clicked.connect(lambda: self.back_btnsgl.emit())
         
-    
+        self.SReceipts_Table.setColumnWidth(0,150)
+        self.SReceipts_Table.setColumnWidth(1,150)
+        self.SReceipts_Table.setColumnWidth(2,200)
+        self.SReceipts_Table.setColumnWidth(3,150)
+        self.SReceipts_Table.setColumnWidth(4,200)
+        self.SReceipts_Table.setColumnWidth(5,200)
     
     def set_tableElements(self):
             self.SReceipts_Table.setRowCount(0)
@@ -28,4 +33,6 @@ class Trans_Rec_Window(QMainWindow, Ui_MainWindow):
             self.SReceipts_Table.setRowCount(len(result))
             for row_number, row_data in enumerate(result):
                 for column_number, data in enumerate(row_data):
-                    self.SReceipts_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                    item = QTableWidgetItem(str(data))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.SReceipts_Table.setItem(row_number, column_number, item)

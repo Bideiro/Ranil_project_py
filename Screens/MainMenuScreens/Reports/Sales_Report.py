@@ -9,6 +9,8 @@ from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
 
+from Dialogs.DLog_Alert import DLG_Alert
+
 from .Sales_Report_ui import Ui_MainWindow
 from Database.DBController import dbcont
 from PyQt5 import QtWidgets, QtGui, QtCore
@@ -26,6 +28,7 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
         self.Refresh_btn.clicked.connect(self.set_tableElements)
         self.backBtn.clicked.connect(self.prev_window)
 
+        self.EDate_DE.dateChanged.connect(self.check_dates)
     def set_tableElements(self):
         searchResult = self.db.get_salesR()
         self.tableWidget.setRowCount(0)
@@ -36,30 +39,43 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                    item = QTableWidgetItem(str(data))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget.setItem(row_number, column_number, item)
 
     def prev_window(self):
         self.back_btnsgl.emit()
+        
+    def check_dates(self):
+        start_date = self.SDate_DE.date().toPyDate()
+        end_date = self.EDate_DE.date().toPyDate()
+        if start_date > end_date:
+            dlg = DLG_Alert(msg='The End date is before the start date!')
+            dlg.exec()
+            
 
     def search(self):
-        start_date = self.dateEdit.date().toPyDate()
-        end_date = self.dateEdit2.date().toPyDate()
-        
-        if self.radioButton.isChecked() and start_date != end_date:
-            searchResult = self.db.search_sales_rep(start_date, end_date)
+        start_date = self.SDate_DE.date().toPyDate()
+        end_date = self.EDate_DE.date().toPyDate()
+        searchResult = None
+        if self.DRange_RB.isChecked():
+            if start_date != end_date and start_date < end_date:
+                searchResult = self.db.search_sales_rep(start_date, end_date)
+            else:
+                dlg = DLG_Alert(msg='The End date is before the start date!')
+                dlg.exec()
         else:
             searchResult = self.db.search_sales_rep(start_date)
-
-        # Update the table widget with the search results
+            
         self.tableWidget.setRowCount(0)
         if searchResult:
             self.tableWidget.setRowCount(len(searchResult))
             for row_number, row_data in enumerate(searchResult):
-                self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
             print('No transactions found for the selected date or date range.')
+
 
     def print_to_pdf(self):
         # Create a document

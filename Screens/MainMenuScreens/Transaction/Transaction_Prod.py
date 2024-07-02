@@ -6,6 +6,7 @@ from PyQt5.QtWidgets import QMainWindow, QPushButton
 from PyQt5.QtPrintSupport import QPrinter
 from PyQt5.QtGui import QPainter
 from PyQt5.QtCore import QSizeF, QStandardPaths, QDateTime
+from PyQt5.QtCore import Qt
 
 
 from Database.DBController import dbcont
@@ -38,6 +39,12 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         super(Trans_Prod_Window,self).__init__(parent)
         self.setupUi(self)
         # self.reset_page()
+        
+        self.Product_Table.setColumnWidth(0,100)
+        self.Product_Table.setColumnWidth(1,150)
+        self.Product_Table.setColumnWidth(2,100)
+        self.Product_Table.setColumnWidth(3,100)
+        self.Product_Table.setColumnWidth(4,100)
         
         self.onlyInt = QIntValidator()
         self.Quantity_LE.setValidator(self.onlyInt)
@@ -73,8 +80,10 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.PReceipt_btn.clicked.connect(self.print_widget)
                 
     def search(self):
-        self.Product_Table.setRowCount(0)
+        
         searchResult = self.db.search_prod( searchstr= self.Search_LE.text(), trans= True)
+        self.Product_Table.setRowCount(0)
+        print(searchResult)
         if searchResult:
             self.Product_Table.setRowCount(len(searchResult))
             for row_number, row_data in enumerate(searchResult):
@@ -140,9 +149,13 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
                 
                 for col, data in enumerate(self.Sprod):
                     if col == 2:
-                        self.SProducts_Table.setItem(rowpos, col, QTableWidgetItem(str(self.Sprod[5])))
+                        item = QTableWidgetItem(str(self.Sprod[5]))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.SProducts_Table.setItem(rowpos, col, item)
                     elif col == 0 or col == 1:
-                        self.SProducts_Table.setItem(rowpos, col, QTableWidgetItem(str(data)))
+                        item = QTableWidgetItem(str(data))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.SProducts_Table.setItem(rowpos, col, item)
             else:
                 Dlg = DLG_Alert(msg='Already in list!')
                 Dlg.exec()
@@ -260,7 +273,9 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.FProduct_Table.setRowCount(len(self.SProdConfirmed))
         for row_number, row_data in enumerate(self.SProdConfirmed):
             for column_number, data in enumerate(row_data):
-                self.FProduct_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                    item = QTableWidgetItem(str(data))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.FProduct_Table.setItem(row_number, column_number, item)
     
     def print_widget(self):
         printer = QPrinter()
@@ -336,41 +351,41 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.set_tableElements()
         self.clean_sprod_table()
         
-    def set_dybutton(self):
-        layout = QHBoxLayout()
-        widget = QWidget()
-        mainlayout = QVBoxLayout()
-        cate_list = self.db.get_cate(all=True)
-        cate_list.insert(0, 'All')
-        cnt = 0
-        for index, label in enumerate(cate_list):
-            cnt += 1
-            button = QPushButton(label.upper(), self)
-            button.clicked.connect(self.on_button_click)
-            # Setting button design
-            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
-            sizePolicy.setHorizontalStretch(0)
-            sizePolicy.setVerticalStretch(0)
-            sizePolicy.setHeightForWidth(button.sizePolicy().hasHeightForWidth())
-            button.setSizePolicy(sizePolicy)
-            button.setMinimumSize(QtCore.QSize(50, 50))
-            button.setProperty('buttonNumber', index)
-            # --END--
-            layout.addWidget(button)
+    # def set_dybutton(self):
+    #     layout = QHBoxLayout()
+    #     widget = QWidget()
+    #     mainlayout = QVBoxLayout()
+    #     cate_list = self.db.get_cate(all=True)
+    #     cate_list.insert(0, 'All')
+    #     cnt = 0
+    #     for index, label in enumerate(cate_list):
+    #         cnt += 1
+    #         button = QPushButton(label.upper(), self)
+    #         button.clicked.connect(self.on_button_click)
+    #         # Setting button design
+    #         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
+    #         sizePolicy.setHorizontalStretch(0)
+    #         sizePolicy.setVerticalStretch(0)
+    #         sizePolicy.setHeightForWidth(button.sizePolicy().hasHeightForWidth())
+    #         button.setSizePolicy(sizePolicy)
+    #         button.setMinimumSize(QtCore.QSize(50, 50))
+    #         button.setProperty('buttonNumber', index)
+    #         # --END--
+    #         layout.addWidget(button)
             
-            if cnt % 3 == 0:
-                widget.setLayout(layout)
-                mainlayout.addWidget(widget)
-                layout = QHBoxLayout()
-                widget = QWidget()
-            elif cnt == len(cate_list):
-                widget.setLayout(layout)
-                mainlayout.addWidget(widget)
-                layout = QHBoxLayout()
-                widget = QWidget()
-        spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Expanding)
-        mainlayout.addItem(spacer)
-        self.Buttons_w.setLayout(mainlayout)
+    #         if cnt % 3 == 0:
+    #             widget.setLayout(layout)
+    #             mainlayout.addWidget(widget)
+    #             layout = QHBoxLayout()
+    #             widget = QWidget()
+    #         elif cnt == len(cate_list):
+    #             widget.setLayout(layout)
+    #             mainlayout.addWidget(widget)
+    #             layout = QHBoxLayout()
+    #             widget = QWidget()
+    #     spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Expanding)
+    #     mainlayout.addItem(spacer)
+    #     self.Buttons_w.setLayout(mainlayout)
 
     # def set_dybutton(self):
     #     # Function to clear existing layout
@@ -438,6 +453,54 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
     #     print("New layout set with {} categories.".format(len(cate_list)))
     #     print("Main layout item count:", mainlayout.count())
 
+    def set_dybutton(self):
+        # Clear existing layout
+        if self.Buttons_w.layout() is not None:
+            old_layout = self.Buttons_w.layout()
+            while old_layout.count():
+                item = old_layout.takeAt(0)
+                widget = item.widget()
+                if widget is not None:
+                    widget.deleteLater()
+                else:
+                    old_layout.removeItem(item)
+            QtWidgets.QWidget().setLayout(old_layout)
+
+        layout = QHBoxLayout()
+        widget = QWidget()
+        mainlayout = QVBoxLayout()
+        cate_list = self.db.get_cate(all=True)
+        cate_list.insert(0, 'All')
+        cnt = 0
+        for index, label in enumerate(cate_list):
+            cnt += 1
+            button = QPushButton(label.upper(), self)
+            button.clicked.connect(self.on_button_click)
+            # Setting button design
+            sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
+            sizePolicy.setHorizontalStretch(0)
+            sizePolicy.setVerticalStretch(0)
+            sizePolicy.setHeightForWidth(button.sizePolicy().hasHeightForWidth())
+            button.setSizePolicy(sizePolicy)
+            button.setMinimumSize(QtCore.QSize(50, 50))
+            button.setProperty('buttonNumber', index)
+            # --END--
+            layout.addWidget(button)
+
+            if cnt % 3 == 0:
+                widget.setLayout(layout)
+                mainlayout.addWidget(widget)
+                layout = QHBoxLayout()
+                widget = QWidget()
+            elif cnt == len(cate_list):
+                widget.setLayout(layout)
+                mainlayout.addWidget(widget)
+                layout = QHBoxLayout()
+                widget = QWidget()
+        spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Expanding)
+        mainlayout.addItem(spacer)
+        self.Buttons_w.setLayout(mainlayout)
+
     def on_button_click(self):
         sender = self.sender()
         self.Main_w.setVisible(True)
@@ -458,11 +521,12 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
                 searchResult = self.db.get_prod_search(searchcate= cbcurr)
         else:
             searchResult = self.db.get_prod_search(searchstr= searchstr, searchcate= cbcurr)
+
         self.Product_Table.setRowCount(0)
         if searchResult:
             self.Product_Table.setRowCount(len(searchResult))
             for row_number, row_data in enumerate(searchResult):
-                self.Product_Table.insertRow(row_number)
+                # self.Product_Table.insertRow(row_number)  REMOVE THIS
                 for column_number, data in enumerate(row_data):
                     if column_number == 6:
                         data = self.db.get_id_value(id= data, unit= True)
@@ -477,4 +541,6 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.Product_Table.setRowCount(len(result))
         for row_number, row_data in enumerate(result):
             for column_number, data in enumerate(row_data):
-                self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                item = QTableWidgetItem(str(data))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.Product_Table.setItem(row_number, column_number, item)

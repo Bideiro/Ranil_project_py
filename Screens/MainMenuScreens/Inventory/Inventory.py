@@ -92,5 +92,3 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
             self.db.update_prod_protocol(RPID=oldPlist, NewPlist = self.newPlist)
         self.set_tableElements()
         
-        
-        

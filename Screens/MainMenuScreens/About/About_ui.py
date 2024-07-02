@@ -288,5 +288,5 @@ class Ui_MainWindow(object):
         self.label_11.setText(_translate("MainWindow", "FRANCHESCA JANE MACAM"))
         self.label_12.setText(_translate("MainWindow", "DEIGHRO DE OCAMPO"))
         self.label_6.setText(_translate("MainWindow", "CONTACT US"))
-        self.UManual_btn.setText(_translate("MainWindow", "HELP CENTER"))
+        self.UManual_btn.setText(_translate("MainWindow", "USER MANUAL"))
 import assets.All_In_Resource_rc

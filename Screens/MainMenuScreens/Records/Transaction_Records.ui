@@ -102,7 +102,7 @@ border: 1px solid black;
           <item>
            <widget class="QPushButton" name="Search_btn">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -110,7 +110,7 @@ border: 1px solid black;
             <property name="minimumSize">
              <size>
               <width>100</width>
-              <height>10</height>
+              <height>30</height>
              </size>
             </property>
             <property name="font">
@@ -126,7 +126,7 @@ border: 1px solid black;
           <item>
            <widget class="QPushButton" name="Refresh_btn">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -134,7 +134,7 @@ border: 1px solid black;
             <property name="minimumSize">
              <size>
               <width>100</width>
-              <height>10</height>
+              <height>30</height>
              </size>
             </property>
             <property name="font">
@@ -150,7 +150,7 @@ border: 1px solid black;
           <item>
            <widget class="QPushButton" name="Delete_btn">
             <property name="sizePolicy">
-             <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
@@ -158,7 +158,7 @@ border: 1px solid black;
             <property name="minimumSize">
              <size>
               <width>100</width>
-              <height>10</height>
+              <height>30</height>
              </size>
             </property>
             <property name="font">
@@ -181,7 +181,7 @@ border: 1px solid black;
          </property>
          <property name="font">
           <font>
-           <family>DM Sans 14pt ExtraBold</family>
+           <family>DM Sans</family>
            <bold>false</bold>
           </font>
          </property>
@@ -317,6 +317,13 @@ border: 1px solid black;
               <width>100</width>
               <height>40</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <pointsize>10</pointsize>
+              <bold>true</bold>
+             </font>
             </property>
             <property name="text">
              <string>BACK</string>
