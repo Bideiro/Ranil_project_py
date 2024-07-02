@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>907</width>
-    <height>758</height>
+    <height>760</height>
    </rect>
   </property>
   <property name="font">
@@ -20,18 +20,16 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">#widget{
+    <string notr="true">#centralwidget{
+background-color: #F8F8F0;
+}
+#widget{
 background-color: #F8F8F0;
 border: 2px solid #096033;
 }
-.QLabel{
-	font: 700 12pt &quot;DM Sans&quot;;
-}
-.QComboBox
-{
+.QComboBox{
 border : 2px solid #096033;
 background-color:rgba(0,0,0,0);
-font: 700 9pt &quot;Open Sans&quot;;
 }
 .QLineEdit{
 border : 2px solid #096033;
@@ -47,6 +45,18 @@ color: white;
 }</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_8">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QWidget" name="widget_7" native="true">
       <property name="sizePolicy">
@@ -67,7 +77,8 @@ color: white;
          <property name="font">
           <font>
            <family>DM Sans</family>
-           <pointsize>12</pointsize>
+           <pointsize>24</pointsize>
+           <weight>87</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -146,7 +157,8 @@ border: 2px solid #096033;
                <property name="font">
                 <font>
                  <family>DM Sans</family>
-                 <pointsize>12</pointsize>
+                 <pointsize>15</pointsize>
+                 <weight>75</weight>
                  <italic>false</italic>
                  <bold>true</bold>
                 </font>
@@ -155,12 +167,20 @@ border: 2px solid #096033;
                 <string notr="true">background-color:rgba(0,0,0,0);</string>
                </property>
                <property name="text">
-                <string>Account Details</string>
+                <string>USER ID:</string>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QLabel" name="NRUID_L">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="text">
                 <string>None</string>
                </property>
@@ -207,6 +227,7 @@ border: 2px solid #096033;
                  <widget class="QWidget" name="widget_3" native="true">
                   <property name="font">
                    <font>
+                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -226,6 +247,7 @@ border : 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -252,8 +274,16 @@ border : 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
                      <property name="cursorPosition">
                       <number>0</number>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Juan</string>
                      </property>
                     </widget>
                    </item>
@@ -263,6 +293,7 @@ border : 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -286,8 +317,13 @@ border : 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
                      <property name="placeholderText">
-                      <string/>
+                      <string>juan</string>
                      </property>
                     </widget>
                    </item>
@@ -297,6 +333,7 @@ border : 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -320,13 +357,18 @@ border : 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
                      <property name="editable">
                       <bool>false</bool>
                      </property>
                      <property name="currentText">
                       <string/>
                      </property>
-                     <property name="placeholderText">
+                     <property name="placeholderText" stdset="0">
                       <string>Level of Access</string>
                      </property>
                     </widget>
@@ -337,6 +379,7 @@ border : 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -360,7 +403,12 @@ border : 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
-                     <property name="placeholderText">
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
+                     <property name="placeholderText" stdset="0">
                       <string>Gender:</string>
                      </property>
                     </widget>
@@ -371,6 +419,7 @@ border : 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -394,6 +443,11 @@ border : 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
                      <property name="text">
                       <string>+63</string>
                      </property>
@@ -407,6 +461,13 @@ border : 2px solid #096033;
                    </item>
                    <item>
                     <widget class="QLabel" name="label_14">
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                       <weight>75</weight>
+                       <bold>true</bold>
+                      </font>
+                     </property>
                      <property name="text">
                       <string>PASSCODE:</string>
                      </property>
@@ -425,6 +486,11 @@ border : 2px solid #096033;
                        <width>25</width>
                        <height>35</height>
                       </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
                      </property>
                      <property name="maxLength">
                       <number>6</number>
@@ -458,6 +524,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -484,8 +551,16 @@ border: 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
                      <property name="text">
                       <string/>
+                     </property>
+                     <property name="placeholderText">
+                      <string>Dela Cruz</string>
                      </property>
                     </widget>
                    </item>
@@ -495,6 +570,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -518,11 +594,16 @@ border: 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
                      <property name="placeholderText">
-                      <string>Ex: Example@sample.com</string>
+                      <string>Ex: Example@gmail.com</string>
                      </property>
                     </widget>
                    </item>
@@ -532,6 +613,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -554,6 +636,11 @@ border: 2px solid #096033;
                        <width>25</width>
                        <height>35</height>
                       </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
                      </property>
                      <property name="wrapping">
                       <bool>false</bool>
@@ -595,6 +682,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -618,6 +706,11 @@ border: 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
                      <property name="text">
                       <string/>
                      </property>
@@ -632,6 +725,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -655,6 +749,11 @@ border: 2px solid #096033;
                        <height>35</height>
                       </size>
                      </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
+                     </property>
                      <property name="buttonSymbols">
                       <enum>QAbstractSpinBox::NoButtons</enum>
                      </property>
@@ -675,6 +774,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>12</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -697,6 +797,11 @@ border: 2px solid #096033;
                        <width>25</width>
                        <height>35</height>
                       </size>
+                     </property>
+                     <property name="font">
+                      <font>
+                       <family>DM Sans</family>
+                      </font>
                      </property>
                      <property name="maxLength">
                       <number>6</number>
@@ -721,8 +826,18 @@ border: 2px solid #096033;
                 </size>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
                 <item>
                  <widget class="QLabel" name="label_15">
+                  <property name="font">
+                   <font>
+                    <family>DM Sans</family>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
+                  </property>
                   <property name="text">
                    <string>ADDRESS:</string>
                   </property>
@@ -742,6 +857,11 @@ border: 2px solid #096033;
                     <height>35</height>
                    </size>
                   </property>
+                  <property name="font">
+                   <font>
+                    <family>DM Sans</family>
+                   </font>
+                  </property>
                   <property name="text">
                    <string/>
                   </property>
@@ -760,9 +880,16 @@ border: 2px solid #096033;
                  <widget class="QPushButton" name="back_btn">
                   <property name="minimumSize">
                    <size>
-                    <width>0</width>
-                    <height>40</height>
+                    <width>125</width>
+                    <height>35</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>DM Sans</family>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
                   </property>
                   <property name="text">
                    <string>BACK</string>
@@ -786,9 +913,16 @@ border: 2px solid #096033;
                  <widget class="QPushButton" name="save_btn">
                   <property name="minimumSize">
                    <size>
-                    <width>0</width>
-                    <height>40</height>
+                    <width>125</width>
+                    <height>35</height>
                    </size>
+                  </property>
+                  <property name="font">
+                   <font>
+                    <family>DM Sans</family>
+                    <weight>75</weight>
+                    <bold>true</bold>
+                   </font>
                   </property>
                   <property name="text">
                    <string>SAVE CHANGES</string>

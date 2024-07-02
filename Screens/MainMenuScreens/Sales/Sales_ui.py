@@ -14,32 +14,29 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(963, 663)
+        MainWindow.resize(973, 663)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet(".QWidget{\n"
 "background-color: #F8F8F0;\n"
-"}\n"
-"#widget{\n"
-"border: 2px solid #ABE27D;\n"
 "}\n"
 ".QPushButton{\n"
 "background-color: #096033;\n"
 "border: 2px solid #ABE27D;\n"
 "color: white\n"
 "}\n"
-"#Refresh_btn, #Search_btn, #Back_btn{\n"
-"border: 2px solid;\n"
+"#Sales_Table{\n"
+"border : 2px solid #ABE27D;\n"
 "}\n"
-"#comboBox{\n"
+"#Search_btn, #Refresh_btn{\n"
+"border: 2px solid\n"
+"}\n"
+".QComboBox{\n"
 "border : 1px solid gray;\n"
 "color: black\n"
 "}\n"
 "#search_LE{\n"
 "border : 1px solid gray;\n"
 "color: black\n"
-"}\n"
-"#Sales_Table{\n"
-"border : 2px solid #ABE27D;\n"
 "}")
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -52,7 +49,8 @@ class Ui_MainWindow(object):
 "}")
         self.widget.setObjectName("widget")
         self.verticalLayout_4 = QtWidgets.QVBoxLayout(self.widget)
-        self.verticalLayout_4.setContentsMargins(-1, -1, -1, 0)
+        self.verticalLayout_4.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_4.setSpacing(0)
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.widget_5 = QtWidgets.QWidget(self.widget)
         self.widget_5.setObjectName("widget_5")
@@ -68,9 +66,12 @@ class Ui_MainWindow(object):
         font.setFamily("DM Sans")
         font.setPointSize(24)
         font.setBold(True)
+        font.setWeight(75)
         self.label.setFont(font)
         self.label.setObjectName("label")
         self.horizontalLayout_2.addWidget(self.label)
+        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem)
         self.search_LE = QtWidgets.QLineEdit(self.widget_5)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -78,6 +79,9 @@ class Ui_MainWindow(object):
         sizePolicy.setHeightForWidth(self.search_LE.sizePolicy().hasHeightForWidth())
         self.search_LE.setSizePolicy(sizePolicy)
         self.search_LE.setMinimumSize(QtCore.QSize(400, 30))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        self.search_LE.setFont(font)
         self.search_LE.setObjectName("search_LE")
         self.horizontalLayout_2.addWidget(self.search_LE)
         self.comboBox = QtWidgets.QComboBox(self.widget_5)
@@ -89,8 +93,8 @@ class Ui_MainWindow(object):
         self.comboBox.setMinimumSize(QtCore.QSize(0, 30))
         self.comboBox.setObjectName("comboBox")
         self.horizontalLayout_2.addWidget(self.comboBox)
-        spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem)
+        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem1)
         self.Search_btn = QtWidgets.QPushButton(self.widget_5)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -130,7 +134,8 @@ class Ui_MainWindow(object):
         self.Sales_Table.setMinimumSize(QtCore.QSize(0, 500))
         font = QtGui.QFont()
         font.setFamily("DM Sans")
-        font.setBold(True)
+        font.setBold(False)
+        font.setWeight(50)
         self.Sales_Table.setFont(font)
         self.Sales_Table.setFrameShadow(QtWidgets.QFrame.Plain)
         self.Sales_Table.setLineWidth(0)
@@ -146,6 +151,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         item.setBackground(QtGui.QColor(42, 114, 222))
         self.Sales_Table.setHorizontalHeaderItem(0, item)
@@ -153,25 +159,45 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.Sales_Table.setHorizontalHeaderItem(1, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.Sales_Table.setHorizontalHeaderItem(2, item)
         item = QtWidgets.QTableWidgetItem()
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setBold(True)
+        font.setWeight(75)
         item.setFont(font)
         self.Sales_Table.setHorizontalHeaderItem(3, item)
         item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(13)
+        font.setBold(True)
+        font.setWeight(75)
+        item.setFont(font)
         self.Sales_Table.setHorizontalHeaderItem(4, item)
         item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(13)
+        font.setBold(True)
+        font.setWeight(75)
+        item.setFont(font)
         self.Sales_Table.setHorizontalHeaderItem(5, item)
         item = QtWidgets.QTableWidgetItem()
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setBold(True)
+        font.setWeight(75)
+        item.setFont(font)
         self.Sales_Table.setHorizontalHeaderItem(6, item)
         self.Sales_Table.horizontalHeader().setVisible(True)
         self.Sales_Table.horizontalHeader().setCascadingSectionResizes(True)
@@ -183,7 +209,7 @@ class Ui_MainWindow(object):
         self.widget_2 = QtWidgets.QWidget(self.widget)
         self.widget_2.setObjectName("widget_2")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.widget_2)
-        self.horizontalLayout_3.setContentsMargins(-1, 0, -1, 0)
+        self.horizontalLayout_3.setContentsMargins(-1, 0, -1, 12)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         self.Back_btn = QtWidgets.QPushButton(self.widget_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
@@ -195,11 +221,12 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setBold(True)
+        font.setWeight(75)
         self.Back_btn.setFont(font)
         self.Back_btn.setObjectName("Back_btn")
         self.horizontalLayout_3.addWidget(self.Back_btn)
-        spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_3.addItem(spacerItem1)
+        spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_3.addItem(spacerItem2)
         self.dailySalesbtn = QtWidgets.QPushButton(self.widget_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -210,6 +237,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setBold(True)
+        font.setWeight(75)
         self.dailySalesbtn.setFont(font)
         self.dailySalesbtn.setObjectName("dailySalesbtn")
         self.horizontalLayout_3.addWidget(self.dailySalesbtn)
@@ -223,6 +251,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setBold(True)
+        font.setWeight(75)
         self.monthlySalesbtn.setFont(font)
         self.monthlySalesbtn.setObjectName("monthlySalesbtn")
         self.horizontalLayout_3.addWidget(self.monthlySalesbtn)
@@ -236,6 +265,7 @@ class Ui_MainWindow(object):
         font = QtGui.QFont()
         font.setFamily("DM Sans")
         font.setBold(True)
+        font.setWeight(75)
         self.annualSalesbtn.setFont(font)
         self.annualSalesbtn.setObjectName("annualSalesbtn")
         self.horizontalLayout_3.addWidget(self.annualSalesbtn)
@@ -256,6 +286,7 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "SALES"))
+        self.search_LE.setPlaceholderText(_translate("MainWindow", "Search:"))
         self.Search_btn.setText(_translate("MainWindow", "SEARCH"))
         self.Refresh_btn.setText(_translate("MainWindow", "REFRESH"))
         self.Sales_Table.setSortingEnabled(True)

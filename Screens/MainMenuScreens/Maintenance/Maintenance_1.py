@@ -1,6 +1,6 @@
 import mysql.connector
 import os
-from datetime import datetime
+import datetime
 
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox
 
@@ -18,7 +18,7 @@ class Maintenance_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         
         self.RData_btn.clicked.connect(self.Restore_protocol)
-        self.BData_btn.clicked.connect(self.exportData)
+        self.BData_btn.clicked.connect(self.backup_database)
 
     def Restore_protocol(self):
             options = QFileDialog.Options()
@@ -29,48 +29,43 @@ class Maintenance_Window(QMainWindow, Ui_MainWindow):
             else:
                 Dlg = DLG_Alert(msg='No SQL file Selected!')
                 Dlg.exec()
-                    
-    def exportData(self):
-        try:
-            # Connect to the MySQL database
-            conn = mysql.connector.connect(
-                host="localhost",
-                user= "root",
-                passwd= "password",
-                database="ranil_proj")
-            cursor = conn.cursor()
-            cursor.execute("SHOW TABLES")
-
-            tables = cursor.fetchall()
-            options = QFileDialog.Options()
-            directory = QFileDialog.getExistingDirectory(self, "Select Directory to Save SQL Backup File", options=options)
-            if directory:
-                # Get today's date and format it
-                today = datetime.now().strftime("%Y-%m-%d")
-                filename = f"backup_{today}.sql"  # Hardcoded filename with today's date
-                filePath = os.path.join(directory, filename)
-                with open(filePath, 'w') as f:
-                    for table in tables:
-                        table_name = table[0]
-                        cursor.execute(f"SHOW CREATE TABLE {table_name}")
-                        create_table_stmt = cursor.fetchone()[1]
-                        f.write(f"{create_table_stmt};\n\n")
-
-                        cursor.execute(f"SELECT * FROM {table_name}")
-                        rows = cursor.fetchall()
-
-                        if rows:
-                            columns = [desc[0] for desc in cursor.description]
-                            col_names = ", ".join(columns)
-                            for row in rows:
-                                values = ", ".join([f"'{str(val)}'" if val is not None else 'NULL' for val in row])
-                                insert_stmt = f"INSERT INTO {table_name} ({col_names}) VALUES ({values});"
-                                f.write(f"{insert_stmt}\n")
-                            f.write("\n")
+                        
+    def backup_database(self):
+        backup_path = os.path.expanduser("~/Desktop")
+        # Create a backup file name with the current date
+        backup_file = os.path.join(backup_path, f"Backup_File_{datetime.datetime.now().strftime('%Y%m%d_%H;%M')}.sql")
+            
+        # Connect to the database
+        conn = mysql.connector.connect(
+        host="localhost",
+        user="root",
+        passwd="password",
+        database="ranil_proj"
+        )
+        
+        cursor = conn.cursor()
+        
+        # Get the list of tables
+        cursor.execute("SHOW TABLES")
+        tables = cursor.fetchall()
+        
+        with open(backup_file, "w") as f:
+            for table in tables:
+                table_name = table[0]
+                # Write the table structure
+                cursor.execute(f"SHOW CREATE TABLE {table_name}")
+                create_table_stmt = cursor.fetchone()[1]
+                f.write(f"{create_table_stmt};\n\n")
                 
-                QMessageBox.information(self, "Success", "Data exported successfully!")
-            cursor.close()
-            conn.close()
-
-        except mysql.connector.Error as err:
-            QMessageBox.critical(self, "Error", f"Error: {err}")
+                # Write the table data
+                cursor.execute(f"SELECT * FROM {table_name}")
+                rows = cursor.fetchall()
+                for row in rows:
+                    row_data = ', '.join([f"'{str(item)}'" if item is not None else 'NULL' for item in row])
+                    f.write(f"INSERT INTO {table_name} VALUES ({row_data});\n")
+                f.write("\n")
+        
+        print(f"Backup completed: {backup_file}")
+        
+        cursor.close()
+        conn.close()

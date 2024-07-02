@@ -22,8 +22,7 @@ class DLG_Insert_Prod(QDialog, Ui_Dialog):
         self.setupUi(self)
         self.db = dbcont('admin',123456)
         self.RPIDList = RPIDlist
-        print(self.RPIDList)
-        
+        self.setWindowFlags(Qt.Popup)
         self.set_table_elements()
         
         self.Product_Table.itemClicked.connect(self.set_item)

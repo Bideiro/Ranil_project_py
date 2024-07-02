@@ -66,7 +66,7 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
     def prev_window(self):
         self.Back_btnsgl.emit()
         self.clear_table()
-            
+    
     def clear_table(self):
         self.TableRPID.clear()
         self.Products_Table.setRowCount(0)

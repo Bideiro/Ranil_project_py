@@ -21,7 +21,7 @@ class Ui_Dialog(object):
         self.widget.setStyleSheet(".QLineEdit{\n"
 "border : 2px solid #096033;\n"
 "background-color: #F8F8F0;\n"
-"color: white\n"
+"color: black\n"
 "}\n"
 "#widget{\n"
 "background-color: #ABE27D;\n"

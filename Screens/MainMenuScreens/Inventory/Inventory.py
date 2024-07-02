@@ -1,8 +1,9 @@
+from gc import isenabled
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QDialog
 
 from Database.DBController import dbcont
 
-from .Dialogs.Dlog_UpdateProdDetails import DLG_Edit_Prod
+from .Dialogs.DLog_UpdateProdDetails import DLG_Edit_Prod
 from .Inventory_ui import Ui_MainWindow
 
 
@@ -74,7 +75,7 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
                 prod_values.append(cell_item.text())
             else:
                 prod_values.append('')
-        Dlg = DLG_Edit_Prod(Plist= prod_values)
+        Dlg = DLG_Edit_Prod(Plist= prod_values, isEnabled= self.db.get_status(RPID=prod_values[0]))
         Dlg.exec()
         if Dlg.result() == 1:
             self.newPlist = [self.db._create_rid(RID= prod_values[0],typeID=Dlg.Cat_CB.currentIndex(),prod=True),

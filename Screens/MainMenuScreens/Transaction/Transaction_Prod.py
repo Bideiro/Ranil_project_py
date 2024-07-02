@@ -37,7 +37,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
     def __init__(self, parent= None):
         super(Trans_Prod_Window,self).__init__(parent)
         self.setupUi(self)
-        self.reset_page()
+        # self.reset_page()
         
         self.onlyInt = QIntValidator()
         self.Quantity_LE.setValidator(self.onlyInt)
@@ -299,8 +299,6 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
     def clean_sprod_table(self):
         self.SProdConfirmed =[]
         self.StableRPID.clear()
-        print(self.SProdConfirmed)
-        print(self.StableRPID)
         self.SProducts_Table.setRowCount(0)
         
     def current_prod_reset(self):
@@ -338,12 +336,12 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.clean_sprod_table()
         
     def set_dybutton(self):
-        cate_list = self.db.get_cate(all=True)
-        cate_list.insert(0, 'All')
-        cnt = 0
         layout = QHBoxLayout()
         widget = QWidget()
         mainlayout = QVBoxLayout()
+        cate_list = self.db.get_cate(all=True)
+        cate_list.insert(0, 'All')
+        cnt = 0
         for index, label in enumerate(cate_list):
             cnt += 1
             button = QPushButton(label, self)
@@ -372,6 +370,72 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Expanding)
         mainlayout.addItem(spacer)
         self.Buttons_w.setLayout(mainlayout)
+
+    # def set_dybutton(self):
+    #     # Function to clear existing layout
+    #     def clear_layout(layout):
+    #         if layout is not None:
+    #             while layout.count():
+    #                 item = layout.takeAt(0)
+    #                 widget = item.widget()
+    #                 if widget is not None:
+    #                     widget.deleteLater()
+    #                 else:
+    #                     sub_layout = item.layout()
+    #                     if sub_layout is not None:
+    #                         clear_layout(sub_layout)
+    #             layout.deleteLater()
+
+    #     # Clear the existing layout of Buttons_w
+    #     old_layout = self.Buttons_w.layout()
+    #     if old_layout is not None:
+    #         clear_layout(old_layout)
+
+    #     # Create new main layout
+    #     mainlayout = QVBoxLayout()
+
+    #     # Get the updated category list
+    #     cate_list = self.db.get_cate(all=True)
+    #     cate_list.insert(0, 'All')
+
+    #     # Initialize layout variables
+    #     layout = QHBoxLayout()
+    #     widget = QWidget()
+    #     cnt = 0
+
+    #     for index, label in enumerate(cate_list):
+    #         cnt += 1
+    #         button = QPushButton(label, self)
+    #         button.clicked.connect(self.on_button_click)
+
+    #         # Setting button design
+    #         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
+    #         sizePolicy.setHorizontalStretch(0)
+    #         sizePolicy.setVerticalStretch(0)
+    #         sizePolicy.setHeightForWidth(button.sizePolicy().hasHeightForWidth())
+    #         button.setSizePolicy(sizePolicy)
+    #         button.setMinimumSize(QtCore.QSize(50, 50))
+    #         button.setProperty('buttonNumber', index)
+    #         # --END--
+    #         layout.addWidget(button)
+
+    #         if cnt % 3 == 0 or cnt == len(cate_list):
+    #             widget.setLayout(layout)
+    #             mainlayout.addWidget(widget)
+    #             layout = QHBoxLayout()
+    #             widget = QWidget()
+
+    #     # Add spacer at the end of the layout
+    #     spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Expanding)
+    #     mainlayout.addItem(spacer)
+
+    #     # Set the new layout
+    #     self.Buttons_w.setLayout(mainlayout)
+    #     self.Buttons_w.update()  # Ensure the widget updates with the new layout
+
+    #     # Debugging: Print statements to ensure layout is set
+    #     print("New layout set with {} categories.".format(len(cate_list)))
+    #     print("Main layout item count:", mainlayout.count())
 
     def on_button_click(self):
         sender = self.sender()

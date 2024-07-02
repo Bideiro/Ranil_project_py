@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_projecy_py\Screens\MainMenuScreens\Security\Security_1.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Security\Security_1.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -20,6 +20,9 @@ class Ui_MainWindow(object):
 "    background-color: rgb(9, 96, 51);\n"
 "    color: rgb(255, 255, 255);\n"
 "    border:4px solid rgb(171, 226, 125);\n"
+"}\n"
+"#centralwidget{\n"
+"background-color: #F8F8F0\n"
 "}")
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -43,6 +46,7 @@ class Ui_MainWindow(object):
         font.setFamily("DM Sans")
         font.setPointSize(12)
         font.setBold(True)
+        font.setWeight(75)
         self.UInfo_btn.setFont(font)
         self.UInfo_btn.setObjectName("UInfo_btn")
         self.verticalLayout.addWidget(self.UInfo_btn)
@@ -59,6 +63,7 @@ class Ui_MainWindow(object):
         font.setFamily("DM Sans")
         font.setPointSize(12)
         font.setBold(True)
+        font.setWeight(75)
         self.ULogs_btn.setFont(font)
         self.ULogs_btn.setObjectName("ULogs_btn")
         self.verticalLayout.addWidget(self.ULogs_btn)

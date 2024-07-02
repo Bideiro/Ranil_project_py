@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>963</width>
+    <width>973</width>
     <height>663</height>
    </rect>
   </property>
@@ -18,27 +18,24 @@
     <string notr="true">.QWidget{
 background-color: #F8F8F0;
 }
-#widget{
-border: 2px solid #ABE27D;
-}
 .QPushButton{
 background-color: #096033;
 border: 2px solid #ABE27D;
 color: white
 }
-#Refresh_btn, #Search_btn, #Back_btn{
-border: 2px solid;
+#Sales_Table{
+border : 2px solid #ABE27D;
 }
-#comboBox{
+#Search_btn, #Refresh_btn{
+border: 2px solid
+}
+.QComboBox{
 border : 1px solid gray;
 color: black
 }
 #search_LE{
 border : 1px solid gray;
 color: black
-}
-#Sales_Table{
-border : 2px solid #ABE27D;
 }</string>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
@@ -52,6 +49,18 @@ border : 2px solid #ABE27D;
 }</string>
       </property>
       <layout class="QVBoxLayout" name="verticalLayout_4">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
        <property name="bottomMargin">
         <number>0</number>
        </property>
@@ -70,6 +79,7 @@ border : 2px solid #ABE27D;
              <font>
               <family>DM Sans</family>
               <pointsize>24</pointsize>
+              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -77,6 +87,19 @@ border : 2px solid #ABE27D;
              <string>SALES</string>
             </property>
            </widget>
+          </item>
+          <item>
+           <spacer name="horizontalSpacer">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
           </item>
           <item>
            <widget class="QLineEdit" name="search_LE">
@@ -91,6 +114,14 @@ border : 2px solid #ABE27D;
               <width>400</width>
               <height>30</height>
              </size>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+             </font>
+            </property>
+            <property name="placeholderText">
+             <string>Search:</string>
             </property>
            </widget>
           </item>
@@ -200,7 +231,8 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
-              <bold>true</bold>
+              <weight>50</weight>
+              <bold>false</bold>
              </font>
             </property>
             <property name="frameShadow">
@@ -249,6 +281,7 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -267,6 +300,7 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -278,6 +312,7 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -289,6 +324,7 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
+               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -297,15 +333,38 @@ border : 2px solid #ABE27D;
              <property name="text">
               <string>Paid Price</string>
              </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <pointsize>13</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
             </column>
             <column>
              <property name="text">
               <string>GCashReference</string>
              </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <pointsize>13</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
             </column>
             <column>
              <property name="text">
               <string>PaymentType</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
              </property>
             </column>
            </widget>
@@ -320,7 +379,7 @@ border : 2px solid #ABE27D;
            <number>0</number>
           </property>
           <property name="bottomMargin">
-           <number>0</number>
+           <number>12</number>
           </property>
           <item>
            <widget class="QPushButton" name="Back_btn">
@@ -339,6 +398,7 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
+              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -377,6 +437,7 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
+              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -402,6 +463,7 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
+              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -427,6 +489,7 @@ border : 2px solid #ABE27D;
             <property name="font">
              <font>
               <family>DM Sans</family>
+              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>

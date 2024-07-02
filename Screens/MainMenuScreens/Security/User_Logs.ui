@@ -14,6 +14,14 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="styleSheet">
+    <string notr="true">#centralwidget{
+background-color: #F8F8F0;
+}
+#Log_Table{
+border : 2px solid #ABE27D;
+}</string>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QWidget" name="widget" native="true">
@@ -23,7 +31,8 @@
          <property name="font">
           <font>
            <family>DM Sans</family>
-           <pointsize>20</pointsize>
+           <pointsize>24</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -34,6 +43,11 @@
        </item>
        <item>
         <widget class="QTableWidget" name="Log_Table">
+         <property name="font">
+          <font>
+           <family>DM Sans</family>
+          </font>
+         </property>
          <attribute name="horizontalHeaderCascadingSectionResizes">
           <bool>true</bool>
          </attribute>
@@ -50,25 +64,50 @@
           <property name="text">
            <string>User ID</string>
           </property>
+          <property name="font">
+           <font>
+            <family>DM Sans</family>
+           </font>
+          </property>
          </column>
          <column>
           <property name="text">
            <string>User Level</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>DM Sans</family>
+           </font>
           </property>
          </column>
          <column>
           <property name="text">
            <string>User</string>
           </property>
+          <property name="font">
+           <font>
+            <family>DM Sans</family>
+           </font>
+          </property>
          </column>
          <column>
           <property name="text">
            <string>Activity</string>
           </property>
+          <property name="font">
+           <font>
+            <family>DM Sans</family>
+           </font>
+          </property>
          </column>
          <column>
           <property name="text">
            <string>Date / Time</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>DM Sans</family>
+           </font>
           </property>
          </column>
         </widget>

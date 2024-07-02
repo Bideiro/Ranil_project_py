@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Inventory\Dialogs\Dlog_UpdateProdDetails.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Inventory\Dialogs\DLog_UpdateProdDetails.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(720, 453)
+        Dialog.resize(734, 507)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -22,21 +22,13 @@ class Ui_Dialog(object):
         Dialog.setSizePolicy(sizePolicy)
         Dialog.setMinimumSize(QtCore.QSize(720, 360))
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(Dialog)
-        self.verticalLayout_5.setContentsMargins(0, 0, 0, -1)
+        self.verticalLayout_5.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout_5.setSpacing(0)
         self.verticalLayout_5.setObjectName("verticalLayout_5")
         self.widget = QtWidgets.QWidget(Dialog)
         self.widget.setStyleSheet("#widget{\n"
 "background-color: #F8F8F0;\n"
 "border: 2px solid #096033;\n"
-"}\n"
-"\n"
-".QLabel, .QPushButton{\n"
-"    font: 700 12pt \"DM Sans\";\n"
-"}\n"
-"\n"
-".QComboBox , .QLineEdit{\n"
-"    font: 700 9pt \"Open Sans\";\n"
 "}\n"
 ".QComboBox, .QDateEdit, .QLineEdit\n"
 "{\n"
@@ -45,6 +37,11 @@ class Ui_Dialog(object):
 "}\n"
 "#add_btn, #sub_btn{\n"
 "background-color:rgba(0,0,0,0);\n"
+"}\n"
+"\n"
+".QComboBox:disabled, .QDateEdit:disabled, .QLineEdit:disabled {\n"
+"background-color: #ccc;\n"
+"color: #666;\n"
 "}\n"
 "")
         self.widget.setObjectName("widget")
@@ -95,7 +92,7 @@ class Ui_Dialog(object):
         self.label_3 = QtWidgets.QLabel(self.widget_9)
         font = QtGui.QFont()
         font.setFamily("DM Sans")
-        font.setPointSize(12)
+        font.setPointSize(13)
         font.setBold(True)
         font.setItalic(False)
         self.label_3.setFont(font)
@@ -111,7 +108,7 @@ class Ui_Dialog(object):
         self.label_2 = QtWidgets.QLabel(self.widget_8)
         font = QtGui.QFont()
         font.setFamily("DM Sans")
-        font.setPointSize(12)
+        font.setPointSize(13)
         font.setBold(True)
         font.setItalic(False)
         self.label_2.setFont(font)
@@ -127,7 +124,7 @@ class Ui_Dialog(object):
         self.label_4 = QtWidgets.QLabel(self.widget_10)
         font = QtGui.QFont()
         font.setFamily("DM Sans")
-        font.setPointSize(12)
+        font.setPointSize(13)
         font.setBold(True)
         font.setItalic(False)
         self.label_4.setFont(font)
@@ -143,7 +140,7 @@ class Ui_Dialog(object):
         self.label_5 = QtWidgets.QLabel(self.widget_11)
         font = QtGui.QFont()
         font.setFamily("DM Sans")
-        font.setPointSize(12)
+        font.setPointSize(13)
         font.setBold(True)
         font.setItalic(False)
         self.label_5.setFont(font)
@@ -162,7 +159,7 @@ class Ui_Dialog(object):
         self.label_6 = QtWidgets.QLabel(self.widget_3)
         font = QtGui.QFont()
         font.setFamily("DM Sans")
-        font.setPointSize(12)
+        font.setPointSize(13)
         font.setBold(True)
         font.setItalic(False)
         self.label_6.setFont(font)
@@ -179,7 +176,14 @@ class Ui_Dialog(object):
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout(self.widget_5)
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.PName_LE = QtWidgets.QLineEdit(self.widget_5)
+        self.PName_LE.setEnabled(True)
         self.PName_LE.setMinimumSize(QtCore.QSize(25, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(13)
+        font.setBold(False)
+        font.setItalic(False)
+        self.PName_LE.setFont(font)
         self.PName_LE.setObjectName("PName_LE")
         self.horizontalLayout_9.addWidget(self.PName_LE)
         self.verticalLayout_3.addWidget(self.widget_5)
@@ -189,6 +193,12 @@ class Ui_Dialog(object):
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
         self.Desc_LE = QtWidgets.QLineEdit(self.widget_7)
         self.Desc_LE.setMinimumSize(QtCore.QSize(25, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(13)
+        font.setBold(False)
+        font.setItalic(False)
+        self.Desc_LE.setFont(font)
         self.Desc_LE.setObjectName("Desc_LE")
         self.horizontalLayout_8.addWidget(self.Desc_LE)
         self.verticalLayout_3.addWidget(self.widget_7)
@@ -198,6 +208,12 @@ class Ui_Dialog(object):
         self.horizontalLayout_12.setObjectName("horizontalLayout_12")
         self.SPrice_LE = QtWidgets.QLineEdit(self.widget_12)
         self.SPrice_LE.setMinimumSize(QtCore.QSize(25, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(13)
+        font.setBold(False)
+        font.setItalic(False)
+        self.SPrice_LE.setFont(font)
         self.SPrice_LE.setObjectName("SPrice_LE")
         self.horizontalLayout_12.addWidget(self.SPrice_LE)
         self.verticalLayout_3.addWidget(self.widget_12)
@@ -207,6 +223,12 @@ class Ui_Dialog(object):
         self.horizontalLayout_10.setObjectName("horizontalLayout_10")
         self.Unit_CB = QtWidgets.QComboBox(self.widget_13)
         self.Unit_CB.setMinimumSize(QtCore.QSize(25, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(13)
+        font.setBold(False)
+        font.setItalic(False)
+        self.Unit_CB.setFont(font)
         self.Unit_CB.setObjectName("Unit_CB")
         self.horizontalLayout_10.addWidget(self.Unit_CB)
         self.verticalLayout_3.addWidget(self.widget_13)
@@ -216,6 +238,12 @@ class Ui_Dialog(object):
         self.horizontalLayout_11.setObjectName("horizontalLayout_11")
         self.Cat_CB = QtWidgets.QComboBox(self.widget_14)
         self.Cat_CB.setMinimumSize(QtCore.QSize(25, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(13)
+        font.setBold(False)
+        font.setItalic(False)
+        self.Cat_CB.setFont(font)
         self.Cat_CB.setObjectName("Cat_CB")
         self.horizontalLayout_11.addWidget(self.Cat_CB)
         self.verticalLayout_3.addWidget(self.widget_14)
@@ -233,6 +261,7 @@ class Ui_Dialog(object):
 "}")
         self.widget_6.setObjectName("widget_6")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.widget_6)
+        self.horizontalLayout_3.setContentsMargins(-1, -1, -1, 30)
         self.horizontalLayout_3.setObjectName("horizontalLayout_3")
         spacerItem5 = QtWidgets.QSpacerItem(99, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_3.addItem(spacerItem5)

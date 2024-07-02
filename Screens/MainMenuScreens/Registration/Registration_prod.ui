@@ -7,36 +7,72 @@
     <x>0</x>
     <y>0</y>
     <width>970</width>
-    <height>550</height>
+    <height>561</height>
    </rect>
   </property>
   <property name="font">
    <font>
     <family>Open Sans</family>
     <pointsize>12</pointsize>
+    <weight>75</weight>
     <bold>true</bold>
    </font>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">#centralwidget{background-color: rgb(255, 255, 255);}
-
+    <string notr="true">#centralwidget{
+background-color: #F8F8F0;
+}
 #Desc_PTE{
 border : 2px solid #096033;
 background-color:rgba(0,0,0,0);
 }
-
-.QComboBox, .QLineEdit, .QPlainTextEdit
+.QComboBox, .QLineEdit, .QPlainTextEdit{
+border : 2px solid #096033;
+}
+#widget{
+background-color: #F8F8F0;
+border: 2px solid #096033;
+}
+.QComboBox
 {
 border : 2px solid #096033;
+background-color:rgba(0,0,0,0);
+}
+.QLineEdit{
+border : 2px solid #096033;
+background-color:rgba(0,0,0,0);
+}
+.QDateEdit{
+border: 2px solid #096033;
+background-color:rgba(0,0,0,0);
+}
+.QPushButton{
+background-color: #096033;
+color: white;
 }
 
 </string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout_7">
+    <property name="leftMargin">
+     <number>0</number>
+    </property>
+    <property name="topMargin">
+     <number>0</number>
+    </property>
+    <property name="rightMargin">
+     <number>0</number>
+    </property>
+    <property name="bottomMargin">
+     <number>0</number>
+    </property>
     <item>
      <widget class="QWidget" name="widget_9" native="true">
       <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -46,6 +82,7 @@ border : 2px solid #096033;
           <font>
            <family>DM Sans</family>
            <pointsize>24</pointsize>
+           <weight>75</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -80,27 +117,7 @@ border : 2px solid #096033;
        <item>
         <widget class="QWidget" name="widget" native="true">
          <property name="styleSheet">
-          <string notr="true">#widget{
-background-color: #F8F8F0;
-border: 2px solid #096033;
-}
-.QComboBox
-{
-border : 2px solid #096033;
-background-color:rgba(0,0,0,0);
-}
-.QLineEdit{
-border : 2px solid #096033;
-background-color:rgba(0,0,0,0);
-}
-.QDateEdit{
-border: 2px solid #096033;
-background-color:rgba(0,0,0,0);
-}
-.QPushButton{
-background-color: #096033;
-color: white;
-}</string>
+          <string notr="true"/>
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <property name="spacing">
@@ -135,8 +152,16 @@ border: 2px solid #096033;
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
               <widget class="QLabel" name="label">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>15</pointsize>
+                 <weight>75</weight>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="text">
-                <string>PRODUCT ID</string>
+                <string>PRODUCT ID:</string>
                </property>
               </widget>
              </item>
@@ -146,6 +171,7 @@ border: 2px solid #096033;
                 <font>
                  <family>DM Sans</family>
                  <pointsize>15</pointsize>
+                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -218,6 +244,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>13</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -229,12 +256,6 @@ border: 2px solid #096033;
                    </item>
                    <item>
                     <widget class="QLineEdit" name="PName_LE">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Minimum">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
                      <property name="minimumSize">
                       <size>
                        <width>25</width>
@@ -244,13 +265,7 @@ border: 2px solid #096033;
                      <property name="font">
                       <font>
                        <family>DM Sans</family>
-                       <pointsize>9</pointsize>
-                       <italic>false</italic>
-                       <bold>false</bold>
                       </font>
-                     </property>
-                     <property name="text">
-                      <string/>
                      </property>
                      <property name="placeholderText">
                       <string>Ex: Dog Food(Beef &amp; Veg)</string>
@@ -263,6 +278,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>13</pointsize>
+                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -274,12 +290,6 @@ border: 2px solid #096033;
                    </item>
                    <item>
                     <widget class="QLineEdit" name="SPrice_LE">
-                     <property name="sizePolicy">
-                      <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
-                       <horstretch>0</horstretch>
-                       <verstretch>0</verstretch>
-                      </sizepolicy>
-                     </property>
                      <property name="minimumSize">
                       <size>
                        <width>25</width>
@@ -289,14 +299,10 @@ border: 2px solid #096033;
                      <property name="font">
                       <font>
                        <family>DM Sans</family>
-                       <pointsize>9</pointsize>
                       </font>
                      </property>
-                     <property name="text">
-                      <string/>
-                     </property>
                      <property name="placeholderText">
-                      <string>Ex: 250</string>
+                      <string>Ex. 100</string>
                      </property>
                     </widget>
                    </item>
@@ -327,6 +333,7 @@ border: 2px solid #096033;
                          <font>
                           <family>DM Sans</family>
                           <pointsize>13</pointsize>
+                          <weight>75</weight>
                           <italic>false</italic>
                           <bold>true</bold>
                          </font>
@@ -376,7 +383,7 @@ border: 2px solid #096033;
                        <family>DM Sans</family>
                       </font>
                      </property>
-                     <property name="placeholderText">
+                     <property name="placeholderText" stdset="0">
                       <string/>
                      </property>
                     </widget>
@@ -399,6 +406,7 @@ border: 2px solid #096033;
                          <font>
                           <family>DM Sans</family>
                           <pointsize>13</pointsize>
+                          <weight>75</weight>
                           <bold>true</bold>
                          </font>
                         </property>
@@ -446,6 +454,7 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>9</pointsize>
+                       <weight>50</weight>
                        <italic>false</italic>
                        <bold>false</bold>
                       </font>
@@ -470,6 +479,7 @@ border: 2px solid #096033;
                    <font>
                     <family>DM Sans</family>
                     <pointsize>13</pointsize>
+                    <weight>75</weight>
                     <italic>false</italic>
                     <bold>true</bold>
                    </font>
@@ -481,6 +491,14 @@ border: 2px solid #096033;
                 </item>
                 <item>
                  <widget class="QPlainTextEdit" name="Desc_PTE">
+                  <property name="font">
+                   <font>
+                    <family>DM Sans</family>
+                   </font>
+                  </property>
+                  <property name="plainText">
+                   <string/>
+                  </property>
                   <property name="placeholderText">
                    <string>A food for dogs.</string>
                   </property>
@@ -504,6 +522,7 @@ border: 2px solid #096033;
                    <font>
                     <family>DM Sans</family>
                     <pointsize>13</pointsize>
+                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -543,6 +562,7 @@ border: 2px solid #096033;
                    <font>
                     <family>DM Sans</family>
                     <pointsize>13</pointsize>
+                    <weight>75</weight>
                     <italic>false</italic>
                     <bold>true</bold>
                    </font>

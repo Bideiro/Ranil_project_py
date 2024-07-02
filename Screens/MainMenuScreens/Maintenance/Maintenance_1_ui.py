@@ -14,12 +14,15 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(897, 513)
+        MainWindow.resize(810, 607)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet(".QPushButton{\n"
 "    background-color: rgb(9, 96, 51);\n"
 "    color: rgb(255, 255, 255);\n"
 "    border:4px solid rgb(171, 226, 125);\n"
+"}\n"
+"#centralwidget{\n"
+"background-color: #F8F8F0;\n"
 "}")
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -43,10 +46,11 @@ class Ui_MainWindow(object):
         font.setFamily("DM Sans")
         font.setPointSize(12)
         font.setBold(True)
+        font.setWeight(75)
         self.BData_btn.setFont(font)
         self.BData_btn.setObjectName("BData_btn")
         self.verticalLayout.addWidget(self.BData_btn)
-        spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem2 = QtWidgets.QSpacerItem(20, 75, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
         self.verticalLayout.addItem(spacerItem2)
         self.RData_btn = QtWidgets.QPushButton(self.widget)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.MinimumExpanding)
@@ -60,6 +64,7 @@ class Ui_MainWindow(object):
         font.setFamily("DM Sans")
         font.setPointSize(12)
         font.setBold(True)
+        font.setWeight(75)
         self.RData_btn.setFont(font)
         self.RData_btn.setObjectName("RData_btn")
         self.verticalLayout.addWidget(self.RData_btn)

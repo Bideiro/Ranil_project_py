@@ -2,12 +2,12 @@ import mysql.connector
 import os
 import datetime
 
-def backup_database(host, user, password, database, backup_dir):
+def backup_database( database, backup_dir):
     # Ensure the backup directory exists
     os.makedirs(backup_dir, exist_ok=True)
-    
+    backup_path = os.path.expanduser("~/Desktop/database_backup.sql")
     # Create a backup file name with the current date
-    backup_file = os.path.join(backup_dir, f"{database}_{datetime.datetime.now().strftime('%Y%m%d%H%M%S')}.sql")
+    backup_file = os.path.join(backup_path, f"Backup_File_{datetime.datetime.now().strftime('%Y%m%d_%H;%M')}.sql")
     
     # Connect to the database
     conn = mysql.connector.connect(
@@ -16,6 +16,7 @@ def backup_database(host, user, password, database, backup_dir):
     passwd="password",
     database="ranil_proj"
     )
+    
     cursor = conn.cursor()
     
     # Get the list of tables

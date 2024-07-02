@@ -1,9 +1,11 @@
-from pickle import TRUE
+
 import mysql.connector
+import re
 from Database.User_Manager import UserMana
 
 
 # Due to time constraints this will be the most un optimized code. ever.
+
 class dbcont(object):
     
     _instance = None
@@ -79,7 +81,7 @@ class dbcont(object):
             sql = """
                 INSERT INTO logs (UserID, UserLevel, User , Activity , DateTime)
                 VALUES (%s,%s,%s,%s,%s)
-            """ 
+            """
             
             val = (self.User.RUID, self.get_levels(id =self.User.Level), self.User.User, 'Logged Out', currdate)
             self.mycursor.execute(sql,val)
@@ -235,8 +237,7 @@ class dbcont(object):
         sql = "SELECT Fname,Lname FROM accounts"
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
-        
-        
+    
     # Registration
     
     def add_cate(self, cate):
@@ -270,13 +271,13 @@ class dbcont(object):
     def get_prod_search(self, searchcate= None, searchstr=None, all= None):
         if all != None:
             sql = """
-                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE Active = 1
             """
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
         elif searchcate != -1 and searchstr == None:
             sql = """
-                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE CategoryID = %s
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE CategoryID = %s AND Active = 1
             """
             self.mycursor.execute(sql,(searchcate,))
             return self.mycursor.fetchall()
@@ -289,6 +290,7 @@ class dbcont(object):
                         OR ExpirationDate LIKE %s
                         OR TotalStock LIKE %s)
                     AND CategoryID = %s
+                    AND Active = 1
             """
             searchstr = '%' + searchstr + '%'
             self.mycursor.execute(sql,(searchstr,searchstr,searchstr,searchstr,searchstr,searchcate))
@@ -296,11 +298,12 @@ class dbcont(object):
         elif searchstr != '' and searchcate == -1:
             sql = """
                 SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products 
-                    WHERE RPID LIKE %s
+                    WHERE (RPID LIKE %s
                     OR ProductName LIKE %s
                     OR SellingPrice LIKE %s
                     OR ExpirationDate LIKE %s
-                    OR TotalStock LIKE %s 
+                    OR TotalStock LIKE %s )
+                    AND Active = 1
             """
             searchstr = '%' + searchstr + '%'
             self.mycursor.execute(sql,(searchstr,searchstr,searchstr,searchstr,searchstr))
@@ -381,14 +384,26 @@ class dbcont(object):
         return self.mycursor.fetchone()[0]
     # Getting Product Data( Inventory )
     def get_all_prod(self, inv = None , trans = None, records = None):
+        
         if inv:
-            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products"
+            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products "
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
         else:
-            sql = "SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products"
+            sql = "SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE Active = 1"
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
+        
+    def get_status(self, RPID, status = None ):
+        if status == None:
+            sql = "SELECT Active FROM products WHERE RPID = %s"
+            self.mycursor.execute(sql, (RPID,))
+            return self.mycursor.fetchone()[0]
+        else:
+            sql = "UPDATE products SET Active = %s WHERE RPID = %s"
+            self.mycursor.execute(sql, (status, RPID))
+            self.mydb.commit()
+
 
     def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None):
         if inv:
@@ -610,15 +625,13 @@ class dbcont(object):
         """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
-            
+    
     # sales db
         
     def get_all_sales(self):
         sql = "SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts"
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
-    
-    # PNEINDG FICX
     
     def search_sales(self, searchstr):
         sql = """
@@ -633,12 +646,16 @@ class dbcont(object):
                 """
         searchstr = '%' + searchstr + '%'
         
-        # if searchstr == 'cash':
-        #     PTID = 0
-        # elif searchstr == 0:
-        #     PTID == 
+        if re.search(searchstr, 'Cash', re.IGNORECASE):
+            PTID = 0
+        elif re.search(searchstr, 'Gcash', re.IGNORECASE):
+            PTID == 1
+        elif re.search(searchstr, 'split', re.IGNORECASE):
+            PTID == 2
+        else:
+            PTID = searchstr
         
-        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr, searchstr)
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr, PTID)
         self.mycursor.execute(sql,val)
         return self.mycursor.fetchall()
     
@@ -663,7 +680,6 @@ class dbcont(object):
                 """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
-    
     
     # sales and reports
     def get_inventory(self):

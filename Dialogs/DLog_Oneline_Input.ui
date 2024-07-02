@@ -20,7 +20,7 @@
       <string notr="true">.QLineEdit{
 border : 2px solid #096033;
 background-color: #F8F8F0;
-color: white
+color: black
 }
 #widget{
 background-color: #ABE27D;

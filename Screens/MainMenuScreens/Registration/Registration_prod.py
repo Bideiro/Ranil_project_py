@@ -17,13 +17,13 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 class Registration_prod_Window(QMainWindow, Ui_MainWindow):
 
     back_btnsgl = QtCore.pyqtSignal()
+    
+    db = dbcont()
         
     
     def __init__(self):
         super(Registration_prod_Window,self).__init__()
         self.setupUi(self)
-        
-        self.db = dbcont("root","password")
         
         self.back_btn.clicked.connect(self.prev_window)
         self.reg_btn.clicked.connect(self.init_prod_reg_protocol)

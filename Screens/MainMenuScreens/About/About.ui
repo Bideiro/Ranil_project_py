@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>772</width>
-    <height>788</height>
+    <width>1133</width>
+    <height>696</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,11 +18,14 @@
     <string notr="true">#widget{
 background-color: #F8F8F0;
 }
-#label_2, #label_4, #label_6{
+#label_2, #label_4, #label_6, #label_3{
 color: #096033
 }
 .QPushButton{
 background-color:rgba(0,0,0,0);
+}
+#UManual_btn{
+color: #096033
 }</string>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -44,6 +47,48 @@ background-color:rgba(0,0,0,0);
        <item>
         <widget class="QWidget" name="widget_3" native="true">
          <layout class="QVBoxLayout" name="verticalLayout_2">
+          <item>
+           <widget class="QWidget" name="widget_2" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_4">
+             <item>
+              <widget class="QLabel" name="label_3">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>24</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
+               <property name="text">
+                <string>ABOUT THE COMPANY</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QWidget" name="widget_10" native="true">
+            <layout class="QVBoxLayout" name="verticalLayout_5">
+             <item>
+              <widget class="QLabel" name="label_7">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>18</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Ranil's Poultry Shop offers a variety of products for poultry, including bird feed, plant seeds, fertilizers, and poultry accessories. They also provide pet-related items like dog and cat food, pet supplies, pet care products, and pet basics. Located in Rodriguez Rizal, the shop operates from 7:00 a.m. to 7:00 p.m. The current owner Mrs. Rachel Manuel, is the one who oversees all store operations. </string>
+               </property>
+               <property name="wordWrap">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </widget>
+          </item>
           <item>
            <widget class="QWidget" name="widget_5" native="true">
             <property name="sizePolicy">
@@ -96,22 +141,6 @@ background-color:rgba(0,0,0,0);
            </widget>
           </item>
           <item>
-           <spacer name="verticalSpacer_2">
-            <property name="orientation">
-             <enum>Qt::Vertical</enum>
-            </property>
-            <property name="sizeType">
-             <enum>QSizePolicy::Fixed</enum>
-            </property>
-            <property name="sizeHint" stdset="0">
-             <size>
-              <width>20</width>
-              <height>40</height>
-             </size>
-            </property>
-           </spacer>
-          </item>
-          <item>
            <widget class="QWidget" name="widget_6" native="true">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
@@ -147,37 +176,144 @@ background-color:rgba(0,0,0,0);
            </widget>
           </item>
           <item>
-           <widget class="QWidget" name="widget_7" native="true">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
-             <property name="topMargin">
-              <number>0</number>
-             </property>
+           <widget class="QWidget" name="widget_12" native="true">
+            <layout class="QHBoxLayout" name="horizontalLayout_8">
              <item>
-              <widget class="QLabel" name="label_5">
-               <property name="sizePolicy">
-                <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-                 <horstretch>0</horstretch>
-                 <verstretch>0</verstretch>
-                </sizepolicy>
-               </property>
-               <property name="font">
-                <font>
-                 <family>DM Sans</family>
-                 <pointsize>18</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>Ranil's Poultry Shop offers a variety of products for poultry, including bird feed, plant seeds, fertilizers, and poultry accessories. They also provide pet-related items like dog and cat food, pet supplies, pet care products, and pet basics. Located in Rodriguez Rizal, the shop operates from 7:00 a.m. to 7:00 p.m. The current owner Mrs. Rachel Manuel, is the one who oversees all store operations. </string>
-               </property>
-               <property name="wordWrap">
-                <bool>true</bool>
-               </property>
+              <widget class="QWidget" name="widget_13" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_6">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetFixedSize</enum>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_13">
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>200</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>:/Images/images/1.PNG</pixmap>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_10">
+                  <property name="font">
+                   <font>
+                    <family>DM Sans</family>
+                    <pointsize>15</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>RHEINIEL JERARD F. DAMASCO</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="wordWrap">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_14" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_7">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetFixedSize</enum>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_8">
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>200</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>:/Images/images/2.PNG</pixmap>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_11">
+                  <property name="font">
+                   <font>
+                    <family>DM Sans</family>
+                    <pointsize>15</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>FRANCHESCA JANE MACAM</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item>
+              <widget class="QWidget" name="widget_15" native="true">
+               <layout class="QVBoxLayout" name="verticalLayout_8">
+                <property name="sizeConstraint">
+                 <enum>QLayout::SetFixedSize</enum>
+                </property>
+                <item>
+                 <widget class="QLabel" name="label_5">
+                  <property name="maximumSize">
+                   <size>
+                    <width>200</width>
+                    <height>200</height>
+                   </size>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="pixmap">
+                   <pixmap>:/Images/images/3.PNG</pixmap>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QLabel" name="label_12">
+                  <property name="font">
+                   <font>
+                    <family>DM Sans</family>
+                    <pointsize>15</pointsize>
+                    <bold>true</bold>
+                   </font>
+                  </property>
+                  <property name="text">
+                   <string>DEIGHRO DE OCAMPO</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -244,7 +380,7 @@ background-color:rgba(0,0,0,0);
               <number>0</number>
              </property>
              <item>
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="Phone_btn">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Minimum">
                  <horstretch>0</horstretch>
@@ -261,7 +397,7 @@ background-color:rgba(0,0,0,0);
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../../assets/All_In_Resource.qrc">
+                <iconset resource="../../../assets/All_In_Resource.qrc">
                  <normaloff>:/Icons/Icons/phone.png</normaloff>:/Icons/Icons/phone.png</iconset>
                </property>
                <property name="iconSize">
@@ -273,7 +409,7 @@ background-color:rgba(0,0,0,0);
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pushButton_2">
+              <widget class="QPushButton" name="Email_btn">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -290,7 +426,7 @@ background-color:rgba(0,0,0,0);
                 <string/>
                </property>
                <property name="icon">
-                <iconset resource="../../assets/All_In_Resource.qrc">
+                <iconset resource="../../../assets/All_In_Resource.qrc">
                  <normaloff>:/Icons/Icons/email.png</normaloff>:/Icons/Icons/email.png</iconset>
                </property>
                <property name="iconSize">
@@ -314,6 +450,21 @@ background-color:rgba(0,0,0,0);
                </property>
               </spacer>
              </item>
+             <item>
+              <widget class="QPushButton" name="UManual_btn">
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>18</pointsize>
+                 <bold>true</bold>
+                 <underline>true</underline>
+                </font>
+               </property>
+               <property name="text">
+                <string>HELP CENTER</string>
+               </property>
+              </widget>
+             </item>
             </layout>
            </widget>
           </item>
@@ -327,6 +478,7 @@ background-color:rgba(0,0,0,0);
   </widget>
  </widget>
  <resources>
+  <include location="../../../assets/All_In_Resource.qrc"/>
   <include location="../../assets/All_In_Resource.qrc"/>
  </resources>
  <connections/>

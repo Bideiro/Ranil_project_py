@@ -30,7 +30,7 @@ from .MainMenuScreens.Reports.Inventory_Report import Inventory_Report_Window
 from .MainMenuScreens.Reports.Sales_Report import Sales_Report_Window
 
 from .MainMenuScreens.Maintenance.Maintenance_1 import Maintenance_Window
-from .MainMenuScreens.About import AboutWindow
+from .MainMenuScreens.About.About import AboutWindow
 
 from Database.DBController import dbcont
 from Database.User_Manager import UserMana
@@ -216,9 +216,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     def on_transaction_sdbtn_clicked(self):
         self.Trans_prod.reset_page()
         self.stackedWidget.setCurrentWidget(self.Trans_prod)
-        
-    def on_help_sdbtn_clicked(self):
-        self.stackedWidget.setCurrentWidget(self.about)
         
     def on_inventory_sdbtn_clicked(self):
         self.Inven.set_tableElements()

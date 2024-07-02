@@ -20,6 +20,9 @@ class Ui_MainWindow(object):
 "    background-color: rgb(9, 96, 51);\n"
 "    color: rgb(255, 255, 255);\n"
 "    border:4px solid rgb(171, 226, 125);\n"
+"}\n"
+"#centralwidget{\n"
+"background-color: #F8F8F0\n"
 "}")
         self.centralwidget.setObjectName("centralwidget")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.centralwidget)
@@ -43,6 +46,7 @@ class Ui_MainWindow(object):
         font.setFamily("DM Sans")
         font.setPointSize(12)
         font.setBold(True)
+        font.setWeight(75)
         self.SReciepts_btn.setFont(font)
         self.SReciepts_btn.setObjectName("SReciepts_btn")
         self.verticalLayout.addWidget(self.SReciepts_btn)
@@ -60,6 +64,7 @@ class Ui_MainWindow(object):
         font.setFamily("DM Sans")
         font.setPointSize(12)
         font.setBold(True)
+        font.setWeight(75)
         self.TReceipts_btn.setFont(font)
         self.TReceipts_btn.setObjectName("TReceipts_btn")
         self.verticalLayout.addWidget(self.TReceipts_btn)
