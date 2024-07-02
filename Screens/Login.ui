@@ -50,13 +50,11 @@ color: #096033
 
 #forgotpass_btn{
 background-color: rgba(0,0,0,0);
-font-size: 15px;
 }
 
 #login_btn{
 background-color: #096033;
 color: white;
-font-size: 15px;
 }
 
 
@@ -162,7 +160,7 @@ font-size: 15px;
                <item row="2" column="0">
                 <widget class="QLabel" name="label_3">
                  <property name="text">
-                  <string>Password:</string>
+                  <string>Passcode:</string>
                  </property>
                 </widget>
                </item>
@@ -214,6 +212,19 @@ font-size: 15px;
             <layout class="QHBoxLayout" name="horizontalLayout_2">
              <item>
               <widget class="QPushButton" name="login_btn">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>35</height>
+                </size>
+               </property>
+               <property name="font">
+                <font>
+                 <family>DM Sans</family>
+                 <pointsize>12</pointsize>
+                 <bold>true</bold>
+                </font>
+               </property>
                <property name="text">
                 <string>LOGIN</string>
                </property>
@@ -248,12 +259,14 @@ font-size: 15px;
               <widget class="QPushButton" name="forgotpass_btn">
                <property name="font">
                 <font>
-                 <pointsize>-1</pointsize>
+                 <family>DM Sans</family>
+                 <pointsize>12</pointsize>
+                 <bold>true</bold>
                  <underline>true</underline>
                 </font>
                </property>
                <property name="text">
-                <string>FORGOT PASSWORD</string>
+                <string>FORGOT PASSCODE</string>
                </property>
               </widget>
              </item>

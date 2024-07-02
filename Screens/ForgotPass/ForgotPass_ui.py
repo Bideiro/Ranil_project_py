@@ -158,10 +158,9 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.label.setText(_translate("MainWindow", "FORGOT PASSWORD"))
-        self.label_2.setText(_translate("MainWindow", "RESET PASSWORD"))
+        self.label.setText(_translate("MainWindow", "FORGOT PASSCODE"))
+        self.label_2.setText(_translate("MainWindow", "RESET PASSCODE"))
         self.label_3.setText(_translate("MainWindow", "USERNAME:"))
         self.label_4.setText(_translate("MainWindow", "ENTER EMAIL ADDRESS: "))
         self.back_btn.setText(_translate("MainWindow", "BACK"))
         self.send_btn.setText(_translate("MainWindow", "SEND"))
-import assets.All_In_Resource_rc

@@ -51,13 +51,11 @@ class Ui_MainWindow(object):
 "\n"
 "#forgotpass_btn{\n"
 "background-color: rgba(0,0,0,0);\n"
-"font-size: 15px;\n"
 "}\n"
 "\n"
 "#login_btn{\n"
 "background-color: #096033;\n"
 "color: white;\n"
-"font-size: 15px;\n"
 "}\n"
 "\n"
 "\n"
@@ -130,6 +128,12 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_4)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.login_btn = QtWidgets.QPushButton(self.widget_4)
+        self.login_btn.setMinimumSize(QtCore.QSize(0, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.login_btn.setFont(font)
         self.login_btn.setCheckable(False)
         self.login_btn.setAutoDefault(True)
         self.login_btn.setDefault(True)
@@ -139,7 +143,9 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.addItem(spacerItem4)
         self.forgotpass_btn = QtWidgets.QPushButton(self.widget_4)
         font = QtGui.QFont()
-        font.setPointSize(-1)
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
         font.setUnderline(True)
         self.forgotpass_btn.setFont(font)
         self.forgotpass_btn.setObjectName("forgotpass_btn")
@@ -165,7 +171,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.label.setText(_translate("MainWindow", "LOGIN"))
         self.label_2.setText(_translate("MainWindow", "Username:"))
-        self.label_3.setText(_translate("MainWindow", "Password:"))
+        self.label_3.setText(_translate("MainWindow", "Passcode:"))
         self.login_btn.setText(_translate("MainWindow", "LOGIN"))
-        self.forgotpass_btn.setText(_translate("MainWindow", "FORGOT PASSWORD"))
+        self.forgotpass_btn.setText(_translate("MainWindow", "FORGOT PASSCODE"))
 import assets.All_In_Resource_rc

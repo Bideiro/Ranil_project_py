@@ -69,7 +69,6 @@ border : 2px solid #ABE27D;
              <font>
               <family>DM Sans</family>
               <pointsize>24</pointsize>
-              <weight>75</weight>
               <bold>true</bold>
              </font>
             </property>
@@ -198,8 +197,7 @@ border : 2px solid #ABE27D;
             </property>
             <property name="font">
              <font>
-              <family>DM Sans 14pt ExtraBold</family>
-              <weight>50</weight>
+              <family>DM Sans</family>
               <bold>false</bold>
              </font>
             </property>
@@ -218,6 +216,9 @@ border : 2px solid #ABE27D;
             <property name="alternatingRowColors">
              <bool>true</bool>
             </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
+            </property>
             <property name="showGrid">
              <bool>true</bool>
             </property>
@@ -233,11 +234,11 @@ border : 2px solid #ABE27D;
             <attribute name="horizontalHeaderCascadingSectionResizes">
              <bool>true</bool>
             </attribute>
-            <attribute name="horizontalHeaderHighlightSections">
-             <bool>true</bool>
-            </attribute>
             <attribute name="horizontalHeaderMinimumSectionSize">
              <number>32</number>
+            </attribute>
+            <attribute name="horizontalHeaderHighlightSections">
+             <bool>true</bool>
             </attribute>
             <attribute name="horizontalHeaderStretchLastSection">
              <bool>true</bool>
@@ -258,7 +259,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -277,7 +277,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -289,7 +288,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -301,7 +299,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -313,7 +310,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -325,7 +321,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -337,7 +332,6 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
                <bold>true</bold>
               </font>
              </property>
@@ -349,7 +343,17 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
-               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Status</string>
+             </property>
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
                <bold>true</bold>
               </font>
              </property>

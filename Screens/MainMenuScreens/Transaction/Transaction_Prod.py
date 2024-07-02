@@ -235,6 +235,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.dlg_receipt = DLG_Receipt(prodlist=self.SProdConfirmed,Tprice= self.TotalPrice,
                                     Ptype= payment, Pprice= self.amtpaid, RID = self.db.get_recent_receiptID())
         self.dlg_receipt.exec()
+        self.set_tableElements()
         self.PReceipt_btn.setEnabled(True)
     
     def set_totalprice(self):
@@ -344,7 +345,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         cnt = 0
         for index, label in enumerate(cate_list):
             cnt += 1
-            button = QPushButton(label, self)
+            button = QPushButton(label.upper(), self)
             button.clicked.connect(self.on_button_click)
             # Setting button design
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)

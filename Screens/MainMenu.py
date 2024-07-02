@@ -214,6 +214,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.Sales)
         
     def on_transaction_sdbtn_clicked(self):
+
         self.Trans_prod.reset_page()
         self.stackedWidget.setCurrentWidget(self.Trans_prod)
         

@@ -14,6 +14,11 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
+   <property name="font">
+    <font>
+     <family>DM Sans</family>
+    </font>
+   </property>
    <property name="styleSheet">
     <string notr="true">.QWidget{
 background-color: #F8F8F0
@@ -128,6 +133,7 @@ border: 1px solid black;
             <property name="font">
              <font>
               <family>DM Sans</family>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -152,6 +158,7 @@ border: 1px solid black;
             <property name="font">
              <font>
               <family>DM Sans</family>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -176,6 +183,7 @@ border: 1px solid black;
             <property name="font">
              <font>
               <family>DM Sans</family>
+              <bold>true</bold>
              </font>
             </property>
             <property name="text">
@@ -193,7 +201,7 @@ border: 1px solid black;
          </property>
          <property name="font">
           <font>
-           <family>DM Sans 14pt ExtraBold</family>
+           <family>DM Sans</family>
            <bold>false</bold>
           </font>
          </property>
@@ -211,6 +219,9 @@ border: 1px solid black;
          </property>
          <property name="alternatingRowColors">
           <bool>true</bool>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
          </property>
          <property name="showGrid">
           <bool>true</bool>
@@ -249,7 +260,7 @@ border: 1px solid black;
           <property name="font">
            <font>
             <family>DM Sans</family>
-            <pointsize>13</pointsize>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -261,7 +272,7 @@ border: 1px solid black;
           <property name="font">
            <font>
             <family>DM Sans</family>
-            <pointsize>13</pointsize>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -273,7 +284,7 @@ border: 1px solid black;
           <property name="font">
            <font>
             <family>DM Sans</family>
-            <pointsize>13</pointsize>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -285,7 +296,7 @@ border: 1px solid black;
           <property name="font">
            <font>
             <family>DM Sans</family>
-            <pointsize>13</pointsize>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -297,7 +308,7 @@ border: 1px solid black;
           <property name="font">
            <font>
             <family>DM Sans</family>
-            <pointsize>13</pointsize>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -309,7 +320,7 @@ border: 1px solid black;
           <property name="font">
            <font>
             <family>DM Sans</family>
-            <pointsize>13</pointsize>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -321,7 +332,7 @@ border: 1px solid black;
           <property name="font">
            <font>
             <family>DM Sans</family>
-            <pointsize>13</pointsize>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>
@@ -333,7 +344,7 @@ border: 1px solid black;
           <property name="font">
            <font>
             <family>DM Sans</family>
-            <pointsize>13</pointsize>
+            <pointsize>9</pointsize>
             <bold>true</bold>
            </font>
           </property>

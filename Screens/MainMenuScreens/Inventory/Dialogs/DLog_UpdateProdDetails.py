@@ -35,10 +35,6 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
         self.Unit_CB.setCurrentIndex(self.db.get_unittype(value= Plist[3]))
         self.Cat_CB.setCurrentIndex(self.db.get_cate(value= Plist[2]))
         
-        
-    def disable_prod(self):
-        print('disable button clicked')
-        
     def init_update_prod(self):
         
         if self.db.get_status(RPID=self.plist[0]) == 0:
@@ -65,12 +61,14 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
     
     def switch_inputs(self, active):
         if active == 0:
+            self.Disable_btn.setText('ENABLE')
             self.PName_LE.setEnabled(False)
             self.Desc_LE.setEnabled(False)
             self.SPrice_LE.setEnabled(False)
             self.Unit_CB.setEnabled(False)
             self.Cat_CB.setEnabled(False)
         else:
+            self.Disable_btn.setText('DISABLE')
             self.PName_LE.setEnabled(True)
             self.Desc_LE.setEnabled(True)
             self.SPrice_LE.setEnabled(True)

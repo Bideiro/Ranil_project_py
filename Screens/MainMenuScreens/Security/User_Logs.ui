@@ -32,7 +32,6 @@ border : 2px solid #ABE27D;
           <font>
            <family>DM Sans</family>
            <pointsize>24</pointsize>
-           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -47,6 +46,18 @@ border : 2px solid #ABE27D;
           <font>
            <family>DM Sans</family>
           </font>
+         </property>
+         <property name="sizeAdjustPolicy">
+          <enum>QAbstractScrollArea::AdjustToContents</enum>
+         </property>
+         <property name="alternatingRowColors">
+          <bool>true</bool>
+         </property>
+         <property name="selectionBehavior">
+          <enum>QAbstractItemView::SelectRows</enum>
+         </property>
+         <property name="sortingEnabled">
+          <bool>true</bool>
          </property>
          <attribute name="horizontalHeaderCascadingSectionResizes">
           <bool>true</bool>
@@ -67,6 +78,7 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <bold>true</bold>
            </font>
           </property>
          </column>
@@ -77,6 +89,7 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <bold>true</bold>
            </font>
           </property>
          </column>
@@ -87,6 +100,7 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <bold>true</bold>
            </font>
           </property>
          </column>
@@ -97,6 +111,7 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <bold>true</bold>
            </font>
           </property>
          </column>
@@ -107,6 +122,7 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <bold>true</bold>
            </font>
           </property>
          </column>

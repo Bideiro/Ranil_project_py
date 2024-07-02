@@ -1,6 +1,6 @@
 from gc import isenabled
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QDialog
-
+from PyQt5.QtCore import Qt
 from Database.DBController import dbcont
 
 from .Dialogs.DLog_UpdateProdDetails import DLG_Edit_Prod
@@ -15,12 +15,11 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         
         self.db = dbcont('admin', 123456)
         
-        # self.tableWidget.setColumnWidth(0,150)
-        # self.tableWidget.setColumnWidth(1,200)
-        # self.tableWidget.setColumnWidth(2,100)
-        # self.tableWidget.setColumnWidth(3,1000)
-        # self.tableWidget.setColumnWidth(4,125)
-        # self.tableWidget.setColumnWidth(5,100)
+        self.Product_Table.setColumnWidth(0,150)
+        self.Product_Table.setColumnWidth(1,150)
+        self.Product_Table.setColumnWidth(2,150)
+        self.Product_Table.setColumnWidth(3,150)
+        self.Product_Table.setColumnWidth(4,150)
         
         self.set_tableElements()
         
@@ -43,7 +42,14 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
                 if column_number == 2:
                     data = self.db.get_cate(id= data)
                     pass
-                self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                if column_number == 8:
+                    if data == 1:
+                        data = 'Available'    
+                    else:
+                        data = 'Unavailable'
+                item = QTableWidgetItem(str(data))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.Product_Table.setItem(row_number, column_number, item)
     
     def search(self):
         self.Product_Table.setRowCount(0)

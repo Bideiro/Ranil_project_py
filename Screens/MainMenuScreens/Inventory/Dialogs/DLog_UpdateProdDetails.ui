@@ -106,7 +106,6 @@ border: 2px solid #096033;
             <font>
              <family>DM Sans</family>
              <pointsize>12</pointsize>
-             <weight>75</weight>
              <italic>false</italic>
              <bold>true</bold>
             </font>
@@ -156,7 +155,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>75</weight>
                    <italic>false</italic>
                    <bold>true</bold>
                   </font>
@@ -194,7 +192,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>75</weight>
                    <italic>false</italic>
                    <bold>true</bold>
                   </font>
@@ -232,7 +229,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>75</weight>
                    <italic>false</italic>
                    <bold>true</bold>
                   </font>
@@ -270,7 +266,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>75</weight>
                    <italic>false</italic>
                    <bold>true</bold>
                   </font>
@@ -287,7 +282,6 @@ border: 2px solid #096033;
              <widget class="QWidget" name="widget_3" native="true">
               <property name="font">
                <font>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -314,7 +308,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>75</weight>
                    <italic>false</italic>
                    <bold>true</bold>
                   </font>
@@ -351,7 +344,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>50</weight>
                    <italic>false</italic>
                    <bold>false</bold>
                   </font>
@@ -376,7 +368,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>50</weight>
                    <italic>false</italic>
                    <bold>false</bold>
                   </font>
@@ -401,7 +392,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>50</weight>
                    <italic>false</italic>
                    <bold>false</bold>
                   </font>
@@ -426,7 +416,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>50</weight>
                    <italic>false</italic>
                    <bold>false</bold>
                   </font>
@@ -451,7 +440,6 @@ border: 2px solid #096033;
                   <font>
                    <family>DM Sans</family>
                    <pointsize>13</pointsize>
-                   <weight>50</weight>
                    <italic>false</italic>
                    <bold>false</bold>
                   </font>
@@ -506,6 +494,13 @@ color: white;
              <height>35</height>
             </size>
            </property>
+           <property name="font">
+            <font>
+             <family>DM Sans</family>
+             <pointsize>10</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
            <property name="text">
             <string>BACK</string>
            </property>
@@ -531,6 +526,13 @@ color: white;
              <width>100</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>DM Sans</family>
+             <pointsize>10</pointsize>
+             <bold>true</bold>
+            </font>
            </property>
            <property name="text">
             <string>DISABLE</string>
@@ -563,6 +565,13 @@ color: white;
              <width>100</width>
              <height>35</height>
             </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>DM Sans</family>
+             <pointsize>10</pointsize>
+             <bold>true</bold>
+            </font>
            </property>
            <property name="text">
             <string>UPDATE</string>

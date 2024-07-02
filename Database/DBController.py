@@ -92,6 +92,7 @@ class dbcont(object):
         
         sql = """
             SELECT UserID, UserLevel, User, Activity, DateTime FROM logs
+            ORDER BY DateTime DESC
         """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
@@ -320,7 +321,6 @@ class dbcont(object):
         return self.mycursor.fetchone()[0]
     
     def add_sold_protocol(self,Price, PPrice, SoldProductsList, Ptype, GCashRef = None):
-        print('helo')
         # Getting todays Date
         sql = "SELECT NOW() "
         self.mycursor.execute(sql)
@@ -386,7 +386,7 @@ class dbcont(object):
     def get_all_prod(self, inv = None , trans = None, records = None):
         
         if inv:
-            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products "
+            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description, Active FROM products "
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
         else:
@@ -508,9 +508,6 @@ class dbcont(object):
 
         self.mycursor.execute(sql,(RPID,))
         latestEdate = self.mycursor.fetchone()[0]
-        print('adding to products dydate')
-        print(latestEdate)
-        print(RPID)
         
         sql = """
             UPDATE products SET ExpirationDate = %s WHERE RPID = %s
@@ -590,7 +587,7 @@ class dbcont(object):
             sql = """
             SELECT RUID
             FROM accounts
-            WHERE Uname = %s AND Email = %s;
+            WHERE BINARY Uname = %s AND Email = %s;
             """
             
             self.mycursor.execute(sql, (uname,email))
@@ -629,7 +626,9 @@ class dbcont(object):
     # sales db
         
     def get_all_sales(self):
-        sql = "SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts"
+        sql = """SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
+        ORDER BY PurchaseDate DESC
+        """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
@@ -647,11 +646,11 @@ class dbcont(object):
         searchstr = '%' + searchstr + '%'
         
         if re.search(searchstr, 'Cash', re.IGNORECASE):
-            PTID = 0
+            PTID = '0'
         elif re.search(searchstr, 'Gcash', re.IGNORECASE):
-            PTID == 1
+            PTID == '1'
         elif re.search(searchstr, 'split', re.IGNORECASE):
-            PTID == 2
+            PTID == '2'
         else:
             PTID = searchstr
         

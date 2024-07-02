@@ -11,7 +11,7 @@ class DLG_Oneline_Input(QDialog, Ui_Dialog):
         super().__init__(parent)
         
         self.setupUi(self)
-
+        self.setWindowFlags(Qt.Popup)
         self.label.setText(msg)
         self.Confirm_btn.clicked.connect(self.confirm)
         

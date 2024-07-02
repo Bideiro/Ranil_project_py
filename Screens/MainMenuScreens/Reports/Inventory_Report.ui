@@ -77,7 +77,6 @@ border : 2px solid #ABE27D;
                <font>
                 <family>DM Sans</family>
                 <pointsize>24</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -229,6 +228,7 @@ border : 2px solid #ABE27D;
               <property name="font">
                <font>
                 <family>DM Sans</family>
+                <bold>true</bold>
                </font>
               </property>
               <property name="text">
@@ -259,6 +259,7 @@ border : 2px solid #ABE27D;
               <property name="font">
                <font>
                 <family>DM Sans</family>
+                <bold>true</bold>
                </font>
               </property>
               <property name="text">
@@ -274,6 +275,7 @@ border : 2px solid #ABE27D;
            <property name="font">
             <font>
              <family>DM Sans</family>
+             <bold>false</bold>
             </font>
            </property>
            <property name="sizeAdjustPolicy">
@@ -284,6 +286,9 @@ border : 2px solid #ABE27D;
            </property>
            <property name="alternatingRowColors">
             <bool>true</bool>
+           </property>
+           <property name="selectionBehavior">
+            <enum>QAbstractItemView::SelectRows</enum>
            </property>
            <property name="showGrid">
             <bool>true</bool>
@@ -304,25 +309,55 @@ border : 2px solid #ABE27D;
             <property name="text">
              <string>Product Name</string>
             </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <bold>true</bold>
+             </font>
+            </property>
            </column>
            <column>
             <property name="text">
              <string>Quantity</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <bold>true</bold>
+             </font>
             </property>
            </column>
            <column>
             <property name="text">
              <string>Price</string>
             </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <bold>true</bold>
+             </font>
+            </property>
            </column>
            <column>
             <property name="text">
              <string>Product ID</string>
             </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <bold>true</bold>
+             </font>
+            </property>
            </column>
            <column>
             <property name="text">
              <string>Date</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <bold>true</bold>
+             </font>
             </property>
            </column>
           </widget>
@@ -346,6 +381,7 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
+               <bold>true</bold>
               </font>
              </property>
              <property name="text">
@@ -383,6 +419,7 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
+               <bold>true</bold>
               </font>
              </property>
              <property name="text">

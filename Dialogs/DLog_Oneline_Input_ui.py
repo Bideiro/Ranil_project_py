@@ -16,6 +16,8 @@ class Ui_Dialog(object):
         Dialog.setObjectName("Dialog")
         Dialog.resize(446, 269)
         self.verticalLayout_2 = QtWidgets.QVBoxLayout(Dialog)
+        self.verticalLayout_2.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_2.setSpacing(0)
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.widget = QtWidgets.QWidget(Dialog)
         self.widget.setStyleSheet(".QLineEdit{\n"
@@ -46,7 +48,6 @@ class Ui_Dialog(object):
         font.setFamily("DM Sans")
         font.setPointSize(18)
         font.setBold(True)
-        font.setWeight(75)
         self.label.setFont(font)
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")

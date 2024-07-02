@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>2255</width>
-    <height>593</height>
+    <height>606</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -637,17 +637,24 @@ color: #666;
          <property name="font">
           <font>
            <family>DM Sans</family>
-           <pointsize>16</pointsize>
-           <bold>false</bold>
+           <pointsize>20</pointsize>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>List of Categories:</string>
+          <string>LIST OF CATEGORIES:</string>
          </property>
         </widget>
        </item>
        <item>
         <widget class="QScrollArea" name="scrollArea">
+         <property name="font">
+          <font>
+           <family>DM Sans</family>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
          </property>
@@ -660,8 +667,15 @@ color: #666;
             <x>0</x>
             <y>0</y>
             <width>482</width>
-            <height>523</height>
+            <height>528</height>
            </rect>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">.QPushButton{
+font-weight: bold;
+font-family: 'DM Sans', sans-serif;
+font-size: 20px
+}</string>
           </property>
          </widget>
         </widget>
@@ -807,6 +821,9 @@ color: #666;
             </property>
             <property name="alternatingRowColors">
              <bool>true</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
             </property>
             <property name="sortingEnabled">
              <bool>true</bool>
@@ -971,6 +988,9 @@ color: #666;
             </property>
             <property name="alternatingRowColors">
              <bool>true</bool>
+            </property>
+            <property name="selectionBehavior">
+             <enum>QAbstractItemView::SelectRows</enum>
             </property>
             <property name="sortingEnabled">
              <bool>true</bool>

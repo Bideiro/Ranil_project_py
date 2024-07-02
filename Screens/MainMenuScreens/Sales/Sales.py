@@ -6,13 +6,19 @@ from .Sales_ui import Ui_MainWindow
 from PyQt5 import QtWidgets, QtGui, QtCore
 class Sales_Window(QMainWindow, Ui_MainWindow):
     
+    db = dbcont()
+    
     def __init__(self):
         super(Sales_Window,self).__init__()
         self.setupUi(self)
 
-
-        self.db = dbcont('admin', 123456)
-
+        self.Sales_Table.setColumnWidth(0,200)
+        self.Sales_Table.setColumnWidth(1,200)
+        self.Sales_Table.setColumnWidth(2,150)
+        self.Sales_Table.setColumnWidth(3,150)
+        self.Sales_Table.setColumnWidth(4,150)
+        self.Sales_Table.setColumnWidth(5,250)
+        self.Sales_Table.setColumnWidth(6,200)
         self.set_tableElements()
         
         self.Refresh_btn.clicked.connect(self.set_tableElements)

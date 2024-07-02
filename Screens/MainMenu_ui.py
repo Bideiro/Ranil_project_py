@@ -22,27 +22,15 @@ class Ui_MainWindow(object):
 "    print(h)\n"
 "}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setStyleSheet("#sidebar{\n"
-"background-color: black;\n"
-"border: 0px solid white;\n"
-"background: palette(base);\n"
-"gridline-color: rgb(255, 255, 255);\n"
-"    border-color: rgb(255, 255, 255);\n"
-"    border-color: rgb(255, 255, 255);\n"
-"}\n"
-"\n"
-"\n"
-"/*Nav Bar*/\n"
-"\n"
+        self.centralwidget.setStyleSheet("/*Nav Bar*/\n"
 "#top_bar{\n"
-"    background-color: green;\n"
+"    background-color: #096033;\n"
 "}\n"
-"\n"
 "#menu_btn{\n"
-"    border: 2px solid green;\n"
+"    border: 2px solid #096033;\n"
 "    text-align: left;\n"
 "    padding-left: 15px;\n"
-"    background-color: green;\n"
+"    background-color: #096033;\n"
 "}\n"
 "#menu_btn:checked, #menu_btn:toggled{\n"
 "    background-color: white;\n"
@@ -50,22 +38,22 @@ class Ui_MainWindow(object):
 "\n"
 "/* Side Buttons */ \n"
 "#about_sdbtn, #help_sdbtn ,#inventory_sdbtn, #maintenance_sdbtn, #records_sdbtn,#registration_sdbtn,#reports_sdbtn,#sales_sdbtn,#security_sdbtn,#transaction_sdbtn, #log_out_sdbtn{\n"
-"    color: green;\n"
-"    border: 3px solid green;\n"
+"    color: #096033;\n"
+"    border: 3px solid #096033;\n"
 "    text-align: left;\n"
 "    padding: 10px 10px;\n"
 "    background-color: white;\n"
 "    margin: 0px;\n"
-"    font-family: Roboto;\n"
-"    font-weight: bold;\n"
-"    font-size: 15px;\n"
 "}\n"
 "#about_sdbtn:hover, #help_sdbtn:hover ,#inventory_sdbtn:hover, #maintenance_sdbtn:hover, #records_sdbtn:hover,#registration_sdbtn:hover,#reports_sdbtn:hover,#sales_sdbtn:hover,#security_sdbtn:hover,#transaction_sdbtn:hover, #log_out_sdbtn:hover {\n"
-"    background-color: green;\n"
+"    background-color: #096033;\n"
 "    color: white;\n"
 "}\n"
 "#about_sdbtn:checked, #help_sdbtn:checked,#inventory_sdbtn:checked, #maintenance_sdbtn:checked, #records_sdbtn:checked,#registration_sdbtn:checked,#reports_sdbtn:checked,#sales_sdbtn:checked,#security_sdbtn:checked,#transaction_sdbtn:checked , #log_out_sdbtn:checked{\n"
-"    background-color: green;\n"
+"    background-color: #096033;\n"
+"    color: white;\n"
+"}\n"
+"#nav_text, #CScreen_L, #User_L {\n"
 "    color: white;\n"
 "}\n"
 "")
@@ -110,14 +98,28 @@ class Ui_MainWindow(object):
         spacerItem = QtWidgets.QSpacerItem(10, 20, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem)
         self.nav_text = QtWidgets.QLabel(self.top_bar)
-        self.nav_text.setStyleSheet("QLabel {\n"
-"    font-family: Roboto;\n"
-"    font-weight: bold;\n"
-"    font-size: 15px;\n"
-"    color: white;\n"
-"}")
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.nav_text.setFont(font)
+        self.nav_text.setStyleSheet("")
         self.nav_text.setObjectName("nav_text")
         self.horizontalLayout_2.addWidget(self.nav_text)
+        self.CScreen_L = QtWidgets.QLabel(self.top_bar)
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(10)
+        self.CScreen_L.setFont(font)
+        self.CScreen_L.setObjectName("CScreen_L")
+        self.horizontalLayout_2.addWidget(self.CScreen_L)
+        self.User_L = QtWidgets.QLabel(self.top_bar)
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(10)
+        self.User_L.setFont(font)
+        self.User_L.setObjectName("User_L")
+        self.horizontalLayout_2.addWidget(self.User_L)
         spacerItem1 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem1)
         self.RANIL_logo = QtWidgets.QLabel(self.top_bar)
@@ -140,93 +142,209 @@ class Ui_MainWindow(object):
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.scrollArea = QtWidgets.QScrollArea(self.widget_2)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Expanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.scrollArea.sizePolicy().hasHeightForWidth())
         self.scrollArea.setSizePolicy(sizePolicy)
-        self.scrollArea.setMaximumSize(QtCore.QSize(350, 16777215))
+        self.scrollArea.setMinimumSize(QtCore.QSize(200, 0))
         font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(10)
+        font.setBold(True)
         font.setKerning(False)
         self.scrollArea.setFont(font)
         self.scrollArea.setStyleSheet("")
+        self.scrollArea.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.scrollArea.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.scrollArea.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.sideBar = QtWidgets.QWidget()
-        self.sideBar.setGeometry(QtCore.QRect(0, 0, 123, 610))
+        self.sideBar.setGeometry(QtCore.QRect(0, 0, 200, 612))
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.sideBar.sizePolicy().hasHeightForWidth())
+        self.sideBar.setSizePolicy(sizePolicy)
+        self.sideBar.setMinimumSize(QtCore.QSize(200, 0))
         self.sideBar.setProperty("setVisible", False)
         self.sideBar.setObjectName("sideBar")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.sideBar)
         self.verticalLayout.setContentsMargins(0, 0, 0, 0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.security_sdbtn = QtWidgets.QPushButton(self.sideBar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.security_sdbtn.sizePolicy().hasHeightForWidth())
+        self.security_sdbtn.setSizePolicy(sizePolicy)
+        self.security_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.security_sdbtn.setFont(font)
         self.security_sdbtn.setCheckable(True)
         self.security_sdbtn.setAutoExclusive(True)
         self.security_sdbtn.setObjectName("security_sdbtn")
         self.verticalLayout.addWidget(self.security_sdbtn)
         self.registration_sdbtn = QtWidgets.QPushButton(self.sideBar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.registration_sdbtn.sizePolicy().hasHeightForWidth())
+        self.registration_sdbtn.setSizePolicy(sizePolicy)
+        self.registration_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.registration_sdbtn.setFont(font)
         self.registration_sdbtn.setCheckable(True)
         self.registration_sdbtn.setAutoExclusive(True)
         self.registration_sdbtn.setObjectName("registration_sdbtn")
         self.verticalLayout.addWidget(self.registration_sdbtn)
         self.sales_sdbtn = QtWidgets.QPushButton(self.sideBar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.sales_sdbtn.sizePolicy().hasHeightForWidth())
+        self.sales_sdbtn.setSizePolicy(sizePolicy)
+        self.sales_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.sales_sdbtn.setFont(font)
         self.sales_sdbtn.setCheckable(True)
         self.sales_sdbtn.setAutoExclusive(True)
         self.sales_sdbtn.setObjectName("sales_sdbtn")
         self.verticalLayout.addWidget(self.sales_sdbtn)
         self.transaction_sdbtn = QtWidgets.QPushButton(self.sideBar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.transaction_sdbtn.sizePolicy().hasHeightForWidth())
+        self.transaction_sdbtn.setSizePolicy(sizePolicy)
+        self.transaction_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.transaction_sdbtn.setFont(font)
         self.transaction_sdbtn.setCheckable(True)
         self.transaction_sdbtn.setAutoExclusive(True)
         self.transaction_sdbtn.setObjectName("transaction_sdbtn")
         self.verticalLayout.addWidget(self.transaction_sdbtn)
         self.inventory_sdbtn = QtWidgets.QPushButton(self.sideBar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.inventory_sdbtn.sizePolicy().hasHeightForWidth())
+        self.inventory_sdbtn.setSizePolicy(sizePolicy)
+        self.inventory_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.inventory_sdbtn.setFont(font)
         self.inventory_sdbtn.setCheckable(True)
         self.inventory_sdbtn.setAutoExclusive(True)
         self.inventory_sdbtn.setObjectName("inventory_sdbtn")
         self.verticalLayout.addWidget(self.inventory_sdbtn)
         self.records_sdbtn = QtWidgets.QPushButton(self.sideBar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.records_sdbtn.sizePolicy().hasHeightForWidth())
+        self.records_sdbtn.setSizePolicy(sizePolicy)
+        self.records_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.records_sdbtn.setFont(font)
         self.records_sdbtn.setCheckable(True)
         self.records_sdbtn.setAutoExclusive(True)
         self.records_sdbtn.setObjectName("records_sdbtn")
         self.verticalLayout.addWidget(self.records_sdbtn)
         self.reports_sdbtn = QtWidgets.QPushButton(self.sideBar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.reports_sdbtn.sizePolicy().hasHeightForWidth())
+        self.reports_sdbtn.setSizePolicy(sizePolicy)
+        self.reports_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.reports_sdbtn.setFont(font)
         self.reports_sdbtn.setCheckable(True)
         self.reports_sdbtn.setAutoExclusive(True)
         self.reports_sdbtn.setObjectName("reports_sdbtn")
         self.verticalLayout.addWidget(self.reports_sdbtn)
         self.help_sdbtn = QtWidgets.QPushButton(self.sideBar)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.help_sdbtn.sizePolicy().hasHeightForWidth())
         self.help_sdbtn.setSizePolicy(sizePolicy)
+        self.help_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.help_sdbtn.setFont(font)
         self.help_sdbtn.setCheckable(True)
         self.help_sdbtn.setAutoExclusive(True)
         self.help_sdbtn.setObjectName("help_sdbtn")
         self.verticalLayout.addWidget(self.help_sdbtn)
         self.maintenance_sdbtn = QtWidgets.QPushButton(self.sideBar)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.maintenance_sdbtn.sizePolicy().hasHeightForWidth())
         self.maintenance_sdbtn.setSizePolicy(sizePolicy)
+        self.maintenance_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.maintenance_sdbtn.setFont(font)
         self.maintenance_sdbtn.setCheckable(True)
         self.maintenance_sdbtn.setAutoExclusive(True)
         self.maintenance_sdbtn.setObjectName("maintenance_sdbtn")
         self.verticalLayout.addWidget(self.maintenance_sdbtn)
         self.about_sdbtn = QtWidgets.QPushButton(self.sideBar)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.about_sdbtn.sizePolicy().hasHeightForWidth())
         self.about_sdbtn.setSizePolicy(sizePolicy)
+        self.about_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.about_sdbtn.setFont(font)
         self.about_sdbtn.setCheckable(True)
         self.about_sdbtn.setAutoExclusive(True)
         self.about_sdbtn.setObjectName("about_sdbtn")
         self.verticalLayout.addWidget(self.about_sdbtn)
         self.log_out_sdbtn = QtWidgets.QPushButton(self.sideBar)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.log_out_sdbtn.sizePolicy().hasHeightForWidth())
+        self.log_out_sdbtn.setSizePolicy(sizePolicy)
+        self.log_out_sdbtn.setMinimumSize(QtCore.QSize(150, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(12)
+        font.setBold(True)
+        self.log_out_sdbtn.setFont(font)
         self.log_out_sdbtn.setObjectName("log_out_sdbtn")
         self.verticalLayout.addWidget(self.log_out_sdbtn)
         spacerItem2 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
@@ -254,15 +372,17 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.nav_text.setText(_translate("MainWindow", "Ranil\'s Poultry Shop"))
-        self.security_sdbtn.setText(_translate("MainWindow", "Security"))
-        self.registration_sdbtn.setText(_translate("MainWindow", "Registration"))
-        self.sales_sdbtn.setText(_translate("MainWindow", "Sales"))
-        self.transaction_sdbtn.setText(_translate("MainWindow", "Transaction"))
-        self.inventory_sdbtn.setText(_translate("MainWindow", "Inventory"))
-        self.records_sdbtn.setText(_translate("MainWindow", "Records"))
-        self.reports_sdbtn.setText(_translate("MainWindow", "Reports"))
-        self.help_sdbtn.setText(_translate("MainWindow", "Help"))
-        self.maintenance_sdbtn.setText(_translate("MainWindow", "Maintenance"))
-        self.about_sdbtn.setText(_translate("MainWindow", "About"))
-        self.log_out_sdbtn.setText(_translate("MainWindow", "Log Out"))
+        self.CScreen_L.setText(_translate("MainWindow", "TextLabel"))
+        self.User_L.setText(_translate("MainWindow", "TextLabel"))
+        self.security_sdbtn.setText(_translate("MainWindow", "SECURITY"))
+        self.registration_sdbtn.setText(_translate("MainWindow", "REGISTRATION"))
+        self.sales_sdbtn.setText(_translate("MainWindow", "SALES"))
+        self.transaction_sdbtn.setText(_translate("MainWindow", "TRANSACTION"))
+        self.inventory_sdbtn.setText(_translate("MainWindow", "INVENTORY"))
+        self.records_sdbtn.setText(_translate("MainWindow", "RECORDS"))
+        self.reports_sdbtn.setText(_translate("MainWindow", "REPORTS"))
+        self.help_sdbtn.setText(_translate("MainWindow", "HELP"))
+        self.maintenance_sdbtn.setText(_translate("MainWindow", "MAINTENANCE"))
+        self.about_sdbtn.setText(_translate("MainWindow", "ABOUT"))
+        self.log_out_sdbtn.setText(_translate("MainWindow", "LOGOUT"))
 import assets.All_In_Resource_rc

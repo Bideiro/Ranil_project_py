@@ -74,7 +74,7 @@ background-position:center;}</string>
           <string notr="true">color: #096033;</string>
          </property>
          <property name="text">
-          <string>FORGOT PASSWORD</string>
+          <string>FORGOT PASSCODE</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -174,7 +174,7 @@ border-color: #096033;
                 <string notr="true">color: #096033;</string>
                </property>
                <property name="text">
-                <string>RESET PASSWORD</string>
+                <string>RESET PASSCODE</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignCenter</set>
@@ -344,8 +344,6 @@ color: white;
    </layout>
   </widget>
  </widget>
- <resources>
-  <include location="../assets/All_In_Resource.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

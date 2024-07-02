@@ -77,7 +77,6 @@ border : 2px solid #ABE27D;
                <font>
                 <family>DM Sans</family>
                 <pointsize>24</pointsize>
-                <weight>75</weight>
                 <bold>true</bold>
                </font>
               </property>
@@ -228,6 +227,7 @@ border : 2px solid #ABE27D;
               <property name="font">
                <font>
                 <family>DM Sans</family>
+                <bold>true</bold>
                </font>
               </property>
               <property name="text">
@@ -252,6 +252,7 @@ border : 2px solid #ABE27D;
               <property name="font">
                <font>
                 <family>DM Sans</family>
+                <bold>true</bold>
                </font>
               </property>
               <property name="text">
@@ -286,12 +287,24 @@ border : 2px solid #ABE27D;
            </property>
            <column>
             <property name="text">
-             <string>DateTime</string>
+             <string>Date/Time</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <bold>true</bold>
+             </font>
             </property>
            </column>
            <column>
             <property name="text">
              <string>Total</string>
+            </property>
+            <property name="font">
+             <font>
+              <family>DM Sans</family>
+              <bold>true</bold>
+             </font>
             </property>
            </column>
           </widget>
@@ -315,6 +328,7 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
+               <bold>true</bold>
               </font>
              </property>
              <property name="text">
@@ -352,6 +366,7 @@ border : 2px solid #ABE27D;
              <property name="font">
               <font>
                <family>DM Sans</family>
+               <bold>true</bold>
               </font>
              </property>
              <property name="text">

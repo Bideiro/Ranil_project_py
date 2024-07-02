@@ -54,12 +54,9 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
         self.tableWidget.setRowCount(0)
         if searchResult:
             self.tableWidget.setRowCount(len(searchResult))
-            print(len(searchResult))
-            print(searchResult)
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    print('Setting item...')
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
             print('No transactions found for the selected date or date range.')
