@@ -11,11 +11,10 @@ class DLG_Oneline_Input(QDialog, Ui_Dialog):
         super().__init__(parent)
         
         self.setupUi(self)
-        self.setWindowFlags(Qt.Popup)
+        self.setWindowFlag(Qt.FramelessWindowHint) 
         self.label.setText(msg)
         self.Confirm_btn.clicked.connect(self.confirm)
-        
-        # self.setWindowFlags(Qt.Popup)
+        self.Cancel_btn.clicked.connect(lambda: self.done(0))
         
     def confirm(self):
         if self.Input_LE.text() == '':

@@ -1,64 +1,52 @@
+from PyQt5.QtWidgets import QApplication, QDialog, QVBoxLayout, QPushButton, QLabel, QDialogButtonBox
+from PyQt5.QtCore import Qt
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QWidget, QVBoxLayout, QLabel, QStackedWidget, QPushButton, QSizePolicy
 
-class MainWindow(QMainWindow):
+class FlagDemoDialog(QDialog):
+    def __init__(self, flag, description, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle(description)
+        self.setWindowFlag(flag)
+        layout = QVBoxLayout()
+        label = QLabel(description)
+        layout.addWidget(label)
+        button_box = QDialogButtonBox(QDialogButtonBox.Ok)
+        button_box.accepted.connect(self.accept)
+        layout.addWidget(button_box)
+        self.setLayout(layout)
+
+class MainDialog(QDialog):
     def __init__(self):
         super().__init__()
+        self.setWindowTitle("Window Flags Demo")
+        layout = QVBoxLayout()
+        flags = [
+            (Qt.Widget, "Qt.Widget: A normal widget."),
+            (Qt.Window, "Qt.Window: A window."),
+            (Qt.Dialog, "Qt.Dialog: A dialog."),
+            (Qt.Sheet, "Qt.Sheet: A sheet window (macOS)."),
+            (Qt.Drawer, "Qt.Drawer: A drawer window (macOS)."),
+            (Qt.Popup, "Qt.Popup: A pop-up window."),
+            (Qt.Tool, "Qt.Tool: A tool window."),
+            (Qt.ToolTip, "Qt.ToolTip: A tooltip window."),
+            (Qt.SplashScreen, "Qt.SplashScreen: A splash screen."),
+            (Qt.Desktop, "Qt.Desktop: The desktop."),
+            (Qt.SubWindow, "Qt.SubWindow: A subwindow."),
+            (Qt.MSWindowsFixedSizeDialogHint, "Qt.MSWindowsFixedSizeDialogHint: Fixed size dialog (Windows).")
+        ]
 
-        self.setWindowTitle('Resizable Stacked Widget Example')
+        for flag, description in flags:
+            button = QPushButton(description)
+            button.clicked.connect(lambda _, f=flag, d=description: self.show_flag_dialog(f, d))
+            layout.addWidget(button)
 
-        # Create a stacked widget
-        self.stackedWidget = QStackedWidget()
+        self.setLayout(layout)
 
-        # Widget 1
-        widget1 = QWidget()
-        layout1 = QVBoxLayout()
-        label1 = QLabel('Widget 1 with some content.')
-        layout1.addWidget(label1)
-        widget1.setLayout(layout1)
-        widget1.setMinimumSize(200, 100)  # Set minimum size for widget 1
-        widget1.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        self.stackedWidget.addWidget(widget1)
+    def show_flag_dialog(self, flag, description):
+        dialog = FlagDemoDialog(flag, description, self)
+        dialog.exec_()
 
-        # Widget 2
-        widget2 = QWidget()
-        layout2 = QVBoxLayout()
-        label2 = QLabel('Widget 2 with different content that requires more space.')
-        layout2.addWidget(label2)
-        widget2.setLayout(layout2)
-        widget2.setMinimumSize(300, 150)  # Set minimum size for widget 2
-        widget2.setSizePolicy(QSizePolicy.MinimumExpanding, QSizePolicy.MinimumExpanding)
-        self.stackedWidget.addWidget(widget2)
-
-        # Button to switch widgets
-        self.button = QPushButton('Switch Widget')
-        self.button.clicked.connect(self.switchWidget)
-
-        # Layout for central widget
-        centralWidget = QWidget()
-        centralLayout = QVBoxLayout()
-        centralLayout.addWidget(self.button)
-        centralLayout.addWidget(self.stackedWidget)
-        centralWidget.setLayout(centralLayout)
-
-        self.setCentralWidget(centralWidget)
-
-    def switchWidget(self):
-        # Toggle between widgets in the stacked widget
-        currentIndex = self.stackedWidget.currentIndex()
-        newIndex = (currentIndex + 1) % self.stackedWidget.count()
-        self.stackedWidget.setCurrentIndex(newIndex)
-
-        # Adjust window size based on the current widget's size hint
-        self.adjustSize()
-
-    def adjustSize(self):
-        # Adjust the main window size based on the current widget's size hint
-        currentWidget = self.stackedWidget.currentWidget()
-        self.resize(currentWidget.minimumSizeHint())
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    mainWindow = MainWindow()
-    mainWindow.show()
-    sys.exit(app.exec_())
+app = QApplication(sys.argv)
+main_dialog = MainDialog()
+main_dialog.show()
+sys.exit(app.exec_())

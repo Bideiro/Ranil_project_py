@@ -23,6 +23,10 @@ class Ui_MainWindow(object):
 "}")
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setStyleSheet("/*Nav Bar*/\n"
+"#widget_2, #sideBar, #stackedWidget{\n"
+"background-color: #F8F8F0;\n"
+"}\n"
+"\n"
 "#top_bar{\n"
 "    background-color: #096033;\n"
 "}\n"
@@ -109,14 +113,16 @@ class Ui_MainWindow(object):
         self.CScreen_L = QtWidgets.QLabel(self.top_bar)
         font = QtGui.QFont()
         font.setFamily("DM Sans")
-        font.setPointSize(10)
+        font.setPointSize(12)
+        font.setBold(True)
         self.CScreen_L.setFont(font)
         self.CScreen_L.setObjectName("CScreen_L")
         self.horizontalLayout_2.addWidget(self.CScreen_L)
         self.User_L = QtWidgets.QLabel(self.top_bar)
         font = QtGui.QFont()
         font.setFamily("DM Sans")
-        font.setPointSize(10)
+        font.setPointSize(12)
+        font.setBold(True)
         self.User_L.setFont(font)
         self.User_L.setObjectName("User_L")
         self.horizontalLayout_2.addWidget(self.User_L)
@@ -130,7 +136,7 @@ class Ui_MainWindow(object):
         self.RANIL_logo.setSizePolicy(sizePolicy)
         self.RANIL_logo.setMaximumSize(QtCore.QSize(65, 65))
         self.RANIL_logo.setText("")
-        self.RANIL_logo.setPixmap(QtGui.QPixmap(":/Images/images/background.png"))
+        self.RANIL_logo.setPixmap(QtGui.QPixmap(":/Icons/images/Ranil_ICON.png"))
         self.RANIL_logo.setScaledContents(True)
         self.RANIL_logo.setObjectName("RANIL_logo")
         self.horizontalLayout_2.addWidget(self.RANIL_logo)
@@ -138,7 +144,7 @@ class Ui_MainWindow(object):
         self.widget_2 = QtWidgets.QWidget(self.centralwidget)
         self.widget_2.setObjectName("widget_2")
         self.horizontalLayout = QtWidgets.QHBoxLayout(self.widget_2)
-        self.horizontalLayout.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout.setContentsMargins(0, 1, 0, 0)
         self.horizontalLayout.setSpacing(0)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.scrollArea = QtWidgets.QScrollArea(self.widget_2)
@@ -161,7 +167,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.sideBar = QtWidgets.QWidget()
-        self.sideBar.setGeometry(QtCore.QRect(0, 0, 200, 612))
+        self.sideBar.setGeometry(QtCore.QRect(0, 0, 200, 611))
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Preferred)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -372,8 +378,8 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.nav_text.setText(_translate("MainWindow", "Ranil\'s Poultry Shop"))
-        self.CScreen_L.setText(_translate("MainWindow", "TextLabel"))
-        self.User_L.setText(_translate("MainWindow", "TextLabel"))
+        self.CScreen_L.setText(_translate("MainWindow", "Screen"))
+        self.User_L.setText(_translate("MainWindow", "UserName"))
         self.security_sdbtn.setText(_translate("MainWindow", "SECURITY"))
         self.registration_sdbtn.setText(_translate("MainWindow", "REGISTRATION"))
         self.sales_sdbtn.setText(_translate("MainWindow", "SALES"))

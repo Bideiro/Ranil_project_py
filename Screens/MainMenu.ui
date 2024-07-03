@@ -24,6 +24,10 @@
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true">/*Nav Bar*/
+#widget_2, #sideBar, #stackedWidget{
+background-color: #F8F8F0;
+}
+
 #top_bar{
 	background-color: #096033;
 }
@@ -191,11 +195,12 @@
          <property name="font">
           <font>
            <family>DM Sans</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string>Screen</string>
          </property>
         </widget>
        </item>
@@ -204,11 +209,12 @@
          <property name="font">
           <font>
            <family>DM Sans</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">
-          <string>TextLabel</string>
+          <string>UserName</string>
          </property>
         </widget>
        </item>
@@ -243,7 +249,7 @@
           <string/>
          </property>
          <property name="pixmap">
-          <pixmap resource="../assets/All_In_Resource.qrc">:/Images/images/background.png</pixmap>
+          <pixmap resource="../assets/All_In_Resource.qrc">:/Icons/images/Ranil_ICON.png</pixmap>
          </property>
          <property name="scaledContents">
           <bool>true</bool>
@@ -263,7 +269,7 @@
         <number>0</number>
        </property>
        <property name="topMargin">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="rightMargin">
         <number>0</number>
@@ -315,7 +321,7 @@
             <x>0</x>
             <y>0</y>
             <width>200</width>
-            <height>612</height>
+            <height>611</height>
            </rect>
           </property>
           <property name="sizePolicy">

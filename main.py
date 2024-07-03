@@ -59,7 +59,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.MainStack.setCurrentWidget(self.MainMenu)
         
     def handle_login_emp(self):
-        self.MainMenu.User_L.setText('> ' + self.User.User)
+        self.MainMenu_E.User_L.setText('> ' + self.User.User)
         self.MainStack.setCurrentWidget(self.MainMenu_E)
         
     def Log_out_protocol(self):

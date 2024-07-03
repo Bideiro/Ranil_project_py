@@ -29,6 +29,7 @@ from .MainMenuScreens.Reports.Reports_1 import Reports_1_Window
 from .MainMenuScreens.Reports.Inventory_Report import Inventory_Report_Window
 from .MainMenuScreens.Reports.Sales_Report import Sales_Report_Window
 
+from .MainMenuScreens.Help.Help_1 import HelpWindow
 from .MainMenuScreens.Maintenance.Maintenance_1 import Maintenance_Window
 from .MainMenuScreens.About.About import AboutWindow
 
@@ -73,6 +74,7 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         self.Inventory_Report = Inventory_Report_Window()
         self.Sales_Report = Sales_Report_Window()
         
+        self.Help = HelpWindow()
         self.Main_1 = Maintenance_Window()
         self.about = AboutWindow()
     
@@ -105,7 +107,7 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         self.stackedWidget.addWidget(self.Sales_Report)
         
         self.stackedWidget.addWidget(self.Main_1)
-        
+        self.stackedWidget.addWidget(self.Help)
         self.stackedWidget.addWidget(self.about)
         
         # Initializationg of Menu
@@ -226,6 +228,9 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         
     def on_reports_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.Reports_1)
+        
+    def on_help_sdbtn_clicked(self):
+        self.stackedWidget.setCurrentWidget(self.Help)
         
     def on_maintenance_sdbtn_clicked(self):
         self.stackedWidget.setCurrentWidget(self.Main_1)

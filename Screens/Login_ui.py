@@ -51,6 +51,7 @@ class Ui_MainWindow(object):
 "\n"
 "#forgotpass_btn{\n"
 "background-color: rgba(0,0,0,0);\n"
+"color:white\n"
 "}\n"
 "\n"
 "#login_btn{\n"
@@ -91,8 +92,6 @@ class Ui_MainWindow(object):
         self.widget_3.setObjectName("widget_3")
         self.gridLayout = QtWidgets.QGridLayout(self.widget_3)
         self.gridLayout.setObjectName("gridLayout")
-        spacerItem3 = QtWidgets.QSpacerItem(500, 5, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.gridLayout.addItem(spacerItem3, 2, 0, 1, 1)
         self.formLayout = QtWidgets.QFormLayout()
         self.formLayout.setObjectName("formLayout")
         self.label_2 = QtWidgets.QLabel(self.widget_3)
@@ -125,6 +124,8 @@ class Ui_MainWindow(object):
         self.SPass_RB.setObjectName("SPass_RB")
         self.formLayout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.SPass_RB)
         self.gridLayout.addLayout(self.formLayout, 1, 0, 1, 1)
+        spacerItem3 = QtWidgets.QSpacerItem(500, 5, QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Minimum)
+        self.gridLayout.addItem(spacerItem3, 2, 0, 1, 1)
         self.verticalLayout_2.addWidget(self.widget_3)
         self.widget_4 = QtWidgets.QWidget(self.widget_2)
         self.widget_4.setObjectName("widget_4")

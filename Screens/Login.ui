@@ -50,6 +50,7 @@ color: #096033
 
 #forgotpass_btn{
 background-color: rgba(0,0,0,0);
+color:white
 }
 
 #login_btn{
@@ -132,22 +133,6 @@ color: white;
           <item>
            <widget class="QWidget" name="widget_3" native="true">
             <layout class="QGridLayout" name="gridLayout">
-             <item row="2" column="0">
-              <spacer name="horizontalSpacer_4">
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="sizeType">
-                <enum>QSizePolicy::Expanding</enum>
-               </property>
-               <property name="sizeHint" stdset="0">
-                <size>
-                 <width>500</width>
-                 <height>5</height>
-                </size>
-               </property>
-              </spacer>
-             </item>
              <item row="1" column="0">
               <layout class="QFormLayout" name="formLayout">
                <item row="1" column="0">
@@ -210,6 +195,22 @@ color: white;
                 </widget>
                </item>
               </layout>
+             </item>
+             <item row="2" column="0">
+              <spacer name="horizontalSpacer_4">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeType">
+                <enum>QSizePolicy::Fixed</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>500</width>
+                 <height>5</height>
+                </size>
+               </property>
+              </spacer>
              </item>
             </layout>
            </widget>

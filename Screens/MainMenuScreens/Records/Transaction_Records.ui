@@ -283,6 +283,17 @@ border: 1px solid black;
          </column>
          <column>
           <property name="text">
+           <string>Amount Paid</string>
+          </property>
+          <property name="font">
+           <font>
+            <family>DM Sans</family>
+            <bold>true</bold>
+           </font>
+          </property>
+         </column>
+         <column>
+          <property name="text">
            <string>Payment Method</string>
           </property>
           <property name="font">
@@ -295,7 +306,7 @@ border: 1px solid black;
          </column>
          <column>
           <property name="text">
-           <string>Reference Number</string>
+           <string>GCash Reference Number</string>
           </property>
           <property name="font">
            <font>

@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="Icons">
+    <file>images/Ranil_ICON.png</file>
     <file>Icons/remove.png</file>
     <file>Icons/delete.png</file>
     <file>Icons/enter.png</file>
@@ -37,6 +38,9 @@
     <file>Icons/up.png</file>
   </qresource>
   <qresource prefix="Images">
+    <file>images/1.png</file>
+    <file>images/2.png</file>
+    <file>images/3.png</file>
     <file>images/background.png</file>
     <file>images/background_16_10.png</file>
     <file>images/background_blurred_10_16.png</file>

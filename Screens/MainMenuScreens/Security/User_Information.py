@@ -1,9 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow
-
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
-
-import datetime
-
+from PyQt5.QtGui import QPalette, QColor
 from Database.DBController import dbcont
 from Database.User_Manager import UserMana
 
@@ -11,7 +7,7 @@ from .Dialogs.DLog_UpdateUserDetails import DLG_Edit_User
 from Dialogs.DLog_Alert import DLG_Alert
 
 from .User_Information_ui import Ui_MainWindow
-from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5 import QtCore
 class User_Information_Window(QMainWindow, Ui_MainWindow):
     back_btnsgl = QtCore.pyqtSignal()
     
@@ -25,11 +21,13 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(User_Information_Window,self).__init__()
         self.setupUi(self)
-
         self.createlist()
-        self.back_btn.clicked.connect(self.prev_window)
-        self.accountList.clicked.connect(self.list_clicked)
         
+        palette = self.accountList.palette()
+        palette.setColor(QPalette.AlternateBase, QColor(238, 234, 224))
+        self.accountList.setPalette(palette) 
+        self.accountList.clicked.connect(self.list_clicked)
+        self.back_btn.clicked.connect(lambda: self.back_btnsgl.emit())
         self.Edit_btn.clicked.connect(self.init_edit_protocol)
         
     
@@ -51,10 +49,6 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         else:
             Dlg = DLG_Alert(msg='Select a User first!')
             Dlg.exec()
-            
-    def set_CU_details(self):
-        self.CULevel_L.setText(self.db.get_levels(id= self.User.Level))
-        self.CUName_L.setText(self.User.User)
         
     def createlist(self):
         self.accountList.clear()
@@ -68,8 +62,7 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
     def list_clicked(self):
         selected_item = self.accountList.currentRow()
         UserCreds = self.db.get_user_creds(Fname= self.namelist[selected_item][0], Lname= self.namelist[selected_item][1])
-        
-        print(UserCreds)
+        self.UName_L.setText(UserCreds[3])
         self.Name_L.setText(self.accountList.currentItem().text())
         self.SUID_L.setText(UserCreds[2])
         self.ULevel_L.setText(self.db.get_levels(id=UserCreds[1]))
@@ -91,6 +84,3 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         self.Pos_L.setText('None')
         self.HDate_L.setText('None')
         self.SUID_L.setText('None')
-        
-    def prev_window(self):
-        self.back_btnsgl.emit()

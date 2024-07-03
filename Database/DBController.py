@@ -534,6 +534,7 @@ class dbcont(object):
         self.mycursor.execute(sql,NewPlist + RPID)
         self.mydb.commit()
         
+    # none for rid
     def _create_rid(self, typeID = None , id = None, date= None,RID = None,prod = None, user = None, receipt = None, new = None):
         
         if RID != None:
@@ -623,6 +624,52 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
+    
+    def search_supp_receipts(self, searchstr):
+        
+        sql = """
+            SELECT * FROM supplier_receipts 
+            WHERE SupplierReceiptID LIKE %s
+                    OR RUID  LIKE %s
+                    OR ReceiptRef  LIKE %s
+                    OR TotalPrice LIKE %s
+                    OR OrderDate LIKE %s
+                    OR DeliveryDate LIKE %s
+                    OR GCashRef LIKE %s
+        """
+        searchstr = '%' + searchstr + '%'
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
+        
+        self.mycursor.execute(sql,val)
+        return self.mycursor.fetchall()
+
+    def get_all_trans_receipts(self):
+        
+        sql = """
+            SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts
+        """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
+    def search_trans_receipts(self, searchstr):
+        sql = """
+            SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts 
+            WHERE TransactionReceiptID LIKE %s
+                    OR RUID  LIKE %s
+                    OR PurchaseDate  LIKE %s
+                    OR Price LIKE %s
+                    OR PaidPrice LIKE %s
+                    OR PaymentTypeID LIKE %s
+                    OR GCashReference LIKE %s
+        """
+        searchstr = '%' + searchstr + '%'
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
+        
+        self.mycursor.execute(sql,val)
+        return self.mycursor.fetchall()
+
+        
+        
     # sales db
         
     def get_all_sales(self):
@@ -720,9 +767,3 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
-if __name__ == '__main__':
-    db =dbcont('admin', 123456)
-    
-    print(db._create_rid(id= 5,typeID=1,prod=True))
-    
-    pass

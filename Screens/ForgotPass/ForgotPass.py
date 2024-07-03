@@ -17,12 +17,11 @@ from Dialogs.DLog_Alert import DLG_Alert
 class ForgotPassWindow(QMainWindow, Ui_MainWindow):
     
     back_btnsgl = QtCore.pyqtSignal()
+    db = dbcont()
     
     def __init__(self):
         super(ForgotPassWindow, self).__init__()
         self.setupUi(self)
-        self.otp = None
-        self.db = dbcont('admin', 123456)
         self.send_btn.clicked.connect(self.validate_creds)
         self.back_btn.clicked.connect(lambda: self.back_btnsgl.emit())
         
@@ -31,22 +30,22 @@ class ForgotPassWindow(QMainWindow, Ui_MainWindow):
         if check:
             self.otp_protocol()
         else:
-            Dlg =DLG_Alert(msg='Not in database!')
+            Dlg = DLG_Alert(msg='Not in database!')
             Dlg.exec()
     
     def otp_protocol(self):
         self.user_input = self.user_LE.text()
         self.receiver_email = self.email_LE.text()
-        otp = str(random.randint(100000, 999999))
+        self.otp = str(random.randint(100000, 999999))
         
-        if otp:
-            self.send_otp_email(self.receiver_email, otp)
+        if self.otp:
+            self.send_otp_email(self.receiver_email, self.otp)
         
         Dlg_OI = DLG_Oneline_Input(msg= 'Enter the OTP sent to your email:')
         Dlg_OI.exec()
         
         if Dlg_OI.result() == 1:
-            if Dlg_OI.Input_LE.text() == otp:
+            if Dlg_OI.Input_LE.text() == self.otp:
                 self.showResetPassWindow()
             else:
                 Dlg = DLG_Alert(msg='OTP does not match. Please try again.')

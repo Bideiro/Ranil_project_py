@@ -144,7 +144,7 @@ border : 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>FIRST NAME:</string>
+               <string>*FIRST NAME:</string>
               </property>
              </widget>
             </item>
@@ -185,7 +185,7 @@ border : 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>USERNAME:</string>
+               <string>*USERNAME:</string>
               </property>
              </widget>
             </item>
@@ -226,7 +226,7 @@ border : 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>LEVEL OF ACCESS:</string>
+               <string>*LEVEL OF ACCESS:</string>
               </property>
              </widget>
             </item>

@@ -1,7 +1,7 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow, QLineEdit
+from PyQt5.QtWidgets import QMainWindow, QLineEdit, QGraphicsDropShadowEffect
 from PyQt5.QtCore import pyqtSlot
-from PyQt5.QtGui import QIntValidator
+from PyQt5.QtGui import QIntValidator, QColor
 
 from .Login_ui import Ui_MainWindow
 from Database.DBController import dbcont
@@ -23,6 +23,15 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         self.onlyInt = QIntValidator()
         self.passwordLE.setMaxLength(6)
         self.passwordLE.setValidator(self.onlyInt)
+        shadow = QGraphicsDropShadowEffect()
+        shadow.setBlurRadius(10)
+        shadow.setXOffset(5)
+        shadow.setYOffset(5)
+        shadow.setColor(QColor(0, 0, 0, 160))
+        
+        # Apply the shadow effect to the QLabel
+        self.label.setGraphicsEffect(shadow)
+        
         
         self.SPass_RB.toggled.connect(self.change_echo)
         
