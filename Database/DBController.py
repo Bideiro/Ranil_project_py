@@ -614,7 +614,7 @@ class dbcont(object):
         self.mycursor.execute(sql, (passcode,RUID))
         self.mydb.commit()
 
-    # temp
+    # Records
     def get_all_supp_receipts(self):
         
         sql = """
