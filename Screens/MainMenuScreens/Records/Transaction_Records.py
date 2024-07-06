@@ -1,7 +1,6 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QTableWidgetItem, QWidget
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
-import idna
 from .Transaction_Records_ui import Ui_MainWindow
 from Database.DBController import dbcont
 from PyQt5 import QtWidgets, QtGui, QtCore

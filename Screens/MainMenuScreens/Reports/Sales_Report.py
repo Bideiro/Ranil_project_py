@@ -66,9 +66,12 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
             print('No transactions found for the selected date or date range.')
-
+            
+            
+            
     def print_to_pdf(self):
         # Create a document
+        
         pdf_filename = "Sales_Report.pdf"
         pdf = SimpleDocTemplate(pdf_filename, pagesize=letter)
         
