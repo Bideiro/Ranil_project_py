@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtWidgets, QtGui
 
+from Database.DBController import dbcont
 from Database.User_Manager import UserMana
 from Screens.Login import LoginWindow
 from Screens.ForgotPass.ForgotPass import ForgotPassWindow
@@ -10,6 +11,7 @@ from Screens.MainMenu_E import MainMenuWindow_E
 class MainWindow(QtWidgets.QMainWindow):
     
     User = UserMana()
+    
     def __init__(self):
         super(MainWindow, self).__init__()
 
@@ -18,7 +20,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setMinimumWidth(1408)
         self.setMinimumHeight(792)
 
-        self.setWindowIcon(QtGui.QIcon('assets\images\Ranil_ICON.png'))
+        self.setWindowIcon(QtGui.QIcon(r'assets\images\Ranil_ICON.png'))
 
         self.MainStack = QtWidgets.QStackedWidget()
         self.setCentralWidget(self.MainStack)
@@ -63,7 +65,6 @@ class MainWindow(QtWidgets.QMainWindow):
         self.MainStack.setCurrentWidget(self.MainMenu_E)
         
     def Log_out_protocol(self):
-        print('Logging Out')
         self.User.reset_UserMana()
         self.Login.userLE.clear()
         self.Login.passwordLE.clear()

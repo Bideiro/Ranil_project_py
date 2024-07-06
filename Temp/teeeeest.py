@@ -1,52 +1,67 @@
-from PyQt5.QtWidgets import QApplication, QDialog, QVBoxLayout, QPushButton, QLabel, QDialogButtonBox
-from PyQt5.QtCore import Qt
-import sys
+# Python 3 code to demonstrate 
+# SHA hash algorithms. 
 
-class FlagDemoDialog(QDialog):
-    def __init__(self, flag, description, parent=None):
-        super().__init__(parent)
-        self.setWindowTitle(description)
-        self.setWindowFlag(flag)
-        layout = QVBoxLayout()
-        label = QLabel(description)
-        layout.addWidget(label)
-        button_box = QDialogButtonBox(QDialogButtonBox.Ok)
-        button_box.accepted.connect(self.accept)
-        layout.addWidget(button_box)
-        self.setLayout(layout)
+import hashlib 
 
-class MainDialog(QDialog):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("Window Flags Demo")
-        layout = QVBoxLayout()
-        flags = [
-            (Qt.Widget, "Qt.Widget: A normal widget."),
-            (Qt.Window, "Qt.Window: A window."),
-            (Qt.Dialog, "Qt.Dialog: A dialog."),
-            (Qt.Sheet, "Qt.Sheet: A sheet window (macOS)."),
-            (Qt.Drawer, "Qt.Drawer: A drawer window (macOS)."),
-            (Qt.Popup, "Qt.Popup: A pop-up window."),
-            (Qt.Tool, "Qt.Tool: A tool window."),
-            (Qt.ToolTip, "Qt.ToolTip: A tooltip window."),
-            (Qt.SplashScreen, "Qt.SplashScreen: A splash screen."),
-            (Qt.Desktop, "Qt.Desktop: The desktop."),
-            (Qt.SubWindow, "Qt.SubWindow: A subwindow."),
-            (Qt.MSWindowsFixedSizeDialogHint, "Qt.MSWindowsFixedSizeDialogHint: Fixed size dialog (Windows).")
-        ]
+# initializing string 
+str = "777777"
 
-        for flag, description in flags:
-            button = QPushButton(description)
-            button.clicked.connect(lambda _, f=flag, d=description: self.show_flag_dialog(f, d))
-            layout.addWidget(button)
+# encoding GeeksforGeeks using encode() 
+# then sending to SHA256() 
+result = hashlib.sha256(str.encode()) 
 
-        self.setLayout(layout)
+# printing the equivalent hexadecimal value. 
+print("The hexadecimal equivalent of SHA256 is : ") 
+print(result.hexdigest()) 
 
-    def show_flag_dialog(self, flag, description):
-        dialog = FlagDemoDialog(flag, description, self)
-        dialog.exec_()
+print ("\r") 
 
-app = QApplication(sys.argv)
-main_dialog = MainDialog()
-main_dialog.show()
-sys.exit(app.exec_())
+# initializing string 
+str = "GeeksforGeeks"
+
+# encoding GeeksforGeeks using encode() 
+# then sending to SHA384() 
+result = hashlib.sha384(str.encode()) 
+
+# printing the equivalent hexadecimal value. 
+print("The hexadecimal equivalent of SHA384 is : ") 
+print(result.hexdigest()) 
+
+print ("\r") 
+
+# initializing string 
+str = "GeeksforGeeks"
+
+# encoding GeeksforGeeks using encode() 
+# then sending to SHA224() 
+result = hashlib.sha224(str.encode()) 
+
+# printing the equivalent hexadecimal value. 
+print("The hexadecimal equivalent of SHA224 is : ") 
+print(result.hexdigest()) 
+
+print ("\r") 
+
+# initializing string 
+str = "GeeksforGeeks"
+
+# encoding GeeksforGeeks using encode() 
+# then sending to SHA512() 
+result = hashlib.sha512(str.encode()) 
+
+# printing the equivalent hexadecimal value. 
+print("The hexadecimal equivalent of SHA512 is : ") 
+print(result.hexdigest()) 
+
+print ("\r") 
+
+# initializing string 
+str = "GeeksforGeeks"
+
+# encoding GeeksforGeeks using encode() 
+# then sending to SHA1() 
+result = hashlib.sha1(str.encode()) 
+
+# printing the equivalent hexadecimal value. 
+print("The hexadecimal equivalent of SHA1 is : ") 
+print(result.hexdigest()) 

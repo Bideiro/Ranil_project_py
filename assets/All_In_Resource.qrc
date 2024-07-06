@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="Icons">
+    <file>Icons/hide.png</file>
+    <file>Icons/show.png</file>
+    <file>Icons/red_exclamation.png</file>
     <file>images/Ranil_ICON.png</file>
     <file>Icons/remove.png</file>
     <file>Icons/delete.png</file>

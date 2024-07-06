@@ -1,6 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow,QDialog, QPushButton, QWidget
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
+from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QIntValidator
 
 from .Registration_user_ui import Ui_MainWindow

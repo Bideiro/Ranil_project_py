@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>895</width>
-    <height>534</height>
+    <width>981</width>
+    <height>610</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -36,14 +36,29 @@
 background-color: #F8F8F0;
 border: 2px solid #096033;
 }
-.QComboBox, .QLineEdit, .QDateEdit
-{
+
+.QComboBox, .QDateEdit, .QLineEdit{
 border : 2px solid #096033;
 background-color:rgba(0,0,0,0);
 }
+.QComboBox:disabled, .QDateEdit:disabled, .QLineEdit:disabled , #Pass_btn:disabled, #CPass_btn:disabled{
+background-color: #ccc;
+color: #666;
+}
+
 .QPushButton{
 background-color: #096033;
 color: white;
+}
+
+#Pass_w, #CPass_w{
+border : 2px solid #096033;
+background-color:rgba(0,0,0,0);
+}
+
+#CPass_btn,#Pass_btn {
+background-color:rgba(0,0,0,0);
+border: 0px solid rgba(0,0,0,0);
 }</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -124,6 +139,12 @@ border: 2px solid #096033;
          </property>
          <item>
           <widget class="QWidget" name="widget_3" native="true">
+           <property name="font">
+            <font>
+             <family>DM Sans</family>
+             <pointsize>12</pointsize>
+            </font>
+           </property>
            <property name="styleSheet">
             <string notr="true">.QComboBox
 {
@@ -264,7 +285,7 @@ border : 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>SEX:</string>
+               <string>*SEX:</string>
               </property>
              </widget>
             </item>
@@ -302,7 +323,7 @@ border : 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>PHONE NUMBER:</string>
+               <string>*PHONE NUMBER:</string>
               </property>
              </widget>
             </item>
@@ -331,6 +352,108 @@ border : 2px solid #096033;
               <property name="text">
                <string/>
               </property>
+              <property name="maxLength">
+               <number>13</number>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_13">
+              <property name="font">
+               <font>
+                <family>DM Sans</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>*PASSCODE:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="Pass_w" native="true">
+              <property name="styleSheet">
+               <string notr="true"/>
+              </property>
+              <layout class="QHBoxLayout" name="horizontalLayout_3">
+               <property name="spacing">
+                <number>2</number>
+               </property>
+               <property name="leftMargin">
+                <number>2</number>
+               </property>
+               <property name="topMargin">
+                <number>2</number>
+               </property>
+               <property name="rightMargin">
+                <number>2</number>
+               </property>
+               <property name="bottomMargin">
+                <number>2</number>
+               </property>
+               <item>
+                <widget class="QLineEdit" name="Pass_LE">
+                 <property name="minimumSize">
+                  <size>
+                   <width>25</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>DM Sans</family>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">border: 0px</string>
+                 </property>
+                 <property name="maxLength">
+                  <number>6</number>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="Pass_btn">
+                 <property name="sizePolicy">
+                  <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                   <horstretch>0</horstretch>
+                   <verstretch>0</verstretch>
+                  </sizepolicy>
+                 </property>
+                 <property name="minimumSize">
+                  <size>
+                   <width>35</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true"/>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../../../assets/All_In_Resource.qrc">
+                   <normaloff>:/Icons/Icons/hide.png</normaloff>
+                   <normalon>:/Icons/Icons/show.png</normalon>:/Icons/Icons/hide.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>25</width>
+                   <height>25</height>
+                  </size>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                 <property name="checked">
+                  <bool>false</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
@@ -361,7 +484,7 @@ border: 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>LAST NAME:</string>
+               <string>*LAST NAME:</string>
               </property>
              </widget>
             </item>
@@ -399,7 +522,7 @@ border: 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>EMAIL:</string>
+               <string>*EMAIL:</string>
               </property>
              </widget>
             </item>
@@ -437,7 +560,7 @@ border: 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>BIRTH DATE:</string>
+               <string>*BIRTH DATE:</string>
               </property>
              </widget>
             </item>
@@ -462,31 +585,14 @@ border: 2px solid #096033;
                 <bold>false</bold>
                </font>
               </property>
-              <property name="dateTime">
-               <datetime>
-                <hour>0</hour>
-                <minute>0</minute>
-                <second>0</second>
-                <year>2024</year>
-                <month>6</month>
-                <day>7</day>
-               </datetime>
-              </property>
               <property name="displayFormat">
-               <string>dd-mm-yyyy</string>
+               <string>MMMM d, yyyy</string>
               </property>
               <property name="calendarPopup">
                <bool>true</bool>
               </property>
-              <property name="currentSectionIndex">
-               <number>0</number>
-              </property>
-              <property name="date">
-               <date>
-                <year>2024</year>
-                <month>6</month>
-                <day>7</day>
-               </date>
+              <property name="timeSpec">
+               <enum>Qt::LocalTime</enum>
               </property>
              </widget>
             </item>
@@ -500,7 +606,7 @@ border: 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>POSITION:</string>
+               <string>*POSITION:</string>
               </property>
              </widget>
             </item>
@@ -541,7 +647,7 @@ border: 2px solid #096033;
                </font>
               </property>
               <property name="text">
-               <string>DATE HIRED:</string>
+               <string>*DATE HIRED:</string>
               </property>
              </widget>
             </item>
@@ -572,12 +678,99 @@ border: 2px solid #096033;
               <property name="specialValueText">
                <string/>
               </property>
+              <property name="currentSection">
+               <enum>QDateTimeEdit::MonthSection</enum>
+              </property>
               <property name="displayFormat">
-               <string>dd-mm-yyyy</string>
+               <string>MMMM d, yyyy</string>
               </property>
               <property name="calendarPopup">
                <bool>true</bool>
               </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QLabel" name="label_14">
+              <property name="font">
+               <font>
+                <family>DM Sans</family>
+                <pointsize>12</pointsize>
+                <bold>true</bold>
+               </font>
+              </property>
+              <property name="text">
+               <string>*CONFIRM PASSCODE:</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QWidget" name="CPass_w" native="true">
+              <layout class="QHBoxLayout" name="horizontalLayout_4">
+               <property name="spacing">
+                <number>2</number>
+               </property>
+               <property name="leftMargin">
+                <number>2</number>
+               </property>
+               <property name="topMargin">
+                <number>2</number>
+               </property>
+               <property name="rightMargin">
+                <number>2</number>
+               </property>
+               <property name="bottomMargin">
+                <number>1</number>
+               </property>
+               <item>
+                <widget class="QLineEdit" name="CPass_LE">
+                 <property name="minimumSize">
+                  <size>
+                   <width>25</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="font">
+                  <font>
+                   <family>DM Sans</family>
+                   <pointsize>12</pointsize>
+                  </font>
+                 </property>
+                 <property name="styleSheet">
+                  <string notr="true">border: 0px</string>
+                 </property>
+                 <property name="maxLength">
+                  <number>6</number>
+                 </property>
+                </widget>
+               </item>
+               <item>
+                <widget class="QPushButton" name="CPass_btn">
+                 <property name="minimumSize">
+                  <size>
+                   <width>35</width>
+                   <height>35</height>
+                  </size>
+                 </property>
+                 <property name="text">
+                  <string/>
+                 </property>
+                 <property name="icon">
+                  <iconset resource="../../../../assets/All_In_Resource.qrc">
+                   <normaloff>:/Icons/Icons/hide.png</normaloff>
+                   <normalon>:/Icons/Icons/show.png</normalon>:/Icons/Icons/hide.png</iconset>
+                 </property>
+                 <property name="iconSize">
+                  <size>
+                   <width>25</width>
+                   <height>25</height>
+                  </size>
+                 </property>
+                 <property name="checkable">
+                  <bool>true</bool>
+                 </property>
+                </widget>
+               </item>
+              </layout>
              </widget>
             </item>
            </layout>
@@ -599,7 +792,7 @@ border: 2px solid #096033;
             </font>
            </property>
            <property name="text">
-            <string>ADDRESS</string>
+            <string>*ADDRESS:</string>
            </property>
           </widget>
          </item>
@@ -646,7 +839,7 @@ border: 2px solid #096033;
            </property>
            <property name="minimumSize">
             <size>
-             <width>75</width>
+             <width>200</width>
              <height>35</height>
             </size>
            </property>
@@ -669,7 +862,46 @@ border: 2px solid #096033;
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>647</width>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="Disable_btn">
+           <property name="sizePolicy">
+            <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+             <horstretch>0</horstretch>
+             <verstretch>0</verstretch>
+            </sizepolicy>
+           </property>
+           <property name="minimumSize">
+            <size>
+             <width>200</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>DM Sans</family>
+             <pointsize>12</pointsize>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="text">
+            <string>DISABLE</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
              <height>20</height>
             </size>
            </property>
@@ -709,6 +941,8 @@ border: 2px solid #096033;
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../../../../assets/All_In_Resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

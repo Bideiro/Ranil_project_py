@@ -11,11 +11,3 @@ class AboutWindow(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(AboutWindow, self).__init__()
         self.setupUi(self)
-        
-        # Connect the button to the function that opens the PDF
-        self.UManual_btn.clicked.connect(self.open_pdf)
-
-    def open_pdf(self):
-        # Use QDesktopServices to open the PDF file
-        pdf_path = QUrl.fromLocalFile('sample-user-manual.pdf')
-        QDesktopServices.openUrl(pdf_path)

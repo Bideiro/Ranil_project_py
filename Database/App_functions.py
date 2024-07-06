@@ -1,4 +1,11 @@
 import re
+from datetime import datetime
+
+from Database.DBController import dbcont
+
+db = dbcont()
+
+today = datetime.today().date()
 
 def vali_email(email):
     email_pattern = re.compile(
@@ -16,8 +23,17 @@ def vali_phono(phone_number):
     else:
         return False
     
-def check_user_validity(LevelID ,Uname ,pass1 ,pass2,Fname ,Lname ,SexID ,Phono ,Email ,Pos ,HDate ,BDate ,Add):
-    
+def check_user_validity(Fname ,Lname ,Uname ,Email ,LevelID ,Bdate ,SexID ,Pos ,Phono ,Add ,Hdate ,nochangepw = None ,pass1  = None ,pass2 = None):
+    # Order of checking & what is checked
+    # First & Last name must be 2 or more chracters
+    # Username must not be empty
+    # Email validity
+    # Checking of LOA
+    # Checking of Bdate
+    # Checking of sex
+    # Phone number
+    # Checking char length of passcode
+    # Checking if passcode matches
     if len(Fname) <= 2:
         return 'First name must be 2 or more characters!'
     elif len(Lname) <= 2:
@@ -28,16 +44,23 @@ def check_user_validity(LevelID ,Uname ,pass1 ,pass2,Fname ,Lname ,SexID ,Phono 
         return 'Invalid Email!'
     elif LevelID == -1:
         return 'Input level of access!'
+    elif Bdate >= today:
+        return 'Birthdate must before today!'
     elif SexID == -1:
         return 'Input gender!'
     elif Pos == '':
-        return 'Empty Position field!'
+        return 'Empty position field!'
     elif not vali_phono(Phono):
         return 'Invalid Phone Number'
-    elif len(pass1) != 6 and len(pass2) != 6:
-        return 'Passcode requires 6 characters!'
-    elif pass2 != pass1:
-        return 'Passcodes dont match!'
+    elif Hdate >= today:
+        return 'Hiredate must be before today!'
+    elif Add == '':
+        return 'Empty Address field!'
+    elif not nochangepw: 
+        if ((len(pass1) != 6 and len(pass2) != 6) or pass1 == None):
+            return 'Passcode requires 6 characters!'
+        elif (pass2 != pass1 or pass1 == None):
+            return 'Passcodes dont match!'
     else:
         return True
 

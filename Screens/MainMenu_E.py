@@ -178,7 +178,6 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         
         
     def init_log_out(self):
-        self.db.log_logout()
         self.sales_sdbtn.setChecked(False)
         self.transaction_sdbtn.setChecked(False)
         self.inventory_sdbtn.setChecked(False)
@@ -188,6 +187,7 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         self.about_sdbtn.setChecked(False)
         self.help_sdbtn.setChecked(False)
         self.stackedWidget.setCurrentWidget(self.Home)
+        self.db.log_action(action='Logged Out')
         self.log_out_btnsgl.emit()
         
     def window_size_handler(self):

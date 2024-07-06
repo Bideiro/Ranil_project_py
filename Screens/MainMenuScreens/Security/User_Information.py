@@ -1,3 +1,4 @@
+
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QPalette, QColor
 from Database.DBController import dbcont
@@ -23,29 +24,46 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.createlist()
         
+        self.PReset_w.setVisible(False)
+        self.Disabled_w.setVisible(False)
         palette = self.accountList.palette()
         palette.setColor(QPalette.AlternateBase, QColor(238, 234, 224))
-        self.accountList.setPalette(palette) 
+        self.accountList.setPalette(palette)
+        
         self.accountList.clicked.connect(self.list_clicked)
         self.back_btn.clicked.connect(lambda: self.back_btnsgl.emit())
         self.Edit_btn.clicked.connect(self.init_edit_protocol)
         
     
+    def update_status(self, RUID):
+        status = self.db.access_status_user(RUID= RUID)
+        if status == 3:
+            self.PReset_w.setVisible(True)
+        elif status == 0:
+            self.Disabled_w.setVisible(True)
+        else:
+            self.Disabled_w.setVisible(False)
+            self.PReset_w.setVisible(False)
+    
     def init_edit_protocol(self):
         if self.shown_user:
             Dlg = DLG_Edit_User( Ulist= self.shown_user)
+            Dlg.disable_btnsgl.connect(lambda:print('hello'))
             Dlg.exec()
             if Dlg.result() == 1:
-                newUlist = [Dlg.ULevel_CB.currentIndex() ,self.db._create_rid(id= self.shown_user[0],typeID= Dlg.ULevel_CB.currentIndex(),user= True),
-                        Dlg.UName_LE.text(), Dlg.FName_LE.text(), Dlg.LName_LE.text(),
-                        Dlg.Sex_CB.currentIndex(), Dlg.Phono_LE.text().replace('+', '', 1),
-                        Dlg.Email_LE.text(), Dlg.Pos_LE.text(),
-                        Dlg.DHired_DE.date().toPyDate(), Dlg.BDate_DE.date().toPyDate(),
-                        Dlg.Address_LE.text()]
+                newUlist = [Dlg.ULevel_CB.currentIndex() ,self.db._create_rid(id= self.shown_user[0], typeID= Dlg.ULevel_CB.currentIndex(),user= True), 
+                            Dlg.UName_LE.text(), Dlg.FName_LE.text(), 
+                            Dlg.LName_LE.text(), Dlg.Sex_CB.currentIndex(),
+                            Dlg.Phono_LE.text().replace('+', '', 1), Dlg.Email_LE.text(), 
+                            Dlg.Pos_LE.text(), Dlg.DHired_DE.date().toPyDate(), 
+                            Dlg.BDate_DE.date().toPyDate(), Dlg.Address_LE.text(), 
+                            Dlg.Pass_LE.text()]
                 UID = [self.shown_user[0]]
                 self.db.update_user_protocol(UID , newUlist)
                 self.createlist()
                 self.reset_values()
+            else:
+                self.update_status(RUID= self.shown_user[2])
         else:
             Dlg = DLG_Alert(msg='Select a User first!')
             Dlg.exec()
@@ -64,7 +82,7 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         UserCreds = self.db.get_user_creds(Fname= self.namelist[selected_item][0], Lname= self.namelist[selected_item][1])
         self.UName_L.setText(UserCreds[3])
         self.Name_L.setText(self.accountList.currentItem().text())
-        self.SUID_L.setText(UserCreds[2])
+        self.UID_L.setText(UserCreds[2])
         self.ULevel_L.setText(self.db.get_levels(id=UserCreds[1]))
         self.Email_L.setText(UserCreds[9])
         self.BDay_L.setText(UserCreds[12].strftime("%B %d, %Y"))
@@ -72,6 +90,17 @@ class User_Information_Window(QMainWindow, Ui_MainWindow):
         self.Phono_L.setText(UserCreds[8])
         self.Pos_L.setText(UserCreds[10])
         self.HDate_L.setText(UserCreds[11].strftime("%B %d, %Y"))
+        
+        # Setting user status alert
+        
+        if UserCreds[14] == 3:
+            self.PReset_w.setVisible(True)
+        elif UserCreds[14] == 0:
+            self.Disabled_w.setVisible(True)
+        else:
+            self.Disabled_w.setVisible(False)
+            self.PReset_w.setVisible(False)
+            
         self.shown_user = UserCreds
         
     def reset_values(self):

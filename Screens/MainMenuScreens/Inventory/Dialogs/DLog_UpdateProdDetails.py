@@ -51,12 +51,12 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
                 
             
     def switch_in_db(self):
-        active = self.db.get_status(RPID=self.plist[0])
+        active = self.db.access_status_prod(RPID=self.plist[0])
         if active == 1:
-            self.db.get_status(RPID= self.plist[0], status= 0)
+            self.db.access_status_prod(RPID= self.plist[0], status= 0)
         else:
-            self.db.get_status(RPID= self.plist[0], status= 1)
-        curr = self.db.get_status(RPID=self.plist[0])
+            self.db.access_status_prod(RPID= self.plist[0], status= 1)
+        curr = self.db.access_status_prod(RPID=self.plist[0])
         self.switch_inputs(curr)
     
     def switch_inputs(self, active):

@@ -13,6 +13,7 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
     Finish_btnsgl = QtCore.pyqtSignal()
     Back_btnsgl = QtCore.pyqtSignal()
     
+    db = dbcont()
     TableRPID = set()
     Dlg = None
     
@@ -21,7 +22,6 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(add_reciept_Window,self).__init__()
         self.setupUi(self)
-        self.db = dbcont('admin', 123456)
         
         self.AProduct_btn.clicked.connect(self.Dlg_add_prod)
         self.Finish_btn.clicked.connect(self.init_add_receipt)

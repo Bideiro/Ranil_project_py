@@ -1,13 +1,11 @@
-import sys
 from PyQt5.QtWidgets import QMainWindow, QLineEdit, QGraphicsDropShadowEffect
-from PyQt5.QtCore import pyqtSlot
 from PyQt5.QtGui import QIntValidator, QColor
 
 from .Login_ui import Ui_MainWindow
 from Database.DBController import dbcont
 from Database.User_Manager import UserMana
 from Dialogs.DLog_Alert import DLG_Alert
-from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5 import QtCore
 class LoginWindow(QMainWindow, Ui_MainWindow):
 
     logsucc_emp = QtCore.pyqtSignal()
@@ -15,6 +13,7 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
     forgot = QtCore.pyqtSignal()
     
     User = UserMana()
+    mydb = dbcont()
     
     def __init__(self):
         super(LoginWindow,self).__init__()
@@ -24,17 +23,16 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         self.passwordLE.setMaxLength(6)
         self.passwordLE.setValidator(self.onlyInt)
         shadow = QGraphicsDropShadowEffect()
-        shadow.setBlurRadius(10)
+        shadow.setBlurRadius(5)
         shadow.setXOffset(5)
         shadow.setYOffset(5)
-        shadow.setColor(QColor(0, 0, 0, 160))
-        
-        # Apply the shadow effect to the QLabel
+        shadow.setColor(QColor(9, 96, 51))
         self.label.setGraphicsEffect(shadow)
         
         
         self.SPass_RB.toggled.connect(self.change_echo)
-        
+        self.login_btn.clicked.connect(self.init_login)
+        self.forgotpass_btn.clicked.connect(lambda: self.forgot.emit())
         
     def change_echo(self):
         if self.SPass_RB.isChecked():
@@ -42,15 +40,8 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         else:
             self.passwordLE.setEchoMode(QLineEdit.EchoMode.Password)
         
-        
-        
-    @pyqtSlot()
-    # initiate login
-    def on_login_btn_clicked(self):
-        print("Login Attempt")
-        
-        mydb = dbcont(self.userLE.text(), self.passwordLE.text())
-        if mydb.login():
+    def init_login(self):
+        if self.mydb.login(User= self.userLE.text(), passwd= self.passwordLE.text()):
             if self.User.Level == 0:
                 self.logsucc_admin.emit()
             else:
@@ -58,9 +49,3 @@ class LoginWindow(QMainWindow, Ui_MainWindow):
         else:
             Dlg = DLG_Alert(msg='Invalid Username or Password!')
             Dlg.exec()
-        
-    @pyqtSlot()
-    def on_forgotpass_btn_clicked(self):
-        print("forgot")
-        self.forgot.emit()
-        

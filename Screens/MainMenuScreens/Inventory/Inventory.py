@@ -9,11 +9,11 @@ from .Inventory_ui import Ui_MainWindow
 
 class Inventory_Window(QMainWindow, Ui_MainWindow):
     
+    db = dbcont()
+    
     def __init__(self):
         super(Inventory_Window,self).__init__()
         self.setupUi(self)
-        
-        self.db = dbcont('admin', 123456)
         
         self.Product_Table.setColumnWidth(0,150)
         self.Product_Table.setColumnWidth(1,150)
@@ -28,6 +28,8 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         
         self.Product_Table.itemClicked.connect(self.clicked_item)
 
+
+    
     def set_tableElements(self):
         self.Product_Table.setRowCount(0)
         result = []
@@ -81,7 +83,7 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
                 prod_values.append(cell_item.text())
             else:
                 prod_values.append('')
-        Dlg = DLG_Edit_Prod(Plist= prod_values, isEnabled= self.db.get_status(RPID=prod_values[0]))
+        Dlg = DLG_Edit_Prod(Plist= prod_values, isEnabled= self.db.access_status_prod(RPID=prod_values[0]))
         Dlg.exec()
         if Dlg.result() == 1:
             self.newPlist = [self.db._create_rid(RID= prod_values[0],typeID=Dlg.Cat_CB.currentIndex(),prod=True),

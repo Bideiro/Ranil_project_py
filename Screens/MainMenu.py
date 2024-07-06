@@ -146,7 +146,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.User_Logs)
         
     def init_log_out(self):
-        self.db.log_logout()
         self.security_sdbtn.setChecked(False)
         self.registration_sdbtn.setChecked(False)
         self.sales_sdbtn.setChecked(False)
@@ -158,6 +157,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.about_sdbtn.setChecked(False)
         self.help_sdbtn.setChecked(False)
         self.stackedWidget.setCurrentWidget(self.Home)
+        self.db.log_action(action='Logged Out')
         self.log_out_btnsgl.emit()
         
     def window_size_handler(self):
@@ -168,7 +168,6 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     
     @pyqtSlot()
     # Functions changing windows
-    
     def on_security_sdbtn_clicked(self):
         self.CScreen_L.setText('> Security')
         self.User_Info.createlist()

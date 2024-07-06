@@ -1,47 +1,72 @@
 
-import mysql.connector
+import sys
 import re
+import mysql.connector
+from mysql.connector import errorcode
 from Database.User_Manager import UserMana
-
+import hashlib
 
 # Due to time constraints this will be the most un optimized code. ever.
 
 class dbcont(object):
     
     _instance = None
+    mydb = None
+    mycursor = None
+    uname = None
+    passwd = None
     User = UserMana()
-    mydb = mysql.connector.connect(
-            host="localhost",
-            user= "root",
-            passwd= "password",
-            database="ranil_proj")
     
-    mycursor = mydb.cursor()
+        # elif err.errno == errorcode.ER_BAD_DB_ERROR:
+        #     print("Error: The specified database does not exist.")
+        # elif err.errno == errorcode.ER_NO_SUCH_TABLE:
+        #     print("Error: The specified table does not exist.")
+        # elif err.errno == errorcode.ER_DUP_ENTRY:
+        #     print("Error: Duplicate entry.")
+        # elif err.errno == errorcode.ER_PARSE_ERROR:
+        #     print("Error: SQL syntax error.")
+        # elif err.errno == errorcode.ER_WRONG_DB_NAME:
+        #     print("Error: Incorrect database name.")
+        # elif err.errno == errorcode.ER_BAD_FIELD_ERROR:
+        #     print("Error: Unknown column in field list.")
+        # else:
+        #     print(f"Error: {err}")
     
     def __new__(cls, *args, **kwargs):
         if cls._instance == None:
             cls._instance = super(dbcont, cls).__new__(cls)
         return cls._instance
     
-    def __init__(self, user = None,passwd = None):
+    def __init__(self):
         if not hasattr(self,'initialized'):
             self.initialized = True
-        self.user = user
-        self.passwd = passwd
+        try:
+            self.mydb = mysql.connector.connect(
+                    host="localhost",
+                    user= "root",
+                    passwd= "password",
+                    database="ranil_proj")
+            self.mycursor = self.mydb.cursor()
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.CR_CONN_HOST_ERROR:
+                print('Database is not running!')
+                sys.exit()
     
-    def login(self):
+    def login(self, User, passwd):
+        self.uname = User
+        self.passwd = passwd
         sql = " SELECT EXISTS (SELECT 1 FROM accounts WHERE BINARY Uname = %s AND BINARY passcode = %s) AS is_found"
-        val = (self.user, self.passwd)
+        val = (self.uname, hashlib.sha256(self.passwd.encode()).hexdigest() )
         self.mycursor.execute(sql,val)
         res = self.mycursor.fetchone()[0]
         
         if bool(res):
             sql = " SELECT UID, RUID, Uname, Passcode, LevelID FROM accounts WHERE Uname = %s AND passcode = %s"
-            val = (self.user, self.passwd)
+            val = (self.uname, hashlib.sha256(self.passwd.encode()).hexdigest() )
             self.mycursor.execute(sql,val)
             curruser = self.mycursor.fetchone()
             self.User.set_user(UID= curruser[0], RUID= curruser[1],User= curruser[2], Pass=curruser[3],Level= curruser[4])
-            self.log_login()
+            self.log_action(action='Logged In')
         return bool(res)
     
     def Restore_sql(self, backup_file):
@@ -57,7 +82,7 @@ class dbcont(object):
         self.mycursor.execute("SHOW TABLES")
         return self.mycursor.fetchall()
     
-    def log_login(self):
+    def log_action(self, action):
         
         sql = "SELECT NOW() "
         self.mycursor.execute(sql)
@@ -68,24 +93,10 @@ class dbcont(object):
             VALUES (%s,%s,%s,%s,%s)
         """
         
-        val = (self.User.RUID, self.get_levels(id =self.User.Level), self.User.User, 'Logged in', currdate)
+        val = (self.User.RUID, self.get_levels(id =self.User.Level), self.User.User, action, currdate)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
-
-    def log_logout(self):
-            
-            sql = "SELECT NOW() "
-            self.mycursor.execute(sql)
-            currdate = self.mycursor.fetchone()[0]
-            
-            sql = """
-                INSERT INTO logs (UserID, UserLevel, User , Activity , DateTime)
-                VALUES (%s,%s,%s,%s,%s)
-            """
-            
-            val = (self.User.RUID, self.get_levels(id =self.User.Level), self.User.User, 'Logged Out', currdate)
-            self.mycursor.execute(sql,val)
-            self.mydb.commit()
+    
     # Getting data from Tables
     
     def get_logs(self):
@@ -212,8 +223,17 @@ class dbcont(object):
             return listed
         else:
             print('No Arguements! (Get payment Type)')
+    
+    # verifying things Checking availability
+    
+    def verify_username(self, uname):
         
-        
+        sql = """
+            SELECT 1 WHERE EXISTS (SELECT 1 FROM accounts WHERE Uname = %s)
+        """
+        self.mycursor.execute(sql, (uname,))
+        return bool(self.mycursor.fetchone()[0])
+    
     # Getting User Data
     def get_user_creds(self, User = None, Passcode = None, colint = None, Fname = None , Lname = None):
         if User != None and Passcode != None:
@@ -233,12 +253,22 @@ class dbcont(object):
             return self.mycursor.fetchall()[0]
         else:
             return self.mycursor.fetchone()[colint][0]
-        
+    
     def get_all_names(self):
-        sql = "SELECT Fname,Lname FROM accounts"
+        sql = "SELECT Fname, Lname FROM accounts"
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
+    def access_status_user(self, RUID, status = None):
+        if status == None:
+            sql = "SELECT Status FROM accounts WHERE RUID = %s"
+            self.mycursor.execute(sql, (RUID,))
+            return self.mycursor.fetchone()[0]
+        else:
+            sql = "UPDATE accounts SET Status = %s WHERE RUID = %s"
+            self.mycursor.execute(sql, (status, RUID))
+            self.mydb.commit()
+        
     # Registration
     
     def add_cate(self, cate):
@@ -254,9 +284,11 @@ class dbcont(object):
         self.mydb.commit()
     
     def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
+        hashedPass = hashlib.sha256(Passcode.encode()).hexdigest() 
+        
         sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
                     VALUES (%s,%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"""
-        val = (LevelID, self._create_rid(id= LevelID, user=True, new=True),Uname, Passcode, fname, lname,sex,phono, email,pos, Dhired, Bdate,address)
+        val = (LevelID, self._create_rid(id= LevelID, user=True, new=True),Uname, hashedPass, fname, lname,sex,phono, email,pos, Dhired, Bdate,address)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
@@ -382,7 +414,8 @@ class dbcont(object):
         """
         self.mycursor.execute(sql)
         return self.mycursor.fetchone()[0]
-    # Getting Product Data( Inventory )
+    
+    # Inventory
     def get_all_prod(self, inv = None , trans = None, records = None):
         
         if inv:
@@ -394,7 +427,7 @@ class dbcont(object):
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
         
-    def get_status(self, RPID, status = None ):
+    def access_status_prod(self, RPID, status = None ):
         if status == None:
             sql = "SELECT Active FROM products WHERE RPID = %s"
             self.mycursor.execute(sql, (RPID,))
@@ -403,7 +436,6 @@ class dbcont(object):
             sql = "UPDATE products SET Active = %s WHERE RPID = %s"
             self.mycursor.execute(sql, (status, RPID))
             self.mydb.commit()
-
 
     def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None):
         if inv:
@@ -516,11 +548,29 @@ class dbcont(object):
         self.mydb.commit()
         
     def update_user_protocol(self,UID, NewUlist):
-        sql = """
-        UPDATE accounts
-        SET LevelID = %s, RUID = %s, Uname = %s, Fname = %s, Lname = %s, SexID = %s, Phono = %s, Email = %s, Position = %s, HireDate = %s, Birthdate = %s, Address = %s
-        WHERE UID = %s;
-        """
+        print(NewUlist)
+        if NewUlist[12] != '':
+            hashedPasscode = hashlib.sha256(NewUlist[12].encode()).hexdigest()
+            
+            print(NewUlist)
+            
+            NewUlist = [hashedPasscode if x == NewUlist[12] else x for x in NewUlist]
+            
+            print(NewUlist)
+            sql = """
+            UPDATE accounts
+            SET LevelID = %s, RUID = %s, Uname = %s, Fname = %s, Lname = %s, SexID = %s, Phono = %s, Email = %s, Position = %s, HireDate = %s, Birthdate = %s, Address = %s ,Passcode = %s
+            WHERE UID = %s;
+            """
+        else:
+            
+            NewUlist.remove(NewUlist[12])
+            sql = """
+            UPDATE accounts
+            SET LevelID = %s, RUID = %s, Uname = %s, Fname = %s, Lname = %s, SexID = %s, Phono = %s, Email = %s, Position = %s, HireDate = %s, Birthdate = %s, Address = %s 
+            WHERE UID = %s;
+            """
+            
         self.mycursor.execute(sql,NewUlist + UID)
         self.mydb.commit()
         
@@ -624,7 +674,6 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
-    
     def search_supp_receipts(self, searchstr):
         
         sql = """
@@ -667,8 +716,6 @@ class dbcont(object):
         
         self.mycursor.execute(sql,val)
         return self.mycursor.fetchall()
-
-        
         
     # sales db
         

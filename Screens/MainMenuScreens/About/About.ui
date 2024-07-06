@@ -15,7 +15,7 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
-    <string notr="true">.QWidget{
+    <string notr="true">.QWidget, #scrollAreaWidgetContents_2, #scrollAreaWidgetContents{
 background-color: #F8F8F0;
 }
 #label_2, #label_4, #label_6, #label_3{
@@ -62,19 +62,44 @@ color: #096033
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label_7">
-         <property name="font">
-          <font>
-           <family>DM Sans</family>
-           <pointsize>18</pointsize>
-          </font>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
          </property>
-         <property name="text">
-          <string>Ranil's Poultry Shop offers a variety of products for poultry, including bird feed, plant seeds, fertilizers, and poultry accessories. They also provide pet-related items like dog and cat food, pet supplies, pet care products, and pet basics. Located in Rodriguez Rizal, the shop operates from 7:00 a.m. to 7:00 p.m. The current owner Mrs. Rachel Manuel, is the one who oversees all store operations. </string>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
          </property>
-         <property name="wordWrap">
+         <property name="widgetResizable">
           <bool>true</bool>
          </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>962</width>
+            <height>178</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_5">
+           <item>
+            <widget class="QLabel" name="label_7">
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <pointsize>18</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Ranil's Poultry Shop offers a variety of products for poultry, including bird feed, plant seeds, fertilizers, and poultry accessories. They also provide pet-related items like dog and cat food, pet supplies, pet care products, and pet basics. Located in Rodriguez Rizal, the shop operates from 7:00 a.m. to 7:00 p.m. The current owner Mrs. Rachel Manuel, is the one who oversees all store operations. </string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
        <item>
@@ -92,19 +117,44 @@ color: #096033
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="label">
-         <property name="font">
-          <font>
-           <family>DM Sans</family>
-           <pointsize>18</pointsize>
-          </font>
+        <widget class="QScrollArea" name="scrollArea_2">
+         <property name="frameShape">
+          <enum>QFrame::NoFrame</enum>
          </property>
-         <property name="text">
-          <string>Welcome to the product management system for Ranil's Poultry Shop. A poultry shop's management tasks, such as product registration, sales management, inventory tracking, and user administration, can be made simpler and more automated with the help of this system. Ranil's Poultry Shop can increase overall customer service, decrease manual errors, and improve operational efficiency by utilizing this system. Our user-friendly and secure interface guarantees accurate and efficient completion of all tasks, offering a dependable solution for all your management requirements related to poultry shops. This system utilizes the HP Victus 15-FB0089AX, featuring an AMD Ryzen 5 5600H processor, 8GB DDR4 RAM, and 512GB M.2 NVMe PCIe SSD for development. The software runs on Windows 11, with PyQt5 for a visually appealing interface and Python 3.12.3 for speedy development.</string>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
          </property>
-         <property name="wordWrap">
+         <property name="widgetResizable">
           <bool>true</bool>
          </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents_2">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>962</width>
+            <height>402</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_7">
+           <item>
+            <widget class="QLabel" name="label">
+             <property name="font">
+              <font>
+               <family>DM Sans</family>
+               <pointsize>18</pointsize>
+              </font>
+             </property>
+             <property name="text">
+              <string>Welcome to the product management system for Ranil's Poultry Shop. A poultry shop's management tasks, such as product registration, sales management, inventory tracking, and user administration, can be made simpler and more automated with the help of this system. Ranil's Poultry Shop can increase overall customer service, decrease manual errors, and improve operational efficiency by utilizing this system. Our user-friendly and secure interface guarantees accurate and efficient completion of all tasks, offering a dependable solution for all your management requirements related to poultry shops. This system utilizes the HP Victus 15-FB0089AX, featuring an AMD Ryzen 5 5600H processor, 8GB DDR4 RAM, and 512GB M.2 NVMe PCIe SSD for development. The software runs on Windows 11, with PyQt5 for a visually appealing interface and Python 3.12.3 for speedy development.</string>
+             </property>
+             <property name="wordWrap">
+              <bool>true</bool>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
         </widget>
        </item>
        <item>
@@ -510,21 +560,6 @@ color: #096033
             </property>
            </spacer>
           </item>
-          <item>
-           <widget class="QPushButton" name="UManual_btn">
-            <property name="font">
-             <font>
-              <family>DM Sans</family>
-              <pointsize>18</pointsize>
-              <bold>true</bold>
-              <underline>true</underline>
-             </font>
-            </property>
-            <property name="text">
-             <string>HELP CENTER</string>
-            </property>
-           </widget>
-          </item>
          </layout>
         </widget>
        </item>
@@ -536,7 +571,7 @@ color: #096033
  </widget>
  <resources>
   <include location="../../../assets/All_In_Resource.qrc"/>
-  <include location="../../assets/All_In_Resource.qrc"/>
+  <include location="../../../assets/All_In_Resource.qrc"/>
  </resources>
  <connections/>
 </ui>
