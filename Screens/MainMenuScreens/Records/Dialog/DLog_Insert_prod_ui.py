@@ -44,6 +44,7 @@ class Ui_Dialog(object):
         self.Product_Table.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.Product_Table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.Product_Table.setAlternatingRowColors(True)
+        self.Product_Table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.Product_Table.setObjectName("Product_Table")
         self.Product_Table.setColumnCount(8)
         self.Product_Table.setRowCount(0)

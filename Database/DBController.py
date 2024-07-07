@@ -15,8 +15,8 @@ import hashlib
 # changing colum arrangement will affect the following modules:
 # User Information(showing of info)
 # User Information(edit dialog and its update db func)
+
 class dbcont(object):
-    
     _instance = None
     mydb = None
     mycursor = None
@@ -105,7 +105,7 @@ class dbcont(object):
         self.mydb.commit()
     
     # RID CREATOR
-        # none for rid
+    # none for rid
     def _create_rid(self, typeID = None , id = None, date= None,RID = None,prod = None, user = None, receipt = None, new = None):
         
         if RID != None:
@@ -324,7 +324,7 @@ class dbcont(object):
     
     # User Data Manipulation
     # Getting User Data
-        
+    
     def get_all_users(self):
         self.mycursor.execute("SELECT * FROM accounts")
         return self.mycursor.fetchall()
@@ -780,12 +780,13 @@ class dbcont(object):
     # sales db
         
     def get_all_sales(self):
-        sql = """SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
-        ORDER BY PurchaseDate DESC
+        sql = """
+            SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
+            ORDER BY PurchaseDate DESC
         """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
-    
+
     def search_sales(self, searchstr):
         sql = """
                 SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
@@ -835,6 +836,7 @@ class dbcont(object):
         return self.mycursor.fetchall()
     
     # sales and reports
+    
     def get_inventory(self):
         sql = """
                 SELECT ReceiptID, ProductID, Quantity, Price, Date FROM products_sold
@@ -852,16 +854,43 @@ class dbcont(object):
         
         return self.mycursor.fetchall()
     
-    def get_salesR(self):
-        sql = """
+    def get_sales_report(self, Sdate = None, Edate = None, search = None , daily = None, monthly = None, yearly = None):
+        
+        if daily != None:
+            sql = """
+                SELECT DATE(PurchaseDate), SUM(Price)
+                FROM Transaction_receipts GROUP BY DATE(PurchaseDate) ORDER BY DATE(PurchaseDate)
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        elif monthly != None:
+            sql = """
+                SELECT MONTH(PurchaseDate), SUM(Price)
+                FROM Transaction_receipts GROUP BY MONTH(PurchaseDate) ORDER BY MONTH(PurchaseDate)
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        elif yearly != None:
+            sql = """
+                SELECT YEAR(PurchaseDate), SUM(Price)
+                FROM Transaction_receipts GROUP BY YEAR(PurchaseDate) ORDER BY YEAR(PurchaseDate)
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        elif search != None:
+            
+            pass
+        else:
+            print('No parameter selected! [Sales Report]')
+            sql = """
                 SELECT PurchaseDate, Price FROM Transaction_receipts
-                """
-        self.mycursor.execute(sql)
-        return self.mycursor.fetchall()
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
     
     def search_sales_rep(self, SDate, EDate = None):
         if EDate == None:
-            sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate = %s"
+            sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE DATE(PurchaseDate) = %s"
             self.mycursor.execute(sql, (SDate,))
         else:
             sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate  BETWEEN %s AND %s"

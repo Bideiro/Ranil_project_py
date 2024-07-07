@@ -15,8 +15,8 @@ class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(492, 722)
-        self.horizontalLayout = QtWidgets.QHBoxLayout(Dialog)
-        self.horizontalLayout.setObjectName("horizontalLayout")
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout(Dialog)
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.widget = QtWidgets.QWidget(Dialog)
         self.widget.setStyleSheet(".QWidget{\n"
 "background-color: #F8F8F0;\n"
@@ -276,7 +276,39 @@ class Ui_Dialog(object):
         self.label_16.setObjectName("label_16")
         self.verticalLayout_10.addWidget(self.label_16)
         self.verticalLayout_5.addWidget(self.widget_9)
-        self.horizontalLayout.addWidget(self.widget)
+        self.verticalLayout_6.addWidget(self.widget)
+        self.widget_5 = QtWidgets.QWidget(Dialog)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Minimum)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.widget_5.sizePolicy().hasHeightForWidth())
+        self.widget_5.setSizePolicy(sizePolicy)
+        self.widget_5.setMaximumSize(QtCore.QSize(16777215, 50))
+        self.widget_5.setStyleSheet(".QPushButton{\n"
+"    background-color: rgb(9, 96, 51);\n"
+"    color: rgb(255, 255, 255);\n"
+"    border:4px solid rgb(171, 226, 125);\n"
+"}")
+        self.widget_5.setObjectName("widget_5")
+        self.verticalLayout_7 = QtWidgets.QVBoxLayout(self.widget_5)
+        self.verticalLayout_7.setContentsMargins(0, 0, 0, 0)
+        self.verticalLayout_7.setSpacing(0)
+        self.verticalLayout_7.setObjectName("verticalLayout_7")
+        self.Print_btn = QtWidgets.QPushButton(self.widget_5)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.Print_btn.sizePolicy().hasHeightForWidth())
+        self.Print_btn.setSizePolicy(sizePolicy)
+        self.Print_btn.setMinimumSize(QtCore.QSize(25, 35))
+        font = QtGui.QFont()
+        font.setFamily("DM Sans")
+        font.setPointSize(13)
+        font.setBold(True)
+        self.Print_btn.setFont(font)
+        self.Print_btn.setObjectName("Print_btn")
+        self.verticalLayout_7.addWidget(self.Print_btn)
+        self.verticalLayout_6.addWidget(self.widget_5)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
@@ -308,3 +340,4 @@ class Ui_Dialog(object):
         self.GCRef_L.setText(_translate("Dialog", "TextLabel"))
         self.label_11.setText(_translate("Dialog", "THANK YOU!"))
         self.label_16.setText(_translate("Dialog", "THIS DOCUMENT OF NOT VALID FOR CLAIM OF INPUT TAX"))
+        self.Print_btn.setText(_translate("Dialog", "PRINT RECEIPT"))

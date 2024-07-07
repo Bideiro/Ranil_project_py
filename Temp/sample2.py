@@ -1,51 +1,60 @@
-import sys
-from PyQt5.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
+import sys, os
+from PyQt5 import QtCore, QtWidgets, QtPrintSupport
 
-class TableDemo(QWidget):
+class Window(QtWidgets.QWidget):
     def __init__(self):
-        super().__init__()
-        self.initUI()
+        super(Window, self).__init__()
+        self.setWindowTitle('Document Printer')
+        self.editor = QtWidgets.QTextEdit(self)
+        self.editor.textChanged.connect(self.handleTextChanged)
+        self.buttonOpen = QtWidgets.QPushButton('Open', self)
+        self.buttonOpen.clicked.connect(self.handleOpen)
+        self.buttonPrint = QtWidgets.QPushButton('Print', self)
+        self.buttonPrint.clicked.connect(self.handlePrint)
+        self.buttonPreview = QtWidgets.QPushButton('Preview', self)
+        self.buttonPreview.clicked.connect(self.handlePreview)
+        layout = QtWidgets.QGridLayout(self)
+        layout.addWidget(self.editor, 0, 0, 1, 3)
+        layout.addWidget(self.buttonOpen, 1, 0)
+        layout.addWidget(self.buttonPrint, 1, 1)
+        layout.addWidget(self.buttonPreview, 1, 2)
+        self.handleTextChanged()
 
-    def initUI(self):
-        self.setWindowTitle('QTableWidget Example')
-        self.setGeometry(100, 100, 600, 400)
+    def handleOpen(self):
+        path = QtWidgets.QFileDialog.getOpenFileName(
+            self, 'Open file', '',
+            'HTML files (*.html);;Text files (*.txt)')[0]
+        if path:
+            file = QtCore.QFile(path)
+            if file.open(QtCore.QIODevice.ReadOnly):
+                stream = QtCore.QTextStream(file)
+                text = stream.readAll()
+                info = QtCore.QFileInfo(path)
+                if info.completeSuffix() == 'html':
+                    self.editor.setHtml(text)
+                else:
+                    self.editor.setPlainText(text)
+                file.close()
 
-        self.layout = QVBoxLayout()
+    def handlePrint(self):
+        dialog = QtPrintSupport.QPrintDialog()
+        if dialog.exec_() == QtWidgets.QDialog.Accepted:
+            self.editor.document().print_(dialog.printer())
 
-        self.tableWidget = QTableWidget()
-        self.tableWidget.setRowCount(4)
-        self.tableWidget.setColumnCount(3)
-        self.tableWidget.setHorizontalHeaderLabels(['Header 1', 'Header 2', 'Header 3'])
+    def handlePreview(self):
+        dialog = QtPrintSupport.QPrintPreviewDialog()
+        dialog.paintRequested.connect(self.editor.print_)
+        dialog.exec_()
 
-        # Add some items
-        for i in range(4):
-            for j in range(3):
-                self.tableWidget.setItem(i, j, QTableWidgetItem(f'Item {i+1},{j+1}'))
-
-        # Connect the itemDoubleClicked signal to the function
-        self.tableWidget.itemDoubleClicked.connect(self.on_item_double_click)
-
-        self.layout.addWidget(self.tableWidget)
-        self.setLayout(self.layout)
-
-    def on_item_double_click(self, item):
-        row = item.row()
-        column_count = self.tableWidget.columnCount()
-
-        # Collect all items in the row
-        row_data = []
-        for column in range(column_count):
-            cell_item = self.tableWidget.item(row, column)
-            if cell_item:
-                row_data.append(cell_item.text())
-            else:
-                row_data.append('')  # Handle empty cells
-
-        # Print the whole row's data
-        print(f'Double clicked on row {row+1}: {row_data}')
+    def handleTextChanged(self):
+        enable = not self.editor.document().isEmpty()
+        self.buttonPrint.setEnabled(enable)
+        self.buttonPreview.setEnabled(enable)
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    demo = TableDemo()
-    demo.show()
+
+    app = QtWidgets.QApplication(sys.argv)
+    window = Window()
+    window.resize(640, 480)
+    window.show()
     sys.exit(app.exec_())

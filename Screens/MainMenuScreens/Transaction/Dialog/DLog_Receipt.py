@@ -61,8 +61,6 @@ class DLG_Receipt(QDialog, Ui_Dialog):
             spacer2 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
             spacer3 = QSpacerItem(30, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
             
-            print(dbprod)
-            
             qty = QLabel(str(prod[2]))
             price = QLabel(str(dbprod[0][2]))
             prodname = QLabel(str(dbprod[0][1]))

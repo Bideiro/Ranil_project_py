@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget, QTableWidgetItem
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
+from PyQt5.QtCore import Qt, QDate
 
 from Database.DBController import dbcont
 
@@ -27,6 +27,9 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
         super(add_reciept_Window,self).__init__()
         self.setupUi(self)
         
+        self.DDate_DE.setDate(QDate.currentDate())
+        self.ODate_DE.setDate(QDate.currentDate())
+        
         self.AProduct_btn.clicked.connect(self.add_prod)
         self.RProduct_btn.clicked.connect(self.prod_removed)
         self.Finish_btn.clicked.connect(self.init_add_receipt)
@@ -49,23 +52,27 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
             Dlg.exec()
     
     def init_add_receipt(self):
-        rows_list = []
-        for row in range(self.Products_Table.rowCount()):
-            row_data = []
-            for column in range(self.Products_Table.columnCount()):
-                item = self.Products_Table.item(row, column)
-                row_data.append(item.text() if item is not None else '')
-            rows_list.append(row_data)
-            
-        Total = 0
-        for value in rows_list:
-            Total += ( int(value[2]) * int(value[3]) )
-            
-        self.db.add_receipt(RefNo= self.RNumber_LE.text(), TPrice= Total,
-                            ODate= self.ODate_DE.date().toPyDate(),DDate= self.DDate_DE.date().toPyDate(),
-                            Plist= rows_list)
-        self.clear_table()
-        self.Finish_btnsgl.emit()
+        if self.RNumber_LE != '':
+            rows_list = []
+            for row in range(self.Products_Table.rowCount()):
+                row_data = []
+                for column in range(self.Products_Table.columnCount()):
+                    item = self.Products_Table.item(row, column)
+                    row_data.append(item.text() if item is not None else '')
+                rows_list.append(row_data)
+                
+            Total = 0
+            for value in rows_list:
+                Total += ( int(value[2]) * int(value[3]) )
+                
+            self.db.add_receipt(RefNo= self.RNumber_LE.text(), TPrice= Total,
+                                ODate= self.ODate_DE.date().toPyDate(),DDate= self.DDate_DE.date().toPyDate(),
+                                Plist= rows_list)
+            self.clear_table()
+            self.Finish_btnsgl.emit()
+        else:
+            Dlg = DLG_Alert(msg= 'No Supplier Receipt Number!')
+            Dlg.exec()
         
     def add_prod(self):
         

@@ -268,7 +268,7 @@ border : 2px solid #ABE27D;
            </widget>
           </item>
           <item>
-           <widget class="QTableWidget" name="tableWidget">
+           <widget class="QTableWidget" name="Daily_table">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -304,6 +304,9 @@ border : 2px solid #ABE27D;
             <property name="sortingEnabled">
              <bool>true</bool>
             </property>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
             <column>
              <property name="text">
               <string>Date/Time</string>
@@ -365,7 +368,7 @@ border : 2px solid #ABE27D;
            </widget>
           </item>
           <item>
-           <widget class="QTableWidget" name="tableWidget_2">
+           <widget class="QTableWidget" name="Monthly_table">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -381,6 +384,19 @@ border : 2px solid #ABE27D;
             <property name="frameShape">
              <enum>QFrame::Box</enum>
             </property>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Month</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Total </string>
+             </property>
+            </column>
            </widget>
           </item>
          </layout>
@@ -420,7 +436,7 @@ border : 2px solid #ABE27D;
            </widget>
           </item>
           <item>
-           <widget class="QTableWidget" name="tableWidget_3">
+           <widget class="QTableWidget" name="Yearly_table">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
               <horstretch>0</horstretch>
@@ -436,6 +452,19 @@ border : 2px solid #ABE27D;
             <property name="frameShape">
              <enum>QFrame::Box</enum>
             </property>
+            <attribute name="verticalHeaderVisible">
+             <bool>false</bool>
+            </attribute>
+            <column>
+             <property name="text">
+              <string>Year</string>
+             </property>
+            </column>
+            <column>
+             <property name="text">
+              <string>Total</string>
+             </property>
+            </column>
            </widget>
           </item>
          </layout>

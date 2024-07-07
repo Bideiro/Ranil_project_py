@@ -119,7 +119,7 @@ class Ui_Dialog(object):
         font.setFamily("DM Sans")
         font.setPointSize(11)
         self.Input2_LE.setFont(font)
-        self.Input2_LE.setMaxLength(13)
+        self.Input2_LE.setMaxLength(30)
         self.Input2_LE.setObjectName("Input2_LE")
         self.verticalLayout_5.addWidget(self.Input2_LE)
         self.verticalLayout.addWidget(self.widget_4)

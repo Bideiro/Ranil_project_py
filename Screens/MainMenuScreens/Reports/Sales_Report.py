@@ -1,9 +1,9 @@
 
-from datetime import datetime
-from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget, QTableWidgetItem
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
+import datetime
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+
 from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
@@ -23,25 +23,13 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
         self.generateBtn.clicked.connect(self.print_to_pdf)
         self.Search_btn.clicked.connect(self.search)
         self.Refresh_btn.clicked.connect(self.set_tableElements)
-        self.backBtn.clicked.connect(self.prev_window)
-
-    def set_tableElements(self):
-        searchResult = self.db.get_salesR()
-        self.tableWidget.setRowCount(0)
-        if searchResult:
-            for row_number, row_data in enumerate(searchResult):
-                self.tableWidget.insertRow(row_number)
-                for column_number, data in enumerate(row_data):
-                    self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-
-    def prev_window(self):
-        self.back_btnsgl.emit()
-
-    def search(self):
-        start_date = self.dateEdit.date().toPyDate()
-        end_date = self.dateEdit2.date().toPyDate()
+        self.backBtn.clicked.connect(lambda: self.back_btnsgl.emit())
         
-        if self.radioButton.isChecked() and start_date != end_date:
+    def search(self):
+        start_date = self.SDate_DE.date().toPyDate()
+        end_date = self.EDate_DE.date().toPyDate()
+        
+        if self.DRange_RB.isChecked() and start_date != end_date:
             searchResult = self.db.search_sales_rep(start_date, end_date)
         else:
             searchResult = self.db.search_sales_rep(start_date)
@@ -51,12 +39,49 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
+                    if column_number == 0:
+                        data = data.strftime('%B %d, %Y %H:%M')
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
             print('No transactions found for the selected date or date range.')
-            
-            
-            
+
+    def set_tableElements(self):
+        self.set_daily_tableElements()
+        self.set_monthly_tableElements()
+        self.set_yearly_tableElements()
+        
+    def set_daily_tableElements(self):
+        Result = self.db.get_sales_report(daily= True)
+        self.Daily_table.setRowCount(0)
+        if Result:
+            for row_number, row_data in enumerate(Result):
+                self.Daily_table.insertRow(row_number)
+                for column_number, data in enumerate(row_data):
+                    # if column_number == 0:
+                    #     data = data.strftime('%B %d, %Y')
+                    self.Daily_table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                    
+    def set_monthly_tableElements(self):
+        Result = self.db.get_sales_report(monthly=True)
+        self.Monthly_table.setRowCount(0)
+        if Result:
+            for row_number, row_data in enumerate(Result):
+                self.Monthly_table.insertRow(row_number)
+                for column_number, data in enumerate(row_data):
+                    if column_number == 0:
+                        date_time = datetime.datetime(1900, data, 1)
+                        data = date_time.strftime('%B')
+                    self.Monthly_table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                    
+    def set_yearly_tableElements(self):
+        Result = self.db.get_sales_report(yearly=True)
+        self.Yearly_table.setRowCount(0)
+        if Result:
+            for row_number, row_data in enumerate(Result):
+                self.Yearly_table.insertRow(row_number)
+                for column_number, data in enumerate(row_data):
+                    self.Yearly_table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+    
     def print_to_pdf(self):
         # Create a document
         pdf_filename = "Sales_Report.pdf"

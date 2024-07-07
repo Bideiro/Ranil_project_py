@@ -1,14 +1,13 @@
-import sys
-import mysql.connector
+
 import pandas as pd
 import numpy as np
 from datetime import datetime
 import matplotlib.pyplot as plt 
-from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget, QTableWidgetItem
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+
 from Database.DBController import dbcont
 from reportlab.lib.pagesizes import letter
-from reportlab.pdfgen import canvas
+
 from reportlab.lib import colors
 from reportlab.lib.styles import getSampleStyleSheet
 from io import BytesIO
@@ -16,7 +15,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, 
 
 from .Inventory_Report_ui import Ui_MainWindow
 from Database.DBController import dbcont
-from PyQt5 import QtWidgets, QtGui, QtCore
+
 class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
     db = dbcont()
     
@@ -37,6 +36,8 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
+                    # if column_number == 0:
+                        # data = data.strftime('%B %d, %Y %H:%M')
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
 
 
@@ -54,7 +55,8 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    print('Setting item...')
+                    if column_number == 0:
+                        data = data.strftime('%B %d, %Y %H:%M')
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
             print('No transactions found for the selected date or date range.')
