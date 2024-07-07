@@ -32,6 +32,8 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         self.update_nextRUID()
         self.Level_CB.currentTextChanged.connect(self.update_nextRUID)
         
+        self.Level_CB.currentTextChanged.connect(lambda: print(self.Level_CB.currentIndex()))
+        
     def update_nextRUID(self):
         newuid = self.db._create_rid(typeID= self.Level_CB.currentIndex(), user=True, new=True)
         self.NRUID_L.setText(newuid)
@@ -54,7 +56,6 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
                             Hdate= self.DHire_DE.date().toPyDate(),
                             Bdate= self.BDate_DE.date().toPyDate(),
                             Add= self.address_LE.text())
-        print(funcmsg)
         if funcmsg == True:
             self.confirmed_reg()
         else:
@@ -65,7 +66,8 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         Dlg = DLG_AdminCheckPass()
         Dlg.exec()
         if Dlg.result() == 1:
-            self.db.reg_user_protocol(LevelID= self.Level_CB.currentIndex(),
+            self.db.reg_user_protocol(
+                            LevelID= self.Level_CB.currentIndex(),
                             Uname= self.user_LE.text(),
                             Passcode= self.PCode_LE.text(),
                             fname= self.FName_LE.text(),

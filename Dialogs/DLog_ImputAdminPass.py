@@ -17,8 +17,8 @@ class DLG_AdminCheckPass(QDialog, Ui_Dialog):
         
         self.onlyInt = QIntValidator()
         self.Input_LE.setValidator(self.onlyInt)
+        self.Input_LE.setFocus()
         self.setWindowFlags(Qt.Popup)
-        
         self.ok_btn.clicked.connect(self.confirmed)
         
     def confirmed(self):

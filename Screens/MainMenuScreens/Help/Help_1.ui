@@ -6,12 +6,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>922</width>
+    <height>523</height>
    </rect>
-  </property>
-  <property name="windowTitle">
-   <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
@@ -44,8 +41,8 @@ background-color: #F8F8F0
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>257</width>
-        <height>552</height>
+        <width>0</width>
+        <height>0</height>
        </size>
       </property>
      </spacer>
@@ -169,15 +166,14 @@ background-color: #F8F8F0
       </property>
       <property name="sizeHint" stdset="0">
        <size>
-        <width>257</width>
-        <height>552</height>
+        <width>0</width>
+        <height>0</height>
        </size>
       </property>
      </spacer>
     </item>
    </layout>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>

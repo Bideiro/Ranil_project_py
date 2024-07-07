@@ -1,46 +1,55 @@
 <RCC>
   <qresource prefix="Icons">
-    <file>Icons/hide.png</file>
-    <file>Icons/show.png</file>
-    <file>Icons/red_exclamation.png</file>
-    <file>images/Ranil_ICON.png</file>
-    <file>Icons/remove.png</file>
-    <file>Icons/delete.png</file>
-    <file>Icons/enter.png</file>
-    <file>Icons/plus.png</file>
-    <file>Icons/add.png</file>
-    <file>Icons/calendar.png</file>
+    <file>Icons/folder.png</file>
+    <file>Icons/transaction-history.png</file>
+    <file>Icons/inventory.png</file>
+    <file>Icons/report.png</file>
+    <file>Icons/optimizing.png</file>
+    <file>Icons/memo.png</file>
+    <file>Icons/management.png</file>
+    <file>Icons/logout.png</file>
+    <file>Icons/information.png</file>
+    <file>Icons/increasing.png</file>
+    <file>Icons/group.png</file>
+    <file>Icons/fees.png</file>
+    <file>Icons/discount.png</file>
+    <file>Icons/about.png</file>
+    <file>Icons/option white.png</file>
     <file>Icons/close.png</file>
+    <file>Icons/hide.png</file>
+    <file>Icons/right.png</file>
+    <file>Icons/facebook.png</file>
+    <file>Icons/recent green.png</file>
     <file>Icons/computer.png</file>
-    <file>Icons/desktop.png</file>
+    <file>Icons/delete.png</file>
+    <file>Icons/phone.png</file>
+    <file>Icons/profile.png</file>
+    <file>Icons/remove.png</file>
+    <file>Icons/calendar.png</file>
+    <file>Icons/enter.png</file>
+    <file>Icons/left-arrow white.png</file>
+    <file>Icons/right-arrow black.png</file>
+    <file>Icons/left.png</file>
+    <file>Icons/option green.png</file>
+    <file>Icons/minus.png</file>
+    <file>Icons/search.png</file>
+    <file>Icons/red_exclamation.png</file>
+    <file>Icons/home.png</file>
     <file>Icons/down.png</file>
     <file>Icons/downloads.png</file>
-    <file>Icons/email.png</file>
-    <file>Icons/facebook.png</file>
-    <file>Icons/file.png</file>
-    <file>Icons/folder (1).png</file>
-    <file>Icons/folder green.png</file>
-    <file>Icons/folder.png</file>
-    <file>Icons/home.png</file>
-    <file>Icons/left.png</file>
-    <file>Icons/left-arrow black.png</file>
-    <file>Icons/left-arrow white.png</file>
-    <file>Icons/minus.png</file>
-    <file>Icons/option green.png</file>
-    <file>Icons/option white.png</file>
     <file>Icons/option.png</file>
-    <file>Icons/phone.png</file>
-    <file>Icons/plus.png</file>
-    <file>Icons/profile.png</file>
-    <file>Icons/recent green.png</file>
+    <file>Icons/show.png</file>
     <file>Icons/recent.png</file>
-    <file>Icons/right.png</file>
-    <file>Icons/right-arrow black.png</file>
-    <file>Icons/right-arrow white.png</file>
-    <file>Icons/search.png</file>
     <file>Icons/up.png</file>
+    <file>Icons/desktop.png</file>
+    <file>Icons/left-arrow black.png</file>
+    <file>Icons/right-arrow white.png</file>
+    <file>Icons/plus.png</file>
+    <file>Icons/email.png</file>
+    <file>Icons/add.png</file>
   </qresource>
   <qresource prefix="Images">
+    <file>images/Ranil_ICON.png</file>
     <file>images/1.png</file>
     <file>images/2.png</file>
     <file>images/3.png</file>

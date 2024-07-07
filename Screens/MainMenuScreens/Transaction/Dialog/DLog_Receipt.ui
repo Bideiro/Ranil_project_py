@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>542</width>
-    <height>831</height>
+    <width>492</width>
+    <height>722</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,15 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QWidget" name="widget" native="true">
+     <property name="styleSheet">
+      <string notr="true">.QWidget{
+background-color: #F8F8F0;
+}
+
+#widget{
+border: 1px solid black;
+}</string>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <property name="leftMargin">
        <number>12</number>
@@ -243,16 +252,13 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_4">
+          <spacer name="horizontalSpacer_6">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
-           <property name="sizeType">
-            <enum>QSizePolicy::Fixed</enum>
-           </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>10</width>
+             <width>40</width>
              <height>20</height>
             </size>
            </property>
@@ -301,13 +307,16 @@
           </widget>
          </item>
          <item>
-          <spacer name="horizontalSpacer_6">
+          <spacer name="horizontalSpacer_4">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Fixed</enum>
+           </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>40</width>
+             <width>10</width>
              <height>20</height>
             </size>
            </property>
@@ -414,7 +423,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="PaymentType">
+          <widget class="QLabel" name="PMethod_L">
            <property name="font">
             <font>
              <family>Inconsolata</family>
@@ -427,7 +436,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="AmountPaid">
+          <widget class="QLabel" name="APaid_L">
            <property name="font">
             <font>
              <family>Inconsolata</family>
@@ -457,12 +466,12 @@
          <item>
           <widget class="QLabel" name="label_14">
            <property name="text">
-            <string>Number of Items:</string>
+            <string>Number of Item/s:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="ItemsNo">
+          <widget class="QLabel" name="INumber_L">
            <property name="text">
             <string>TextLabel</string>
            </property>
@@ -528,7 +537,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="RID_L">
+          <widget class="QLabel" name="GCRef_L">
            <property name="font">
             <font>
              <family>Inconsolata</family>

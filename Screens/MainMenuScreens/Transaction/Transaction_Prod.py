@@ -245,8 +245,18 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
             SoldProductsList= self.SProdConfirmed,
             GCashRef= self.GCashRef, Ptype= payment
         )
-        self.dlg_receipt = DLG_Receipt(prodlist=self.SProdConfirmed,Tprice= self.TotalPrice,
-                                    Ptype= payment, Pprice= self.amtpaid, RID = self.db.get_recent_receiptID())
+        receiptID = self.db.get_recent_receiptID()
+        receiptdata = self.db.search_trans_receipts(searchstr= receiptID)
+        print(self.SProdConfirmed)
+        self.dlg_receipt = DLG_Receipt(
+                                    prodlist=self.SProdConfirmed,
+                                    Tprice= self.TotalPrice,
+                                    Ptype= payment,
+                                    Pprice= self.amtpaid,
+                                    RID = receiptID,
+                                    DTime= receiptdata[2],
+                                    GCRef= receiptdata[6]
+                                    )
         self.dlg_receipt.exec()
         self.set_tableElements()
         self.PReceipt_btn.setEnabled(True)
@@ -287,7 +297,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         current_datetime = QDateTime.currentDateTime()
         timestamp = current_datetime.toString('yyyyMMdd_hh_mm')
 
-        output_file = os.path.join(output_directory, f'Receipt_{self.dlg_receipt.RID_L.text()}_{timestamp}.pdf')
+        output_file = os.path.join(output_directory, f'Receipt_{self.dlg_receipt.ReceiptNo_L.text()}_{timestamp}.pdf')
         printer.setOutputFileName(output_file)
         
         # Adjust widget size

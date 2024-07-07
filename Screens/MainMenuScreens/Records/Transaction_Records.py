@@ -1,12 +1,12 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QTableWidgetItem, QWidget
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
-from PyQt5 import QtWidgets, QtGui, QtCore
+from PyQt5 import QtCore
 
 
 from .Transaction_Records_ui import Ui_MainWindow
 
-from .Dialog.DLog_Receipt import DLG_Receipt_Reprint
+from .Dialog.DLog_Receipt_Reprint import DLG_Receipt_Reprint
 
 from Database.DBController import dbcont
 

@@ -1,9 +1,11 @@
 
+from cgi import print_arguments
+from math import pi
 import sys
 import re
 import mysql.connector
 from mysql.connector import errorcode
-from numpy import record
+from numpy import record, rint
 from Database.User_Manager import UserMana
 import hashlib
 
@@ -101,6 +103,51 @@ class dbcont(object):
         val = (self.User.RUID, self.get_levels(id =self.User.Level), self.User.User, action, currdate)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
+    
+    # RID CREATOR
+        # none for rid
+    def _create_rid(self, typeID = None , id = None, date= None,RID = None,prod = None, user = None, receipt = None, new = None):
+        
+        if RID != None:
+            if user != None:
+                sql = 'Select UID FROM accounts WHERE RUID = %s'
+            elif prod != None:
+                sql = 'Select ProductID FROM products WHERE RPID = %s'
+            self.mycursor.execute(sql ,(RID,))
+            id = self.mycursor.fetchone()[0]
+        
+        if user != None:
+            if typeID == 0 or typeID == '0':
+                typeID = 'AD'
+            else:
+                typeID = 'EMP'
+            id = str(id).zfill(3)
+            
+        elif prod != None:
+            typeID = str(typeID).zfill(2)
+            id = str(id).zfill(4)
+            
+        elif receipt != None:
+            pass
+        if new: 
+            if prod:
+                sql = "SELECT COUNT(*) FROM products"
+                self.mycursor.execute(sql)
+                nextid =int(self.mycursor.fetchone()[0]) + 1
+                unit_id = typeID + '-' + str(nextid).zfill(4)
+                return unit_id
+            elif user:
+                sql = "SELECT COUNT(*) FROM accounts;"
+                self.mycursor.execute(sql)
+                nextid =int(self.mycursor.fetchone()[0]) + 1
+                unit_id = typeID + '-' + str(nextid).zfill(3)
+                return unit_id
+            elif receipt:
+                
+                pass
+        else:
+            unit_id = typeID + '-' + id
+            return unit_id
     
     # Getting data from Tables
     
@@ -250,7 +297,21 @@ class dbcont(object):
             return listed
         else:
             print('No Arguements! (Get suffix)')
-            
+    
+    # Adding data to tables
+    
+    def add_cate(self, cate):
+        
+        sql =""" INSERT INTO category (Category) VALUES (%s)"""
+        self.mycursor.execute(sql,(cate,))
+        self.mydb.commit()
+        
+    def add_unittype(self, unit):
+        
+        sql =""" INSERT INTO unit_type (UnitType) VALUES (%s)"""
+        self.mycursor.execute(sql,(unit,))
+        self.mydb.commit()
+    
     # verifying things Checking availability
     
     def verify_username(self, uname):
@@ -263,7 +324,7 @@ class dbcont(object):
     
     # User Data Manipulation
     # Getting User Data
-    
+        
     def get_all_users(self):
         self.mycursor.execute("SELECT * FROM accounts")
         return self.mycursor.fetchall()
@@ -296,6 +357,17 @@ class dbcont(object):
             sql = "UPDATE accounts SET Status = %s WHERE RUID = %s"
             self.mycursor.execute(sql, (status, RUID))
             self.mydb.commit()
+    
+    # Modifying Data
+    def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, mname, sex, phono, email, Dhired, Bdate, address,  pos = None, suffix = None):
+        hashedPass = hashlib.sha256(Passcode.encode()).hexdigest() 
+        
+        sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, Mname, SuffixID, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        val = (LevelID, self._create_rid(typeID= LevelID, user=True, new=True), Uname, hashedPass, fname, lname, mname, suffix, 
+            sex, phono, email, pos, Dhired, Bdate, address)
+        self.mycursor.execute(sql,val)
+        self.mydb.commit()
     
     def update_user_protocol(self,UID, NewUlist):
         print(NewUlist)
@@ -332,9 +404,160 @@ class dbcont(object):
         self.mycursor.execute(sql,NewUlist + UID)
         self.mydb.commit()
     
+    # Product Data Manipulation
+    # Get Product Data
+    def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None):
+        if inv:
+            sql = """
+                    SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products
+                    WHERE RPID LIKE %s
+                    OR ProductName LIKE %s
+                    OR SellingPrice LIKE %s
+                    OR ExpirationDate LIKE %s
+                    OR TotalStock LIKE %s
+                    """
+            searchstr = '%' + searchstr + '%'
+            val = (searchstr,searchstr,searchstr,searchstr,searchstr)
+            self.mycursor.execute(sql,val)
+            return self.mycursor.fetchall()
+        
+        elif trans:
+            sql = """
+                    SELECT ProductID, ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
+                    WHERE (ProductID LIKE %s
+                    OR ProductName LIKE %s
+                    OR SellingPrice LIKE %s
+                    OR ExpirationDate LIKE %s
+                    OR TotalStock LIKE %s)
+                    AND Active = 1
+                    """
+            searchstr = '%' + searchstr + '%'
+            val = (searchstr,searchstr,searchstr,searchstr,searchstr)
+            self.mycursor.execute(sql,val)
+            return self.mycursor.fetchall()
+        elif id:
+            sql = """
+                    SELECT RPID, ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
+                    WHERE RPID LIKE %s
+                    """
+            self.mycursor.execute(sql,(searchstr,))
+            return self.mycursor.fetchone()
+        elif receipt:
+            sql = """
+                    SELECT RPID, ProductName FROM products
+                    WHERE RPID LIKE %s
+                    """
+            self.mycursor.execute(sql,(searchstr,))
+            return self.mycursor.fetchone()
+        return 0
     
+    def access_status_prod(self, RPID, status = None ):
+        if status == None:
+            sql = "SELECT Active FROM products WHERE RPID = %s"
+            self.mycursor.execute(sql, (RPID,))
+            return self.mycursor.fetchone()[0]
+        else:
+            sql = "UPDATE products SET Active = %s WHERE RPID = %s"
+            self.mycursor.execute(sql, (status, RPID))
+            self.mydb.commit()
     
+    def get_all_prod(self, inv = None , trans = None, records = None):
+        
+        if inv:
+            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description, Active FROM products "
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        elif records:
+            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description, Active FROM products WHERE Active = '1'"
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        else:
+            sql = "SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE Active = 1"
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        
+    def get_prod_search(self, searchcate= None, searchstr=None, all= None):
+        if all != None:
+            sql = """
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE Active = 1
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        elif searchcate != -1 and searchstr == None:
+            sql = """
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE CategoryID = %s AND Active = 1
+            """
+            self.mycursor.execute(sql,(searchcate,))
+            return self.mycursor.fetchall()
+        elif searchstr != '' and searchcate != -1:
+            # Search all products with category
+            sql = """
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products 
+                    WHERE (RPID LIKE %s
+                        OR ProductName LIKE %s
+                        OR SellingPrice LIKE %s
+                        OR ExpirationDate LIKE %s
+                        OR TotalStock LIKE %s)
+                    AND CategoryID = %s
+                    AND Active = 1
+            """
+            searchstr = '%' + searchstr + '%'
+            self.mycursor.execute(sql,(searchstr,searchstr,searchstr,searchstr,searchstr,searchcate))
+            return self.mycursor.fetchall()
+        elif searchstr != '' and searchcate == -1:
+            # Search all products regardless of category
+            sql = """
+                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products 
+                    WHERE (RPID LIKE %s
+                    OR ProductName LIKE %s
+                    OR SellingPrice LIKE %s
+                    OR ExpirationDate LIKE %s
+                    OR TotalStock LIKE %s )
+                    AND Active = 1
+            """
+            searchstr = '%' + searchstr + '%'
+            self.mycursor.execute(sql,(searchstr,searchstr,searchstr,searchstr,searchstr))
+            return self.mycursor.fetchall()
+        else:
+            print('fok')
+    
+    def prod_price(self, id):
+        sql = """
+                    SELECT SellingPrice FROM products
+                    WHERE RPID = %s
+                    """
+        self.mycursor.execute(sql,(id,))
+        return self.mycursor.fetchone()[0]
+
+    # Modifying/Adding Product Data
+    
+    def reg_prod_protocol(self,Pname, Sprice, Utype , Ctype ,desc = None):
+        sql =""" INSERT INTO products (RPID, ProductName, SellingPrice, Description, TotalStock,UnitTypeID, CategoryID)
+                    VALUES (%s, %s, %s,%s ,%s,%s,%s)"""
+        val = (self._create_rid(typeID=Ctype,prod=True,new=True),Pname, Sprice,desc, 0,Utype, Ctype )
+        self.mycursor.execute(sql,val)
+        self.mydb.commit()
+        
+    def update_prod_protocol(self,RPID, NewPlist ):
+        sql ="""
+        UPDATE products
+        SET RPID = %s, ProductName = %s, SellingPrice = %s, Description = %s, UnitTypeID = %s, CategoryID = %s
+        WHERE RPID = %s;
+        """
+        self.mycursor.execute(sql,NewPlist + RPID)
+        self.mydb.commit()
+        
     # Receipt Manipulation
+    # Getting Receipt Data
+    
+    def get_recent_receiptID(self):
+        
+        sql = """
+        SELECT TransactionReceiptID FROM transaction_receipts ORDER BY ID DESC LIMIT 1;
+        """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchone()[0]
+    
     def get_all_supp_receipts(self):
         
         sql = """
@@ -386,103 +609,7 @@ class dbcont(object):
         self.mycursor.execute(sql,val)
         return self.mycursor.fetchall()[0]
     
-    # Receipt Product Manipulation
-    
-    def get_receipt_products(self, ReceiptID):
-        
-        sql = """
-                SELECT ProductID, Price, Quantity from products_sold WHERE ReceiptID = %s
-            
-        """
-        self.mycursor.execute(sql,(ReceiptID,))
-        return self.mycursor.fetchall()
-    
-    
-    # Registration
-    
-    def add_cate(self, cate):
-        
-        sql =""" INSERT INTO category (Category) VALUES (%s)"""
-        self.mycursor.execute(sql,(cate,))
-        self.mydb.commit()
-        
-    def add_unittype(self, unit):
-        
-        sql =""" INSERT INTO unit_type (UnitType) VALUES (%s)"""
-        self.mycursor.execute(sql,(unit,))
-        self.mydb.commit()
-    
-    def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, mname, sex, phono, email, Dhired, Bdate, address,  pos = None, suffix = None):
-        hashedPass = hashlib.sha256(Passcode.encode()).hexdigest() 
-        
-        sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, Mname, SuffixID, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
-                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
-        val = (LevelID, self._create_rid(id= LevelID, user=True, new=True),Uname, hashedPass, fname, lname, mname, suffix, 
-            sex, phono, email, pos, Dhired, Bdate, address)
-        self.mycursor.execute(sql,val)
-        self.mydb.commit()
-        
-    def reg_prod_protocol(self,Pname, Sprice, Utype , Ctype ,desc = None):
-        sql =""" INSERT INTO products (RPID, ProductName, SellingPrice, Description, TotalStock,UnitTypeID, CategoryID)
-                    VALUES (%s, %s, %s,%s ,%s,%s,%s)"""
-        val = (self._create_rid(typeID=Ctype,prod=True,new=True),Pname, Sprice,desc, 0,Utype, Ctype )
-        self.mycursor.execute(sql,val)
-        self.mydb.commit()
-        
-        
-    # Transaction
-    def get_prod_search(self, searchcate= None, searchstr=None, all= None):
-        if all != None:
-            sql = """
-                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE Active = 1
-            """
-            self.mycursor.execute(sql)
-            return self.mycursor.fetchall()
-        elif searchcate != -1 and searchstr == None:
-            sql = """
-                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE CategoryID = %s AND Active = 1
-            """
-            self.mycursor.execute(sql,(searchcate,))
-            return self.mycursor.fetchall()
-        elif searchstr != '' and searchcate != -1:
-            # Search all products with category
-            sql = """
-                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products 
-                    WHERE (RPID LIKE %s
-                        OR ProductName LIKE %s
-                        OR SellingPrice LIKE %s
-                        OR ExpirationDate LIKE %s
-                        OR TotalStock LIKE %s)
-                    AND CategoryID = %s
-                    AND Active = 1
-            """
-            searchstr = '%' + searchstr + '%'
-            self.mycursor.execute(sql,(searchstr,searchstr,searchstr,searchstr,searchstr,searchcate))
-            return self.mycursor.fetchall()
-        elif searchstr != '' and searchcate == -1:
-            # Search all products regardless of category
-            sql = """
-                SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products 
-                    WHERE (RPID LIKE %s
-                    OR ProductName LIKE %s
-                    OR SellingPrice LIKE %s
-                    OR ExpirationDate LIKE %s
-                    OR TotalStock LIKE %s )
-                    AND Active = 1
-            """
-            searchstr = '%' + searchstr + '%'
-            self.mycursor.execute(sql,(searchstr,searchstr,searchstr,searchstr,searchstr))
-            return self.mycursor.fetchall()
-        else:
-            print('fok')
-        
-    def prod_price(self, id):
-        sql = """
-                    SELECT SellingPrice FROM products
-                    WHERE RPID = %s
-                    """
-        self.mycursor.execute(sql,(id,))
-        return self.mycursor.fetchone()[0]
+    # Adding Receipt Data
     
     def add_sold_protocol(self,Price, PPrice, SoldProductsList, Ptype, GCashRef = None):
         # Getting todays Date
@@ -509,6 +636,18 @@ class dbcont(object):
         val = (receiptID, ID)
         self.mycursor.execute(sql, val)
         self.add_sold_products(SoldPlist= SoldProductsList, RID= receiptID,currdate=currdate)
+        
+    
+    # Receipt Product Manipulation
+    # Getting Receipt Product Data
+    def get_receipt_products(self, ReceiptID):
+        
+        sql = """
+                SELECT ProductID, Price, Quantity from products_sold WHERE ReceiptID = %s
+            
+        """
+        self.mycursor.execute(sql,(ReceiptID,))
+        return self.mycursor.fetchall()
         
     def add_sold_products(self, SoldPlist, RID, currdate):
         # [['00-0001', 'Royal Canin', '1']]
@@ -538,87 +677,6 @@ class dbcont(object):
             self.mycursor.execute(sql4, (RID, prod[0],prod[2], price, currdate))
             self.mydb.commit()
     
-    def get_recent_receiptID(self):
-        
-        sql = """
-        SELECT TransactionReceiptID FROM transaction_receipts ORDER BY ID DESC LIMIT 1;
-
-        """
-        self.mycursor.execute(sql)
-        return self.mycursor.fetchone()[0]
-    
-    # Inventory
-    def get_all_prod(self, inv = None , trans = None, records = None):
-        
-        if inv:
-            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description, Active FROM products "
-            self.mycursor.execute(sql)
-            return self.mycursor.fetchall()
-        elif records:
-            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description, Active FROM products WHERE Active = '1'"
-            self.mycursor.execute(sql)
-            return self.mycursor.fetchall()
-        else:
-            sql = "SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE Active = 1"
-            self.mycursor.execute(sql)
-            return self.mycursor.fetchall()
-        
-    def access_status_prod(self, RPID, status = None ):
-        if status == None:
-            sql = "SELECT Active FROM products WHERE RPID = %s"
-            self.mycursor.execute(sql, (RPID,))
-            return self.mycursor.fetchone()[0]
-        else:
-            sql = "UPDATE products SET Active = %s WHERE RPID = %s"
-            self.mycursor.execute(sql, (status, RPID))
-            self.mydb.commit()
-
-    def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None):
-        if inv:
-            sql = """
-                    SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products
-                    WHERE RPID LIKE %s
-                    OR ProductName LIKE %s
-                    OR SellingPrice LIKE %s
-                    OR ExpirationDate LIKE %s
-                    OR TotalStock LIKE %s
-                    """
-            searchstr = '%' + searchstr + '%'
-            val = (searchstr,searchstr,searchstr,searchstr,searchstr)
-            self.mycursor.execute(sql,val)
-            return self.mycursor.fetchall()
-        
-        elif trans:
-            sql = """
-                    SELECT ProductID, ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
-                    WHERE (ProductID LIKE %s
-                    OR ProductName LIKE %s
-                    OR SellingPrice LIKE %s
-                    OR ExpirationDate LIKE %s
-                    OR TotalStock LIKE %s)
-                    AND Active = 1
-                    """
-            searchstr = '%' + searchstr + '%'
-            val = (searchstr,searchstr,searchstr,searchstr,searchstr)
-            self.mycursor.execute(sql,val)
-            return self.mycursor.fetchall()
-        elif id:
-            sql = """
-                    SELECT RPID, ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
-                    WHERE RPID LIKE %s
-                    """
-            self.mycursor.execute(sql,(searchstr,))
-            return self.mycursor.fetchone()
-        elif receipt:
-            sql = """
-                    SELECT RPID, ProductName FROM products
-                    WHERE RPID LIKE %s
-                    """
-            self.mycursor.execute(sql,(searchstr,))
-            return self.mycursor.fetchone()
-        return 0
-        
-    # record
     def add_receipt(self,RefNo, TPrice ,ODate, DDate, Plist):
         
         sql = """INSERT INTO supplier_receipts (RUID, ReceiptRef, TotalPrice, OrderDate, DeliveryDate)
@@ -684,67 +742,7 @@ class dbcont(object):
         """
         self.mycursor.execute(sql, (latestEdate,RPID))
         self.mydb.commit()
-        
-        
-    def update_prod_protocol(self,RPID, NewPlist ):
-        
-        sql ="""
-        UPDATE products
-        SET RPID = %s, ProductName = %s, SellingPrice = %s, Description = %s, UnitTypeID = %s, CategoryID = %s
-        WHERE RPID = %s;
-        """
-        self.mycursor.execute(sql,NewPlist + RPID)
-        self.mydb.commit()
-        
-    # none for rid
-    def _create_rid(self, typeID = None , id = None, date= None,RID = None,prod = None, user = None, receipt = None, new = None):
-        
-        if RID != None:
-            if user != None:
-                sql = 'Select UID FROM accounts WHERE RUID = %s'
-            elif prod != None:
-                sql = 'Select ProductID FROM products WHERE RPID = %s'
-            self.mycursor.execute(sql ,(RID,))
-            id = self.mycursor.fetchone()[0]
-        
-        if user != None:
-            if typeID == 0:
-                typeID = 'AD'
-            else:
-                typeID = 'EMP'
-            id = str(id).zfill(3)
-            
-        elif prod != None:
-            typeID = str(typeID).zfill(2)
-            id = str(id).zfill(4)
-            
-        elif receipt != None:
-            
-            
-            
-            pass
-            
-        if new: 
-            if prod:
-                sql = "SELECT COUNT(*) FROM products"
-                self.mycursor.execute(sql)
-                nextid =int(self.mycursor.fetchone()[0]) + 1
-                print(nextid)
-                unit_id = typeID + '-' + str(nextid).zfill(4)
-                return unit_id
-            elif user:
-                sql = "SELECT COUNT(*) FROM accounts;"
-                self.mycursor.execute(sql)
-                nextid =int(self.mycursor.fetchone()[0]) + 1
-                unit_id = typeID + '-' + str(nextid).zfill(3)
-                return unit_id
-            elif receipt:
-                
-                pass
-        else:
-            unit_id = typeID + '-' + id
-            return unit_id
-    
+
     def get_RUID_user(self, uname ,email,check = None):
         if check:
             sql = """
