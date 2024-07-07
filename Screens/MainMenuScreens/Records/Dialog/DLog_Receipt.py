@@ -16,13 +16,23 @@ class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
         
         self.Plist = prodlist
         
-        
         self.setWindowTitle(f'Showing Receipt No: {RID}')
         
         self.create_prodlist()
         
+        usercreds = self.db.get_user_creds(RUID= self.User.RUID)
         
-        # self.UName_L.setText(self.db.get_user_creds(RUID= self.User.RUID))
+        if usercreds[8] != 0:
+            suffix = self.db.get_suffix(id= usercreds[8])
+        else:
+            suffix = ''
+        if usercreds[7] == None or usercreds[7] == '':
+            whole_name = str(usercreds[5]) + ' ' + str(usercreds[6]) + ' ' + str(suffix)
+        else:
+            whole_name = str(usercreds[5]) + ' ' + str(usercreds[7]) + ' ' + str(usercreds[6]) + ' ' + str(suffix)
+            
+        
+        self.UName_L.setText(whole_name)
         self.APaid_L.setText(str(Pprice))
         self.ReceiptNo_L.setText(str(RID))
         
