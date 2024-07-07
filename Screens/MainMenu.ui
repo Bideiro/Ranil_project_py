@@ -297,7 +297,6 @@ background-color: #F8F8F0;
            <pointsize>10</pointsize>
            <bold>true</bold>
            <kerning>false</kerning>
-           <hintingpreference>PreferNoHinting</hintingpreference>
           </font>
          </property>
          <property name="styleSheet">

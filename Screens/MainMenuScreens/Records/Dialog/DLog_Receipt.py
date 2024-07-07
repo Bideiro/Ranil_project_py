@@ -10,7 +10,7 @@ class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
     db = dbcont()
     User = UserMana()
     
-    def __init__(self, prodlist, Tprice ,Ptype, Pprice, RID, GCRef, parent = None):
+    def __init__(self, prodlist, Tprice ,Ptype, Pprice, RID, DTime, GCRef, parent = None):
         super().__init__(parent)
         self.setupUi(self)
         
@@ -35,7 +35,8 @@ class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
         self.UName_L.setText(whole_name)
         self.APaid_L.setText(str(Pprice))
         self.ReceiptNo_L.setText(str(RID))
-        
+        self.DateTime_L.setText(str(DTime))
+        self.INumber_L.setText(str(len(self.Plist)))
         self.TotalPrice_L.setText(str(Tprice))
         if Ptype == 0:
             self.PMethod_L.setText('Payment Type: Cash')

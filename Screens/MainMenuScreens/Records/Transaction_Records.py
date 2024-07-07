@@ -48,6 +48,7 @@ class Trans_Rec_Window(QMainWindow, Ui_MainWindow):
                                 Tprice= receipt[3],
                                 Ptype= receipt[5],
                                 Pprice= receipt[4],
+                                DTime= receipt[2],
                                 RID= receipt[0],
                                 GCRef= receipt[6]
                                 )
