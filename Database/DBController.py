@@ -359,6 +359,17 @@ class dbcont(object):
             self.mydb.commit()
     
     # Modifying Data
+    def update_passcode(self,RUID, passcode):
+        hashedPass = hashlib.sha256(passcode.encode()).hexdigest() 
+        
+        sql = """
+        UPDATE accounts
+        SET Passcode = %s
+        WHERE RUID = %s;
+        """
+        self.mycursor.execute(sql, (hashedPass,RUID))
+        self.mydb.commit()
+
     def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, mname, sex, phono, email, Dhired, Bdate, address,  pos = None, suffix = None):
         hashedPass = hashlib.sha256(Passcode.encode()).hexdigest() 
         
@@ -766,15 +777,6 @@ class dbcont(object):
             self.mycursor.execute(sql, (uname,email))
             return self.mycursor.fetchone()[0]
         
-    def update_passcode(self,RUID, passcode):
-        sql = """
-        UPDATE accounts
-        SET Passcode = %s
-        WHERE RUID = %s;
-        """
-        self.mycursor.execute(sql, (passcode,RUID))
-        self.mydb.commit()
-
     # sales db
         
     def get_all_sales(self):
