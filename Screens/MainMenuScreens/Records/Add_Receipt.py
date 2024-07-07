@@ -1,12 +1,15 @@
-import sys
 from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget, QTableWidgetItem
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 
-from .Add_Receipt_ui import Ui_MainWindow
-from .Dialog.DLog_Insert_prod import DLG_Insert_Prod
 from Database.DBController import dbcont
 
-from PyQt5 import QtWidgets, QtGui, QtCore
+from .Add_Receipt_ui import Ui_MainWindow
+
+from .Dialog.DLog_Insert_prod import DLG_Insert_Prod
+from Dialogs.DLog_Alert import DLG_Alert
+
+
+from PyQt5 import QtCore
 class add_reciept_Window(QMainWindow, Ui_MainWindow):
 
     Add_btnsgl = QtCore.pyqtSignal()
@@ -14,18 +17,36 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
     Back_btnsgl = QtCore.pyqtSignal()
     
     db = dbcont()
-    TableRPID = set()
+    RPIDList= set()
+    Plist = []
     Dlg = None
     
-    selectedprods = None
+    selectedprodRPID = None
     
     def __init__(self):
         super(add_reciept_Window,self).__init__()
         self.setupUi(self)
         
-        self.AProduct_btn.clicked.connect(self.Dlg_add_prod)
+        self.AProduct_btn.clicked.connect(self.add_prod)
+        self.RProduct_btn.clicked.connect(self.prod_removed)
         self.Finish_btn.clicked.connect(self.init_add_receipt)
         self.Back_btn.clicked.connect(self.prev_window)
+        self.Products_Table.itemClicked.connect(self.select_prod)
+    
+    def select_prod(self):
+        self.selectedprodRPID = self.Products_Table.item(self.Products_Table.currentRow(), 0).text()
+    
+    def prod_removed(self):
+        if self.selectedprodRPID:
+            self.RPIDList.remove(self.selectedprodRPID)
+            for i, row in enumerate(self.Plist):
+                if self.selectedprodRPID in row:
+                    self.Plist.pop(i)
+            self.selectedprodRPID = None
+            self.refresh_table()
+        else:
+            Dlg = DLG_Alert(msg= 'No Selected Product!')
+            Dlg.exec()
     
     def init_add_receipt(self):
         rows_list = []
@@ -46,22 +67,31 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
         self.clear_table()
         self.Finish_btnsgl.emit()
         
-    def Dlg_add_prod(self):
+    def add_prod(self):
         
-        self.Dlg = DLG_Insert_Prod(RPIDlist= self.TableRPID)
+        self.Dlg = DLG_Insert_Prod(RPIDlist= self.RPIDList)
         self.Dlg.exec()
         if self.Dlg.result() == 1:
-            selprod = self.db.search_prod(searchstr=self.Dlg.selRPID, receipt=True)
-            self.TableRPID.add(selprod[0])
-            rowpos = self.Products_Table.rowCount()
-            self.Products_Table.insertRow(rowpos)
-            for col, data in enumerate(selprod):
-                    self.Products_Table.setItem(rowpos, col, QTableWidgetItem(str(data)))
-            self.Products_Table.setItem(rowpos, 2, QTableWidgetItem(self.Dlg.selPrice))
-            self.Products_Table.setItem(rowpos, 3, QTableWidgetItem(self.Dlg.selAmount))
-            self.Products_Table.setItem(rowpos, 4, QTableWidgetItem(self.Dlg.selEdate))
+            SPdetails = [self.Dlg.selRPID, 
+                        self.db.search_prod(searchstr=self.Dlg.selRPID, receipt=True)[1],
+                        self.Dlg.selPrice,
+                        self.Dlg.selAmount,
+                        self.Dlg.selEdate
+                        ]
+            self.RPIDList.add(self.Dlg.selRPID)
+            self.Plist.append(SPdetails)
+            self.refresh_table()
         else:
             print('cancelled')
+    
+    def refresh_table(self):
+        self.Products_Table.setRowCount(0)
+        for row_number, row_data in enumerate(self.Plist):
+            self.Products_Table.insertRow(row_number)
+            for column_number, data in enumerate(row_data):
+                item = QTableWidgetItem(str(data))
+                item.setTextAlignment(Qt.AlignCenter)
+                self.Products_Table.setItem(row_number, column_number, item)
     
     def prev_window(self):
         self.Back_btnsgl.emit()

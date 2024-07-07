@@ -61,6 +61,8 @@ def check_user_validity(Fname ,Lname ,Uname ,Email ,LevelID ,Bdate ,SexID ,Pos ,
             return 'Passcode requires 6 characters!'
         elif (pass2 != pass1 or pass1 == None):
             return 'Passcodes dont match!'
+        else:
+            return True
     else:
         return True
 

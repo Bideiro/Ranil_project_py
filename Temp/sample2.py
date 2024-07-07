@@ -1,57 +1,51 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QVBoxLayout, QWidget
-from PyQt5.QtWebEngineWidgets import QWebEngineView
-from pathlib import Path
-import fitz  # Importing fitz from PyMuPDF
+from PyQt5.QtWidgets import QApplication, QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget
 
-class MainWindow(QMainWindow):
+class TableDemo(QWidget):
     def __init__(self):
         super().__init__()
+        self.initUI()
 
-        self.setWindowTitle('PDF Viewer')
-        self.setGeometry(100, 100, 800, 600)
+    def initUI(self):
+        self.setWindowTitle('QTableWidget Example')
+        self.setGeometry(100, 100, 600, 400)
 
-        # Create a central widget and a layout for it
-        self.central_widget = QWidget()
-        self.setCentralWidget(self.central_widget)
-        self.layout = QVBoxLayout(self.central_widget)
+        self.layout = QVBoxLayout()
 
-        # Create a button to open PDF file
-        self.button_open_pdf = QPushButton('Open PDF')
-        self.button_open_pdf.clicked.connect(self.open_pdf)
-        self.layout.addWidget(self.button_open_pdf)
+        self.tableWidget = QTableWidget()
+        self.tableWidget.setRowCount(4)
+        self.tableWidget.setColumnCount(3)
+        self.tableWidget.setHorizontalHeaderLabels(['Header 1', 'Header 2', 'Header 3'])
 
-        # Create a web engine view to display PDF (alternative method)
-        self.webview = QWebEngineView()
-        self.layout.addWidget(self.webview)
+        # Add some items
+        for i in range(4):
+            for j in range(3):
+                self.tableWidget.setItem(i, j, QTableWidgetItem(f'Item {i+1},{j+1}'))
 
-    def open_pdf(self):
-        try:
-            # Assuming the PDF file is named 'example.pdf' in the same directory
-            file_name = 'example.pdf'  # Replace with your file name or full path
-            
-            # Get the full path to the PDF file
-            pdf_path = Path(__file__).resolve().parent / file_name
-            
-            # Use PyMuPDF (fitz) to render PDF page as image
-            doc = fitz.open(str(pdf_path))
-            page = doc.load_page(0)  # Load first page
-            
-            # Render page to pixmap
-            pixmap = page.get_pixmap()
-            
-            # Save pixmap to a temporary image file (PNG)
-            temp_image_path = str(pdf_path.with_suffix('.png'))
-            pixmap.writePNG(temp_image_path)
-            
-            # Load the temporary image file into QWebEngineView
-            self.webview.setUrl(QUrl.fromLocalFile(temp_image_path))
+        # Connect the itemDoubleClicked signal to the function
+        self.tableWidget.itemDoubleClicked.connect(self.on_item_double_click)
 
-        except Exception as e:
-            print(f"Error loading PDF: {e}")
+        self.layout.addWidget(self.tableWidget)
+        self.setLayout(self.layout)
+
+    def on_item_double_click(self, item):
+        row = item.row()
+        column_count = self.tableWidget.columnCount()
+
+        # Collect all items in the row
+        row_data = []
+        for column in range(column_count):
+            cell_item = self.tableWidget.item(row, column)
+            if cell_item:
+                row_data.append(cell_item.text())
+            else:
+                row_data.append('')  # Handle empty cells
+
+        # Print the whole row's data
+        print(f'Double clicked on row {row+1}: {row_data}')
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = MainWindow()
-    window.show()
+    demo = TableDemo()
+    demo.show()
     sys.exit(app.exec_())

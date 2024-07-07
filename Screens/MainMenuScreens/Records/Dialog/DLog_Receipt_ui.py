@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Transaction\Dialog\DLog_Receipt.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Records\Dialog\DLog_Receipt.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -18,6 +18,13 @@ class Ui_Dialog(object):
         self.horizontalLayout = QtWidgets.QHBoxLayout(Dialog)
         self.horizontalLayout.setObjectName("horizontalLayout")
         self.widget = QtWidgets.QWidget(Dialog)
+        self.widget.setStyleSheet(".QWidget{\n"
+"background-color: #F8F8F0;\n"
+"}\n"
+"\n"
+"#widget{\n"
+"border: 1px solid black;\n"
+"}")
         self.widget.setObjectName("widget")
         self.verticalLayout_5 = QtWidgets.QVBoxLayout(self.widget)
         self.verticalLayout_5.setContentsMargins(12, 12, 12, 12)
@@ -184,21 +191,21 @@ class Ui_Dialog(object):
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.widget_7)
         self.horizontalLayout_4.setContentsMargins(-1, 0, -1, 0)
         self.horizontalLayout_4.setObjectName("horizontalLayout_4")
-        self.PaymentType = QtWidgets.QLabel(self.widget_7)
+        self.PMethod_L = QtWidgets.QLabel(self.widget_7)
         font = QtGui.QFont()
         font.setFamily("Inconsolata")
         font.setPointSize(13)
-        self.PaymentType.setFont(font)
-        self.PaymentType.setObjectName("PaymentType")
-        self.horizontalLayout_4.addWidget(self.PaymentType)
-        self.AmountPaid = QtWidgets.QLabel(self.widget_7)
+        self.PMethod_L.setFont(font)
+        self.PMethod_L.setObjectName("PMethod_L")
+        self.horizontalLayout_4.addWidget(self.PMethod_L)
+        self.APaid_L = QtWidgets.QLabel(self.widget_7)
         font = QtGui.QFont()
         font.setFamily("Inconsolata")
         font.setPointSize(13)
-        self.AmountPaid.setFont(font)
-        self.AmountPaid.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.AmountPaid.setObjectName("AmountPaid")
-        self.horizontalLayout_4.addWidget(self.AmountPaid)
+        self.APaid_L.setFont(font)
+        self.APaid_L.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.APaid_L.setObjectName("APaid_L")
+        self.horizontalLayout_4.addWidget(self.APaid_L)
         self.verticalLayout_5.addWidget(self.widget_7)
         self.widget_16 = QtWidgets.QWidget(self.widget)
         self.widget_16.setObjectName("widget_16")
@@ -236,14 +243,14 @@ class Ui_Dialog(object):
         self.label_10.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignVCenter)
         self.label_10.setObjectName("label_10")
         self.horizontalLayout_6.addWidget(self.label_10)
-        self.RID_L = QtWidgets.QLabel(self.widget_8)
+        self.GCRef_L = QtWidgets.QLabel(self.widget_8)
         font = QtGui.QFont()
         font.setFamily("Inconsolata")
         font.setPointSize(13)
-        self.RID_L.setFont(font)
-        self.RID_L.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
-        self.RID_L.setObjectName("RID_L")
-        self.horizontalLayout_6.addWidget(self.RID_L)
+        self.GCRef_L.setFont(font)
+        self.GCRef_L.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
+        self.GCRef_L.setObjectName("GCRef_L")
+        self.horizontalLayout_6.addWidget(self.GCRef_L)
         self.verticalLayout_5.addWidget(self.widget_8)
         self.widget_9 = QtWidgets.QWidget(self.widget)
         self.widget_9.setObjectName("widget_9")
@@ -292,12 +299,12 @@ class Ui_Dialog(object):
         self.label_7.setText(_translate("Dialog", "----------------------------------------------------"))
         self.label_6.setText(_translate("Dialog", "TOTAL:"))
         self.TotalPrice_L.setText(_translate("Dialog", "TextLabel"))
-        self.PaymentType.setText(_translate("Dialog", "PAYMENT TYPE"))
-        self.AmountPaid.setText(_translate("Dialog", "TextLabel"))
+        self.PMethod_L.setText(_translate("Dialog", "PAYMENT TYPE"))
+        self.APaid_L.setText(_translate("Dialog", "TextLabel"))
         self.label_14.setText(_translate("Dialog", "Number of Items:"))
         self.ItemsNo.setText(_translate("Dialog", "TextLabel"))
         self.label_5.setText(_translate("Dialog", "----------------------------------------------------"))
         self.label_10.setText(_translate("Dialog", "Reference Number: "))
-        self.RID_L.setText(_translate("Dialog", "TextLabel"))
+        self.GCRef_L.setText(_translate("Dialog", "TextLabel"))
         self.label_11.setText(_translate("Dialog", "THANK YOU!"))
         self.label_16.setText(_translate("Dialog", "THIS DOCUMENT OF NOT VALID FOR CLAIM OF INPUT TAX"))

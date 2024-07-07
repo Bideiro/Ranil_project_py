@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Records\Dialog\DLog_Receipt_Product.ui'
+# Form implementation generated from reading ui file 'c:\Users\dei\Documents\Programming\Ranil_project_py\Screens\MainMenuScreens\Records\Dialog\DLog_Receipt_Product_Details.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(476, 240)
+        Dialog.resize(666, 240)
         Dialog.setStyleSheet("#widget{\n"
 "background-color: #ABE27D;\n"
 "border: 3px solid black;\n"
@@ -53,15 +53,15 @@ class Ui_Dialog(object):
         self.label.setAlignment(QtCore.Qt.AlignCenter)
         self.label.setObjectName("label")
         self.horizontalLayout.addWidget(self.label)
-        self.Input_LE = QtWidgets.QLineEdit(self.widget_2)
+        self.PQuantity_LE = QtWidgets.QLineEdit(self.widget_2)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.Input_LE.sizePolicy().hasHeightForWidth())
-        self.Input_LE.setSizePolicy(sizePolicy)
-        self.Input_LE.setMinimumSize(QtCore.QSize(250, 25))
-        self.Input_LE.setObjectName("Input_LE")
-        self.horizontalLayout.addWidget(self.Input_LE)
+        sizePolicy.setHeightForWidth(self.PQuantity_LE.sizePolicy().hasHeightForWidth())
+        self.PQuantity_LE.setSizePolicy(sizePolicy)
+        self.PQuantity_LE.setMinimumSize(QtCore.QSize(250, 25))
+        self.PQuantity_LE.setObjectName("PQuantity_LE")
+        self.horizontalLayout.addWidget(self.PQuantity_LE)
         spacerItem1 = QtWidgets.QSpacerItem(55, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem1)
         self.verticalLayout.addWidget(self.widget_2)
@@ -79,10 +79,10 @@ class Ui_Dialog(object):
         self.label2.setFont(font)
         self.label2.setObjectName("label2")
         self.horizontalLayout_4.addWidget(self.label2)
-        self.Input2_LE = QtWidgets.QLineEdit(self.widget_4)
-        self.Input2_LE.setMinimumSize(QtCore.QSize(250, 25))
-        self.Input2_LE.setObjectName("Input2_LE")
-        self.horizontalLayout_4.addWidget(self.Input2_LE)
+        self.PBought_LE = QtWidgets.QLineEdit(self.widget_4)
+        self.PBought_LE.setMinimumSize(QtCore.QSize(250, 25))
+        self.PBought_LE.setObjectName("PBought_LE")
+        self.horizontalLayout_4.addWidget(self.PBought_LE)
         spacerItem3 = QtWidgets.QSpacerItem(46, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_4.addItem(spacerItem3)
         self.verticalLayout.addWidget(self.widget_4)
@@ -112,8 +112,14 @@ class Ui_Dialog(object):
         self.widget_3.setObjectName("widget_3")
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout(self.widget_3)
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
-        spacerItem6 = QtWidgets.QSpacerItem(145, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        spacerItem6 = QtWidgets.QSpacerItem(0, 0, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_2.addItem(spacerItem6)
+        self.Cancel_btn = QtWidgets.QPushButton(self.widget_3)
+        self.Cancel_btn.setMinimumSize(QtCore.QSize(150, 35))
+        self.Cancel_btn.setObjectName("Cancel_btn")
+        self.horizontalLayout_2.addWidget(self.Cancel_btn)
+        spacerItem7 = QtWidgets.QSpacerItem(0, 0, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem7)
         self.Confirm_btn = QtWidgets.QPushButton(self.widget_3)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -123,8 +129,8 @@ class Ui_Dialog(object):
         self.Confirm_btn.setMinimumSize(QtCore.QSize(150, 35))
         self.Confirm_btn.setObjectName("Confirm_btn")
         self.horizontalLayout_2.addWidget(self.Confirm_btn)
-        spacerItem7 = QtWidgets.QSpacerItem(145, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
-        self.horizontalLayout_2.addItem(spacerItem7)
+        spacerItem8 = QtWidgets.QSpacerItem(0, 0, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
+        self.horizontalLayout_2.addItem(spacerItem8)
         self.verticalLayout.addWidget(self.widget_3)
         self.horizontalLayout_3.addWidget(self.widget)
 
@@ -134,7 +140,8 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
         Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
-        self.label.setText(_translate("Dialog", "NONE:"))
-        self.label2.setText(_translate("Dialog", "NONE:"))
-        self.label3.setText(_translate("Dialog", "NONE:"))
+        self.label.setText(_translate("Dialog", "Enter Quantity:"))
+        self.label2.setText(_translate("Dialog", "Enter Price Bought:"))
+        self.label3.setText(_translate("Dialog", "Expiration Date:"))
+        self.Cancel_btn.setText(_translate("Dialog", "CANCEL"))
         self.Confirm_btn.setText(_translate("Dialog", "CONFIRM"))

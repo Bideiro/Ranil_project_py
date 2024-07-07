@@ -1,10 +1,10 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QTableWidgetItem
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
+from PyQt5.QtCore import Qt
 
+from PyQt5.QtGui import QPalette, QColor
 from .User_Logs_ui import Ui_MainWindow
 from Database.DBController import dbcont
-from PyQt5 import QtWidgets, QtGui, QtCore
 class User_Logs_Window(QMainWindow, Ui_MainWindow):
     
     db = dbcont()
@@ -13,6 +13,10 @@ class User_Logs_Window(QMainWindow, Ui_MainWindow):
         super(User_Logs_Window,self).__init__()
         self.setupUi(self)
         self.set_tableElements()
+        
+        palette = self.Log_Table.palette()
+        palette.setColor(QPalette.AlternateBase, QColor(238, 234, 224))
+        self.Log_Table.setPalette(palette)
         
         self.Log_Table.setColumnWidth(0,150)
         self.Log_Table.setColumnWidth(1,150)

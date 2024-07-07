@@ -1,9 +1,5 @@
-import sys
-import mysql.connector
-import pandas as pd
-import numpy as np
+
 from datetime import datetime
-import matplotlib.pyplot as plt 
 from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget, QTableWidgetItem
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 from reportlab.lib.pagesizes import letter
@@ -33,9 +29,6 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
         searchResult = self.db.get_salesR()
         self.tableWidget.setRowCount(0)
         if searchResult:
-            self.tableWidget.setRowCount(len(searchResult))
-            print(len(searchResult))
-            print(searchResult)
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
@@ -53,16 +46,11 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
         else:
             searchResult = self.db.search_sales_rep(start_date)
 
-        # Update the table widget with the search results
         self.tableWidget.setRowCount(0)
         if searchResult:
-            self.tableWidget.setRowCount(len(searchResult))
-            print(len(searchResult))
-            print(searchResult)
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    print('Setting item...')
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
             print('No transactions found for the selected date or date range.')
@@ -71,7 +59,6 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
             
     def print_to_pdf(self):
         # Create a document
-        
         pdf_filename = "Sales_Report.pdf"
         pdf = SimpleDocTemplate(pdf_filename, pagesize=letter)
         
@@ -81,7 +68,7 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
         
         # Add title and date
         title = Paragraph("Ranil's Sales Report", styles['Title'])
-        date = Paragraph("For the date:  " + self.dateEdit.date().toString("yyyy-MM-dd"), styles['Normal'])
+        date = Paragraph("For the date:  " + self.SDate_DE.date().toString("yyyy-MM-dd"), styles['Normal'])
         elements.append(title)
         elements.append(Spacer(1, 12))
         # Add address

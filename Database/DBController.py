@@ -3,11 +3,16 @@ import sys
 import re
 import mysql.connector
 from mysql.connector import errorcode
+from numpy import record
 from Database.User_Manager import UserMana
 import hashlib
 
 # Due to time constraints this will be the most un optimized code. ever.
+# Adjusting to make it runaable while can add additional columns regardless of column order ( not using SELECT *)
 
+# changing colum arrangement will affect the following modules:
+# User Information(showing of info)
+# User Information(edit dialog and its update db func)
 class dbcont(object):
     
     _instance = None
@@ -55,7 +60,7 @@ class dbcont(object):
     def login(self, User, passwd):
         self.uname = User
         self.passwd = passwd
-        sql = " SELECT EXISTS (SELECT 1 FROM accounts WHERE BINARY Uname = %s AND BINARY passcode = %s) AS is_found"
+        sql = " SELECT EXISTS (SELECT 1 FROM accounts WHERE (BINARY Uname = %s AND BINARY passcode = %s) AND (Status = 1 OR Status = 3)) AS is_found"
         val = (self.uname, hashlib.sha256(self.passwd.encode()).hexdigest() )
         self.mycursor.execute(sql,val)
         res = self.mycursor.fetchone()[0]
@@ -77,7 +82,7 @@ class dbcont(object):
             if command.strip():
                 self.mycursor.execute(command)
                 self.mydb.commit()
-                
+        
     def Backup_sql(self):
         self.mycursor.execute("SHOW TABLES")
         return self.mycursor.fetchall()
@@ -211,7 +216,6 @@ class dbcont(object):
             sql = """
                 SELECT PaymentType FROM payment_type WHERE PaymentTypeID = %s
             """
-            print(id)
             self.mycursor.execute(sql, (id,))
             return self.mycursor.fetchone()[0]
         elif all != None:
@@ -224,6 +228,29 @@ class dbcont(object):
         else:
             print('No Arguements! (Get payment Type)')
     
+    def get_suffix(self,value=None, id=None, all=None):
+        if value != None:
+            sql = """
+                SELECT SuffixID FROM suffix WHERE Suffix = %s
+            """
+            self.mycursor.execute(sql, (value,))
+            return self.mycursor.fetchone()[0]
+        elif id != None:
+            sql = """
+                SELECT Suffix FROM suffix WHERE SuffixID = %s
+            """
+            self.mycursor.execute(sql, (id,))
+            return self.mycursor.fetchone()[0]
+        elif all != None:
+            sql = """
+                SELECT Suffix FROM suffix ORDER BY SuffixID
+            """
+            self.mycursor.execute(sql)
+            listed = [row[0] for row in self.mycursor]
+            return listed
+        else:
+            print('No Arguements! (Get suffix)')
+            
     # verifying things Checking availability
     
     def verify_username(self, uname):
@@ -234,15 +261,21 @@ class dbcont(object):
         self.mycursor.execute(sql, (uname,))
         return bool(self.mycursor.fetchone()[0])
     
+    # User Data Manipulation
     # Getting User Data
-    def get_user_creds(self, User = None, Passcode = None, colint = None, Fname = None , Lname = None):
+    
+    def get_all_users(self):
+        self.mycursor.execute("SELECT * FROM accounts")
+        return self.mycursor.fetchall()
+
+    def get_user_creds(self, User = None, Passcode = None, RUID = None, colint = None):
         if User != None and Passcode != None:
             sql = 'SELECT * FROM accounts'
             self.mycursor.execute(sql)
-        elif Fname != None and Lname != None:
-            sql = 'SELECT * FROM accounts WHERE Fname = %s AND Lname = %s'
-            val = (Fname,Lname)
-            self.mycursor.execute(sql,val)
+        elif RUID != None:
+            sql = 'Select * FROM accounts WHERE RUID = %s'
+            self.mycursor.execute(sql,(RUID,))
+            
         else:
             sql = 'Select * FROM accounts WHERE Uname = %s AND Passcode = %s'
             val = (User,Passcode)
@@ -254,11 +287,6 @@ class dbcont(object):
         else:
             return self.mycursor.fetchone()[colint][0]
     
-    def get_all_names(self):
-        sql = "SELECT Fname, Lname FROM accounts"
-        self.mycursor.execute(sql)
-        return self.mycursor.fetchall()
-    
     def access_status_user(self, RUID, status = None):
         if status == None:
             sql = "SELECT Status FROM accounts WHERE RUID = %s"
@@ -268,7 +296,108 @@ class dbcont(object):
             sql = "UPDATE accounts SET Status = %s WHERE RUID = %s"
             self.mycursor.execute(sql, (status, RUID))
             self.mydb.commit()
+    
+    def update_user_protocol(self,UID, NewUlist):
+        print(NewUlist)
+        if NewUlist[14] != '':
+            hashedPasscode = hashlib.sha256(NewUlist[14].encode()).hexdigest()
+            
+            print(NewUlist)
+            
+            NewUlist = [hashedPasscode if x == NewUlist[14] else x for x in NewUlist]
+            
+            print(NewUlist)
+            sql = """
+            UPDATE accounts
+            SET LevelID = %s, RUID = %s, Uname = %s, Fname = %s, Lname = %s, Mname = %s, SuffixID = %s, SexID = %s, Phono = %s, Email = %s, Position = %s, HireDate = %s, Birthdate = %s, Address = %s ,Passcode = %s
+            WHERE UID = %s;
+            """
+        else:
+            if NewUlist[5] == '':
+                occurrence_count = 0
+                for i in range(len(NewUlist)):
+                    if NewUlist[i] == NewUlist[14]:
+                        occurrence_count += 1
+                        if occurrence_count == 2:
+                            del NewUlist[i]
+                            break
+            else:
+                NewUlist.remove(NewUlist[14])
+            sql = """
+            UPDATE accounts
+            SET LevelID = %s, RUID = %s, Uname = %s, Fname = %s, Lname = %s, Mname = %s, SuffixID = %s, SexID = %s, Phono = %s, Email = %s, Position = %s, HireDate = %s, Birthdate = %s, Address = %s 
+            WHERE UID = %s;
+            """
+            
+        self.mycursor.execute(sql,NewUlist + UID)
+        self.mydb.commit()
+    
+    
+    
+    # Receipt Manipulation
+    def get_all_supp_receipts(self):
         
+        sql = """
+            SELECT * FROM supplier_receipts
+        """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
+    def search_supp_receipts(self, searchstr):
+        
+        sql = """
+            SELECT * FROM supplier_receipts 
+            WHERE SupplierReceiptID LIKE %s
+                    OR RUID  LIKE %s
+                    OR ReceiptRef  LIKE %s
+                    OR TotalPrice LIKE %s
+                    OR OrderDate LIKE %s
+                    OR DeliveryDate LIKE %s
+                    OR GCashRef LIKE %s
+        """
+        searchstr = '%' + searchstr + '%'
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
+        
+        self.mycursor.execute(sql,val)
+        return self.mycursor.fetchall()
+
+    def get_all_trans_receipts(self):
+        
+        sql = """
+            SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts
+        """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
+    def search_trans_receipts(self, searchstr):
+        sql = """
+            SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts 
+            WHERE TransactionReceiptID LIKE %s
+                    OR RUID  LIKE %s
+                    OR PurchaseDate  LIKE %s
+                    OR Price LIKE %s
+                    OR PaidPrice LIKE %s
+                    OR PaymentTypeID LIKE %s
+                    OR GCashReference LIKE %s
+        """
+        searchstr = '%' + searchstr + '%'
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
+        
+        self.mycursor.execute(sql,val)
+        return self.mycursor.fetchall()[0]
+    
+    # Receipt Product Manipulation
+    
+    def get_receipt_products(self, ReceiptID):
+        
+        sql = """
+                SELECT ProductID, Price, Quantity from products_sold WHERE ReceiptID = %s
+            
+        """
+        self.mycursor.execute(sql,(ReceiptID,))
+        return self.mycursor.fetchall()
+    
+    
     # Registration
     
     def add_cate(self, cate):
@@ -283,12 +412,13 @@ class dbcont(object):
         self.mycursor.execute(sql,(unit,))
         self.mydb.commit()
     
-    def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, sex, phono, email, Dhired, Bdate, address,  pos = None):
+    def reg_user_protocol(self, LevelID, Uname, Passcode, fname, lname, mname, sex, phono, email, Dhired, Bdate, address,  pos = None, suffix = None):
         hashedPass = hashlib.sha256(Passcode.encode()).hexdigest() 
         
-        sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
-                    VALUES (%s,%s,%s, %s,%s, %s,%s, %s,%s, %s,%s, %s,%s)"""
-        val = (LevelID, self._create_rid(id= LevelID, user=True, new=True),Uname, hashedPass, fname, lname,sex,phono, email,pos, Dhired, Bdate,address)
+        sql =""" INSERT INTO accounts (LevelID, RUID, Uname, Passcode, Fname, Lname, Mname, SuffixID, SexID, Phono, Email, Position, HireDate, Birthdate, Address) 
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"""
+        val = (LevelID, self._create_rid(id= LevelID, user=True, new=True),Uname, hashedPass, fname, lname, mname, suffix, 
+            sex, phono, email, pos, Dhired, Bdate, address)
         self.mycursor.execute(sql,val)
         self.mydb.commit()
         
@@ -315,6 +445,7 @@ class dbcont(object):
             self.mycursor.execute(sql,(searchcate,))
             return self.mycursor.fetchall()
         elif searchstr != '' and searchcate != -1:
+            # Search all products with category
             sql = """
                 SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products 
                     WHERE (RPID LIKE %s
@@ -329,6 +460,7 @@ class dbcont(object):
             self.mycursor.execute(sql,(searchstr,searchstr,searchstr,searchstr,searchstr,searchcate))
             return self.mycursor.fetchall()
         elif searchstr != '' and searchcate == -1:
+            # Search all products regardless of category
             sql = """
                 SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products 
                     WHERE (RPID LIKE %s
@@ -422,6 +554,10 @@ class dbcont(object):
             sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description, Active FROM products "
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
+        elif records:
+            sql = "SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description, Active FROM products WHERE Active = '1'"
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
         else:
             sql = "SELECT RPID , ProductName, SellingPrice, TotalStock, ExpirationDate FROM products WHERE Active = 1"
             self.mycursor.execute(sql)
@@ -455,11 +591,12 @@ class dbcont(object):
         elif trans:
             sql = """
                     SELECT ProductID, ProductName, SellingPrice, TotalStock, ExpirationDate FROM products
-                    WHERE ProductID LIKE %s
+                    WHERE (ProductID LIKE %s
                     OR ProductName LIKE %s
                     OR SellingPrice LIKE %s
                     OR ExpirationDate LIKE %s
-                    OR TotalStock LIKE %s
+                    OR TotalStock LIKE %s)
+                    AND Active = 1
                     """
             searchstr = '%' + searchstr + '%'
             val = (searchstr,searchstr,searchstr,searchstr,searchstr)
@@ -492,6 +629,7 @@ class dbcont(object):
         
         self.add_supplied_products(RefNo= RefNo, DDate= DDate, Plist= Plist)
         
+    # debug print found
     def add_inven(self, RPID, Quantity):
         
         sql ="""SELECT TotalStock FROM products
@@ -547,32 +685,6 @@ class dbcont(object):
         self.mycursor.execute(sql, (latestEdate,RPID))
         self.mydb.commit()
         
-    def update_user_protocol(self,UID, NewUlist):
-        print(NewUlist)
-        if NewUlist[12] != '':
-            hashedPasscode = hashlib.sha256(NewUlist[12].encode()).hexdigest()
-            
-            print(NewUlist)
-            
-            NewUlist = [hashedPasscode if x == NewUlist[12] else x for x in NewUlist]
-            
-            print(NewUlist)
-            sql = """
-            UPDATE accounts
-            SET LevelID = %s, RUID = %s, Uname = %s, Fname = %s, Lname = %s, SexID = %s, Phono = %s, Email = %s, Position = %s, HireDate = %s, Birthdate = %s, Address = %s ,Passcode = %s
-            WHERE UID = %s;
-            """
-        else:
-            
-            NewUlist.remove(NewUlist[12])
-            sql = """
-            UPDATE accounts
-            SET LevelID = %s, RUID = %s, Uname = %s, Fname = %s, Lname = %s, SexID = %s, Phono = %s, Email = %s, Position = %s, HireDate = %s, Birthdate = %s, Address = %s 
-            WHERE UID = %s;
-            """
-            
-        self.mycursor.execute(sql,NewUlist + UID)
-        self.mydb.commit()
         
     def update_prod_protocol(self,RPID, NewPlist ):
         
@@ -665,58 +777,6 @@ class dbcont(object):
         self.mycursor.execute(sql, (passcode,RUID))
         self.mydb.commit()
 
-    # Records
-    def get_all_supp_receipts(self):
-        
-        sql = """
-            SELECT * FROM supplier_receipts
-        """
-        self.mycursor.execute(sql)
-        return self.mycursor.fetchall()
-    
-    def search_supp_receipts(self, searchstr):
-        
-        sql = """
-            SELECT * FROM supplier_receipts 
-            WHERE SupplierReceiptID LIKE %s
-                    OR RUID  LIKE %s
-                    OR ReceiptRef  LIKE %s
-                    OR TotalPrice LIKE %s
-                    OR OrderDate LIKE %s
-                    OR DeliveryDate LIKE %s
-                    OR GCashRef LIKE %s
-        """
-        searchstr = '%' + searchstr + '%'
-        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
-        
-        self.mycursor.execute(sql,val)
-        return self.mycursor.fetchall()
-
-    def get_all_trans_receipts(self):
-        
-        sql = """
-            SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts
-        """
-        self.mycursor.execute(sql)
-        return self.mycursor.fetchall()
-    
-    def search_trans_receipts(self, searchstr):
-        sql = """
-            SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts 
-            WHERE TransactionReceiptID LIKE %s
-                    OR RUID  LIKE %s
-                    OR PurchaseDate  LIKE %s
-                    OR Price LIKE %s
-                    OR PaidPrice LIKE %s
-                    OR PaymentTypeID LIKE %s
-                    OR GCashReference LIKE %s
-        """
-        searchstr = '%' + searchstr + '%'
-        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
-        
-        self.mycursor.execute(sql,val)
-        return self.mycursor.fetchall()
-        
     # sales db
         
     def get_all_sales(self):

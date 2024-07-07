@@ -37,7 +37,7 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
         
     def init_update_prod(self):
         
-        if self.db.get_status(RPID=self.plist[0]) == 0:
+        if self.db.access_status_prod(RPID=self.plist[0]) == 0:
             dlg =DLG_Alert('Cant edit a disabled product!')
             dlg.exec()
         else:

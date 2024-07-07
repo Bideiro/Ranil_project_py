@@ -16,6 +16,15 @@
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
     <widget class="QWidget" name="widget" native="true">
+     <property name="styleSheet">
+      <string notr="true">.QWidget{
+background-color: #F8F8F0;
+}
+
+#widget{
+border: 1px solid black;
+}</string>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout_5">
       <property name="leftMargin">
        <number>12</number>
@@ -414,7 +423,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="QLabel" name="PaymentType">
+          <widget class="QLabel" name="PMethod_L">
            <property name="font">
             <font>
              <family>Inconsolata</family>
@@ -427,7 +436,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="AmountPaid">
+          <widget class="QLabel" name="APaid_L">
            <property name="font">
             <font>
              <family>Inconsolata</family>
@@ -528,7 +537,7 @@
           </widget>
          </item>
          <item>
-          <widget class="QLabel" name="RID_L">
+          <widget class="QLabel" name="GCRef_L">
            <property name="font">
             <font>
              <family>Inconsolata</family>

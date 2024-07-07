@@ -6,19 +6,14 @@ from .Reports_1_ui import Ui_MainWindow
 from PyQt5 import QtWidgets, QtGui, QtCore
 class Reports_1_Window(QMainWindow, Ui_MainWindow):
 
-    inven_btnsgl = QtCore.pyqtSignal()
-    sales_btnsgl = QtCore.pyqtSignal()
+    Inven_btnsgl = QtCore.pyqtSignal()
+    Sales_btnsgl = QtCore.pyqtSignal()
+    ULogs_btnsgl = QtCore.pyqtSignal()
     
     def __init__(self):
         super(Reports_1_Window,self).__init__()
         self.setupUi(self)
         
-        
-        self.inven_btn.clicked.connect(self.to_inven)
-        self.sales_btn.clicked.connect(self.to_sales)
-        
-    def to_inven(self):
-        self.inven_btnsgl.emit()
-        
-    def to_sales(self):
-        self.sales_btnsgl.emit()
+        self.Inven_btn.clicked.connect(lambda: self.Inven_btnsgl.emit())
+        self.Sales_btn.clicked.connect(lambda: self.Sales_btnsgl.emit())
+        self.Ulogs_btn.clicked.connect(lambda: self.ULogs_btnsgl.emit())

@@ -34,9 +34,6 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
         searchResult = self.db.get_inventory()
         self.tableWidget.setRowCount(0)
         if searchResult:
-            self.tableWidget.setRowCount(len(searchResult))
-            print(len(searchResult))
-            print(searchResult)
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
@@ -46,8 +43,6 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
     def search(self):
         start_date = self.FDate_DE.date().toPyDate()
         end_date = self.TDate_DE.date().toPyDate()
-        print(start_date)
-        print(end_date)
 
         if self.radioButton.isChecked() and start_date != end_date:
             searchResult = self.db.search_inventory_rec(start_date, end_date)
@@ -56,9 +51,6 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
 
         self.tableWidget.setRowCount(0)
         if searchResult:
-            self.tableWidget.setRowCount(len(searchResult))
-            print(len(searchResult))
-            print(searchResult)
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
@@ -124,7 +116,6 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
     # Test method
     def classify_abc(self):
         df_result = self.abc_classification()
-        print(df_result)
 
     #=======================PDF SECTION===========================================#
     def generate_sales_graph(self):

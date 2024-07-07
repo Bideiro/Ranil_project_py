@@ -27,6 +27,7 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         self.CPass_LE.setValidator(self.onlyInt)
         self.Sex_CB.addItems(self.db.get_sex(all=True))
         self.Level_CB.addItems(self.db.get_levels(all=True))
+        self.Suffix_CB.addItems(self.db.get_suffix(all=True))
         self.Level_CB.setCurrentIndex(1)
         self.update_nextRUID()
         self.Level_CB.currentTextChanged.connect(self.update_nextRUID)
@@ -39,13 +40,21 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         self.back_btnsgl.emit()
         
     def init_reg_protocol(self):
-        funcmsg = check_user_validity(LevelID= self.Level_CB.currentIndex(), Uname= self.user_LE.text(),
-                            pass1= self.PCode_LE.text(), pass2= self.CPass_LE.text(),
-                            Fname= self.FName_LE.text(), Lname= self.LName_LE.text(),
-                            SexID= self.Sex_CB.currentIndex(), Phono= self.Phono_LE.text(),
-                            Email= self.email_LE.text(), Pos= self.pos_LE.text(),
-                            HDate= self.DHire_DE.date().toPyDate(), BDate= self.BDate_DE.date().toPyDate(),
+        funcmsg = check_user_validity(
+                            LevelID= self.Level_CB.currentIndex(),
+                            Uname= self.user_LE.text(),
+                            pass1= self.PCode_LE.text(),
+                            pass2= self.CPass_LE.text(),
+                            Fname= self.FName_LE.text(),
+                            Lname= self.LName_LE.text(),
+                            SexID= self.Sex_CB.currentIndex(),
+                            Phono= self.Phono_LE.text(),
+                            Email= self.email_LE.text(),
+                            Pos= self.pos_LE.text(),
+                            Hdate= self.DHire_DE.date().toPyDate(),
+                            Bdate= self.BDate_DE.date().toPyDate(),
                             Add= self.address_LE.text())
+        print(funcmsg)
         if funcmsg == True:
             self.confirmed_reg()
         else:
@@ -53,7 +62,6 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
             errdlg.exec()
         
     def confirmed_reg(self):
-        
         Dlg = DLG_AdminCheckPass()
         Dlg.exec()
         if Dlg.result() == 1:
@@ -62,6 +70,8 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
                             Passcode= self.PCode_LE.text(),
                             fname= self.FName_LE.text(),
                             lname= self.LName_LE.text(),
+                            mname= self.MName_LE.text(),
+                            suffix= self.Suffix_CB.currentIndex(),
                             sex= self.Sex_CB.currentIndex(),
                             phono= self.Phono_LE.text().replace('+', '', 1),
                             email= self.email_LE.text(),

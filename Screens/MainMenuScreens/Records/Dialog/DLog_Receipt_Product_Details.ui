@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>476</width>
+    <width>666</width>
     <height>240</height>
    </rect>
   </property>
@@ -77,7 +77,7 @@ color: white
             </font>
            </property>
            <property name="text">
-            <string>NONE:</string>
+            <string>Enter Quantity:</string>
            </property>
            <property name="alignment">
             <set>Qt::AlignCenter</set>
@@ -85,7 +85,7 @@ color: white
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="Input_LE">
+          <widget class="QLineEdit" name="PQuantity_LE">
            <property name="sizePolicy">
             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -142,12 +142,12 @@ color: white
             </font>
            </property>
            <property name="text">
-            <string>NONE:</string>
+            <string>Enter Price Bought:</string>
            </property>
           </widget>
          </item>
          <item>
-          <widget class="QLineEdit" name="Input2_LE">
+          <widget class="QLineEdit" name="PBought_LE">
            <property name="minimumSize">
             <size>
              <width>250</width>
@@ -198,7 +198,7 @@ color: white
             </font>
            </property>
            <property name="text">
-            <string>NONE:</string>
+            <string>Expiration Date:</string>
            </property>
           </widget>
          </item>
@@ -235,14 +235,40 @@ color: white
        <widget class="QWidget" name="widget_3" native="true">
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
+          <spacer name="horizontalSpacer_9">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>0</width>
+             <height>0</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="Cancel_btn">
+           <property name="minimumSize">
+            <size>
+             <width>150</width>
+             <height>35</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>CANCEL</string>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="horizontalSpacer_3">
            <property name="orientation">
             <enum>Qt::Horizontal</enum>
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>145</width>
-             <height>20</height>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
           </spacer>
@@ -273,8 +299,8 @@ color: white
            </property>
            <property name="sizeHint" stdset="0">
             <size>
-             <width>145</width>
-             <height>20</height>
+             <width>0</width>
+             <height>0</height>
             </size>
            </property>
           </spacer>

@@ -310,7 +310,6 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         painter.end()
         print(f'Saved PDF to {output_file}')
     
-    
     # all about screens
     def clean_sprod_table(self):
         self.SProdConfirmed =[]
@@ -350,108 +349,6 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.set_dybutton()
         self.set_tableElements()
         self.clean_sprod_table()
-        
-    # def set_dybutton(self):
-    #     layout = QHBoxLayout()
-    #     widget = QWidget()
-    #     mainlayout = QVBoxLayout()
-    #     cate_list = self.db.get_cate(all=True)
-    #     cate_list.insert(0, 'All')
-    #     cnt = 0
-    #     for index, label in enumerate(cate_list):
-    #         cnt += 1
-    #         button = QPushButton(label.upper(), self)
-    #         button.clicked.connect(self.on_button_click)
-    #         # Setting button design
-    #         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
-    #         sizePolicy.setHorizontalStretch(0)
-    #         sizePolicy.setVerticalStretch(0)
-    #         sizePolicy.setHeightForWidth(button.sizePolicy().hasHeightForWidth())
-    #         button.setSizePolicy(sizePolicy)
-    #         button.setMinimumSize(QtCore.QSize(50, 50))
-    #         button.setProperty('buttonNumber', index)
-    #         # --END--
-    #         layout.addWidget(button)
-            
-    #         if cnt % 3 == 0:
-    #             widget.setLayout(layout)
-    #             mainlayout.addWidget(widget)
-    #             layout = QHBoxLayout()
-    #             widget = QWidget()
-    #         elif cnt == len(cate_list):
-    #             widget.setLayout(layout)
-    #             mainlayout.addWidget(widget)
-    #             layout = QHBoxLayout()
-    #             widget = QWidget()
-    #     spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Expanding)
-    #     mainlayout.addItem(spacer)
-    #     self.Buttons_w.setLayout(mainlayout)
-
-    # def set_dybutton(self):
-    #     # Function to clear existing layout
-    #     def clear_layout(layout):
-    #         if layout is not None:
-    #             while layout.count():
-    #                 item = layout.takeAt(0)
-    #                 widget = item.widget()
-    #                 if widget is not None:
-    #                     widget.deleteLater()
-    #                 else:
-    #                     sub_layout = item.layout()
-    #                     if sub_layout is not None:
-    #                         clear_layout(sub_layout)
-    #             layout.deleteLater()
-
-    #     # Clear the existing layout of Buttons_w
-    #     old_layout = self.Buttons_w.layout()
-    #     if old_layout is not None:
-    #         clear_layout(old_layout)
-
-    #     # Create new main layout
-    #     mainlayout = QVBoxLayout()
-
-    #     # Get the updated category list
-    #     cate_list = self.db.get_cate(all=True)
-    #     cate_list.insert(0, 'All')
-
-    #     # Initialize layout variables
-    #     layout = QHBoxLayout()
-    #     widget = QWidget()
-    #     cnt = 0
-
-    #     for index, label in enumerate(cate_list):
-    #         cnt += 1
-    #         button = QPushButton(label, self)
-    #         button.clicked.connect(self.on_button_click)
-
-    #         # Setting button design
-    #         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
-    #         sizePolicy.setHorizontalStretch(0)
-    #         sizePolicy.setVerticalStretch(0)
-    #         sizePolicy.setHeightForWidth(button.sizePolicy().hasHeightForWidth())
-    #         button.setSizePolicy(sizePolicy)
-    #         button.setMinimumSize(QtCore.QSize(50, 50))
-    #         button.setProperty('buttonNumber', index)
-    #         # --END--
-    #         layout.addWidget(button)
-
-    #         if cnt % 3 == 0 or cnt == len(cate_list):
-    #             widget.setLayout(layout)
-    #             mainlayout.addWidget(widget)
-    #             layout = QHBoxLayout()
-    #             widget = QWidget()
-
-    #     # Add spacer at the end of the layout
-    #     spacer = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Expanding)
-    #     mainlayout.addItem(spacer)
-
-    #     # Set the new layout
-    #     self.Buttons_w.setLayout(mainlayout)
-    #     self.Buttons_w.update()  # Ensure the widget updates with the new layout
-
-    #     # Debugging: Print statements to ensure layout is set
-    #     print("New layout set with {} categories.".format(len(cate_list)))
-    #     print("Main layout item count:", mainlayout.count())
 
     def set_dybutton(self):
         # Clear existing layout
@@ -476,6 +373,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
             cnt += 1
             button = QPushButton(label.upper(), self)
             button.clicked.connect(self.on_button_click)
+            
             # Setting button design
             sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
             sizePolicy.setHorizontalStretch(0)
@@ -485,6 +383,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
             button.setMinimumSize(QtCore.QSize(50, 50))
             button.setProperty('buttonNumber', index)
             # --END--
+            
             layout.addWidget(button)
 
             if cnt % 3 == 0:

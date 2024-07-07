@@ -6,9 +6,7 @@ from .MainMenu_E_ui import Ui_MainWindow
 
 from .MainMenuScreens.Home import HomeWindow
 
-from .MainMenuScreens.Security.Security_1 import Security_1_Window
 from .MainMenuScreens.Security.User_Information import User_Information_Window
-from .MainMenuScreens.Security.User_Logs import User_Logs_Window
 
 from .MainMenuScreens.Registration.Registration_1 import Registration_1_Window
 from .MainMenuScreens.Registration.Registration_prod import Registration_prod_Window
@@ -28,6 +26,7 @@ from .MainMenuScreens.Records.Transaction_Records import Trans_Rec_Window
 from .MainMenuScreens.Reports.Reports_1 import Reports_1_Window
 from .MainMenuScreens.Reports.Inventory_Report import Inventory_Report_Window
 from .MainMenuScreens.Reports.Sales_Report import Sales_Report_Window
+from .MainMenuScreens.Reports.User_Logs import User_Logs_Window
 
 from .MainMenuScreens.Help.Help_1 import HelpWindow
 from .MainMenuScreens.Maintenance.Maintenance_1 import Maintenance_Window
@@ -51,14 +50,6 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         
         self.Home = HomeWindow()
         
-        self.Secu_1 = Security_1_Window()
-        self.User_Info = User_Information_Window()
-        self.User_Logs = User_Logs_Window()
-        
-        self.Reg_1 = Registration_1_Window()
-        self.Reg_prod = Registration_prod_Window()
-        self.Reg_user = Registration_user_Window()
-        
         self.Sales = Sales_Window()
         
         self.Trans_prod = Trans_Prod_Window()
@@ -73,6 +64,7 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         self.Reports_1 = Reports_1_Window()
         self.Inventory_Report = Inventory_Report_Window()
         self.Sales_Report = Sales_Report_Window()
+        self.User_Logs = User_Logs_Window()
         
         self.Help = HelpWindow()
         self.Main_1 = Maintenance_Window()
@@ -82,15 +74,6 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         # Adding Widgets into stack
         
         self.stackedWidget.addWidget(self.Home)
-        
-        self.stackedWidget.addWidget(self.Secu_1)
-        self.stackedWidget.addWidget(self.User_Info)
-        self.stackedWidget.addWidget(self.User_Logs)
-        
-        self.stackedWidget.addWidget(self.Reg_1)
-        self.stackedWidget.addWidget(self.Reg_prod)
-        self.stackedWidget.addWidget(self.Reg_user)
-        
         self.stackedWidget.addWidget(self.Sales)
         
         self.stackedWidget.addWidget(self.Trans_prod)
@@ -122,24 +105,6 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         # For resizing the window
         self.Trans_prod.resize_sgl.connect(self.window_size_handler)
         
-        
-        # Security Buttons
-        self.Secu_1.UInfo_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.User_Info))
-        self.Secu_1.ULogs_btnsgl.connect(self.refresh_logs)
-        
-        self.User_Info.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Secu_1))
-        
-        # Registration Buttons
-        self.Reg_1.prod_reg_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Reg_prod))
-        self.Reg_1.user_reg_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Reg_user))
-        
-        self.Reg_prod.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Reg_1))
-        self.Reg_user.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Reg_1))
-        
-        # Sales Buttons
-        
-        # Transaction Buttons
-        
         # Records Buttons
         self.Records_1.SReciepts_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
         self.Records_1.TReceipts_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Trans_Receipts))
@@ -148,16 +113,14 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
         self.Supp_Receipts.Add_btnsgl.connect(self.toaddsuppreceipt)
         self.Add_Supp_Receipt.Finish_btnsgl.connect(self.addsuppfinish_btn)
         self.Add_Supp_Receipt.Back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
-    
         
         self.Trans_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
         
-
         # Reports Buttons
         
-        self.Reports_1.inven_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Inventory_Report))
-        self.Reports_1.sales_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Sales_Report))
-        
+        self.Reports_1.Inven_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Inventory_Report))
+        self.Reports_1.Sales_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Sales_Report))
+        self.Reports_1.ULogs_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.User_Logs))
         # Help Buttons
         
         #Log Out
@@ -199,11 +162,6 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
     @pyqtSlot()
     # Functions changing windows
     
-    def on_security_sdbtn_clicked(self):
-        self.User_Info.set_CU_details()
-        self.User_Info.createlist()
-        self.stackedWidget.setCurrentWidget(self.Secu_1)
-        
     def on_registration_sdbtn_clicked(self):
         self.Reg_prod.PName_LE.clear()
         self.Reg_prod.SPrice_LE.clear()

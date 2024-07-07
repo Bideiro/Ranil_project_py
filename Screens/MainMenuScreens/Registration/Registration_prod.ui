@@ -14,7 +14,6 @@
    <font>
     <family>Open Sans</family>
     <pointsize>12</pointsize>
-    <weight>75</weight>
     <bold>true</bold>
    </font>
   </property>
@@ -82,7 +81,6 @@ color: white;
           <font>
            <family>DM Sans</family>
            <pointsize>24</pointsize>
-           <weight>75</weight>
            <italic>false</italic>
            <bold>true</bold>
           </font>
@@ -156,7 +154,6 @@ border: 2px solid #096033;
                 <font>
                  <family>DM Sans</family>
                  <pointsize>15</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -171,7 +168,6 @@ border: 2px solid #096033;
                 <font>
                  <family>DM Sans</family>
                  <pointsize>15</pointsize>
-                 <weight>75</weight>
                  <bold>true</bold>
                 </font>
                </property>
@@ -244,7 +240,6 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>13</pointsize>
-                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -278,7 +273,6 @@ border: 2px solid #096033;
                       <font>
                        <family>DM Sans</family>
                        <pointsize>13</pointsize>
-                       <weight>75</weight>
                        <italic>false</italic>
                        <bold>true</bold>
                       </font>
@@ -333,7 +327,6 @@ border: 2px solid #096033;
                          <font>
                           <family>DM Sans</family>
                           <pointsize>13</pointsize>
-                          <weight>75</weight>
                           <italic>false</italic>
                           <bold>true</bold>
                          </font>
@@ -383,7 +376,7 @@ border: 2px solid #096033;
                        <family>DM Sans</family>
                       </font>
                      </property>
-                     <property name="placeholderText" stdset="0">
+                     <property name="placeholderText">
                       <string/>
                      </property>
                     </widget>
@@ -406,7 +399,6 @@ border: 2px solid #096033;
                          <font>
                           <family>DM Sans</family>
                           <pointsize>13</pointsize>
-                          <weight>75</weight>
                           <bold>true</bold>
                          </font>
                         </property>
@@ -453,10 +445,6 @@ border: 2px solid #096033;
                      <property name="font">
                       <font>
                        <family>DM Sans</family>
-                       <pointsize>9</pointsize>
-                       <weight>50</weight>
-                       <italic>false</italic>
-                       <bold>false</bold>
                       </font>
                      </property>
                      <property name="frame">
@@ -479,7 +467,6 @@ border: 2px solid #096033;
                    <font>
                     <family>DM Sans</family>
                     <pointsize>13</pointsize>
-                    <weight>75</weight>
                     <italic>false</italic>
                     <bold>true</bold>
                    </font>
@@ -522,7 +509,6 @@ border: 2px solid #096033;
                    <font>
                     <family>DM Sans</family>
                     <pointsize>13</pointsize>
-                    <weight>75</weight>
                     <bold>true</bold>
                    </font>
                   </property>
@@ -562,7 +548,6 @@ border: 2px solid #096033;
                    <font>
                     <family>DM Sans</family>
                     <pointsize>13</pointsize>
-                    <weight>75</weight>
                     <italic>false</italic>
                     <bold>true</bold>
                    </font>
