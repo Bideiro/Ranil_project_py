@@ -343,4 +343,4 @@ class Ui_MainWindow(object):
         self.maintenance_sdbtn.setText(_translate("MainWindow", "MAINTENANCE"))
         self.about_sdbtn.setText(_translate("MainWindow", "ABOUT"))
         self.log_out_sdbtn.setText(_translate("MainWindow", "LOGOUT"))
-import assets.All_In_Resource_rc
+import All_In_Resource_rc

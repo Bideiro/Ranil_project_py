@@ -49,6 +49,7 @@ class Ui_MainWindow(object):
 "    background-color: white;\n"
 "    margin: 0px;\n"
 "}\n"
+"\n"
 "#about_sdbtn:hover, #help_sdbtn:hover ,#inventory_sdbtn:hover, #maintenance_sdbtn:hover, #records_sdbtn:hover,#registration_sdbtn:hover,#reports_sdbtn:hover,#sales_sdbtn:hover,#security_sdbtn:hover,#transaction_sdbtn:hover, #log_out_sdbtn:hover {\n"
 "    background-color: #096033;\n"
 "    color: white;\n"
@@ -391,4 +392,4 @@ class Ui_MainWindow(object):
         self.maintenance_sdbtn.setText(_translate("MainWindow", "MAINTENANCE"))
         self.about_sdbtn.setText(_translate("MainWindow", "ABOUT"))
         self.log_out_sdbtn.setText(_translate("MainWindow", "LOGOUT"))
-import All_In_Resource_rc
+import assets.All_In_Resource_rc

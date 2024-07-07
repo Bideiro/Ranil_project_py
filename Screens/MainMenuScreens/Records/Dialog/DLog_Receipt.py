@@ -58,9 +58,9 @@ class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
             dbprod = self.db.get_prod_search(searchstr= prod[0], searchcate= -1)
             labelwidget = QWidget()
             layout = QHBoxLayout()
-            spacer1 = QSpacerItem(10, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
-            spacer2 = QSpacerItem(40, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
-            spacer3 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+            spacer1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
+            spacer2 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+            spacer3 = QSpacerItem(30, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
             
             qty = QLabel(str(prod[2]))
             price = QLabel(str(prod[1]))
@@ -69,7 +69,6 @@ class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
             tprice = QLabel(str(inttprice))
             
             layout.addWidget(prodname)
-            layout.addWidget(qty)
             layout.addItem(spacer1)
             layout.addWidget(price)
             layout.addItem(spacer2)
