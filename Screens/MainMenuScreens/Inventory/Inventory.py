@@ -27,23 +27,19 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         self.Search_btn.clicked.connect(self.search)
         
         self.Product_Table.itemClicked.connect(self.clicked_item)
-
-
     
     def set_tableElements(self):
         self.Product_Table.setRowCount(0)
         result = []
         result = self.db.get_all_prod(inv=True)
         self.search_LE.clear()
-        self.Product_Table.setRowCount(len(result))
         for row_number, row_data in enumerate(result):
+            self.Product_Table.insertRow(row_number)
             for column_number, data in enumerate(row_data):
                 if column_number == 3:
                     data = self.db.get_unittype(id= data)
-                    pass
                 if column_number == 2:
                     data = self.db.get_cate(id= data)
-                    pass
                 if column_number == 8:
                     if data == 1:
                         data = 'Available'    
@@ -56,10 +52,7 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
     def search(self):
         self.Product_Table.setRowCount(0)
         searchResult = self.db.search_prod(self.search_LE.text(),inv= True)
-
-        self.Product_Table.setRowCount(len(searchResult))
         if searchResult:
-            self.Product_Table.setRowCount(len(searchResult))
             for row_number, row_data in enumerate(searchResult):
                 self.Product_Table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
@@ -67,7 +60,15 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
                         data = self.db.get_unittype(id= data)
                     if column_number == 2:
                         data = self.db.get_cate(id= data)
-                    self.Product_Table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                    
+                    if column_number == 8:
+                        if data == 1:
+                            data = 'Available'
+                        else:
+                            data = 'Unavailable'
+                    item = QTableWidgetItem(str(data))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.Product_Table.setItem(row_number, column_number, item)
         else:
             print('Error')
             return

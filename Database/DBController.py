@@ -325,6 +325,29 @@ class dbcont(object):
     # User Data Manipulation
     # Getting User Data
     
+    def get_RUID_user(self, uname ,email,check = None):
+        if check:
+            sql = """
+            SELECT RUID
+            FROM accounts
+            WHERE BINARY Uname = %s AND Email = %s;
+            """
+            
+            self.mycursor.execute(sql, (uname,email))
+            result = self.mycursor.fetchone()
+            if result:
+                return True
+            else:
+                return False
+        else:
+            sql = """
+            SELECT RUID
+            FROM accounts
+            WHERE Uname = %s AND Email = %s;
+            """
+            self.mycursor.execute(sql, (uname,email))
+            return self.mycursor.fetchone()[0]
+    
     def get_all_users(self):
         self.mycursor.execute("SELECT * FROM accounts")
         return self.mycursor.fetchall()
@@ -420,7 +443,7 @@ class dbcont(object):
     def search_prod(self, searchstr,id = None, inv = None, trans = None,receipt = None):
         if inv:
             sql = """
-                    SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description FROM products
+                    SELECT RPID, ProductName, CategoryID, UnitTypeID, SellingPrice, ExpirationDate, TotalStock, Description, Active FROM products
                     WHERE RPID LIKE %s
                     OR ProductName LIKE %s
                     OR SellingPrice LIKE %s
@@ -542,6 +565,27 @@ class dbcont(object):
 
     # Modifying/Adding Product Data
     
+    # debug print found
+    def add_inven(self, RPID, Quantity):
+        
+        sql ="""SELECT TotalStock FROM products
+                WHERE RPID = %s
+            """
+        self.mycursor.execute(sql,(RPID,))
+        
+        passtock = self.mycursor.fetchone()[0]
+        newstock = int(passtock) + int(Quantity)
+        sql = """
+                UPDATE products SET TotalStock = %s
+                WHERE RPID = %s
+            """
+        self.mycursor.execute(sql,(newstock,RPID))
+        self.mydb.commit()
+        
+        sql ="""SELECT * FROM products"""
+        self.mycursor.execute(sql)
+        print(self.mycursor.fetchall())
+        
     def reg_prod_protocol(self,Pname, Sprice, Utype , Ctype ,desc = None):
         sql =""" INSERT INTO products (RPID, ProductName, SellingPrice, Description, TotalStock,UnitTypeID, CategoryID)
                     VALUES (%s, %s, %s,%s ,%s,%s,%s)"""
@@ -569,36 +613,27 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchone()[0]
     
-    def get_all_supp_receipts(self):
-        
+    def get_all_sales(self):
+        # Sales Module(side button sales)
         sql = """
-            SELECT * FROM supplier_receipts
+            SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
+            ORDER BY PurchaseDate DESC
         """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
-    def search_supp_receipts(self, searchstr):
-        
-        sql = """
-            SELECT * FROM supplier_receipts 
-            WHERE SupplierReceiptID LIKE %s
-                    OR RUID  LIKE %s
-                    OR ReceiptRef  LIKE %s
-                    OR TotalPrice LIKE %s
-                    OR OrderDate LIKE %s
-                    OR DeliveryDate LIKE %s
-                    OR GCashRef LIKE %s
-        """
-        searchstr = '%' + searchstr + '%'
-        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
-        
-        self.mycursor.execute(sql,val)
-        return self.mycursor.fetchall()
-
     def get_all_trans_receipts(self):
         
         sql = """
             SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts
+        """
+        self.mycursor.execute(sql)
+        return self.mycursor.fetchall()
+    
+    def get_all_supp_receipts(self):
+        
+        sql = """
+            SELECT * FROM supplier_receipts
         """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
@@ -620,8 +655,63 @@ class dbcont(object):
         self.mycursor.execute(sql,val)
         return self.mycursor.fetchall()[0]
     
+    def search_sales(self, searchstr):
+        sql = """
+                SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
+                WHERE PurchaseDate LIKE %s OR
+                TransactionReceiptID LIKE %s OR 
+                RUID LIKE %s OR
+                Price LIKE %s OR
+                PaidPrice LIKE %s OR
+                GCashReference LIKE %s OR
+                PaymentTypeID LIKE %s
+                """
+        searchstr = '%' + searchstr + '%'
+        
+        if re.search(searchstr, 'Cash', re.IGNORECASE):
+            PTID = '0'
+        elif re.search(searchstr, 'Gcash', re.IGNORECASE):
+            PTID == '1'
+        elif re.search(searchstr, 'split', re.IGNORECASE):
+            PTID == '2'
+        else:
+            PTID = searchstr
+        
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr, PTID)
+        self.mycursor.execute(sql,val)
+        return self.mycursor.fetchall()
+    
+    # THIS USES SELECT *
+    def search_supp_receipts(self, searchstr):
+        
+        sql = """
+            SELECT * FROM supplier_receipts 
+            WHERE SupplierReceiptID LIKE %s
+                    OR RUID  LIKE %s
+                    OR ReceiptRef  LIKE %s
+                    OR TotalPrice LIKE %s
+                    OR OrderDate LIKE %s
+                    OR DeliveryDate LIKE %s
+                    OR GCashRef LIKE %s
+        """
+        searchstr = '%' + searchstr + '%'
+        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
+        
+        self.mycursor.execute(sql,val)
+        return self.mycursor.fetchall()
+
     # Adding Receipt Data
     
+    def add_receipt(self,RefNo, TPrice ,ODate, DDate, Plist):
+        
+        sql = """INSERT INTO supplier_receipts (RUID, ReceiptRef, TotalPrice, OrderDate, DeliveryDate)
+                VALUES (%s,%s,%s,%s,%s)"""
+        val = (self.User.RUID, RefNo, TPrice, ODate, DDate)
+        self.mycursor.execute(sql,val)
+        self.mydb.commit()
+        
+        self.add_supplied_products(RefNo= RefNo, DDate= DDate, Plist= Plist)
+        
     def add_sold_protocol(self,Price, PPrice, SoldProductsList, Ptype, GCashRef = None):
         # Getting todays Date
         sql = "SELECT NOW() "
@@ -648,7 +738,6 @@ class dbcont(object):
         self.mycursor.execute(sql, val)
         self.add_sold_products(SoldPlist= SoldProductsList, RID= receiptID,currdate=currdate)
         
-    
     # Receipt Product Manipulation
     # Getting Receipt Product Data
     def get_receipt_products(self, ReceiptID):
@@ -660,6 +749,32 @@ class dbcont(object):
         self.mycursor.execute(sql,(ReceiptID,))
         return self.mycursor.fetchall()
         
+    def set_dynamic_expdate(self, RPID):
+        
+        sql = """
+        SELECT
+            ExpirationDate,
+            ABS(DATEDIFF(ExpirationDate, NOW())) AS date_diff
+        FROM
+            products_supplied
+        WHERE
+            RPID = %s AND CurrentQuantity > 0
+        ORDER BY
+            date_diff
+        LIMIT 1;
+            """
+
+        self.mycursor.execute(sql,(RPID,))
+        latestEdate = self.mycursor.fetchone()[0]
+        
+        sql = """
+            UPDATE products SET ExpirationDate = %s WHERE RPID = %s
+        """
+        self.mycursor.execute(sql, (latestEdate,RPID))
+        self.mydb.commit()
+
+    # Adding Receipt Product Data
+    
     def add_sold_products(self, SoldPlist, RID, currdate):
         # [['00-0001', 'Royal Canin', '1']]
         
@@ -688,39 +803,7 @@ class dbcont(object):
             self.mycursor.execute(sql4, (RID, prod[0],prod[2], price, currdate))
             self.mydb.commit()
     
-    def add_receipt(self,RefNo, TPrice ,ODate, DDate, Plist):
-        
-        sql = """INSERT INTO supplier_receipts (RUID, ReceiptRef, TotalPrice, OrderDate, DeliveryDate)
-                VALUES (%s,%s,%s,%s,%s)"""
-        val = (self.User.UID, RefNo, TPrice, ODate, DDate)
-        self.mycursor.execute(sql,val)
-        self.mydb.commit()
-        
-        self.add_supplied_products(RefNo= RefNo, DDate= DDate, Plist= Plist)
-        
-    # debug print found
-    def add_inven(self, RPID, Quantity):
-        
-        sql ="""SELECT TotalStock FROM products
-                WHERE RPID = %s
-            """
-        self.mycursor.execute(sql,(RPID,))
-        
-        passtock = self.mycursor.fetchone()[0]
-        newstock = int(passtock) + int(Quantity)
-        sql = """
-                UPDATE products SET TotalStock = %s
-                WHERE RPID = %s
-            """
-        self.mycursor.execute(sql,(newstock,RPID))
-        self.mydb.commit()
-        
-        sql ="""SELECT * FROM products"""
-        self.mycursor.execute(sql)
-        print(self.mycursor.fetchall())
-        
     def add_supplied_products(self,RefNo,DDate, Plist):
-        
         sql = """INSERT INTO products_supplied (RPID, SupplierReceiptID, BoughtQuantity, CurrentQuantity, Date, CostPrice, ExpirationDate)
                 VALUES (%s,%s,%s,%s,%s,%s,%s)"""
         for prod in Plist:
@@ -729,89 +812,13 @@ class dbcont(object):
             self.mydb.commit()
             self.add_inven(prod[0],prod[3])
             self.set_dynamic_expdate(RPID= prod[0])
-        
-    def set_dynamic_expdate(self, RPID):
-        
-        sql = """
-        SELECT
-            ExpirationDate,
-            ABS(DATEDIFF(ExpirationDate, NOW())) AS date_diff
-        FROM
-            products_supplied
-        WHERE
-            RPID = %s AND CurrentQuantity > 0
-        ORDER BY
-            date_diff
-        LIMIT 1;
-            """
-
-        self.mycursor.execute(sql,(RPID,))
-        latestEdate = self.mycursor.fetchone()[0]
-        
-        sql = """
-            UPDATE products SET ExpirationDate = %s WHERE RPID = %s
-        """
-        self.mycursor.execute(sql, (latestEdate,RPID))
-        self.mydb.commit()
-
-    def get_RUID_user(self, uname ,email,check = None):
-        if check:
-            sql = """
-            SELECT RUID
-            FROM accounts
-            WHERE BINARY Uname = %s AND Email = %s;
-            """
-            
-            self.mycursor.execute(sql, (uname,email))
-            result = self.mycursor.fetchone()
-            if result:
-                return True
-            else:
-                return False
-        else:
-            sql = """
-            SELECT RUID
-            FROM accounts
-            WHERE Uname = %s AND Email = %s;
-            """
-            self.mycursor.execute(sql, (uname,email))
-            return self.mycursor.fetchone()[0]
-        
-    # sales db
-        
-    def get_all_sales(self):
-        sql = """
-            SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
-            ORDER BY PurchaseDate DESC
-        """
-        self.mycursor.execute(sql)
-        return self.mycursor.fetchall()
-
-    def search_sales(self, searchstr):
-        sql = """
-                SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
-                WHERE PurchaseDate LIKE %s OR
-                TransactionReceiptID LIKE %s OR 
-                RUID LIKE %s OR
-                Price LIKE %s OR
-                PaidPrice LIKE %s OR
-                GCashReference LIKE %s OR
-                PaymentTypeID LIKE %s
-                """
-        searchstr = '%' + searchstr + '%'
-        
-        if re.search(searchstr, 'Cash', re.IGNORECASE):
-            PTID = '0'
-        elif re.search(searchstr, 'Gcash', re.IGNORECASE):
-            PTID == '1'
-        elif re.search(searchstr, 'split', re.IGNORECASE):
-            PTID == '2'
-        else:
-            PTID = searchstr
-        
-        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr, PTID)
-        self.mycursor.execute(sql,val)
-        return self.mycursor.fetchall()
+    
+    
+    
+    
+    
+    # not arranged functinos
+    
     
     def set_yearly_sales(self):
         sql = """
