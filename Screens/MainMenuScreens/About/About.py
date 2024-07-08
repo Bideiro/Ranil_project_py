@@ -3,7 +3,7 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QPushButton, QWidget
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream, QUrl
 from PyQt5.QtGui import QDesktopServices
 
-from .About_ui import Ui_MainWindow
+from .About_type2_ui import Ui_MainWindow
 from Dialogs.DLog_Alert import DLG_Alert
 
 class AboutWindow(QMainWindow, Ui_MainWindow):

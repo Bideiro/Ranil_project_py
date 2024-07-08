@@ -52,7 +52,7 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
             Dlg.exec()
     
     def init_add_receipt(self):
-        if self.RNumber_LE != '':
+        if self.RNumber_LE.text() != '':
             rows_list = []
             for row in range(self.Products_Table.rowCount()):
                 row_data = []

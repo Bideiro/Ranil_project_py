@@ -1,5 +1,5 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QTableWidgetItem, QWidget
+from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QTableWidgetItem
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
 from PyQt5 import QtCore
 
@@ -56,20 +56,20 @@ class Trans_Rec_Window(QMainWindow, Ui_MainWindow):
         
     def search_tableElements(self):
         self.Receipts_Table.setRowCount(0)
-        result = []
         result = self.db.search_trans_receipts(searchstr= self.search_LE.text())
-        self.search_LE.clear()
         for row_number, row_data in enumerate(result):
+            self.Receipts_Table.insertRow(row_number)
             for column_number, data in enumerate(row_data):
                 if column_number == 5:
                         data = self.db.get_payment_type(id= data)
+                if column_number == 2:
+                        data = data.strftime('%B %d, %Y %H:%M')
                 item = QTableWidgetItem(str(data))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.Receipts_Table.setItem(row_number, column_number, item)
     
     def set_tableElements(self):
             self.Receipts_Table.setRowCount(0)
-            result = []
             result = self.db.get_all_trans_receipts()
             self.search_LE.clear()
             for row_number, row_data in enumerate(result):
@@ -77,6 +77,8 @@ class Trans_Rec_Window(QMainWindow, Ui_MainWindow):
                 for column_number, data in enumerate(row_data):
                     if column_number == 5:
                         data = self.db.get_payment_type(id= data)
+                    if column_number == 2:
+                        data = data.strftime('%B %d, %Y %H:%M')
                     item = QTableWidgetItem(str(data))
                     item.setTextAlignment(Qt.AlignCenter)
                     self.Receipts_Table.setItem(row_number, column_number, item)

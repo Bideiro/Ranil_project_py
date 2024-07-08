@@ -125,7 +125,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_13.sizePolicy().hasHeightForWidth())
         self.label_13.setSizePolicy(sizePolicy)
-        self.label_13.setMaximumSize(QtCore.QSize(100, 100))
+        self.label_13.setMaximumSize(QtCore.QSize(150, 150))
         self.label_13.setText("")
         self.label_13.setPixmap(QtGui.QPixmap(":/Images/images/1.png"))
         self.label_13.setScaledContents(True)
@@ -161,7 +161,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_8.sizePolicy().hasHeightForWidth())
         self.label_8.setSizePolicy(sizePolicy)
-        self.label_8.setMaximumSize(QtCore.QSize(100, 100))
+        self.label_8.setMaximumSize(QtCore.QSize(150, 150))
         self.label_8.setText("")
         self.label_8.setPixmap(QtGui.QPixmap(":/Images/images/2.png"))
         self.label_8.setScaledContents(True)
@@ -196,7 +196,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label_5.sizePolicy().hasHeightForWidth())
         self.label_5.setSizePolicy(sizePolicy)
-        self.label_5.setMaximumSize(QtCore.QSize(100, 100))
+        self.label_5.setMaximumSize(QtCore.QSize(150, 150))
         self.label_5.setText("")
         self.label_5.setPixmap(QtGui.QPixmap(":/Images/images/3.png"))
         self.label_5.setScaledContents(True)
@@ -289,4 +289,4 @@ class Ui_MainWindow(object):
         self.label_11.setText(_translate("MainWindow", "FRANCHESCA JANE MACAM"))
         self.label_12.setText(_translate("MainWindow", "DEIGHRO DE OCAMPO"))
         self.label_6.setText(_translate("MainWindow", "CONTACT US"))
-import assets.All_In_Resource_rc
+import All_In_Resource_rc

@@ -61,7 +61,7 @@ color: #096033
             <x>0</x>
             <y>-269</y>
             <width>962</width>
-            <height>941</height>
+            <height>991</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_5">
@@ -200,8 +200,8 @@ color: #096033
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
-                        <height>100</height>
+                        <width>150</width>
+                        <height>150</height>
                        </size>
                       </property>
                       <property name="text">
@@ -284,8 +284,8 @@ color: #096033
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
-                        <height>100</height>
+                        <width>150</width>
+                        <height>150</height>
                        </size>
                       </property>
                       <property name="text">
@@ -365,8 +365,8 @@ color: #096033
                       </property>
                       <property name="maximumSize">
                        <size>
-                        <width>100</width>
-                        <height>100</height>
+                        <width>150</width>
+                        <height>150</height>
                        </size>
                       </property>
                       <property name="text">

@@ -1,17 +1,16 @@
 
 import pandas as pd
-import numpy as np
 from datetime import datetime
-import matplotlib.pyplot as plt 
-from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
-
-from Database.DBController import dbcont
+import matplotlib.pyplot as plt
 from reportlab.lib.pagesizes import letter
-
+from io import BytesIO
 from reportlab.lib import colors
-from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from io import BytesIO
 from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
+
+
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 
 from .Inventory_Report_ui import Ui_MainWindow
 from Database.DBController import dbcont
@@ -61,22 +60,8 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
         else:
             print('No transactions found for the selected date or date range.')
         
-    def pdf_layout_grid(self, pdf):
-        pdf.drawString(90, 810, 'x100')
-        pdf.drawString(190, 810, 'x200')
-        pdf.drawString(290, 810, 'x300')
-        pdf.drawString(390, 810, 'x400')
-        pdf.drawString(490, 810, 'x500')
 
-        pdf.drawString(10, 100, 'y100')
-        pdf.drawString(10, 200, 'y200')
-        pdf.drawString(10, 300, 'y300')
-        pdf.drawString(10, 400, 'y400')
-        pdf.drawString(10, 500, 'y500')
-        pdf.drawString(10, 600, 'y600')
-        pdf.drawString(10, 700, 'y700')
-        pdf.drawString(10, 800, 'y800')
-#====================================ALGO SECTION===========================================# 
+#====================================ALGO SECTION===========================================#
     def abc_classification(self):
         algo_data = self.db.get_inventory()
 
@@ -88,48 +73,71 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
 
         # Add a 'Month' column
         df['Month'] = df['Date'].dt.to_period('M')
-
         # Calculate monthly sales for each product
         df['SalesValue'] = df['Quantity'] * df['Price']
+        
+        # Aggregate sales by ProductID and Month
         monthly_sales = df.groupby(['ProductID', 'Month'])['SalesValue'].sum().reset_index()
 
         # Perform ABC categorization for each month
         def abc_categorization(monthly_sales):
             categories = []
+            abc_result = {}
+
             for period, group in monthly_sales.groupby('Month'):
                 group = group.copy()
                 group = group.sort_values('SalesValue', ascending=False)
+
+                # Calculate cumulative sum and percentage for the entire group
                 group['CumulativeSum'] = group['SalesValue'].cumsum()
                 group['CumulativePercentage'] = 100 * group['CumulativeSum'] / group['SalesValue'].sum()
-                
-                group['Category'] = np.where(group['CumulativePercentage'] <= 80, 'A', 
-                                    np.where(group['CumulativePercentage'] <= 95, 'B', 'C'))
+
+                # Initialize Category column with default value 'C'
+                group['Category'] = 'C'
+
+                # Classify Category A
+                group.loc[group['CumulativePercentage'] <= 80, 'Category'] = 'A'
+
+                # Classify Category B for remaining items
+                group.loc[(group['CumulativePercentage'] > 80) & (group['CumulativePercentage'] <= 95), 'Category'] = 'B'
+
+                # Append the categorized group to the list
                 categories.append(group)
-            
+
+                # Store the ABC classification result for the current month
+                abc_result[period] = {
+                    'A': group[group['Category'] == 'A']['ProductID'].tolist(),
+                    'B': group[group['Category'] == 'B']['ProductID'].tolist(),
+                    'C': group[group['Category'] == 'C']['ProductID'].tolist(),
+                }
+
             categorized_df = pd.concat(categories)
-            return categorized_df
+            return categorized_df, abc_result
 
-        categorized_sales = abc_categorization(monthly_sales)
+        categorized_sales, abc_result = abc_categorization(monthly_sales)
 
-        # Output the result
-        print(categorized_sales)
-        return categorized_sales
+        # Output the result by month and category
+        for month, group in categorized_sales.groupby('Month'):
+            print(f"{month}:")
+            for category in ['A', 'B', 'C']:
+                products = group[group['Category'] == category]['ProductID'].tolist()
+                print(f"Class {category} Products: {', '.join(map(str, products))}")
+            print()
 
-    # Test method
-    def classify_abc(self):
-        df_result = self.abc_classification()
+        return categorized_sales, abc_result
 
-    #=======================PDF SECTION===========================================#
+#=======================PDF SECTION===========================================#
     def generate_sales_graph(self):
         # Generate data for the graph (example: monthly sales for category A)
-        df_classification = self.abc_classification()
+        df_classification, _ = self.abc_classification()
         category_a_sales = df_classification[df_classification['Category'] == 'A']
         
         # Group by month and sum sales values
         monthly_sales_data = category_a_sales.groupby('Month')['SalesValue'].sum()
-
+        
         # Create the plot
         plt.figure(figsize=(10, 6))
+
         plt.plot(monthly_sales_data.index.astype(str), monthly_sales_data.values, marker='o', linestyle='-', label='Category A Products')
         plt.title('Monthly Sales for Category A Products')
         plt.xlabel('Month')
@@ -155,27 +163,44 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
         
         # Define styles
         styles = getSampleStyleSheet()
+            
+        title_style = ParagraphStyle(
+            'TitleStyle',
+            parent=styles['Title'],
+            fontName='Helvetica-Bold',
+            fontSize=14,
+            alignment=1,  # Center alignment
+            spaceAfter=6,
+        )
+        normal_centered_style = ParagraphStyle(
+            'NormalCentered',
+            parent=styles['Normal'],
+            fontName='Helvetica',
+            fontSize=10,
+            alignment=1,  # Center alignment
+            spaceAfter=6,
+        )
         elements = []
         
+        title = Paragraph("Ranil's Poultry Supply", title_style)
+        address = Paragraph("6, Rizal Avenue, Balite, Montalban (Rodriguez) Rizal", normal_centered_style)
+        cellphone_number = Paragraph("Cellphone Number: (+63)0951 297 4169", normal_centered_style)
+        
         # Add title and date
-        title = Paragraph("Ranil's Inventory Report", styles['Title'])
-        date = Paragraph("For the date: " + self.FDate_DE.date().toString("yyyy-MM-dd"), styles['Normal'])
-        
-        elements.append(title)
-        elements.append(Spacer(1, 12))
-        # Add address
-        address_text = "6, Rizal Avenue, Balite, Montalban (Rodriguez) Rizal"
-        address = Paragraph(address_text, styles['Title'])
-        elements.append(address)
-        elements.append(Spacer(1, 24))
-        elements.append(date)
-        elements.append(Spacer(1, 12))  # Reduce spacer for a bit tighter layout
-        
-        
-        
-        # Add space
-        elements.append(Paragraph("<br/>", styles['Normal']))
+        report_title = Paragraph("Inventory Report", title_style)
+        date = Paragraph("For the date: " + self.FDate_DE.date().toString("yyyy-MM-dd"), normal_centered_style)
 
+        elements.append(title)
+        elements.append(Spacer(0, 1))
+        elements.append(address)
+        elements.append(Spacer(1, 1))
+        elements.append(cellphone_number)
+        elements.append(Spacer(1, 1))
+        elements.append(report_title)
+        elements.append(Spacer(1, 7))
+        elements.append(date)
+        elements.append(Spacer(1, 12))  
+        
         # Table data
         data = []
 
@@ -218,20 +243,20 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
         elements.append(table)
 
         # Add ABC classification results
-        df_classification = self.abc_classification()
+        df_classification, abc_result = self.abc_classification()
         elements.append(Spacer(1, 24))
         elements.append(Paragraph("ABC Classification:", styles['Heading2']))
         elements.append(Spacer(1, 12))
 
-        class_a = df_classification[df_classification['Category'] == 'A']
-        class_b = df_classification[df_classification['Category'] == 'B']
-        class_c = df_classification[df_classification['Category'] == 'C']
-
-        elements.append(Paragraph(f"Class A products: {', '.join(class_a['ProductID'].astype(str).tolist())}", styles['Normal']))
-        elements.append(Spacer(1, 12))
-        elements.append(Paragraph(f"Class B products: {', '.join(class_b['ProductID'].astype(str).tolist())}", styles['Normal']))
-        elements.append(Spacer(1, 12))
-        elements.append(Paragraph(f"Class C products: {', '.join(class_c['ProductID'].astype(str).tolist())}", styles['Normal']))
+        for month, classes in abc_result.items():
+            elements.append(Paragraph(f"{month}:", styles['Heading3']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Class A products: {', '.join(map(str, classes['A']))}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Class B products: {', '.join(map(str, classes['B']))}", styles['Normal']))
+            elements.append(Spacer(1, 6))
+            elements.append(Paragraph(f"Class C products: {', '.join(map(str, classes['C']))}", styles['Normal']))
+            elements.append(Spacer(1, 12))
         
         # Add space
         elements.append(Spacer(1, 24))
@@ -249,11 +274,46 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
         elements.append(Spacer(1, 12))
         elements.append(sales_graph_image)
         
-        # Build PDF
-        generated_info = f"Report Generated on: {datetime.today().strftime('%Y-%m-%d %H:%M:%S')}\nReport Generated by: Rheiniel Damasco"  # Replace with actual name
+        # Generate and add the new sales graph with product labels
+        product_sales_graph_buffer = self.generate_product_sales_graph(df_classification)
+
+        product_sales_graph_image = Image(product_sales_graph_buffer)
+        product_sales_graph_image.drawWidth = 500
+        product_sales_graph_image.drawHeight = 300
+        elements.append(Spacer(1, 24))
+        elements.append(Paragraph("Sales of Different Products with ABC Classification:", styles['Heading2']))
+        elements.append(Spacer(1, 12))
+        elements.append(Paragraph("Graph showing sales of different products labeled with their ABC classification:", styles['Normal']))
+        elements.append(Spacer(1, 12))
+        elements.append(product_sales_graph_image)
+
+        # Add report generation info
+        generated_info = f"Report Generated on: {datetime.datetime.today().strftime('%Y-%m-%d %H:%M:%S')}\nReport Generated by: Rheiniel Damasco"
         generated_info_para = Paragraph(generated_info, styles['Normal'])
         elements.append(Spacer(1, 24))
         elements.append(generated_info_para)
 
         pdf.build(elements)
         print(f"PDF saved as '{pdf_filename}'")
+
+    def generate_product_sales_graph(self, df_classification):
+        # Generate a graph of sales of different products with ABC classification labels
+        plt.figure(figsize=(10, 6))
+
+        # Plot data
+        for category, color in zip(['A', 'B', 'C'], ['#606C38', '#283618', '#ABE27D']):
+            subset = df_classification[df_classification['Category'] == category]
+            plt.bar(subset['ProductID'].astype(str), subset['SalesValue'], label=f'Category {category}', color=color)
+
+        plt.xlabel('Product ID')
+        plt.ylabel('Sales Value')
+        plt.title('Sales of Different Products with ABC Classification')
+        plt.legend()
+
+        # Save plot to buffer
+        buffer = BytesIO()
+        plt.savefig(buffer, format='png')
+        buffer.seek(0)
+        plt.close()
+
+        return buffer

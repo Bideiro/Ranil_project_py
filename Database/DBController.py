@@ -3,6 +3,7 @@ from cgi import print_arguments
 from math import pi
 import sys
 import re
+from unittest import result
 import mysql.connector
 from mysql.connector import errorcode
 from numpy import record, rint
@@ -72,7 +73,22 @@ class dbcont(object):
             val = (self.uname, hashlib.sha256(self.passwd.encode()).hexdigest() )
             self.mycursor.execute(sql,val)
             curruser = self.mycursor.fetchone()
-            self.User.set_user(UID= curruser[0], RUID= curruser[1],User= curruser[2], Pass=curruser[3],Level= curruser[4])
+            
+            
+            
+            sql=" SELECT * FROM accounts WHERE RUID = %s"
+            self.mycursor.execute(sql,(curruser[1],))
+            result = self.mycursor.fetchone()
+            if result[8] != 0:
+                suffix = self.get_suffix(id= result[8])
+            else:
+                suffix = ''
+            if result[7] == None or result[7] == '':
+                whole_name = str(result[5]) + ' ' + str(result[6]) + ' ' + str(suffix)
+            else:
+                whole_name = str(result[5]) + ' ' + str(result[7]) + ' ' + str(result[6]) + ' ' + str(suffix)
+            
+            self.User.set_user(UID= curruser[0], RUID= curruser[1],User= curruser[2], Pass=curruser[3],Level= curruser[4] ,Wname= whole_name)
             self.log_action(action='Logged In')
         return bool(res)
     
@@ -84,10 +100,6 @@ class dbcont(object):
             if command.strip():
                 self.mycursor.execute(command)
                 self.mydb.commit()
-        
-    def Backup_sql(self):
-        self.mycursor.execute("SHOW TABLES")
-        return self.mycursor.fetchall()
     
     def log_action(self, action):
         
@@ -613,6 +625,40 @@ class dbcont(object):
         self.mycursor.execute(sql)
         return self.mycursor.fetchone()[0]
     
+    def get_sales_report(self, Sdate = None, Edate = None, search = None , daily = None, monthly = None, yearly = None):
+        
+        if daily != None:
+            sql = """
+                SELECT DATE(PurchaseDate), SUM(Price)
+                FROM Transaction_receipts GROUP BY DATE(PurchaseDate) ORDER BY DATE(PurchaseDate) DESC
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        elif monthly != None:
+            sql = """
+                SELECT MONTH(PurchaseDate), SUM(Price)
+                FROM Transaction_receipts GROUP BY MONTH(PurchaseDate) ORDER BY MONTH(PurchaseDate) DESC
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        elif yearly != None:
+            sql = """
+                SELECT YEAR(PurchaseDate), SUM(Price)
+                FROM Transaction_receipts GROUP BY YEAR(PurchaseDate) ORDER BY YEAR(PurchaseDate) DESC
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+        elif search != None:
+            
+            pass
+        else:
+            print('No parameter selected! [Sales Report]')
+            sql = """
+                SELECT PurchaseDate, Price FROM Transaction_receipts
+            """
+            self.mycursor.execute(sql)
+            return self.mycursor.fetchall()
+    
     def get_all_sales(self):
         # Sales Module(side button sales)
         sql = """
@@ -625,7 +671,7 @@ class dbcont(object):
     def get_all_trans_receipts(self):
         
         sql = """
-            SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts
+            SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts ORDER BY PurchaseDate DESC
         """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
@@ -653,7 +699,7 @@ class dbcont(object):
         val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
         
         self.mycursor.execute(sql,val)
-        return self.mycursor.fetchall()[0]
+        return self.mycursor.fetchall()
     
     def search_sales(self, searchstr):
         sql = """
@@ -860,40 +906,6 @@ class dbcont(object):
             self.mycursor.execute(sql, (SDate,EDate))
         
         return self.mycursor.fetchall()
-    
-    def get_sales_report(self, Sdate = None, Edate = None, search = None , daily = None, monthly = None, yearly = None):
-        
-        if daily != None:
-            sql = """
-                SELECT DATE(PurchaseDate), SUM(Price)
-                FROM Transaction_receipts GROUP BY DATE(PurchaseDate) ORDER BY DATE(PurchaseDate)
-            """
-            self.mycursor.execute(sql)
-            return self.mycursor.fetchall()
-        elif monthly != None:
-            sql = """
-                SELECT MONTH(PurchaseDate), SUM(Price)
-                FROM Transaction_receipts GROUP BY MONTH(PurchaseDate) ORDER BY MONTH(PurchaseDate)
-            """
-            self.mycursor.execute(sql)
-            return self.mycursor.fetchall()
-        elif yearly != None:
-            sql = """
-                SELECT YEAR(PurchaseDate), SUM(Price)
-                FROM Transaction_receipts GROUP BY YEAR(PurchaseDate) ORDER BY YEAR(PurchaseDate)
-            """
-            self.mycursor.execute(sql)
-            return self.mycursor.fetchall()
-        elif search != None:
-            
-            pass
-        else:
-            print('No parameter selected! [Sales Report]')
-            sql = """
-                SELECT PurchaseDate, Price FROM Transaction_receipts
-            """
-            self.mycursor.execute(sql)
-            return self.mycursor.fetchall()
     
     def search_sales_rep(self, SDate, EDate = None):
         if EDate == None:

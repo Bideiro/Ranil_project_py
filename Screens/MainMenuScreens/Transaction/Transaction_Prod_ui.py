@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(2255, 606)
+        MainWindow.resize(2260, 606)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setEnabled(True)
         self.centralwidget.setStyleSheet(".QWidget{\n"
@@ -692,7 +692,7 @@ class Ui_MainWindow(object):
         self.Add_btn.setFont(font)
         self.Add_btn.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap(":/Icons/enter.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap(":/Icons/Icons/enter.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.Add_btn.setIcon(icon1)
         self.Add_btn.setIconSize(QtCore.QSize(30, 30))
         self.Add_btn.setCheckable(False)

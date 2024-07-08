@@ -156,6 +156,7 @@ class Ui_MainWindow(object):
         self.Products_Table.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
         self.Products_Table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.Products_Table.setAlternatingRowColors(True)
+        self.Products_Table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.Products_Table.setObjectName("Products_Table")
         self.Products_Table.setColumnCount(5)
         self.Products_Table.setRowCount(0)

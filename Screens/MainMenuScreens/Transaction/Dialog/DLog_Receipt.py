@@ -1,4 +1,7 @@
 from PyQt5.QtWidgets import QDialog, QWidget, QVBoxLayout,QHBoxLayout ,QSpacerItem, QSizePolicy, QLabel
+from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
+from PyQt5.QtGui import QPainter
+from PyQt5.QtCore import QSizeF
 
 from Database.User_Manager import UserMana
 from Database.DBController import dbcont
@@ -49,8 +52,10 @@ class DLG_Receipt(QDialog, Ui_Dialog):
             
         self.GCRef_L.setText(str(GCRef))
         
-    def create_prodlist(self):
         
+        self.Print_btn.clicked.connect(self.handlePrint)
+        
+    def create_prodlist(self):
         prodlistlayout = QVBoxLayout()
         
         for prod in self.Plist:
@@ -79,3 +84,55 @@ class DLG_Receipt(QDialog, Ui_Dialog):
             prodlistlayout.addWidget(labelwidget)
         
         self.ProdList_w.setLayout(prodlistlayout)
+        
+    def handlePrint(self):
+        printer = QPrinter()
+
+        print_dialog = QPrintDialog(printer, self)
+        if print_dialog.exec_() == QPrintDialog.Accepted:
+            self.printContent(printer)
+        
+    def printContent(self, printer):
+        # # Get the size of the widget
+        # widget_size = self.label.size()
+        
+        # # Convert widget size to points (1 inch = 72 points)
+        # dpi = printer.resolution()
+        # width_points = widget_size.width() * 72 / self.logicalDpiX()
+        # height_points = widget_size.height() * 72 / self.logicalDpiY()
+        # printer.setPaperSize(QSizeF(width_points, height_points), QPrinter.Point)
+        # printer.setFullPage(True)
+        
+        # # Set margins to zero
+        # printer.setPageMargins(0, 0, 0, 0, QPrinter.Point)
+        
+        # # Create a QPainter and set it to the printer
+        # painter = QPainter(printer)
+        
+        # # Scale the painter to match the printer resolution
+        # scale_x = dpi / self.logicalDpiX()
+        # scale_y = dpi / self.logicalDpiY()
+        # painter.scale(scale_x, scale_y)
+        
+        # # Render the specific widget (self.label in this case)
+        # self.widget.render(painter)
+        
+        # # End the painter to finalize the printing
+        
+        widget_size = self.widget.size()
+        widget_width = widget_size.width()
+        widget_height = widget_size.height()
+
+        # Set paper size
+        resolution = printer.resolution()
+        paper_size = QSizeF(widget_width / resolution * 25.4, widget_height / resolution * 25.4)  # Convert pixels to mm
+
+        printer.setPaperSize(paper_size, QPrinter.Millimeter)
+        printer.setFullPage(True)
+
+        # Set margins
+        printer.setPageMargins(0, 0, 0, 0, QPrinter.Millimeter)
+        
+        painter = QPainter(printer)
+        self.widget.render(painter)
+        painter.end()

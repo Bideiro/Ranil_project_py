@@ -58,11 +58,11 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.Search_btn.clicked.connect(self.sort_search_table)
         self.CSearch_btn.clicked.connect(self.set_tableElements)
         
-        self.Product_Table.itemClicked.connect(self.add_to_list)
+        self.Product_Table.itemDoubleClicked.connect(self.add_to_list)
         
         # Order Widget
         self.RProduct_btn.clicked.connect(self.remove_sprod)
-        self.Quantity_LE.textChanged.connect(self.add_quantity)
+        self.Add_btn.clicked.connect(self.add_quantity)
         
         self.Done_btn.clicked.connect(self.change_widget)
         self.Clear_btn.clicked.connect(self.clean_sprod_table)
@@ -78,7 +78,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.ATrans_btn.clicked.connect(self.another_trans)
         self.SPayment_btn.clicked.connect(self.confirmed_split_payment)
         self.PReceipt_btn.clicked.connect(self.print_widget)
-                
+
     def search(self):
         
         searchResult = self.db.search_prod( searchstr= self.Search_LE.text(), trans= True)
@@ -102,7 +102,15 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.RUID_L.setText(Sprod[0])
         self.SPrice_L.setText(str(Sprod[2]))
         self.EDate_L.setText(str(Sprod[4]))
-        self.Quantity_LE.setText(self.SProducts_Table.item(item.row(), 2).text())
+        
+        # for sublist in self.SProdConfirmed:
+        #     for item in sublist:
+        #         if item == Sprod[1]:
+        #             self.Quantity_LE.setText(item[2])
+        #             value_found = True
+        #             break
+        #     if value_found:
+        #         break
         
     def remove_sprod(self):
         if self.SprodRow != None:
@@ -129,33 +137,26 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
             cell_item = self.Product_Table.item(row, column)
             if cell_item is not None:
                 prod_values.append(cell_item.text())
-            
-        self.PName_L.setText(prod_values[1])
-        self.RUID_L.setText(prod_values[0])
-        self.SPrice_L.setText(prod_values[2])
-        self.EDate_L.setText(prod_values[4])
         
-        self.Sprod = [prod_values[0],prod_values[1],prod_values[2],prod_values[3],prod_values[4],'1']
-        
-        if self.Sprod:
-            if self.Sprod[3] == '0':
-                Dlg = DLG_Alert(msg=f'{self.Sprod[1]}({self.Sprod[0]}) has 0 Stock!')
+        if prod_values:
+            if prod_values[3] == '0':
+                Dlg = DLG_Alert(msg=f'{prod_values[1]}({prod_values[0]}) has 0 Stock!')
                 Dlg.exec()
                 
-            elif self.Sprod[0] not in self.StableRPID:
-                self.StableRPID.add(self.Sprod[0])
-                rowpos = self.SProducts_Table.rowCount()
-                self.SProducts_Table.insertRow(rowpos)
+            elif prod_values[0] not in self.StableRPID:
                 
-                for col, data in enumerate(self.Sprod):
-                    if col == 2:
-                        item = QTableWidgetItem(str(self.Sprod[5]))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.SProducts_Table.setItem(rowpos, col, item)
-                    elif col == 0 or col == 1:
-                        item = QTableWidgetItem(str(data))
-                        item.setTextAlignment(Qt.AlignCenter)
-                        self.SProducts_Table.setItem(rowpos, col, item)
+                self.PName_L.setText(prod_values[1])
+                self.RUID_L.setText(prod_values[0])
+                self.SPrice_L.setText(prod_values[2])
+                self.EDate_L.setText(prod_values[4])
+                
+                self.Sprod = [prod_values[0],prod_values[1],prod_values[2],prod_values[3],prod_values[4], '1']
+                
+                self.StableRPID.add(prod_values[0])
+                self.SProdConfirmed.append(self.Sprod)
+                self.Quantity_LE.setText(self.Sprod[5])
+                self.set_Sprod_tableElements()
+                
             else:
                 Dlg = DLG_Alert(msg='Already in list!')
                 Dlg.exec()
@@ -164,27 +165,21 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
             Dlg.exec()
         
     def add_quantity(self):
-        selquantity = None
-        for row in range(self.SProducts_Table.rowCount()):
-            item = self.SProducts_Table.item(row, 0)
-            if item.text() == self.Sprod[0]:
-                selquantity = self.SProducts_Table.item(row, 2)
-                break
-        
-        if selquantity is not None:
-            
+        if self.Quantity_LE.text() is not None:
             if self.Quantity_LE.text() == '':
                 pass
             elif self.Quantity_LE.text() == '0' or int(self.Quantity_LE.text()) <= 0:
                 Dlg = DLG_Alert(msg='Quantity cant be 0 or less than 0!')
                 Dlg.exec()
-            elif int(self.Quantity_LE.text()) <= int(self.Sprod[3])  :
-                row = selquantity.row()
-                self.SProducts_Table.setItem(row,2,QTableWidgetItem(self.Quantity_LE.text()))
+            elif int(self.Quantity_LE.text()) <= int(self.Sprod[3]):
+                for i in range(len(self.SProdConfirmed)):
+                    if self.SProdConfirmed[i][0] == self.RUID_L.text():
+                        self.SProdConfirmed[i][5] = int(self.Quantity_LE.text())
+                self.set_Sprod_tableElements()
             else:
                 Dlg = DLG_Alert(msg='Not enough stock!')
                 Dlg.exec()
-        else:
+        elif not self.StableRPID:
             Dlg = DLG_Alert(msg='Selected item was removed or not Added!')
             Dlg.exec()
 
@@ -254,8 +249,8 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
                                     Ptype= payment,
                                     Pprice= self.amtpaid,
                                     RID = receiptID,
-                                    DTime= receiptdata[2],
-                                    GCRef= receiptdata[6]
+                                    DTime= receiptdata[0][2],
+                                    GCRef= receiptdata[0][6]
                                     )
         self.dlg_receipt.exec()
         self.set_tableElements()
@@ -410,6 +405,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         mainlayout.addItem(spacer)
         self.Buttons_w.setLayout(mainlayout)
 
+# line 380 in set_dybutton
     def on_button_click(self):
         sender = self.sender()
         self.Main_w.setVisible(True)
@@ -433,9 +429,8 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
 
         self.Product_Table.setRowCount(0)
         if searchResult:
-            self.Product_Table.setRowCount(len(searchResult))
             for row_number, row_data in enumerate(searchResult):
-                # self.Product_Table.insertRow(row_number)  REMOVE THIS
+                self.Product_Table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
                     if column_number == 6:
                         data = self.db.get_id_value(id= data, unit= True)
@@ -447,9 +442,28 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         result = self.db.get_all_prod(trans= True)
         self.Search_LE.clear()
         self.Cate_CB.setCurrentIndex(0)
-        self.Product_Table.setRowCount(len(result))
+        self.Product_Table.setRowCount(0)
         for row_number, row_data in enumerate(result):
+            self.Product_Table.insertRow(row_number)
             for column_number, data in enumerate(row_data):
                 item = QTableWidgetItem(str(data))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.Product_Table.setItem(row_number, column_number, item)
+                
+    def set_Sprod_tableElements(self):
+        self.SProducts_Table.setRowCount(0)
+        for row_number, row_data in enumerate(self.SProdConfirmed):
+            self.SProducts_Table.insertRow(row_number)
+            for column_number, data in enumerate(row_data):
+                if column_number == 0:
+                    item = QTableWidgetItem(str(row_data[0]))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.SProducts_Table.setItem(row_number, column_number, item)
+                if column_number == 1:
+                    item = QTableWidgetItem(str(row_data[1]))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.SProducts_Table.setItem(row_number, column_number, item)
+                if column_number == 2:
+                    item = QTableWidgetItem(str(row_data[5]))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.SProducts_Table.setItem(row_number, column_number, item)

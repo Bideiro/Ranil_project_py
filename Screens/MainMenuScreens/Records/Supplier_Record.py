@@ -29,8 +29,10 @@ class Supp_Rec_Window(QMainWindow, Ui_MainWindow):
         for row_number, row_data in enumerate(result):
             self.SReceipts_Table.insertRow(row_number)
             for column_number, data in enumerate(row_data):
-                if column_number == 1:
-                    user = self.db.get_user_creds(RUID = data)
+                if column_number == 5:
+                    data = data.strftime('%B %d, %Y %H:%M')
+                if column_number == 6:
+                    data = data.strftime('%B %d, %Y %H:%M')
                     
                 item = QTableWidgetItem(str(data))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -44,6 +46,10 @@ class Supp_Rec_Window(QMainWindow, Ui_MainWindow):
         for row_number, row_data in enumerate(result):
             self.SReceipts_Table.insertRow(row_number)
             for column_number, data in enumerate(row_data):
+                if column_number == 5:
+                    data = data.strftime('%B %d, %Y %H:%M')
+                if column_number == 6:
+                    data = data.strftime('%B %d, %Y %H:%M')
                 item = QTableWidgetItem(str(data))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.SReceipts_Table.setItem(row_number, column_number, item)

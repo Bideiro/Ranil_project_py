@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>2255</width>
+    <width>2260</width>
     <height>606</height>
    </rect>
   </property>
@@ -1373,8 +1373,8 @@ font-size: 20px
                 <string/>
                </property>
                <property name="icon">
-                <iconset>
-                 <normaloff>:/Icons/enter.png</normaloff>:/Icons/enter.png</iconset>
+                <iconset resource="../../../assets/All_In_Resource.qrc">
+                 <normaloff>:/Icons/Icons/enter.png</normaloff>:/Icons/Icons/enter.png</iconset>
                </property>
                <property name="iconSize">
                 <size>
