@@ -167,6 +167,10 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
     
     @pyqtSlot()
     # Functions changing windows
+    
+    def on_home_tpbtn_clicked(self):
+        self.stackedWidget.setCurrentWidget(self.Home)
+    
     def on_security_sdbtn_clicked(self):
         self.CScreen_L.setText('> Security')
         self.User_Info.createlist()

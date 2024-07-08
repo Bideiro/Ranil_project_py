@@ -711,6 +711,7 @@ class dbcont(object):
                 PaidPrice LIKE %s OR
                 GCashReference LIKE %s OR
                 PaymentTypeID LIKE %s
+                ORDER BY PurchaseDate DESC
                 """
         searchstr = '%' + searchstr + '%'
         

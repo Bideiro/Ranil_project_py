@@ -307,7 +307,7 @@ class Ui_MainWindow(object):
         item.setText(_translate("MainWindow", "Month"))
         item = self.Monthly_table.horizontalHeaderItem(1)
         item.setText(_translate("MainWindow", "Total "))
-        self.label_6.setText(_translate("MainWindow", "Yearly Sales"))
+        self.label_6.setText(_translate("MainWindow", "Annual Sales"))
         item = self.Yearly_table.horizontalHeaderItem(0)
         item.setText(_translate("MainWindow", "Year"))
         item = self.Yearly_table.horizontalHeaderItem(1)

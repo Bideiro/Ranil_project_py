@@ -161,37 +161,37 @@ class MainMenuWindow_E( QMainWindow, Ui_MainWindow):
     
     @pyqtSlot()
     # Functions changing windows
-    
-    def on_registration_sdbtn_clicked(self):
-        self.Reg_prod.PName_LE.clear()
-        self.Reg_prod.SPrice_LE.clear()
-        self.Reg_prod.Desc_PTE.clear()
-        self.stackedWidget.setCurrentWidget(self.Reg_1)
-        
     def on_sales_sdbtn_clicked(self):
+        self.CScreen_L.setText('> Sales')
         self.Sales.set_tableElements()
         self.stackedWidget.setCurrentWidget(self.Sales)
         
     def on_transaction_sdbtn_clicked(self):
-
+        self.CScreen_L.setText('> Transaction')
         self.Trans_prod.reset_page()
         self.stackedWidget.setCurrentWidget(self.Trans_prod)
         
     def on_inventory_sdbtn_clicked(self):
+        self.CScreen_L.setText('> Inventory')
         self.Inven.set_tableElements()
         self.stackedWidget.setCurrentWidget(self.Inven)
         
     def on_records_sdbtn_clicked(self):
+        self.CScreen_L.setText('> Records')
         self.stackedWidget.setCurrentWidget(self.Records_1)
         
     def on_reports_sdbtn_clicked(self):
+        self.CScreen_L.setText('> Reports')
         self.stackedWidget.setCurrentWidget(self.Reports_1)
         
     def on_help_sdbtn_clicked(self):
+        self.CScreen_L.setText('> Help')
         self.stackedWidget.setCurrentWidget(self.Help)
         
     def on_maintenance_sdbtn_clicked(self):
+        self.CScreen_L.setText('> Maintenance')
         self.stackedWidget.setCurrentWidget(self.Main_1)
         
     def on_about_sdbtn_clicked(self):
+        self.CScreen_L.setText('> About')
         self.stackedWidget.setCurrentWidget(self.about)

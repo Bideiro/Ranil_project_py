@@ -431,7 +431,7 @@ border : 2px solid #ABE27D;
              </font>
             </property>
             <property name="text">
-             <string>Yearly Sales</string>
+             <string>Annual Sales</string>
             </property>
            </widget>
           </item>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>965</width>
-    <height>702</height>
+    <width>893</width>
+    <height>677</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,10 +24,6 @@
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true">/*Nav Bar*/
-#widget_2, #sideBar, #stackedWidget{
-background-color: #F8F8F0;
-}
-
 #top_bar{
 	background-color: #096033;
 }
@@ -191,30 +187,15 @@ background-color: #F8F8F0;
         </widget>
        </item>
        <item>
-        <widget class="QLabel" name="CScreen_L">
-         <property name="font">
-          <font>
-           <family>DM Sans</family>
-           <pointsize>12</pointsize>
-           <bold>true</bold>
-          </font>
-         </property>
-         <property name="text">
-          <string>Screen</string>
-         </property>
-        </widget>
-       </item>
-       <item>
         <widget class="QLabel" name="User_L">
          <property name="font">
           <font>
            <family>DM Sans</family>
-           <pointsize>12</pointsize>
-           <bold>true</bold>
+           <pointsize>10</pointsize>
           </font>
          </property>
          <property name="text">
-          <string>UserName</string>
+          <string>TextLabel</string>
          </property>
         </widget>
        </item>
@@ -251,17 +232,36 @@ background-color: #F8F8F0;
          </property>
         </widget>
        </item>
+       <item>
+        <widget class="QLabel" name="RANIL_logo">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>65</width>
+           <height>65</height>
+          </size>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="pixmap">
+          <pixmap>:/Icons/images/Ranil_ICON.png</pixmap>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
       </layout>
      </widget>
     </item>
     <item>
      <widget class="QWidget" name="widget_2" native="true">
-      <property name="minimumSize">
-       <size>
-        <width>250</width>
-        <height>0</height>
-       </size>
-      </property>
       <layout class="QHBoxLayout" name="horizontalLayout">
        <property name="spacing">
         <number>0</number>
@@ -288,7 +288,7 @@ background-color: #F8F8F0;
          </property>
          <property name="minimumSize">
           <size>
-           <width>250</width>
+           <width>200</width>
            <height>0</height>
           </size>
          </property>
@@ -299,6 +299,9 @@ background-color: #F8F8F0;
            <bold>true</bold>
            <kerning>false</kerning>
           </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true"/>
          </property>
          <property name="frameShape">
           <enum>QFrame::NoFrame</enum>
@@ -317,9 +320,21 @@ background-color: #F8F8F0;
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>250</width>
-            <height>629</height>
+            <width>200</width>
+            <height>604</height>
            </rect>
+          </property>
+          <property name="sizePolicy">
+           <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+            <horstretch>0</horstretch>
+            <verstretch>0</verstretch>
+           </sizepolicy>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>200</width>
+            <height>0</height>
+           </size>
           </property>
           <property name="setVisible" stdset="0">
            <bool>false</bool>
@@ -338,90 +353,6 @@ background-color: #F8F8F0;
             <number>0</number>
            </property>
            <item>
-            <widget class="QPushButton" name="security_sdbtn">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>175</width>
-               <height>35</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>DM Sans</family>
-               <pointsize>12</pointsize>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>USER INFORMATION</string>
-             </property>
-             <property name="icon">
-              <iconset resource="../assets/All_In_Resource.qrc">
-               <normaloff>:/Icons/Icons/group.png</normaloff>:/Icons/Icons/group.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>25</width>
-               <height>25</height>
-              </size>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
-            <widget class="QPushButton" name="registration_sdbtn">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="minimumSize">
-              <size>
-               <width>175</width>
-               <height>35</height>
-              </size>
-             </property>
-             <property name="font">
-              <font>
-               <family>DM Sans</family>
-               <pointsize>12</pointsize>
-               <bold>true</bold>
-              </font>
-             </property>
-             <property name="text">
-              <string>REGISTRATION</string>
-             </property>
-             <property name="icon">
-              <iconset resource="../assets/All_In_Resource.qrc">
-               <normaloff>:/Icons/Icons/memo.png</normaloff>:/Icons/Icons/memo.png</iconset>
-             </property>
-             <property name="iconSize">
-              <size>
-               <width>25</width>
-               <height>25</height>
-              </size>
-             </property>
-             <property name="checkable">
-              <bool>true</bool>
-             </property>
-             <property name="autoExclusive">
-              <bool>true</bool>
-             </property>
-            </widget>
-           </item>
-           <item>
             <widget class="QPushButton" name="sales_sdbtn">
              <property name="sizePolicy">
               <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
@@ -431,7 +362,7 @@ background-color: #F8F8F0;
              </property>
              <property name="minimumSize">
               <size>
-               <width>175</width>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
@@ -473,7 +404,7 @@ background-color: #F8F8F0;
              </property>
              <property name="minimumSize">
               <size>
-               <width>175</width>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
@@ -515,7 +446,7 @@ background-color: #F8F8F0;
              </property>
              <property name="minimumSize">
               <size>
-               <width>175</width>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
@@ -557,7 +488,7 @@ background-color: #F8F8F0;
              </property>
              <property name="minimumSize">
               <size>
-               <width>175</width>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
@@ -599,7 +530,7 @@ background-color: #F8F8F0;
              </property>
              <property name="minimumSize">
               <size>
-               <width>175</width>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
@@ -623,9 +554,6 @@ background-color: #F8F8F0;
                <height>25</height>
               </size>
              </property>
-             <property name="shortcut">
-              <string/>
-             </property>
              <property name="checkable">
               <bool>true</bool>
              </property>
@@ -644,7 +572,7 @@ background-color: #F8F8F0;
              </property>
              <property name="minimumSize">
               <size>
-               <width>175</width>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
@@ -686,7 +614,7 @@ background-color: #F8F8F0;
              </property>
              <property name="minimumSize">
               <size>
-               <width>175</width>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
@@ -728,7 +656,7 @@ background-color: #F8F8F0;
              </property>
              <property name="minimumSize">
               <size>
-               <width>175</width>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
@@ -770,7 +698,7 @@ background-color: #F8F8F0;
              </property>
              <property name="minimumSize">
               <size>
-               <width>175</width>
+               <width>150</width>
                <height>35</height>
               </size>
              </property>
@@ -790,12 +718,9 @@ background-color: #F8F8F0;
              </property>
              <property name="iconSize">
               <size>
-               <width>23</width>
+               <width>25</width>
                <height>25</height>
               </size>
-             </property>
-             <property name="shortcut">
-              <string>Ctrl+F</string>
              </property>
             </widget>
            </item>
@@ -818,14 +743,17 @@ background-color: #F8F8F0;
        </item>
        <item>
         <widget class="QStackedWidget" name="stackedWidget">
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
          </property>
-         <widget class="QWidget" name="page_3"/>
-         <widget class="QWidget" name="page_4"/>
+         <property name="autoFillBackground">
+          <bool>false</bool>
+         </property>
+         <widget class="QWidget" name="page"/>
+         <widget class="QWidget" name="page_2"/>
         </widget>
        </item>
       </layout>
