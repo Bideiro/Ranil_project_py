@@ -29,9 +29,15 @@ class DLG_Receipt_Product_Details(QDialog, Ui_Dialog):
         if self.PQuantity_LE.text() == '':
             Dlg = DLG_Alert(msg='Empty Amount Field!')
             Dlg.exec()
+        elif int(self.PQuantity_LE.text()) <= 0:
+            Dlg = DLG_Alert(msg='Amount field is 0 or less than 0!')
+            Dlg.exec()
         elif self.PBought_LE.text() == '':
             Dlg = DLG_Alert(msg='Empty Product price Field!')
             Dlg.exec()
-        
+            
+        elif int(self.PBought_LE.text()) >= 0:
+            Dlg = DLG_Alert(msg='Product price is 0 or less than 0!')
+            Dlg.exec()
         else:
             self.done(1)

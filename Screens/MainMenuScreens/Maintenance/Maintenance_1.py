@@ -4,6 +4,9 @@ import datetime
 import mysql.connector
 from PyQt5.QtWidgets import QMainWindow, QFileDialog
 
+import subprocess
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QFileDialog, QMessageBox
+
 from .Maintenance_1_ui import Ui_MainWindow
 from Dialogs.DLog_Alert import DLG_Alert
 
@@ -17,19 +20,50 @@ class Maintenance_Window(QMainWindow, Ui_MainWindow):
         super(Maintenance_Window,self).__init__()
         self.setupUi(self)
         
-        self.RData_btn.clicked.connect(self.Restore_protocol)
+        self.RData_btn.clicked.connect(self.openFileDialog)
         self.BData_btn.clicked.connect(self.backup_database)
+        
+    def openFileDialog(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.ReadOnly
+        fileName, _ = QFileDialog.getOpenFileName(self, "Select MySQL File", "", "SQL Files (*.sql);;All Files (*)", options=options)
+        if fileName:
+            self.importData(fileName)
 
-    def Restore_protocol(self):
-            options = QFileDialog.Options()
-            options |= QFileDialog.ReadOnly
-            fileName, _ = QFileDialog.getOpenFileName(self, "Select a SQL File", "", "SQL Files (*.sql);;All Files (*)", options=options)
-            if fileName:
-                self.db.Restore_sql(fileName)
+    def importData(self, fileName):
+        try:
+            # MySQL database connection parameters
+            host = 'localhost'
+            user = 'root'
+            password = 'password'
+            database = 'ranil_proj'
+
+            # Construct the command and ensure the file path is properly quoted
+            command = f'mysql -h {host} -u {user} -p{password} {database} < "{fileName}"'
+
+            # Execute the command
+            result = subprocess.run(command, shell=True, capture_output=True, text=True)
+
+            if result.returncode == 0:
+                QMessageBox.information(self, 'Success', 'Data imported successfully.')
             else:
-                Dlg = DLG_Alert(msg='No SQL file Selected!')
-                Dlg.exec()
-                            
+                QMessageBox.critical(self, 'Error', f'Error: {result.stderr}')
+
+        except Exception as e:
+            QMessageBox.critical(self, 'Error', f'An unexpected error occurred: {e}')
+
+
+    # def Restore_protocol(self):
+        # options = QFileDialog.Options()
+        # options |= QFileDialog.ReadOnly
+        # fileName, _ = QFileDialog.getOpenFileName(self, "Select a SQL File", "", "SQL Files (*.sql);;All Files (*)", options=options)
+        # if fileName:
+        #     self.db.Restore_sql(fileName)
+        # else:
+        #     Dlg = DLG_Alert(msg='No SQL file Selected!')
+        #     Dlg.exec()
+        
+        
     def backup_database(self):
         backup_path = os.path.expanduser("~/Desktop")
         # Create a backup file name with the current date
@@ -69,7 +103,8 @@ class Maintenance_Window(QMainWindow, Ui_MainWindow):
 
             # Execute the mysqldump command
             subprocess.run(dump_cmd, check=True)
-            print(f"Backup completed: {backup_file}")
+            Dlg = DLG_Alert(msg = f'Backup completed: {backup_file}')
+            Dlg.exec()
 
         except mysql.connector.Error as err:
             print(f"Error: {err}")

@@ -42,6 +42,7 @@ class Ui_MainWindow(object):
         font.setFamily("DM Sans")
         self.Log_Table.setFont(font)
         self.Log_Table.setSizeAdjustPolicy(QtWidgets.QAbstractScrollArea.AdjustToContents)
+        self.Log_Table.setEditTriggers(QtWidgets.QAbstractItemView.NoEditTriggers)
         self.Log_Table.setAlternatingRowColors(True)
         self.Log_Table.setSelectionBehavior(QtWidgets.QAbstractItemView.SelectRows)
         self.Log_Table.setObjectName("Log_Table")

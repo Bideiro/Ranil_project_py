@@ -59,7 +59,7 @@ color: #096033
           <property name="geometry">
            <rect>
             <x>0</x>
-            <y>-269</y>
+            <y>-319</y>
             <width>962</width>
             <height>991</height>
            </rect>
@@ -444,6 +444,23 @@ color: #096033
               <property name="topMargin">
                <number>0</number>
               </property>
+              <item>
+               <widget class="QPushButton" name="facebook_btn">
+                <property name="text">
+                 <string/>
+                </property>
+                <property name="icon">
+                 <iconset resource="../../../assets/All_In_Resource.qrc">
+                  <normaloff>:/Icons/Icons/facebook.png</normaloff>:/Icons/Icons/facebook.png</iconset>
+                </property>
+                <property name="iconSize">
+                 <size>
+                  <width>40</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </widget>
+              </item>
               <item>
                <widget class="QPushButton" name="Phone_btn">
                 <property name="sizePolicy">

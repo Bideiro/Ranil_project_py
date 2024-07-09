@@ -11,12 +11,15 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, 
 
 
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+from PyQt5 import QtCore
 
 from .Inventory_Report_ui import Ui_MainWindow
 from Database.DBController import dbcont
 
 class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
     db = dbcont()
+    
+    back_btnsgl = QtCore.pyqtSignal()
     
     def __init__(self):
         super(Inventory_Report_Window, self).__init__()
@@ -25,7 +28,8 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
         self.generateBtn.clicked.connect(self.print_to_pdf)
         self.Search_btn.clicked.connect(self.search)
         self.Refresh_btn.clicked.connect(self.set_tableElements)
-        self.pushButton_2.clicked.connect(self.abc_classification)
+        # self.Back_btn.clicked.connect(self.abc_classification)
+        self.Back_btn.clicked.connect(lambda: self.back_btnsgl.emit())
         
 
     def set_tableElements(self):
@@ -55,7 +59,9 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
                     if column_number == 0:
-                        data = data.strftime('%B %d, %Y %H:%M')
+                        data_datetime = datetime.strptime(data, '%Y-%m-%d %H:%M')
+                        data = data_datetime.strftime('%B %d, %Y %H:%M')
+                        
                     self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
         else:
             print('No transactions found for the selected date or date range.')

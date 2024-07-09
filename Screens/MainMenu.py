@@ -125,7 +125,8 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.Add_Supp_Receipt.Back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Supp_Receipts))
         self.Trans_Receipts.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Records_1))
         # Reports Buttons
-        
+        self.Inventory_Report.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Reports_1))
+        self.Sales_Report.back_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Reports_1))
         self.Reports_1.Inven_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Inventory_Report))
         self.Reports_1.Sales_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.Sales_Report))
         self.Reports_1.ULogs_btnsgl.connect(lambda: self.stackedWidget.setCurrentWidget(self.User_Logs))

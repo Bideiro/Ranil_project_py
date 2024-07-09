@@ -105,6 +105,6 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
         self.clear_table()
     
     def clear_table(self):
-        self.TableRPID.clear()
+        RPIDList = set()
         self.Products_Table.setRowCount(0)
         selectedprods = None

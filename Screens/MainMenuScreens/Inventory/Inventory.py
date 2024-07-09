@@ -1,4 +1,5 @@
 from gc import isenabled
+from math import prod
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem, QDialog
 from PyQt5.QtCore import Qt
 from Database.DBController import dbcont
@@ -74,24 +75,17 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
             return
         
     def clicked_item(self, item):
-        row = item.row()
-        column_count = self.Product_Table.columnCount()
-        prod_values = []
+        row = item.row()    
+        prod_rid = self.Product_Table.item(row, 0).text()
         
-        for column in range(column_count):
-            cell_item = self.Product_Table.item(row, column)
-            if cell_item is not None:
-                prod_values.append(cell_item.text())
-            else:
-                prod_values.append('')
-        Dlg = DLG_Edit_Prod(Plist= prod_values, isEnabled= self.db.access_status_prod(RPID=prod_values[0]))
+        Dlg = DLG_Edit_Prod(Plist= self.db.search_prod(searchstr= prod_rid, inv= True)[0], isEnabled= self.db.access_status_prod(RPID=prod_rid))
         Dlg.exec()
         if Dlg.result() == 1:
-            self.newPlist = [self.db._create_rid(RID= prod_values[0],typeID=Dlg.Cat_CB.currentIndex(),prod=True),
+            self.newPlist = [self.db._create_rid(RID= prod_rid ,typeID=Dlg.Cat_CB.currentIndex(),prod=True),
                         Dlg.PName_LE.text(),Dlg.SPrice_LE.text(),
                         Dlg.Desc_LE.text(),Dlg.Unit_CB.currentIndex(),
                         Dlg.Cat_CB.currentIndex()]
-            oldPlist = [prod_values[0]]
+            oldPlist = [prod_rid]
             self.db.update_prod_protocol(RPID=oldPlist, NewPlist = self.newPlist)
         self.set_tableElements()
         

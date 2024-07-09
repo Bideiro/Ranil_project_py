@@ -1,6 +1,7 @@
-import sys
 from PyQt5.QtWidgets import QMainWindow
 from PyQt5.QtGui import QIntValidator
+from PyQt5 import QtCore
+from PyQt5.QtCore import QDate
 
 from .Registration_user_ui import Ui_MainWindow
 from Dialogs.DLog_Alert import DLG_Alert
@@ -9,7 +10,6 @@ from Dialogs.DLog_ImputAdminPass import DLG_AdminCheckPass
 from Database.DBController import dbcont
 from Database.App_functions import check_user_validity
 
-from PyQt5 import QtWidgets, QtGui, QtCore
 class Registration_user_Window(QMainWindow, Ui_MainWindow):
     back_btnsgl = QtCore.pyqtSignal()
     
@@ -29,6 +29,9 @@ class Registration_user_Window(QMainWindow, Ui_MainWindow):
         self.Level_CB.addItems(self.db.get_levels(all=True))
         self.Suffix_CB.addItems(self.db.get_suffix(all=True))
         self.Level_CB.setCurrentIndex(1)
+        self.BDate_DE.setDate(QDate.currentDate())
+        self.DHire_DE.setDate(QDate.currentDate())
+        
         self.update_nextRUID()
         self.Level_CB.currentTextChanged.connect(self.update_nextRUID)
         

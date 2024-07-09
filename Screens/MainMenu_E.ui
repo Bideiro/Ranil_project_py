@@ -187,11 +187,29 @@
         </widget>
        </item>
        <item>
+        <widget class="QLabel" name="CScreen_L">
+         <property name="font">
+          <font>
+           <family>DM Sans</family>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">color: white;</string>
+         </property>
+         <property name="text">
+          <string>TextLabel</string>
+         </property>
+        </widget>
+       </item>
+       <item>
         <widget class="QLabel" name="User_L">
          <property name="font">
           <font>
            <family>DM Sans</family>
-           <pointsize>10</pointsize>
+           <pointsize>12</pointsize>
+           <bold>true</bold>
           </font>
          </property>
          <property name="text">

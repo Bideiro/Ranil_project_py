@@ -376,31 +376,6 @@ color: black
            <number>12</number>
           </property>
           <item>
-           <widget class="QPushButton" name="Back_btn">
-            <property name="sizePolicy">
-             <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-              <horstretch>0</horstretch>
-              <verstretch>0</verstretch>
-             </sizepolicy>
-            </property>
-            <property name="minimumSize">
-             <size>
-              <width>100</width>
-              <height>40</height>
-             </size>
-            </property>
-            <property name="font">
-             <font>
-              <family>DM Sans</family>
-              <bold>true</bold>
-             </font>
-            </property>
-            <property name="text">
-             <string>BACK</string>
-            </property>
-           </widget>
-          </item>
-          <item>
            <spacer name="horizontalSpacer_2">
             <property name="orientation">
              <enum>Qt::Horizontal</enum>

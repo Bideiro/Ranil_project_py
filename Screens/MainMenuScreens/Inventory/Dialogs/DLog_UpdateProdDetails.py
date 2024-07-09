@@ -31,9 +31,10 @@ class DLG_Edit_Prod(QDialog, Ui_Dialog):
         
         self.PName_LE.setText(Plist[1])
         self.Desc_LE.setText(Plist[7])
-        self.SPrice_LE.setText(Plist[4])
-        self.Unit_CB.setCurrentIndex(self.db.get_unittype(value= Plist[3]))
-        self.Cat_CB.setCurrentIndex(self.db.get_cate(value= Plist[2]))
+        self.SPrice_LE.setText(str(Plist[4]))
+        self.Unit_CB.setCurrentIndex(Plist[3])
+        self.Cat_CB.setCurrentIndex(Plist[2])
+        
         
     def init_update_prod(self):
         

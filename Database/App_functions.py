@@ -30,6 +30,7 @@ def check_user_validity(Fname ,Lname ,Uname ,Email ,LevelID ,Bdate ,SexID ,Pos ,
     # Email validity
     # Checking of LOA
     # Checking of Bdate
+    # Bdate must be before Hdate
     # Checking of sex
     # Phone number
     # Checking char length of passcode
@@ -46,6 +47,8 @@ def check_user_validity(Fname ,Lname ,Uname ,Email ,LevelID ,Bdate ,SexID ,Pos ,
         return 'Input level of access!'
     elif Bdate >= today:
         return 'Birthdate must before today!'
+    elif Bdate >= Hdate:
+        return 'Birthdate must before Hire Date!'
     elif SexID == -1:
         return 'Input gender!'
     elif Pos == '':
@@ -74,6 +77,8 @@ def check_prod_validity(Pname, Utype, Sprice, Cat):
         return 'Empty Unit type field!'
     elif Sprice == '':
         return 'Empty Selling price field!'
+    elif int(Sprice) >= 0:
+        return 'Price field is 0 or less than 0!'
     elif Cat == -1:
         return 'Category not set!'
     else:
