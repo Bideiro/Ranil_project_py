@@ -134,8 +134,8 @@ class Sales_Window(QMainWindow, Ui_MainWindow):
                 self.Sales_Table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
                     if column_number == 0:
-                        date_time = datetime.datetime(1900, data, 1)
-                        data = date_time.strftime('%B')
+                        date_obj = datetime.datetime.strptime(data, '%Y-%m')
+                        data = date_obj.strftime('%B')
                     
                     item = QTableWidgetItem(str(data))
                     item.setTextAlignment(Qt.AlignCenter)
