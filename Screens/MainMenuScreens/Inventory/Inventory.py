@@ -30,6 +30,7 @@ class Inventory_Window(QMainWindow, Ui_MainWindow):
         self.Product_Table.itemClicked.connect(self.clicked_item)
     
     def set_tableElements(self):
+        # self.db.set_dynamic_expdate(refresh=True)
         self.Product_Table.setRowCount(0)
         result = []
         result = self.db.get_all_prod(inv=True)

@@ -64,11 +64,8 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.RProduct_btn.clicked.connect(self.remove_sprod)
         self.Add_btn.clicked.connect(self.add_quantity)
         
-        # self.Done_btn.clicked.connect(self.change_widget)
+        self.Done_btn.clicked.connect(self.change_widget)
         
-        self.Done_btn.clicked.connect(lambda: print(self.SProdConfirmed))
-        
-        self.Done_btn.clicked.connect(lambda: print(self.StableRPID))
         self.Clear_btn.clicked.connect(self.clean_sprod_table)
         
         self.SProducts_Table.itemClicked.connect(self.clicked_item_sprod)

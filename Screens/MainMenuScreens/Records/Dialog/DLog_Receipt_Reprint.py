@@ -1,12 +1,12 @@
 from PyQt5.QtWidgets import  QWidget, QVBoxLayout, QLabel, QDialog,QHBoxLayout ,QSpacerItem, QSizePolicy
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
-from PyQt5.QtGui import QPainter
+from PyQt5.QtGui import QPainter, QTransform
 from PyQt5.QtCore import QSizeF
 
 from Database.User_Manager import UserMana
 from Database.DBController import dbcont
 
-from .DLog_Receipt_Reprint_ui import Ui_Dialog
+from .DLog_Receipt_Reprint_2_ui import Ui_Dialog
 
 class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
     
@@ -64,8 +64,8 @@ class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
             labelwidget = QWidget()
             layout = QHBoxLayout()
             spacer1 = QSpacerItem(40, 20, QSizePolicy.Expanding, QSizePolicy.Minimum)
-            spacer2 = QSpacerItem(20, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
-            spacer3 = QSpacerItem(30, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+            spacer2 = QSpacerItem(10, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
+            spacer3 = QSpacerItem(10, 20, QSizePolicy.Fixed, QSizePolicy.Minimum)
             
             qty = QLabel(str(prod[2]))
             price = QLabel(str(prod[1]))
@@ -94,29 +94,53 @@ class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
             self.printContent(printer)
         
     def printContent(self, printer):
-        # Get the size of the widget
-        widget_size = self.label.size()
         
-        # Convert widget size to points (1 inch = 72 points)
-        dpi = printer.resolution()
-        width_points = widget_size.width() * 72 / self.logicalDpiX()
-        height_points = widget_size.height() * 72 / self.logicalDpiY()
-        printer.setPaperSize(QSizeF(width_points, height_points), QPrinter.Point)
+        # widget_size = self.widget.size()
+        # widget_width = widget_size.width()
+        # widget_height = widget_size.height()
+
+        # # Set paper size
+        # resolution = printer.resolution()
+        # paper_size = QSizeF(widget_width / resolution * 25.4, widget_height / resolution * 25.4)  # Convert pixels to mm
+
+        # printer.setPaperSize(paper_size, QPrinter.Millimeter)
+        # printer.setFullPage(True)
+
+        # # Set margins
+        # printer.setPageMargins(0, 0, 0, 0, QPrinter.Millimeter)
+        
+        # painter = QPainter(printer)
+        # self.widget.render(painter)
+        # painter.end()
+                
+        widget_size = self.widget.size()
+        widget_width = widget_size.width()
+        widget_height = widget_size.height()
+
+        # Set paper size
+        resolution = printer.resolution()
+        # Set paper width to 80mm
+        paper_width_mm = 58  # 80mm wide paper
+        paper_width_pixels = paper_width_mm / 25.4 * resolution  # Convert mm to pixels
+
+        # Calculate the scaling factor
+        scale_factor = paper_width_pixels / widget_width
+
+        # Adjust paper height based on scale factor
+        scaled_widget_height = widget_height * scale_factor
+        paper_height_mm = scaled_widget_height / resolution * 25.4  # Convert pixels to mm
+
+        paper_size = QSizeF(paper_width_mm, paper_height_mm)
+        printer.setPaperSize(paper_size, QPrinter.Millimeter)
         printer.setFullPage(True)
-        
-        # Set margins to zero
-        printer.setPageMargins(0, 0, 0, 0, QPrinter.Point)
-        
-        # Create a QPainter and set it to the printer
+
+        # Set margins
+        printer.setPageMargins(0, 0, 0, 0, QPrinter.Millimeter)
+
+        # Print
         painter = QPainter(printer)
-        
-        # Scale the painter to match the printer resolution
-        scale_x = dpi / self.logicalDpiX()
-        scale_y = dpi / self.logicalDpiY()
-        painter.scale(scale_x, scale_y)
-        
-        # Render the specific widget (self.label in this case)
+        transform = QTransform()
+        transform.scale(scale_factor, scale_factor)
+        painter.setTransform(transform)
         self.widget.render(painter)
-        
-        # End the painter to finalize the printing
         painter.end()

@@ -663,7 +663,7 @@ class dbcont(object):
     def get_all_sales(self):
         # Sales Module(side button sales)
         sql = """
-            SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
+            SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts
             ORDER BY PurchaseDate DESC
         """
         self.mycursor.execute(sql)
@@ -798,27 +798,32 @@ class dbcont(object):
         return self.mycursor.fetchall()
         
     def set_dynamic_expdate(self, RPID):
-        
         sql = """
-        SELECT
-            ExpirationDate,
-            ABS(DATEDIFF(ExpirationDate, NOW())) AS date_diff
-        FROM
-            products_supplied
-        WHERE
-            RPID = %s AND CurrentQuantity > 0
-        ORDER BY
-            date_diff
-        LIMIT 1;
+                SELECT
+                    ExpirationDate,
+                    ABS(DATEDIFF(ExpirationDate, NOW())) AS date_diff,
+                    SUM(CurrentQuantity) OVER() AS total_stock
+                FROM
+                    products_supplied
+                WHERE
+                    RPID = %s
+                    AND CurrentQuantity > 0
+                    AND ExpirationDate >= NOW()
+                ORDER BY
+                    ExpirationDate ASC
+                LIMIT 1;
+
             """
 
         self.mycursor.execute(sql,(RPID,))
-        latestEdate = self.mycursor.fetchone()[0]
         
+        prodlist = self.mycursor.fetchone()
+        latestEdate = prodlist[0]
+        latestStock = prodlist[2]
         sql = """
-            UPDATE products SET ExpirationDate = %s WHERE RPID = %s
+            UPDATE products SET ExpirationDate = %s, TotalStock = %s WHERE RPID = %s
         """
-        self.mycursor.execute(sql, (latestEdate,RPID))
+        self.mycursor.execute(sql, (latestEdate, latestStock, RPID))
         self.mydb.commit()
 
     # Adding Receipt Product Data

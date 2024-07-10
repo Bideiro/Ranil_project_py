@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">QPushButton {
+	background-color: #096033;
+	color: white;
+}</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <property name="styleSheet">
     <string notr="true">#centralwidget{
@@ -32,6 +38,7 @@ border : 2px solid #ABE27D;
           <font>
            <family>DM Sans</family>
            <pointsize>24</pointsize>
+           <weight>75</weight>
            <bold>true</bold>
           </font>
          </property>
@@ -49,9 +56,6 @@ border : 2px solid #ABE27D;
          </property>
          <property name="sizeAdjustPolicy">
           <enum>QAbstractScrollArea::AdjustToContents</enum>
-         </property>
-         <property name="editTriggers">
-          <set>QAbstractItemView::NoEditTriggers</set>
          </property>
          <property name="alternatingRowColors">
           <bool>true</bool>
@@ -81,6 +85,7 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -92,6 +97,7 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -103,6 +109,7 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -114,6 +121,7 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
@@ -125,10 +133,18 @@ border : 2px solid #ABE27D;
           <property name="font">
            <font>
             <family>DM Sans</family>
+            <weight>75</weight>
             <bold>true</bold>
            </font>
           </property>
          </column>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="reportBtn">
+         <property name="text">
+          <string>Generate Report</string>
+         </property>
         </widget>
        </item>
       </layout>

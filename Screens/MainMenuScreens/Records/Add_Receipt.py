@@ -52,7 +52,14 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
             Dlg.exec()
     
     def init_add_receipt(self):
-        if self.RNumber_LE.text() != '':
+        if self.RNumber_LE.text() == '':
+            Dlg = DLG_Alert(msg= 'No Supplier Receipt Number!')
+            Dlg.exec()
+            
+        elif self.Plist == []:
+            Dlg = DLG_Alert(msg= 'Receipt has no products!')
+            Dlg.exec()
+        else:
             rows_list = []
             for row in range(self.Products_Table.rowCount()):
                 row_data = []
@@ -69,10 +76,10 @@ class add_reciept_Window(QMainWindow, Ui_MainWindow):
                                 ODate= self.ODate_DE.date().toPyDate(),DDate= self.DDate_DE.date().toPyDate(),
                                 Plist= rows_list)
             self.clear_table()
+            self.RPIDList= set()
+            self.Plist = []
             self.Finish_btnsgl.emit()
-        else:
-            Dlg = DLG_Alert(msg= 'No Supplier Receipt Number!')
-            Dlg.exec()
+            
         
     def add_prod(self):
         
