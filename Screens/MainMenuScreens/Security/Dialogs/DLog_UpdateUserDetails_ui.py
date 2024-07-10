@@ -233,8 +233,6 @@ class Ui_Dialog(object):
         font.setBold(False)
         font.setItalic(False)
         self.Phono_LE.setFont(font)
-        self.Phono_LE.setText("")
-        self.Phono_LE.setMaxLength(13)
         self.Phono_LE.setObjectName("Phono_LE")
         self.verticalLayout.addWidget(self.Phono_LE)
         self.label_13 = QtWidgets.QLabel(self.widget_3)

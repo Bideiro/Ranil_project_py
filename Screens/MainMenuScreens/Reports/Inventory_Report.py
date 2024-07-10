@@ -1,6 +1,6 @@
 
 import pandas as pd
-from datetime import datetime
+import datetime
 import matplotlib.pyplot as plt
 from reportlab.lib.pagesizes import letter
 from io import BytesIO
@@ -12,6 +12,8 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, 
 
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 from PyQt5 import QtCore
+
+from Dialogs.DLog_Alert import DLG_Alert
 
 from .Inventory_Report_ui import Ui_MainWindow
 from Database.DBController import dbcont
@@ -48,23 +50,40 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
         start_date = self.FDate_DE.date().toPyDate()
         end_date = self.TDate_DE.date().toPyDate()
 
-        if self.radioButton.isChecked() and start_date != end_date:
-            searchResult = self.db.search_inventory_rec(start_date, end_date)
+        if self.radioButton.isChecked() :
+            if start_date <= end_date:
+                searchResult = self.db.search_inventory_rec(start_date, end_date)
+                self.tableWidget.setRowCount(0)
+                if searchResult:
+                    for row_number, row_data in enumerate(searchResult):
+                        self.tableWidget.insertRow(row_number)
+                        for column_number, data in enumerate(row_data):
+                            if column_number == 4:
+                                
+                                data = data.strftime('%B %d, %Y')
+                                
+                            self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                else:
+                    print('No transactions found for the selected date or date range.')
+            else:
+                Dlg = DLG_Alert(msg= 'Invalid Date ranges!')
+                Dlg.exec()
         else:
             searchResult = self.db.search_inventory_rec(start_date)
+            self.tableWidget.setRowCount(0)
+            if searchResult:
+                for row_number, row_data in enumerate(searchResult):
+                    self.tableWidget.insertRow(row_number)
+                    for column_number, data in enumerate(row_data):
+                        if column_number == 4:
+                            
+                            data = data.strftime('%B %d, %Y')
+                            
+                        self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+            else:
+                print('No transactions found for the selected date or date range.')
 
-        self.tableWidget.setRowCount(0)
-        if searchResult:
-            for row_number, row_data in enumerate(searchResult):
-                self.tableWidget.insertRow(row_number)
-                for column_number, data in enumerate(row_data):
-                    if column_number == 0:
-                        data_datetime = datetime.strptime(data, '%Y-%m-%d %H:%M')
-                        data = data_datetime.strftime('%B %d, %Y %H:%M')
-                        
-                    self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-        else:
-            print('No transactions found for the selected date or date range.')
+       
         
 
 #====================================ALGO SECTION===========================================#

@@ -378,12 +378,6 @@ border : 2px solid #096033;
                 <bold>false</bold>
                </font>
               </property>
-              <property name="text">
-               <string/>
-              </property>
-              <property name="maxLength">
-               <number>13</number>
-              </property>
              </widget>
             </item>
             <item>

@@ -59,12 +59,14 @@ def check_user_validity(Fname ,Lname ,Uname ,Email ,LevelID ,Bdate ,SexID ,Pos ,
         return 'Hiredate must be before today!'
     elif Add == '':
         return 'Empty Address field!'
-    elif not nochangepw: 
-        if ((len(pass1) != 6 and len(pass2) != 6) or pass1 == None):
+    elif nochangepw != True:
+        if len(pass1) != 6 and len(pass2) != 6:
             return 'Passcode requires 6 characters!'
-        elif (pass2 != pass1 or pass1 == None):
+        elif pass2 != pass1:
             return 'Passcodes dont match!'
         else:
+            print(pass1)
+            print(pass2)
             return True
     else:
         return True
@@ -77,7 +79,7 @@ def check_prod_validity(Pname, Utype, Sprice, Cat):
         return 'Empty Unit type field!'
     elif Sprice == '':
         return 'Empty Selling price field!'
-    elif int(Sprice) >= 0:
+    elif int(Sprice) <= 0:
         return 'Price field is 0 or less than 0!'
     elif Cat == -1:
         return 'Category not set!'

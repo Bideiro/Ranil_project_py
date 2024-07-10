@@ -9,6 +9,8 @@ import datetime
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 from PyQt5 import QtCore
 
+from Dialogs.DLog_Alert import DLG_Alert
+
 from .Sales_Report_ui import Ui_MainWindow
 from Database.DBController import dbcont
 from Database.User_Manager import UserMana
@@ -34,21 +36,38 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
         start_date = self.SDate_DE.date().toPyDate()
         end_date = self.EDate_DE.date().toPyDate()
         
-        if self.DRange_RB.isChecked() and start_date != end_date:
-            searchResult = self.db.search_sales_rep(start_date, end_date)
+        # add error function
+        if self.DRange_RB.isChecked():
+            if start_date <= end_date:
+                searchResult = self.db.search_sales_rep(start_date, end_date, daily= True)
+                self.Daily_table.setRowCount(0)
+                if searchResult:
+                    for row_number, row_data in enumerate(searchResult):
+                        self.Daily_table.insertRow(row_number)
+                        for column_number, data in enumerate(row_data):
+                            if column_number == 0:
+                                data = data.strftime('%B %d, %Y %H:%M')
+                            self.Daily_table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                else:
+                    print('No transactions found for the selected date or date range.')
+            else:
+                Dlg =DLG_Alert(msg= 'Invalid Date ranges!')
+                Dlg.exec()
         else:
-            searchResult = self.db.search_sales_rep(start_date)
+            searchResult = self.db.search_sales_rep(start_date, daily= True)
+            self.Daily_table.setRowCount(0)
+            if searchResult:
+                for row_number, row_data in enumerate(searchResult):
+                    self.Daily_table.insertRow(row_number)
+                    for column_number, data in enumerate(row_data):
+                        if column_number == 0:
+                            data = data.strftime('%B %d, %Y %H:%M')
+                        self.Daily_table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+            else:
+                print('No transactions found for the selected date or date range.')
+            
 
-        self.tableWidget.setRowCount(0)
-        if searchResult:
-            for row_number, row_data in enumerate(searchResult):
-                self.tableWidget.insertRow(row_number)
-                for column_number, data in enumerate(row_data):
-                    if column_number == 0:
-                        data = data.strftime('%B %d, %Y %H:%M')
-                    self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-        else:
-            print('No transactions found for the selected date or date range.')
+        
 
     def set_tableElements(self):
         self.set_daily_tableElements()
@@ -74,8 +93,8 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
                 self.Monthly_table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
                     if column_number == 0:
-                        date_time = datetime.datetime(1900, data, 1)
-                        data = date_time.strftime('%B')
+                        # date_time = datetime.datetime(1900, data, 1)
+                        data = datetime.datetime.strptime(data, '%Y-%m').strftime('%B %Y')
                     self.Monthly_table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
                     
     def set_yearly_tableElements(self):
@@ -85,9 +104,7 @@ class Sales_Report_Window(QMainWindow, Ui_MainWindow):
             for row_number, row_data in enumerate(Result):
                 self.Yearly_table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    self.Yearly_table.setItem(row_number, column_number, QTableWidgetItem(str(data)))
-    
-            
+                    self.Yearly_table.setItem(row_number, column_number, QTableWidgetItem(str(data))) 
     def print_to_pdf(self):
         # Create a document
         pdf_filename = "Sales_Report.pdf"

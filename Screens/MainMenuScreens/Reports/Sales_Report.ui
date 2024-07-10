@@ -311,22 +311,10 @@ border : 2px solid #ABE27D;
              <property name="text">
               <string>Date/Time</string>
              </property>
-             <property name="font">
-              <font>
-               <family>DM Sans</family>
-               <bold>true</bold>
-              </font>
-             </property>
             </column>
             <column>
              <property name="text">
               <string>Total</string>
-             </property>
-             <property name="font">
-              <font>
-               <family>DM Sans</family>
-               <bold>true</bold>
-              </font>
              </property>
             </column>
            </widget>

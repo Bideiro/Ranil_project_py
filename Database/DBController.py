@@ -636,8 +636,9 @@ class dbcont(object):
             return self.mycursor.fetchall()
         elif monthly != None:
             sql = """
-                SELECT MONTH(PurchaseDate), SUM(Price)
-                FROM Transaction_receipts GROUP BY MONTH(PurchaseDate) ORDER BY MONTH(PurchaseDate) DESC
+                SELECT DATE_FORMAT(PurchaseDate, '%Y-%m') AS YearMonth, SUM(Price) AS TotalPrice
+                FROM transaction_receipts GROUP BY DATE_FORMAT(PurchaseDate, '%Y-%m')
+                ORDER BY YearMonth DESC;
             """
             self.mycursor.execute(sql)
             return self.mycursor.fetchall()
@@ -861,34 +862,6 @@ class dbcont(object):
             self.set_dynamic_expdate(RPID= prod[0])
     
     
-    
-    
-    
-    # not arranged functinos
-    
-    
-    def set_yearly_sales(self):
-        sql = """
-                SELECT 
-                    YEAR(PurchaseDate) AS Year,
-                    SUM(Price) AS TotalSum
-                FROM 
-                    transaction_receipts
-                GROUP BY 
-                    YEAR(PurchaseDate)
-                ORDER BY 
-                    Year;
-                """
-        self.mycursor.execute(sql)
-        return self.mycursor.fetchall()
-    
-    def get_years(self):
-        sql = """
-                SELECT DISTINCT YEAR(PurchaseDate) as Year FROM transaction_receipts ORDER BY Year
-                """
-        self.mycursor.execute(sql)
-        return self.mycursor.fetchall()
-    
     # sales and reports
     
     def get_inventory(self):
@@ -908,18 +881,61 @@ class dbcont(object):
         
         return self.mycursor.fetchall()
     
-    def search_sales_rep(self, SDate, EDate = None):
-        if EDate == None:
-            sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE DATE(PurchaseDate) = %s"
-            self.mycursor.execute(sql, (SDate,))
-        else:
-            sql = "SELECT PurchaseDate, Price FROM transaction_receipts WHERE PurchaseDate  BETWEEN %s AND %s"
-            self.mycursor.execute(sql, (SDate,EDate))
+    def search_sales_rep(self, SDate, EDate = None, daily = None, monthly = None, yearly = None):
         
-        return self.mycursor.fetchall()
-
-    def get_algo_data(self):
-        sql = "SELECT * FROM algoproddb"
-        self.mycursor.execute(sql)
-        return self.mycursor.fetchall()
-    
+        if EDate == None:
+            if daily:
+                sql = """
+                    SELECT PurchaseDate, Price FROM transaction_receipts WHERE DATE(PurchaseDate) = %s;
+                    """
+                self.mycursor.execute(sql, (SDate,))
+                return self.mycursor.fetchall()
+            elif monthly:
+                sql = """
+                    SELECT PurchaseDate, Price FROM transaction_receipts
+                    WHERE YEAR(PurchaseDate) = %s AND MONTH(PurchaseDate) = %s;
+                    """
+                self.mycursor.execute(sql, (SDate, SDate))
+                return self.mycursor.fetchall()
+            elif yearly:
+                sql = """
+                    SELECT PurchaseDate, Price FROM transaction_receipts
+                    WHERE YEAR(PurchaseDate) = %s
+                    """
+                self.mycursor.execute(sql, (SDate,))
+                return self.mycursor.fetchall()
+        else:
+            
+            if daily:
+                sql = """
+                    SELECT PurchaseDate, Price FROM transaction_receipts WHERE DATE(PurchaseDate) BETWEEN %s AND %s;
+                    """
+                    
+                self.mycursor.execute(sql, (SDate, EDate))
+                return self.mycursor.fetchall()
+            
+            elif monthly:
+                
+                sql = """
+                    SELECT PurchaseDate, Price FROM transaction_receipts
+                    WHERE (YEAR(PurchaseDate) = %s AND MONTH(PurchaseDate) >= %s)
+                    OR (YEAR(PurchaseDate) = %s AND MONTH(PurchaseDate) <= %s)
+                    OR (YEAR(PurchaseDate) > %s AND YEAR(PurchaseDate) < %s) ORDER BY PurchaseDate;
+                """
+                    
+                start_year = SDate.year
+                start_month = SDate.month
+                end_year = EDate.year
+                end_month = EDate.month
+                    
+                self.mycursor.execute(sql, (start_year, start_month, end_year, end_month, start_year, end_year))
+                return self.mycursor.fetchall()
+            elif yearly:
+                
+                sql = """
+                    SELECT PurchaseDate, Price FROM transaction_receipts
+                    WHERE YEAR(PurchaseDate) BETWEEN %s AND %s
+                """
+                
+                self.mycursor.execute(sql, (SDate,))
+                return self.mycursor.fetchall()

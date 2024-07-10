@@ -43,8 +43,18 @@ CREATE TABLE `accounts` (
   PRIMARY KEY (`UID`),
   UNIQUE KEY `UID_UNIQUE` (`UID`),
   UNIQUE KEY `RUID_UNIQUE` (`RUID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `accounts`
+--
+
+LOCK TABLES `accounts` WRITE;
+/*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
+INSERT INTO `accounts` VALUES (1,0,'AD-001','Rheiniel','af41e68e1309fa29a5044cbdc36b90a3821d8807e68c7675a6c495112bc8a55f','Rheiniel Jerard','Damasco','Frigillana',NULL,1,'639154974346','rheiniel.j@gmail.com','Admin','2021-07-04','2001-10-03','Philippines',1),(2,0,'AD-002','Che','937377f056160fc4b15e0b770c67136a5f03c15205b4d3bf918268fefa2c6d0a','Franchesca Jane','Macam','',0,1,'639999999999','chesca@gmail.com','Cashier','2023-06-12','2001-09-22','Phil',1),(3,0,'AD-003','Dei','ec4c88ca7f69534f10c0611c1ecd13e7c2cdf73e1b915e9fd0cf27ac10da43fa','Deighro','De Ocampo','',0,0,'639999999999','qd-deocampo@tip.edu.ph','Kargador','2023-06-12','2003-06-19','Phil',1),(4,1,'EMP-004','Rach','91b4d142823f7d20c5f08df69122de43f35f057a988d9619f6d3138485c9a203','Rachel','Manuel','',0,1,'639999999999','rachelmanuel@gmail.com','Owner','2023-06-12','1987-06-17','Phil',1);
+/*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `actions`
@@ -61,20 +71,13 @@ CREATE TABLE `actions` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Table structure for table `algoproddb`
+-- Dumping data for table `actions`
 --
 
-DROP TABLE IF EXISTS `algoproddb`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `algoproddb` (
-  `ProductID` varchar(45) NOT NULL,
-  `ProductName` varchar(45) DEFAULT NULL,
-  `MonthlyDemand` int DEFAULT NULL,
-  `UnitPrice` decimal(10,2) DEFAULT NULL,
-  PRIMARY KEY (`ProductID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `actions` WRITE;
+/*!40000 ALTER TABLE `actions` DISABLE KEYS */;
+/*!40000 ALTER TABLE `actions` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `category`
@@ -89,8 +92,18 @@ CREATE TABLE `category` (
   PRIMARY KEY (`CategoryID`),
   UNIQUE KEY `ProductTypeID_UNIQUE` (`CategoryID`),
   UNIQUE KEY `ProductType_UNIQUE` (`Category`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `category`
+--
+
+LOCK TABLES `category` WRITE;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` VALUES (1,'Cat Food'),(0,'Dog Food'),(2,'Feeds'),(3,'Fertilizers'),(6,'Live Stock'),(5,'Medicine'),(7,'Others'),(4,'Pet Essentials');
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `levels`
@@ -107,6 +120,16 @@ CREATE TABLE `levels` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `levels`
+--
+
+LOCK TABLES `levels` WRITE;
+/*!40000 ALTER TABLE `levels` DISABLE KEYS */;
+INSERT INTO `levels` VALUES ('0','Admin'),('1','Employee');
+/*!40000 ALTER TABLE `levels` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `logs`
 --
 
@@ -121,8 +144,17 @@ CREATE TABLE `logs` (
   `Activity` varchar(45) DEFAULT NULL,
   `DateTime` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=654 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `logs`
+--
+
+LOCK TABLES `logs` WRITE;
+/*!40000 ALTER TABLE `logs` DISABLE KEYS */;
+/*!40000 ALTER TABLE `logs` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `payment_method`
@@ -139,6 +171,16 @@ CREATE TABLE `payment_method` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
+-- Dumping data for table `payment_method`
+--
+
+LOCK TABLES `payment_method` WRITE;
+/*!40000 ALTER TABLE `payment_method` DISABLE KEYS */;
+INSERT INTO `payment_method` VALUES (0,'Cash'),(1,'GCash'),(2,'Split');
+/*!40000 ALTER TABLE `payment_method` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `payment_type`
 --
 
@@ -151,6 +193,16 @@ CREATE TABLE `payment_type` (
   PRIMARY KEY (`PaymentTypeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `payment_type`
+--
+
+LOCK TABLES `payment_type` WRITE;
+/*!40000 ALTER TABLE `payment_type` DISABLE KEYS */;
+INSERT INTO `payment_type` VALUES (0,'Cash'),(1,'GCash'),(2,'Split');
+/*!40000 ALTER TABLE `payment_type` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `products`
@@ -172,8 +224,17 @@ CREATE TABLE `products` (
   `Active` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`ProductID`),
   UNIQUE KEY `ProductID_UNIQUE` (`ProductID`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products`
+--
+
+LOCK TABLES `products` WRITE;
+/*!40000 ALTER TABLE `products` DISABLE KEYS */;
+/*!40000 ALTER TABLE `products` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `products_sold`
@@ -191,8 +252,17 @@ CREATE TABLE `products_sold` (
   `Date` date NOT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `idproducts_sold_UNIQUE` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=119 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products_sold`
+--
+
+LOCK TABLES `products_sold` WRITE;
+/*!40000 ALTER TABLE `products_sold` DISABLE KEYS */;
+/*!40000 ALTER TABLE `products_sold` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `products_supplied`
@@ -212,8 +282,17 @@ CREATE TABLE `products_supplied` (
   `ExpirationDate` date DEFAULT NULL,
   PRIMARY KEY (`ID`),
   UNIQUE KEY `ID_UNIQUE` (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `products_supplied`
+--
+
+LOCK TABLES `products_supplied` WRITE;
+/*!40000 ALTER TABLE `products_supplied` DISABLE KEYS */;
+/*!40000 ALTER TABLE `products_supplied` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `sex`
@@ -228,8 +307,18 @@ CREATE TABLE `sex` (
   PRIMARY KEY (`SexID`),
   UNIQUE KEY `SexID_UNIQUE` (`SexID`),
   UNIQUE KEY `Sex_UNIQUE` (`Sex`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `sex`
+--
+
+LOCK TABLES `sex` WRITE;
+/*!40000 ALTER TABLE `sex` DISABLE KEYS */;
+INSERT INTO `sex` VALUES (1,'Female'),(0,'Male');
+/*!40000 ALTER TABLE `sex` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `suffix`
@@ -242,8 +331,18 @@ CREATE TABLE `suffix` (
   `SuffixID` int NOT NULL AUTO_INCREMENT,
   `Suffix` varchar(45) NOT NULL,
   PRIMARY KEY (`SuffixID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `suffix`
+--
+
+LOCK TABLES `suffix` WRITE;
+/*!40000 ALTER TABLE `suffix` DISABLE KEYS */;
+INSERT INTO `suffix` VALUES (0,'N/A'),(1,'Jr.'),(2,'Sr.'),(3,'II'),(4,'III'),(5,'IV');
+/*!40000 ALTER TABLE `suffix` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `supplier_receipts`
@@ -262,8 +361,17 @@ CREATE TABLE `supplier_receipts` (
   `DeliveryDate` date NOT NULL,
   `GCashRef` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`SupplierReceiptID`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `supplier_receipts`
+--
+
+LOCK TABLES `supplier_receipts` WRITE;
+/*!40000 ALTER TABLE `supplier_receipts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `supplier_receipts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `transaction_receipts`
@@ -282,8 +390,17 @@ CREATE TABLE `transaction_receipts` (
   `GCashReference` varchar(30) DEFAULT 'None',
   `PaymentTypeID` int DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `transaction_receipts`
+--
+
+LOCK TABLES `transaction_receipts` WRITE;
+/*!40000 ALTER TABLE `transaction_receipts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `transaction_receipts` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
 -- Table structure for table `unit_type`
@@ -296,8 +413,18 @@ CREATE TABLE `unit_type` (
   `UnitTypeID` int unsigned NOT NULL AUTO_INCREMENT,
   `UnitType` varchar(45) NOT NULL,
   PRIMARY KEY (`UnitTypeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `unit_type`
+--
+
+LOCK TABLES `unit_type` WRITE;
+/*!40000 ALTER TABLE `unit_type` DISABLE KEYS */;
+INSERT INTO `unit_type` VALUES (0,'Bottle'),(1,'Pack'),(2,'Piece'),(3,'Tablet'),(4,'Sachet'),(5,'Kilogram'),(6,'Capsule'),(7,'Box');
+/*!40000 ALTER TABLE `unit_type` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -308,4 +435,4 @@ CREATE TABLE `unit_type` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-07-08 17:18:17
+-- Dump completed on 2024-07-10  6:00:53

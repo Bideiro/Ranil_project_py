@@ -64,7 +64,11 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.RProduct_btn.clicked.connect(self.remove_sprod)
         self.Add_btn.clicked.connect(self.add_quantity)
         
-        self.Done_btn.clicked.connect(self.change_widget)
+        # self.Done_btn.clicked.connect(self.change_widget)
+        
+        self.Done_btn.clicked.connect(lambda: print(self.SProdConfirmed))
+        
+        self.Done_btn.clicked.connect(lambda: print(self.StableRPID))
         self.Clear_btn.clicked.connect(self.clean_sprod_table)
         
         self.SProducts_Table.itemClicked.connect(self.clicked_item_sprod)
@@ -103,20 +107,10 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         self.SPrice_L.setText(str(Sprod[2]))
         self.EDate_L.setText(str(Sprod[4]))
         
-        # for sublist in self.SProdConfirmed:
-        #     for item in sublist:
-        #         if item == Sprod[1]:
-        #             self.Quantity_LE.setText(item[2])
-        #             value_found = True
-        #             break
-        #     if value_found:
-        #         break
-        
     def remove_sprod(self):
         if self.SprodRow != None:
-            RPID_item = self.SProducts_Table.item(self.SprodRow, 0)
-            self.StableRPID.discard(RPID_item.text())
-            
+            RPID_item = self.SProducts_Table.item(self.SprodRow, 0).text()
+            self.StableRPID.discard(RPID_item)
             for item in self.SProdConfirmed[:]:
                 if item[0] == RPID_item:
                     self.SProdConfirmed.remove(item)
@@ -127,6 +121,7 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
         else:
             Dlg = DLG_Alert(msg='No Selected Product in order list!')
             Dlg.exec()
+        print(self.SProdConfirmed)
         
     def add_to_list(self,item):
         row = item.row()

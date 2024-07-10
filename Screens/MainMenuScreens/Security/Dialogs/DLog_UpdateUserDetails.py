@@ -25,7 +25,7 @@ class DLG_Edit_User(QDialog, Ui_Dialog):
         self.onlyInt = QIntValidator()
         self.Pass_LE.setValidator(self.onlyInt)
         self.CPass_LE.setValidator(self.onlyInt)
-        self.Phono_LE.setValidator(self.onlyInt)
+        # self.Phono_LE.setValidator(self.onlyInt)
         
         self.back_btn.clicked.connect(lambda: self.done(0))
         self.update_btn.clicked.connect(self.init_update_user)
@@ -114,16 +114,18 @@ class DLG_Edit_User(QDialog, Ui_Dialog):
             self.CPass_LE.setEchoMode(QLineEdit.EchoMode.Password)
         
     def init_update_user(self):
-        if len(self.Pass_LE.text()) <= 6:
+        if self.Pass_LE.text() == '':
+            print('not changing pass')
             funcmsg = check_user_validity(nochangepw= True,
                             Fname= self.FName_LE.text(), Lname= self.LName_LE.text(),
                             Uname= self.UName_LE.text(), Email= self.Email_LE.text(),
                             LevelID= self.ULevel_CB.currentIndex(), Bdate= self.BDate_DE.date().toPyDate(),
                             SexID= self.Sex_CB.currentIndex(), Pos= self.Pos_LE.text(),
-                            Phono= self.Phono_LE.text(), Hdate= self.DHired_DE.date().toPyDate(), 
+                            Phono= self.Phono_LE.text(), Hdate= self.DHired_DE.date().toPyDate(),
                             Add= self.Address_LE.text(),
                             )
         else:
+            print('changing pass')
             funcmsg = check_user_validity(
                                 Fname= self.FName_LE.text(), Lname= self.LName_LE.text(),
                                 Uname= self.UName_LE.text(), Email= self.Email_LE.text(),

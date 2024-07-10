@@ -1,7 +1,7 @@
 from PyQt5.QtWidgets import QDialog, QWidget, QVBoxLayout,QHBoxLayout ,QSpacerItem, QSizePolicy, QLabel
 from PyQt5.QtPrintSupport import QPrinter, QPrintDialog
 from PyQt5.QtGui import QPainter
-from PyQt5.QtCore import QSizeF
+from PyQt5.QtCore import QSizeF, QMarginsF
 
 from Database.User_Manager import UserMana
 from Database.DBController import dbcont
@@ -136,3 +136,4 @@ class DLG_Receipt(QDialog, Ui_Dialog):
         painter = QPainter(printer)
         self.widget.render(painter)
         painter.end()
+    

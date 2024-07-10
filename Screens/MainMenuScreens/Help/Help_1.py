@@ -14,9 +14,9 @@ class HelpWindow(QMainWindow, Ui_MainWindow):
         self.UManual_btn.clicked.connect(self.open_UMan)
 
     def open_UMan(self):
-        pdf_path = QUrl.fromLocalFile('sample-user-manual.pdf')
+        pdf_path = QUrl.fromLocalFile('Ranils-Poultry-Shop-Users-Manual.pdf')
         QDesktopServices.openUrl(pdf_path)
         
     def open_Faqs(self):
-        pdf_path = QUrl.fromLocalFile('FAQs.pdf')
+        pdf_path = QUrl.fromLocalFile('Ranils-Poultry-Shop-FAQs.pdf')
         QDesktopServices.openUrl(pdf_path)

@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QWidget
 from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
+from matplotlib.testing import set_font_settings_for_testing
 
 from .MainMenu_ui import Ui_MainWindow
 
@@ -173,6 +174,7 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.Home)
     
     def on_security_sdbtn_clicked(self):
+        self.db.log_action(action='Viewed User List')
         self.CScreen_L.setText('> Security')
         self.User_Info.createlist()
         self.stackedWidget.setCurrentWidget(self.User_Info)
@@ -185,6 +187,8 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         self.stackedWidget.setCurrentWidget(self.Reg_1)
         
     def on_sales_sdbtn_clicked(self):
+        
+        self.db.log_action(action='Viewed Sales List')
         self.CScreen_L.setText('> Sales')
         self.Sales.set_tableElements()
         self.stackedWidget.setCurrentWidget(self.Sales)
@@ -201,10 +205,15 @@ class MainMenuWindow( QMainWindow, Ui_MainWindow):
         
     def on_records_sdbtn_clicked(self):
         self.CScreen_L.setText('> Records')
+        self.Trans_Receipts.set_tableElements()
+        self.Supp_Receipts.set_tableElements()
         self.stackedWidget.setCurrentWidget(self.Records_1)
         
     def on_reports_sdbtn_clicked(self):
         self.CScreen_L.setText('> Reports')
+        self.User_Logs.set_tableElements()
+        self.Sales_Report.set_tableElements()
+        self.Inventory_Report.set_tableElements()
         self.stackedWidget.setCurrentWidget(self.Reports_1)
         
     def on_help_sdbtn_clicked(self):
