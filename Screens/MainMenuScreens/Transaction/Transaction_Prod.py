@@ -241,8 +241,8 @@ class Trans_Prod_Window(QMainWindow, Ui_MainWindow):
                                     Ptype= payment,
                                     Pprice= self.amtpaid,
                                     RID = receiptID,
-                                    DTime= receiptdata[0][2],
-                                    GCRef= receiptdata[0][6]
+                                    DTime= receiptdata[2],
+                                    GCRef= receiptdata[6]
                                     )
         self.dlg_receipt.exec()
         self.set_tableElements()

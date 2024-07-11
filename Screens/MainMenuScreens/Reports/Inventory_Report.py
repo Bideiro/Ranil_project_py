@@ -12,6 +12,7 @@ from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, 
 
 from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
 from PyQt5 import QtCore
+from PyQt5.QtCore import Qt
 
 from Dialogs.DLog_Alert import DLG_Alert
 
@@ -26,11 +27,17 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super(Inventory_Report_Window, self).__init__()
         self.setupUi(self)
+        
+        self.tableWidget.setColumnWidth(0,200)
+        self.tableWidget.setColumnWidth(1,200)
+        self.tableWidget.setColumnWidth(2,150)
+        self.tableWidget.setColumnWidth(3,150)
+        self.tableWidget.setColumnWidth(4,150)
+        
         self.set_tableElements()
         self.generateBtn.clicked.connect(self.print_to_pdf)
         self.Search_btn.clicked.connect(self.search)
         self.Refresh_btn.clicked.connect(self.set_tableElements)
-        # self.Back_btn.clicked.connect(self.abc_classification)
         self.Back_btn.clicked.connect(lambda: self.back_btnsgl.emit())
         
 
@@ -41,9 +48,12 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
             for row_number, row_data in enumerate(searchResult):
                 self.tableWidget.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    # if column_number == 0:
-                        # data = data.strftime('%B %d, %Y %H:%M')
-                    self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                    if column_number == 4:
+                        data = data.strftime('%B %d, %Y')
+                        
+                    item = QTableWidgetItem(str(data))
+                    item.setTextAlignment(Qt.AlignCenter)
+                    self.tableWidget.setItem(row_number, column_number, item)
 
 
     def search(self):
@@ -59,10 +69,11 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
                         self.tableWidget.insertRow(row_number)
                         for column_number, data in enumerate(row_data):
                             if column_number == 4:
-                                
                                 data = data.strftime('%B %d, %Y')
-                                
-                            self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                            
+                            item = QTableWidgetItem(str(data))
+                            item.setTextAlignment(Qt.AlignCenter)
+                            self.tableWidget.setItem(row_number, column_number, item)
                 else:
                     print('No transactions found for the selected date or date range.')
             else:
@@ -78,8 +89,9 @@ class Inventory_Report_Window(QMainWindow, Ui_MainWindow):
                         if column_number == 4:
                             
                             data = data.strftime('%B %d, %Y')
-                            
-                        self.tableWidget.setItem(row_number, column_number, QTableWidgetItem(str(data)))
+                        item = QTableWidgetItem(str(data))
+                        item.setTextAlignment(Qt.AlignCenter)
+                        self.tableWidget.setItem(row_number, column_number, item)
             else:
                 print('No transactions found for the selected date or date range.')
 

@@ -663,7 +663,7 @@ class dbcont(object):
     def get_all_sales(self):
         # Sales Module(side button sales)
         sql = """
-            SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts
+            SELECT PurchaseDate, TransactionReceiptID, RUID, Price, GCashReference, PaymentTypeID FROM transaction_receipts
             ORDER BY PurchaseDate DESC
         """
         self.mycursor.execute(sql)
@@ -680,31 +680,44 @@ class dbcont(object):
     def get_all_supp_receipts(self):
         
         sql = """
-            SELECT * FROM supplier_receipts
+            SELECT SupplierReceiptID, RUID, ReceiptRef, TotalPrice, OrderDate, DeliveryDate FROM supplier_receipts
         """
         self.mycursor.execute(sql)
         return self.mycursor.fetchall()
     
-    def search_trans_receipts(self, searchstr):
-        sql = """
-            SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts 
-            WHERE TransactionReceiptID LIKE %s
-                    OR RUID  LIKE %s
-                    OR PurchaseDate  LIKE %s
-                    OR Price LIKE %s
-                    OR PaidPrice LIKE %s
-                    OR PaymentTypeID LIKE %s
-                    OR GCashReference LIKE %s
-        """
-        searchstr = '%' + searchstr + '%'
-        val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
+    def search_trans_receipts(self, searchstr, trans = True):
+        if trans:
+            
+            sql = """
+
+                SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID, GCashReference FROM transaction_receipts 
+                WHERE TransactionReceiptID = %s
+                
+            """
+            
+            self.mycursor.execute(sql,(searchstr,))
+            return self.mycursor.fetchone()
         
-        self.mycursor.execute(sql,val)
-        return self.mycursor.fetchall()
+        else:
+            sql = """
+                SELECT TransactionReceiptID, RUID, PurchaseDate, Price, PaidPrice, PaymentTypeID FROM transaction_receipts 
+                WHERE TransactionReceiptID LIKE %s
+                        OR RUID  LIKE %s
+                        OR PurchaseDate  LIKE %s
+                        OR Price LIKE %s
+                        OR PaidPrice LIKE %s
+                        OR PaymentTypeID LIKE %s
+                        OR GCashReference LIKE %s
+            """
+            
+            searchstr = '%' + searchstr + '%'
+            val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
+            self.mycursor.execute(sql,val)
+            return self.mycursor.fetchall()
     
     def search_sales(self, searchstr):
         sql = """
-                SELECT PurchaseDate, TransactionReceiptID, RUID, Price, PaidPrice, GCashReference, PaymentTypeID FROM transaction_receipts
+                SELECT PurchaseDate, TransactionReceiptID, RUID, Price, GCashReference, PaymentTypeID FROM transaction_receipts
                 WHERE PurchaseDate LIKE %s OR
                 TransactionReceiptID LIKE %s OR 
                 RUID LIKE %s OR
@@ -740,7 +753,6 @@ class dbcont(object):
                     OR TotalPrice LIKE %s
                     OR OrderDate LIKE %s
                     OR DeliveryDate LIKE %s
-                    OR GCashRef LIKE %s
         """
         searchstr = '%' + searchstr + '%'
         val = (searchstr,searchstr,searchstr,searchstr,searchstr,searchstr,searchstr)
@@ -788,14 +800,22 @@ class dbcont(object):
         
     # Receipt Product Manipulation
     # Getting Receipt Product Data
-    def get_receipt_products(self, ReceiptID):
-        
-        sql = """
+    def get_receipt_products(self, ReceiptID, trans_rec = None):
+        if trans_rec:
+            sql = """
                 SELECT ProductID, Price, Quantity from products_sold WHERE ReceiptID = %s
             
-        """
-        self.mycursor.execute(sql,(ReceiptID,))
-        return self.mycursor.fetchall()
+            """
+            self.mycursor.execute(sql,(ReceiptID,))
+            return self.mycursor.fetchall()
+            
+        else:
+            sql = """
+                    SELECT ProductID, Price, Quantity from products_sold WHERE ReceiptID = %s
+                
+            """
+            self.mycursor.execute(sql,(ReceiptID,))
+            return self.mycursor.fetchall()
         
     def set_dynamic_expdate(self, RPID):
         sql = """

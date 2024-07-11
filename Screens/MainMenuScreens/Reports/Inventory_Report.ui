@@ -305,9 +305,12 @@ border : 2px solid #ABE27D;
            <attribute name="horizontalHeaderStretchLastSection">
             <bool>true</bool>
            </attribute>
+           <attribute name="verticalHeaderVisible">
+            <bool>false</bool>
+           </attribute>
            <column>
             <property name="text">
-             <string>Product Name</string>
+             <string>Receipt Number</string>
             </property>
             <property name="font">
              <font>

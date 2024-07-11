@@ -84,7 +84,7 @@ class Sales_Window(QMainWindow, Ui_MainWindow):
             for row_number, row_data in enumerate(searchResult):
                 self.Sales_Table.insertRow(row_number)
                 for column_number, data in enumerate(row_data):
-                    if column_number == 6 :
+                    if column_number == 5 :
                         data = self.db.get_payment_type(id= data)
                     if column_number == 0:
                         data = data.strftime('%B %d, %Y %H:%M')

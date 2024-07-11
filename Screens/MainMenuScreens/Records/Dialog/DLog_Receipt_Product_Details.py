@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow,QDialog, QPushButton, QWidget
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
+from PyQt5.QtWidgets import QDialog
+from PyQt5.QtCore import Qt, QDate
 from PyQt5.QtGui import QIntValidator
 
 from .DLog_Receipt_Product_Details_ui import Ui_Dialog
@@ -17,6 +17,8 @@ class DLG_Receipt_Product_Details(QDialog, Ui_Dialog):
         self.PQuantity_LE.setValidator(self.onlyInt)
         self.PBought_LE.setValidator(self.onlyInt)
         self.setWindowFlags(Qt.FramelessWindowHint)
+        
+        self.EDate_DE.setDate(QDate.currentDate())
 
         self.Confirm_btn.clicked.connect(self.confirm)
         self.Cancel_btn.clicked.connect(lambda: self.done(0))

@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import QMainWindow,QApplication, QPushButton, QTableWidgetItem, QWidget
-from PyQt5.QtCore import Qt, pyqtSlot, QFile, QTextStream
+from PyQt5.QtWidgets import QMainWindow, QTableWidgetItem
+from PyQt5.QtCore import Qt
 
 from .Supplier_Records_ui import Ui_MainWindow
 from Database.DBController import dbcont
@@ -30,9 +30,9 @@ class Supp_Rec_Window(QMainWindow, Ui_MainWindow):
             self.SReceipts_Table.insertRow(row_number)
             for column_number, data in enumerate(row_data):
                 if column_number == 5:
-                    data = data.strftime('%B %d, %Y %H:%M')
+                    data = data.strftime('%B %d, %Y')
                 if column_number == 6:
-                    data = data.strftime('%B %d, %Y %H:%M')
+                    data = data.strftime('%B %d, %Y')
                     
                 item = QTableWidgetItem(str(data))
                 item.setTextAlignment(Qt.AlignCenter)
@@ -47,9 +47,9 @@ class Supp_Rec_Window(QMainWindow, Ui_MainWindow):
             self.SReceipts_Table.insertRow(row_number)
             for column_number, data in enumerate(row_data):
                 if column_number == 5:
-                    data = data.strftime('%B %d, %Y %H:%M')
+                    data = data.strftime('%B %d, %Y')
                 if column_number == 6:
-                    data = data.strftime('%B %d, %Y %H:%M')
+                    data = data.strftime('%B %d, %Y')
                 item = QTableWidgetItem(str(data))
                 item.setTextAlignment(Qt.AlignCenter)
                 self.SReceipts_Table.setItem(row_number, column_number, item)

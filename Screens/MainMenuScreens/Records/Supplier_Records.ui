@@ -278,18 +278,6 @@ border: 1px solid black;
          </column>
          <column>
           <property name="text">
-           <string>Payment Type</string>
-          </property>
-          <property name="font">
-           <font>
-            <family>DM Sans</family>
-            <pointsize>9</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
            <string>Order Date</string>
           </property>
           <property name="font">
@@ -303,18 +291,6 @@ border: 1px solid black;
          <column>
           <property name="text">
            <string>Delivery Date</string>
-          </property>
-          <property name="font">
-           <font>
-            <family>DM Sans</family>
-            <pointsize>9</pointsize>
-            <bold>true</bold>
-           </font>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>GCash Reference</string>
           </property>
           <property name="font">
            <font>

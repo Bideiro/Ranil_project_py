@@ -37,21 +37,22 @@ class Trans_Rec_Window(QMainWindow, Ui_MainWindow):
         
         self.Receipts_Table.itemDoubleClicked.connect(self.show_receipt)
         
+        
     def show_receipt(self, item):
         
-        receipt = self.db.search_trans_receipts(searchstr= self.Receipts_Table.item(item.row(), 0).text())
-        
-        prodlist = self.db.get_receipt_products(ReceiptID= receipt[0][0])
-        
+        receipt = self.db.search_trans_receipts(searchstr= self.Receipts_Table.item(item.row(), 0).text(), trans= True)
+        print('getting receipt deets')
+        print(receipt)
+        prodlist = self.db.get_receipt_products(ReceiptID= receipt[0], trans_rec= True)
         
         Receipt_Dlog = DLG_Receipt_Reprint(
                                 prodlist= prodlist,
-                                Tprice= receipt[0][3],
-                                Ptype= receipt[0][5],
-                                Pprice= receipt[0][4],
-                                DTime= receipt[0][2],
-                                RID= receipt[0][0],
-                                GCRef= receipt[0][6]
+                                Tprice= receipt[3],
+                                Ptype= receipt[5],
+                                Pprice= receipt[4],
+                                DTime= receipt[2],
+                                RID= receipt[0],
+                                GCRef= receipt[6]
                                 )
         Receipt_Dlog.exec()
         

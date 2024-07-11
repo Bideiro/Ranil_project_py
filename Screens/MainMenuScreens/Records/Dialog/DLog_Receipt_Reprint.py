@@ -41,6 +41,7 @@ class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
         self.DateTime_L.setText(str(DTime))
         self.INumber_L.setText(str(len(self.Plist)))
         self.TotalPrice_L.setText(str(Tprice))
+        
         if Ptype == 0:
             self.PMethod_L.setText('Payment Type: Cash')
         elif Ptype == 1:
@@ -50,9 +51,8 @@ class DLG_Receipt_Reprint(QDialog, Ui_Dialog):
         
         if GCRef == '' or GCRef == None:
             GCRef = "None"
-            
-        self.GCRef_L.setText(str(GCRef))
         
+        self.GCRef_L.setText(str(GCRef))
         self.Print_btn.clicked.connect(self.handlePrint)
         
     def create_prodlist(self):
